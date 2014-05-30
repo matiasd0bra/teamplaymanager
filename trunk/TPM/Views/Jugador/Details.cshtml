@@ -1,0 +1,58 @@
+﻿@model TPM.Models.Jugador
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Jugador</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Nombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nombre)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Apellido)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Apellido)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.TipoDocId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TipoDocId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.NumeroDoc)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.NumeroDoc)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Domicilio)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Domicilio)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LocalidadId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LocalidadId)
+    </div>
+</fieldset>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |*@
+    @Html.ActionLink("Back to List", "Index")
+</p>
