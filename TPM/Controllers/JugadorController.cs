@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TPM.Models;
+using TPM.Repositorio;
 
 namespace TPM.Controllers
 {
@@ -14,7 +15,7 @@ namespace TPM.Controllers
 
         public ActionResult Index()
         {
-            List<Jugador> jugadores = new List<Jugador>();
+            List<Jugador> jugadores = JugadoresRepo.JugadoresGetAllRepo();
             return View(jugadores);
         }
 
@@ -23,7 +24,8 @@ namespace TPM.Controllers
 
         public ActionResult Details(int id)
         {
-            return View();
+            Jugador jugador = JugadoresRepo.JugadorByIdRepo(id);
+            return View(jugador);
         }
 
         //
@@ -38,12 +40,11 @@ namespace TPM.Controllers
         // POST: /Jugador/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(Jugador jugador)
         {
             try
             {
-                // TODO: Add insert logic here
-
+                JugadoresRepo.JugadorInsert(jugador);
                 return RedirectToAction("Index");
             }
             catch
@@ -57,19 +58,20 @@ namespace TPM.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View();
+            Jugador jugador = JugadoresRepo.JugadorByIdRepo(id);
+            return View(jugador);
         }
 
         //
         // POST: /Jugador/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(Jugador jugador)
         {
             try
             {
-                // TODO: Add update logic here
 
+                JugadoresRepo.JugadorUpdate(jugador);
                 return RedirectToAction("Index");
             }
             catch
