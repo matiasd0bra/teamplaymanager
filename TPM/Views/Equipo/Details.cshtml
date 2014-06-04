@@ -1,0 +1,23 @@
+﻿@model TPM.Models.Equipo
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Equipo</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.CategoriaId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.CategoriaId)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
