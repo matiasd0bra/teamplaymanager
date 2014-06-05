@@ -289,7 +289,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Jugador\Index.cshtml" />
     <Content Include="Views\Jugador\Details.cshtml" />
     <Content Include="Views\Jugador\Create.cshtml" />
     <Content Include="Views\Jugador\Edit.cshtml" />
@@ -297,6 +296,7 @@
     <Content Include="Views\Equipo\Create.cshtml" />
     <Content Include="Views\Equipo\Edit.cshtml" />
     <Content Include="Views\Equipo\Index.cshtml" />
+    <Content Include="Views\Jugador\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
