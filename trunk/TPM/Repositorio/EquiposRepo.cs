@@ -25,6 +25,7 @@ namespace TPM.Repositorio
 
                 Equipo.Id = int.Parse(item["EquipoId"].ToString());
                 Equipo.CategoriaId = int.Parse(item["CategoriaId"].ToString());
+                Equipo.CategoriaNombre = item["Nombre"].ToString();
 
 
                 EquipoList.Add(Equipo);

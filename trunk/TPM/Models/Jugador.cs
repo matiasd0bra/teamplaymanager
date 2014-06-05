@@ -11,9 +11,11 @@ namespace TPM.Models
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public int TipoDocId { get; set; }
+        public string TipoDocNombre { get; set; }
         public int NumeroDoc { get; set; }
         public string Domicilio { get; set; }
         public int LocalidadId { get; set; }
+        public string LocalidadNombre { get; set; }
 
     }
 }

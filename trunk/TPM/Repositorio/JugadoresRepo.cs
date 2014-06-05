@@ -25,12 +25,14 @@ namespace TPM.Repositorio
                 jugador = new Jugador();
 
                 jugador.Id = int.Parse(item["JugadorId"].ToString());
-                jugador.Nombre = item["Nombre"].ToString();
+                jugador.Nombre = item["jNombre"].ToString();
                 jugador.Apellido = item["Apellido"].ToString();
                 jugador.TipoDocId = int.Parse(item["TipoDocId"].ToString());
+                jugador.TipoDocNombre = item["tdNombre"].ToString();
                 jugador.NumeroDoc = int.Parse(item["NumeroDoc"].ToString());
                 jugador.Domicilio = item["Domicilio"].ToString();
                 jugador.LocalidadId = int.Parse(item["LocalidadId"].ToString());
+                jugador.LocalidadNombre = item["lNombre"].ToString();
 
                 jugadorList.Add(jugador);
             }
