@@ -18,11 +18,10 @@
             @Html.LabelFor(model => model.CategoriaId)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.CategoriaId)
-            @{
-    var allIdentifications = new SelectList(Model.CategoriaLista, "CategoriaId", "NombreCategoria");
-            }
-            @Html.DropDownListFor(model => model.CategoriaLista, @allIdentifications)
+            @Html.DropDownListFor(model => model.CategoriaId, new SelectList(
+              Model.CategoriaLista,
+              "CategoriaId",
+              "NombreCategoria"))
             
         </div>
 
