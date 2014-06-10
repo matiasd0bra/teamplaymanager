@@ -25,7 +25,7 @@ namespace TPM.DAL
             var dt = new DataTable();
             SqlDataReader sqlDataReader;
 
-            using (SqlConnection con = new SqlConnection(GetConnection()))
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
             {
                 using (SqlCommand cmd = new SqlCommand("JugadoresGetAll", con))
                 {
@@ -48,7 +48,7 @@ namespace TPM.DAL
             var dt = new DataTable();
             SqlDataReader sqlDataReader;
 
-            using (SqlConnection con = new SqlConnection(GetConnection()))
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
             {
                 using (SqlCommand cmd = new SqlCommand("JugadorById", con))
                 {
@@ -69,7 +69,7 @@ namespace TPM.DAL
         public int JugadorInsert(string nombre, string apellido, int tipoDoc, int nroDoc, string dom, int loc)
         {
             int ret;
-            using (SqlConnection con = new SqlConnection(GetConnection()))
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
             {
                 using (SqlCommand cmd = new SqlCommand("JugadorInsert", con))
                 {
@@ -93,7 +93,7 @@ namespace TPM.DAL
         public int JugadorUpdate(int id, string nombre, string apellido, int tipoDoc, int nroDoc, string dom, int loc)
         {
             int ret;
-            using (SqlConnection con = new SqlConnection(GetConnection()))
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
             {
                 using (SqlCommand cmd = new SqlCommand("JugadorUpdate", con))
                 {

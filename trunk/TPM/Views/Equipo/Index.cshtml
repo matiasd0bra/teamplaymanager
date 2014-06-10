@@ -13,21 +13,27 @@
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CategoriaId)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.CategoriaNombre)
         </th>
-        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.Division)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Liga)
+        </th>
+
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.CategoriaId)
+            @Html.DisplayFor(modelItem => item.CategoriaNombre)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CategoriaNombre)
+            @Html.DisplayFor(modelItem => item.Division)
+        </td>
+                <td>
+            @Html.DisplayFor(modelItem => item.Liga)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |

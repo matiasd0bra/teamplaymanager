@@ -1,49 +1,157 @@
 ﻿<!DOCTYPE html>
 <html lang="es">
-    <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta charset="utf-8" />
-        <title>@ViewBag.Title - Mi aplicación ASP.NET MVC</title>
-        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <meta name="viewport" content="width=device-width" />
-        @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")
-    </head>
-    <body>
-        <header>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("su logotipo aquí", "Index", "Home")</p>
-                </div>
-                <div class="float-right">
-                    <section id="login">
-                        @Html.Partial("_LoginPartial")
-                    </section>
-                    <nav>
-                        <ul id="menu">
-                            <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                            <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </header>
-        <div id="body">
-            @RenderSection("featured", required: false)
-            <section class="content-wrapper main-content clear-fix">
-                @RenderBody()
-            </section>
-        </div>
-        <footer>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET MVC</p>
-                </div>
-            </div>
-        </footer>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - Mi aplicación ASP.NET MVC</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/General/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/General/bootstrap-theme.css" rel="stylesheet" />
+    <link href="~/Content/OwnStyle.css" rel="stylesheet" />
 
-        @Scripts.Render("~/bundles/jquery")
-        @RenderSection("scripts", required: false)
-    </body>
+</head>
+<body>
+    <header>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p class="site-title">@Html.ActionLink("su logotipo aquí", "Index", "Home")</p>
+            </div>
+            <div class="float-right">
+                <section id="login">
+                    @Html.Partial("_LoginPartial")
+                </section>
+                <nav>
+                    <ul id="menu">
+                        <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <div id="body">
+
+        
+            <div class="row clearfix">
+                <div class="col-md-3 column">
+                    <section class="content-wrapper main-content clear-fix">
+                        <div class="accordion" id="leftMenu">
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#leftMenu" href="#">
+                                        <i class="icon-home"></i>Dashboard
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#leftMenu" href="#collapseTwo">
+                                        <i class="icon-th"></i>Layout
+                                    </a>
+                                </div>
+                                <div id="collapseTwo" class="accordion-body collapse" style="height: 0px;">
+                                    <div class="accordion-inner">
+                                        <ul>
+                                            <li>This is one</li>
+                                            <li>This is two</li>
+                                            <li>This is Three</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#leftMenu" href="#collapseThree">
+                                        <i class="icon-th-list"></i>UI Components
+                                    </a>
+                                </div>
+                                <div id="collapseThree" class="accordion-body collapse" style="height: 0px;">
+                                    <div class="accordion-inner">
+                                        <ul>
+                                            <li>This is one</li>
+                                            <li>This is two</li>
+                                            <li>This is Three</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#leftMenu" href="#collapseFour">
+                                        <i class="icon-list-alt"></i>Forms
+                                    </a>
+                                </div>
+                                <div id="collapseFour" class="accordion-body collapse" style="height: 0px;">
+                                    <div class="accordion-inner">
+                                        <ul>
+                                            <li>This is one</li>
+                                            <li>This is two</li>
+                                            <li>This is Three</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#leftMenu" href="#collapseFive">
+                                        <i class="icon-cog"></i>Plugins
+                                    </a>
+                                </div>
+                                <div id="collapseFive" class="accordion-body collapse" style="height: 0px;">
+                                    <div class="accordion-inner">
+                                        <ul>
+                                            <li>This is one</li>
+                                            <li>This is two</li>
+                                            <li>This is Three</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-group">
+                                <div class="accordion-heading">
+                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#leftMenu" href="#collapseSix">
+                                        <i class="icon-file"></i>Templates
+                                    </a>
+                                </div>
+                                <div id="collapseSix" class="accordion-body collapse" style="height: 0px;">
+                                    <div class="accordion-inner">
+                                        <ul>
+                                            <li>This is one</li>
+                                            <li>This is two</li>
+                                            <li>This is Three</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </section>
+                </div>
+                <div class="col-md-6 column">
+                    @RenderBody()
+                    @RenderSection("featured", required: false)
+                </div>
+                <div class="col-md-3 column">
+                </div>
+            </div>
+        </div>
+
+    <footer>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET MVC</p>
+            </div>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/Bootstrap/bootstrap.js"></script>
+    @RenderSection("scripts", required: false)
+
+</body>
 </html>

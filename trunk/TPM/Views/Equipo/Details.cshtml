@@ -11,11 +11,26 @@
     <legend>Equipo</legend>
 
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.CategoriaId)
+         @Html.DisplayNameFor(model => model.CategoriaNombre)
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.CategoriaId)
+        @Html.DisplayFor(model => model.CategoriaNombre)
     </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Liga)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Liga)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Division)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Division)
+    </div>
+
 </fieldset>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |

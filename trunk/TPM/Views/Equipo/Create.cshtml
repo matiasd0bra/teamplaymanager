@@ -7,7 +7,8 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) {
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary(true)
 
     <fieldset>
@@ -18,7 +19,11 @@
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.CategoriaId)
-            @Html.ValidationMessageFor(model => model.CategoriaId)
+            @{
+    var allIdentifications = new SelectList(Model.CategoriaLista, "CategoriaId", "NombreCategoria");
+            }
+            @Html.DropDownListFor(model => model.CategoriaLista, @allIdentifications)
+            
         </div>
 
         <p>

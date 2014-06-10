@@ -28,5 +28,12 @@ namespace TPM.Controllers
 
             return View();
         }
+
+        public ActionResult Main()
+        {
+            ViewBag.Message = "Página de main.";
+
+            return View();
+        }
     }
 }

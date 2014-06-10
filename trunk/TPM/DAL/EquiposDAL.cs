@@ -10,10 +10,7 @@ namespace TPM.DAL
 {
     public class EquiposDAL
     {
-        public string GetConnection()
-        {
-            return ConfigurationManager.ConnectionStrings["tmpConnectionString"].ConnectionString;
-        }
+        
 
 
         public DataTable EquipoGetAll()
@@ -22,7 +19,7 @@ namespace TPM.DAL
             var dt = new DataTable();
             SqlDataReader sqlDataReader;
 
-            using (SqlConnection con = new SqlConnection(GetConnection()))
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
             {
                 using (SqlCommand cmd = new SqlCommand("EquipoGetAll", con))
                 {
@@ -45,7 +42,7 @@ namespace TPM.DAL
             var dt = new DataTable();
             SqlDataReader sqlDataReader;
 
-            using (SqlConnection con = new SqlConnection(GetConnection()))
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
             {
                 using (SqlCommand cmd = new SqlCommand("EquipoById", con))
                 {
@@ -66,7 +63,7 @@ namespace TPM.DAL
         public int EquipoInsert(int categoriaId)
         {
             int ret;
-            using (SqlConnection con = new SqlConnection(GetConnection()))
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
             {
                 using (SqlCommand cmd = new SqlCommand("EquipoInsert", con))
                 {
@@ -86,7 +83,7 @@ namespace TPM.DAL
         public int EquipoUpdate(int id, int categoriaId)
         {
             int ret;
-            using (SqlConnection con = new SqlConnection(GetConnection()))
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
             {
                 using (SqlCommand cmd = new SqlCommand("EquipoUpdate", con))
                 {
