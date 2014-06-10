@@ -15,23 +15,24 @@ namespace TPM.Repositorio
             EquiposDAL EquiposDal = new EquiposDAL();
             DataTable dt = EquiposDal.EquipoGetAll();
 
-            Equipo Equipo;
-            List<Equipo> EquipoList = new List<Equipo>();
+            Equipo equipo;
+            List<Equipo> equipoList = new List<Equipo>();
 
 
             foreach (DataRow item in dt.Rows)
             {
-                Equipo = new Equipo();
+                equipo = new Equipo();
 
-                Equipo.Id = int.Parse(item["EquipoId"].ToString());
-                Equipo.CategoriaId = int.Parse(item["CategoriaId"].ToString());
-                Equipo.CategoriaNombre = item["Nombre"].ToString();
+                equipo.Id = int.Parse(item["EquipoId"].ToString());
+                equipo.CategoriaNombre = item["NombreCategoria"].ToString();
+                equipo.Liga = item["NombreLiga"].ToString();
+                equipo.Division = item["NombreDivision"].ToString();
 
 
-                EquipoList.Add(Equipo);
+                equipoList.Add(equipo);
             }
 
-            return EquipoList;
+            return equipoList;
         }
 
         public static Equipo EquipoByIdRepo(int id)
@@ -39,12 +40,15 @@ namespace TPM.Repositorio
             EquiposDAL EquiposDal = new EquiposDAL();
             DataTable dt = EquiposDal.EquipoById(id);
 
-            Equipo Equipo = new Equipo();
+            Equipo equipo = new Equipo();
 
-            Equipo.Id = int.Parse(dt.Rows[0]["EquipoId"].ToString());
-            Equipo.CategoriaId = int.Parse(dt.Rows[0]["CategoriaId"].ToString());
+            equipo.Id = int.Parse(dt.Rows[0]["EquipoId"].ToString());
+            equipo.CategoriaId = int.Parse(dt.Rows[0]["CategoriaId"].ToString());
+            equipo.CategoriaNombre = dt.Rows[0]["Nombre"].ToString();
+            equipo.Liga = dt.Rows[0]["NombreLiga"].ToString();
+            equipo.Division = dt.Rows[0]["NombreDivision"].ToString();
 
-            return Equipo;
+            return equipo;
         }
 
 
@@ -59,7 +63,7 @@ namespace TPM.Repositorio
         public static int EquipoUpdate(Equipo Equipo)
         {
             EquiposDAL EquiposDal = new EquiposDAL();
-            return  EquiposDal.EquipoUpdate(Equipo.Id, Equipo.CategoriaId);
+            return EquiposDal.EquipoUpdate(Equipo.Id, Equipo.CategoriaId);
         }
     }
-    }
+}

@@ -33,7 +33,9 @@ namespace TPM.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            Equipo equipo = new Equipo();
+            equipo.CategoriaLista = CategoriaRepo.CategoriaGetAllRepo();
+            return View(equipo);
         }
 
         //

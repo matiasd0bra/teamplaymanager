@@ -165,20 +165,36 @@
     <Compile Include="Controllers\EquipoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JugadorController.cs" />
+    <Compile Include="DAL\CategoriaDAL.cs" />
+    <Compile Include="DAL\DivisionesDAL.cs" />
     <Compile Include="DAL\EquiposDAL.cs" />
+    <Compile Include="DAL\HelperDal.cs" />
     <Compile Include="DAL\JugadoresDAL.cs" />
+    <Compile Include="DAL\LigaDAL.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Categoria.cs" />
+    <Compile Include="Models\Division.cs" />
     <Compile Include="Models\Equipo.cs" />
     <Compile Include="Models\Jugador.cs" />
+    <Compile Include="Models\Liga.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositorio\CategoriaRepo.cs" />
+    <Compile Include="Repositorio\DivisionesRepo.cs" />
     <Compile Include="Repositorio\EquiposRepo.cs" />
     <Compile Include="Repositorio\JugadoresRepo.cs" />
+    <Compile Include="Repositorio\LigaRepo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\General\bootstrap-theme.css" />
+    <Content Include="Content\General\bootstrap-theme.min.css" />
+    <Content Include="Content\General\bootstrap.css" />
+    <Content Include="Content\General\bootstrap.min.css" />
+    <Content Include="Content\General\freelancer.css" />
+    <Content Include="Content\OwnStyle.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -236,8 +252,13 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
-    <Content Include="Scripts\jquery-1.7.1.js" />
-    <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <Content Include="Scripts\Bootstrap\bootstrap.js" />
+    <Content Include="Scripts\Bootstrap\bootstrap.min.js" />
+    <Content Include="Scripts\Bootstrap\cbpAnimatedHeader.js" />
+    <Content Include="Scripts\Bootstrap\cbpAnimatedHeader.min.js" />
+    <Content Include="Scripts\Bootstrap\classie.js" />
+    <Content Include="Scripts\Bootstrap\freelancer.js" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
@@ -284,7 +305,6 @@
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -297,6 +317,9 @@
     <Content Include="Views\Equipo\Edit.cshtml" />
     <Content Include="Views\Equipo\Index.cshtml" />
     <Content Include="Views\Jugador\Index.cshtml" />
+    <Content Include="Views\Home\Main.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_emptyLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
