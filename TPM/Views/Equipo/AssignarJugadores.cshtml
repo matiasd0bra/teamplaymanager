@@ -1,0 +1,25 @@
+﻿@model TPM.Models.ViewModel.AssignarJugadoresViewModel
+
+@{
+    ViewBag.Title = "AssignarJugadores";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>AssignarJugadores</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    @Html.DisplayFor(model => model.EquipoSeleccionado.NombreEquipo)
+
+    @Html.Label("Nombre")
+    @Html.TextBoxFor(model => model.NombreFiltro)
+
+    @Html.Label("Categoria")
+    @Html.DropDownListFor(model => model.CategoriaId, new SelectList(Model.CategoriaList, "CategoriaId", "NombreCategoria", 1))
+
+    <input type="submit" value="Filtrar"/>
+
+}
