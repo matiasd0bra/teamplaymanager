@@ -34,28 +34,28 @@ namespace TPM.DAL
             return dt;
         }
 
-        //public DataTable JugadorById(int jugadorId)
-        //{
-        //    var dt = new DataTable();
-        //    SqlDataReader sqlDataReader;
+        public DataTable CategoriaById(int categoriaId)
+        {
+            var dt = new DataTable();
+            SqlDataReader sqlDataReader;
 
-        //    using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
-        //    {
-        //        using (SqlCommand cmd = new SqlCommand("JugadorById", con))
-        //        {
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
+            {
+                using (SqlCommand cmd = new SqlCommand("CategoriaById", con))
+                {
 
-        //            cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandType = CommandType.StoredProcedure;
 
-        //            cmd.Parameters.Add("@Id", SqlDbType.VarChar).Value = jugadorId;
-        //            //cmd.Parameters.Add("@LastName", SqlDbType.VarChar).Value = txtLastName.Text;
+                    cmd.Parameters.Add("@Id", SqlDbType.VarChar).Value = categoriaId;
+                    //cmd.Parameters.Add("@LastName", SqlDbType.VarChar).Value = txtLastName.Text;
 
-        //            con.Open();
-        //            sqlDataReader = cmd.ExecuteReader();
-        //            dt.Load(sqlDataReader);
-        //        }
-        //    }
-        //    return dt;
-        //}
+                    con.Open();
+                    sqlDataReader = cmd.ExecuteReader();
+                    dt.Load(sqlDataReader);
+                }
+            }
+            return dt;
+        }
 
         //public int JugadorInsert(string nombre, string apellido, int tipoDoc, int nroDoc, string dom, int loc)
         //{

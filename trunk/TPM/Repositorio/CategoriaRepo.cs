@@ -33,35 +33,32 @@ namespace TPM.Repositorio
             return modeloList;
         }
 
-        //public static Equipo EquipoByIdRepo(int id)
+        public static Categoria categoriaByIdRepo(int id)
+        {
+            CategoriaDAL categoriasDal = new CategoriaDAL();
+            DataTable dt = categoriasDal.CategoriaById(id);
+
+            Categoria modelo = new Categoria();
+
+            modelo.CategoriaId = int.Parse(dt.Rows[0]["CategoriaId"].ToString());
+            modelo.NombreCategoria = dt.Rows[0]["NombreCategoria"].ToString();
+
+            return modelo;
+        }
+
+
+        //public static int categoriaInsert(categoria categoria)
         //{
-        //    EquiposDAL EquiposDal = new EquiposDAL();
-        //    DataTable dt = EquiposDal.EquipoById(id);
-
-        //    Equipo Equipo = new Equipo();
-
-        //    Equipo.Id = int.Parse(dt.Rows[0]["EquipoId"].ToString());
-        //    Equipo.CategoriaId = int.Parse(dt.Rows[0]["CategoriaId"].ToString());
-        //    Equipo.CategoriaNombre = dt.Rows[0]["Nombre"].ToString();
-        //    Equipo.Liga = dt.Rows[0]["NombreLiga"].ToString();
-        //    Equipo.Division = dt.Rows[0]["NombreDivision"].ToString();
-
-        //    return Equipo;
-        //}
-
-
-        //public static int EquipoInsert(Equipo Equipo)
-        //{
-        //    EquiposDAL EquiposDal = new EquiposDAL();
-        //    return EquiposDal.EquipoInsert(Equipo.CategoriaId);
+        //    categoriasDAL categoriasDal = new categoriasDAL();
+        //    return categoriasDal.categoriaInsert(categoria.CategoriaId);
 
 
         //}
 
-        //public static int EquipoUpdate(Equipo Equipo)
+        //public static int categoriaUpdate(categoria categoria)
         //{
-        //    EquiposDAL EquiposDal = new EquiposDAL();
-        //    return EquiposDal.EquipoUpdate(Equipo.Id, Equipo.CategoriaId);
+        //    categoriasDAL categoriasDal = new categoriasDAL();
+        //    return categoriasDal.categoriaUpdate(categoria.Id, categoria.CategoriaId);
         //}
     }
 }
