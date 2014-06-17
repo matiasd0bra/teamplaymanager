@@ -1,0 +1,1 @@
+poner el campo fecha de nacimiento en las vistas de jugador

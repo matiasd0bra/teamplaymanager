@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TPM.Models;
+using TPM.Models.ViewModel;
 using TPM.Repositorio;
 
 namespace TPM.Controllers
@@ -115,6 +116,24 @@ namespace TPM.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult AssignarJugadores()
+        {
+            var assignarJugadoresViewModel = new AssignarJugadoresViewModel();
+            assignarJugadoresViewModel.CategoriaList = CategoriaRepo.CategoriaGetAllRepo();
+
+
+            return View(assignarJugadoresViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult AssignarJugadores(AssignarJugadoresViewModel model)
+        {
+            
+
+
+            return View();
         }
     }
 }
