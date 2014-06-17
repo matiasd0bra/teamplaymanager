@@ -34,35 +34,31 @@ namespace TPM.Repositorio
                 return modeloList;
             }
 
-            //public static Equipo EquipoByIdRepo(int id)
+            public static Division DivisionByIdRepo(int id)
+            {
+                DivisionesDAL divisionsDal = new DivisionesDAL();
+                DataTable dt = divisionsDal.DivisionById(id);
+
+                Division division = new Division();
+
+                division.DivisionId = int.Parse(dt.Rows[0]["DivisionId"].ToString());
+                division.NombreDivision = dt.Rows[0]["NombreDivision"].ToString();
+                return division;
+            }
+
+
+            //public static int DivisionInsert(Division Division)
             //{
-            //    EquiposDAL EquiposDal = new EquiposDAL();
-            //    DataTable dt = EquiposDal.EquipoById(id);
-
-            //    Equipo Equipo = new Equipo();
-
-            //    Equipo.Id = int.Parse(dt.Rows[0]["EquipoId"].ToString());
-            //    Equipo.CategoriaId = int.Parse(dt.Rows[0]["CategoriaId"].ToString());
-            //    Equipo.CategoriaNombre = dt.Rows[0]["Nombre"].ToString();
-            //    Equipo.Liga = dt.Rows[0]["NombreLiga"].ToString();
-            //    Equipo.Division = dt.Rows[0]["NombreDivision"].ToString();
-
-            //    return Equipo;
-            //}
-
-
-            //public static int EquipoInsert(Equipo Equipo)
-            //{
-            //    EquiposDAL EquiposDal = new EquiposDAL();
-            //    return EquiposDal.EquipoInsert(Equipo.CategoriaId);
+            //    DivisionsDAL DivisionsDal = new DivisionsDAL();
+            //    return DivisionsDal.DivisionInsert(Division.CategoriaId);
 
 
             //}
 
-            //public static int EquipoUpdate(Equipo Equipo)
+            //public static int DivisionUpdate(Division Division)
             //{
-            //    EquiposDAL EquiposDal = new EquiposDAL();
-            //    return EquiposDal.EquipoUpdate(Equipo.Id, Equipo.CategoriaId);
+            //    DivisionsDAL DivisionsDal = new DivisionsDAL();
+            //    return DivisionsDal.DivisionUpdate(Division.Id, Division.CategoriaId);
             //}
     }
 }

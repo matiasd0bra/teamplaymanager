@@ -27,7 +27,7 @@ namespace TPM.Repositorio
                 equipo.CategoriaNombre = item["NombreCategoria"].ToString();
                 equipo.Liga = item["NombreLiga"].ToString();
                 equipo.Division = item["NombreDivision"].ToString();
-
+                equipo.NombreEquipo = item["NombreEquipo"].ToString();
 
                 equipoList.Add(equipo);
             }
@@ -52,10 +52,10 @@ namespace TPM.Repositorio
         }
 
 
-        public static int EquipoInsert(Equipo Equipo)
+        public static int EquipoInsert(Equipo equipo)
         {
             EquiposDAL EquiposDal = new EquiposDAL();
-            return EquiposDal.EquipoInsert(Equipo.CategoriaId);
+            return EquiposDal.EquipoInsert(equipo.CategoriaId, equipo.DivisionId, equipo.LigaId, equipo.NombreEquipo);
 
 
         }

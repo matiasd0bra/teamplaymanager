@@ -60,7 +60,7 @@ namespace TPM.DAL
             return dt;
         }
 
-        public int EquipoInsert(int categoriaId)
+        public int EquipoInsert(int categoriaId, int divisionId, int ligaId, string nombreEquipo)
         {
             int ret;
             using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
@@ -70,7 +70,10 @@ namespace TPM.DAL
 
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@CategoriaId", SqlDbType.VarChar).Value = categoriaId;
+                    cmd.Parameters.Add("@CategoriaId", SqlDbType.Int).Value = categoriaId;
+                    cmd.Parameters.Add("@LigaId", SqlDbType.Int).Value = ligaId;
+                    cmd.Parameters.Add("@DivisionId", SqlDbType.Int).Value = divisionId;
+                    cmd.Parameters.Add("@NombreEquipo", SqlDbType.VarChar).Value = nombreEquipo;
 
 
                     con.Open();

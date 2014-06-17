@@ -3,59 +3,44 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using TPM.Models;
-using TPM.Repositorio;
 
 namespace TPM.Controllers
 {
-    public class EquipoController : Controller
+    public class LocalidadController : Controller
     {
         //
-        // GET: /Equipo/
+        // GET: /Localidad/
 
         public ActionResult Index()
         {
-            List<Equipo> equipos = EquiposRepo.EquiposGetAllRepo();
-            return View(equipos);
+            return View();
         }
 
         //
-        // GET: /Equipo/Details/5
+        // GET: /Localidad/Details/5
 
         public ActionResult Details(int id)
         {
-            Equipo equipo = EquiposRepo.EquipoByIdRepo(id);
-            return View(equipo);
+            return View();
         }
 
         //
-        // GET: /Equipo/Create
+        // GET: /Localidad/Create
 
         public ActionResult Create()
         {
-            Equipo equipo = new Equipo();
-            equipo.CategoriaLista = CategoriaRepo.CategoriaGetAllRepo();
-            equipo.DivisionLista = DivisionesRepo.DivisionGetAllRepo();
-            equipo.LigaLista = LigaRepo.LigaGetAllRepo();
-            return View(equipo);
+            return View();
         }
 
         //
-        // POST: /Equipo/Create
+        // POST: /Localidad/Create
 
         [HttpPost]
-        public ActionResult Create(Equipo equipo)
+        public ActionResult Create(FormCollection collection)
         {
             try
             {
-                string divisionNombre = DivisionesRepo.DivisionByIdRepo(equipo.DivisionId).NombreDivision;
-                string ligaNombre = LigaRepo.LigaByIdRepo(equipo.LigaId).NombreLiga;
-                string categoriaNombre = CategoriaRepo.categoriaByIdRepo(equipo.CategoriaId).NombreCategoria;
-
-                equipo.NombreEquipo = divisionNombre + " " + ligaNombre + " " + categoriaNombre;
-
-
-                EquiposRepo.EquipoInsert(equipo);
+                // TODO: Add insert logic here
 
                 return RedirectToAction("Index");
             }
@@ -66,7 +51,7 @@ namespace TPM.Controllers
         }
 
         //
-        // GET: /Equipo/Edit/5
+        // GET: /Localidad/Edit/5
 
         public ActionResult Edit(int id)
         {
@@ -74,14 +59,14 @@ namespace TPM.Controllers
         }
 
         //
-        // POST: /Equipo/Edit/5
+        // POST: /Localidad/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Equipo equipo)
+        public ActionResult Edit(int id, FormCollection collection)
         {
             try
             {
-                EquiposRepo.EquipoUpdate(equipo);
+                // TODO: Add update logic here
 
                 return RedirectToAction("Index");
             }
@@ -92,7 +77,7 @@ namespace TPM.Controllers
         }
 
         //
-        // GET: /Equipo/Delete/5
+        // GET: /Localidad/Delete/5
 
         public ActionResult Delete(int id)
         {
@@ -100,7 +85,7 @@ namespace TPM.Controllers
         }
 
         //
-        // POST: /Equipo/Delete/5
+        // POST: /Localidad/Delete/5
 
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)

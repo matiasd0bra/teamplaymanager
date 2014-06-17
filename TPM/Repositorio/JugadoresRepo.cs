@@ -29,9 +29,10 @@ namespace TPM.Repositorio
                 jugador.Apellido = item["Apellido"].ToString();
                 jugador.TipoDocId = int.Parse(item["TipoDocId"].ToString());
                 jugador.TipoDocNombre = item["tdNombre"].ToString();
-                jugador.NumeroDoc = int.Parse(item["NumeroDoc"].ToString());
+                jugador.NumeroDoc = item["NumeroDoc"].ToString();
                 jugador.Domicilio = item["Domicilio"].ToString();
                 jugador.LocalidadId = int.Parse(item["LocalidadId"].ToString());
+                jugador.LocalidadNombre = item["lNombre"].ToString();
                 jugador.LocalidadNombre = item["lNombre"].ToString();
 
                 jugadorList.Add(jugador);
@@ -51,9 +52,10 @@ namespace TPM.Repositorio
             jugador.Nombre = dt.Rows[0]["Nombre"].ToString();
             jugador.Apellido = dt.Rows[0]["Apellido"].ToString();
             jugador.TipoDocId = int.Parse(dt.Rows[0]["TipoDocId"].ToString());
-            jugador.NumeroDoc = int.Parse(dt.Rows[0]["NumeroDoc"].ToString());
+            jugador.NumeroDoc = dt.Rows[0]["NumeroDoc"].ToString();
             jugador.Domicilio = dt.Rows[0]["Domicilio"].ToString();
             jugador.LocalidadId = int.Parse(dt.Rows[0]["LocalidadId"].ToString());
+            jugador.LocalidadNombre = dt.Rows[0]["lNombre"].ToString();
 
             return jugador;
         }
@@ -64,6 +66,14 @@ namespace TPM.Repositorio
             JugadoresDAL jugadoresDal = new JugadoresDAL();
             return jugadoresDal.JugadorInsert(jugador.Nombre, jugador.Apellido, jugador.TipoDocId, jugador.NumeroDoc,
                 jugador.Domicilio, jugador.LocalidadId);
+
+
+        }
+
+        public static int JugadorPorEquipoInsert(Jugador jugador)
+        {
+            JugadoresDAL jugadoresDal = new JugadoresDAL();
+            return jugadoresDal.JugadorPorEquipoInsert(jugador.Id, jugador.EquipoId);
 
 
         }

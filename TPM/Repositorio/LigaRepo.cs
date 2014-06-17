@@ -33,21 +33,17 @@ namespace TPM.Repositorio
                 return modeloList;
             }
 
-            //public static Equipo EquipoByIdRepo(int id)
-            //{
-            //    EquiposDAL EquiposDal = new EquiposDAL();
-            //    DataTable dt = EquiposDal.EquipoById(id);
+            public static Liga LigaByIdRepo(int id)
+            {
+                LigaDAL dal = new LigaDAL();
+                DataTable dt = dal.LigaById(id);
 
-            //    Equipo Equipo = new Equipo();
+                Liga modelo = new Liga();
+                modelo.LigaId = int.Parse(dt.Rows[0]["LigaId"].ToString());
+                modelo.NombreLiga = dt.Rows[0]["NombreLiga"].ToString();
 
-            //    Equipo.Id = int.Parse(dt.Rows[0]["EquipoId"].ToString());
-            //    Equipo.CategoriaId = int.Parse(dt.Rows[0]["CategoriaId"].ToString());
-            //    Equipo.CategoriaNombre = dt.Rows[0]["Nombre"].ToString();
-            //    Equipo.Liga = dt.Rows[0]["NombreLiga"].ToString();
-            //    Equipo.Division = dt.Rows[0]["NombreDivision"].ToString();
-
-            //    return Equipo;
-            //}
+                return modelo;
+            }
 
 
             //public static int EquipoInsert(Equipo Equipo)

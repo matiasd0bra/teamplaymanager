@@ -19,9 +19,33 @@
         </div>
         <div class="editor-field">
             @Html.DropDownListFor(model => model.CategoriaId, new SelectList(
-              Model.CategoriaLista,
-              "CategoriaId",
-              "NombreCategoria"))
+                Model.CategoriaLista,
+                "CategoriaId",
+                "NombreCategoria"))
+            
+        </div>
+        
+        
+        <div class="editor-label">
+            @Html.Label("Division")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.DivisionId, new SelectList(
+                Model.DivisionLista,
+                "DivisionId",
+                "NombreDivision"))
+            
+        </div>
+        
+        
+        <div class="editor-label">
+            @Html.Label("Liga")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.LigaId, new SelectList(
+              Model.LigaLista,
+              "LigaId",
+              "NombreLiga"))
             
         </div>
 

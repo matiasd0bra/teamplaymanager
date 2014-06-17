@@ -66,9 +66,9 @@ namespace TPM.DAL
             return dt;
         }
 
-        public int JugadorInsert(string nombre, string apellido, int tipoDoc, int nroDoc, string dom, int loc)
+        public int JugadorInsert(string nombre, string apellido, int tipoDoc, string nroDoc, string dom, int loc)
         {
-            int ret;
+            int ret = 0;
             using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
             {
                 using (SqlCommand cmd = new SqlCommand("JugadorInsert", con))
@@ -78,11 +78,31 @@ namespace TPM.DAL
 
                     cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = nombre;
                     cmd.Parameters.Add("@Apellido", SqlDbType.VarChar).Value = apellido;
-                    cmd.Parameters.Add("@TipoDocId", SqlDbType.VarChar).Value = tipoDoc;
+                    cmd.Parameters.Add("@TipoDocId", SqlDbType.Int).Value = tipoDoc;
                     cmd.Parameters.Add("@NumeroDoc", SqlDbType.VarChar).Value = nroDoc;
                     cmd.Parameters.Add("@Domicilio", SqlDbType.VarChar).Value = dom;
-                    cmd.Parameters.Add("@LocalidadId", SqlDbType.VarChar).Value = loc;
+                    cmd.Parameters.Add("@LocalidadId", SqlDbType.Int).Value = loc;
 
+                    con.Open();
+                    ret = int.Parse(cmd.ExecuteScalar().ToString());
+                }
+            }
+            return ret;
+        }
+
+        public int JugadorPorEquipoInsert(int jugadorId, int equipoId)
+        {
+            int ret;
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
+            {
+                using (SqlCommand cmd = new SqlCommand("JugadorPorEquipoInsert", con))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@JugadorId", SqlDbType.Int).Value = jugadorId;
+                    cmd.Parameters.Add("@EquipoId", SqlDbType.Int).Value = equipoId;
+  
                     con.Open();
                     ret = cmd.ExecuteNonQuery();
                 }
@@ -90,7 +110,7 @@ namespace TPM.DAL
             return ret;
         }
 
-        public int JugadorUpdate(int id, string nombre, string apellido, int tipoDoc, int nroDoc, string dom, int loc)
+        public int JugadorUpdate(int id, string nombre, string apellido, int tipoDoc, string nroDoc, string dom, int loc)
         {
             int ret;
             using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))

@@ -33,7 +33,11 @@ namespace TPM.Controllers
 
         public ActionResult Create()
         {
-            return View();
+            Jugador jugador = new Jugador();
+            jugador.Equipos = EquiposRepo.EquiposGetAllRepo();
+            jugador.TipoDocLista = TipoDocRepo.TipoDocGetAllRepo();
+            jugador.LocalidadLista = LocalidadesRepo.LocalidadesGetAllRepo();
+            return View(jugador);
         }
 
         //
@@ -44,7 +48,10 @@ namespace TPM.Controllers
         {
             try
             {
-                JugadoresRepo.JugadorInsert(jugador);
+                jugador.Id = JugadoresRepo.JugadorInsert(jugador);
+
+
+                JugadoresRepo.JugadorPorEquipoInsert(jugador);
                 return RedirectToAction("Index");
             }
             catch
