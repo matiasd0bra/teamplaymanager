@@ -9,7 +9,7 @@
 
 @using (Html.BeginForm())
 {
-    
+    @Html.ValidationSummary(true)
 
     <fieldset>
         <legend>Jugador</legend>
@@ -38,8 +38,7 @@
         </div>
         <div class="editor-field">
 
-            @Html.DropDownListFor(model => model.TipoDocId, new SelectList
-            (Model.TipoDocLista, "TipoDocId", "TipoDocNombre", 1))
+            @Html.DropDownListFor(model => model.TipoDocId, new SelectList (Model.TipoDocLista, "TipoDocId", "TipoDocNombre",))
         </div>
 
         <div class="editor-label">
@@ -64,7 +63,7 @@
 
         <div class="editor-field">
             @Html.DropDownListFor(model => model.LocalidadId, new SelectList
-            (Model.LocalidadLista, "LocalidadId", "LocalidadNombre", 1))
+            (Model.LocalidadLista, "LocalidadId", "LocalidadNombre"))
         </div>
 
         <div class="editor-label">
@@ -73,7 +72,7 @@
 
         <div class="editor-field">
             @Html.DropDownListFor(model => model.EquipoId, new SelectList
-            (Model.Equipos, "Id", "NombreEquipo", 1))
+            (Model.Equipos, "Id", "NombreEquipo"))
         </div>
 
 
