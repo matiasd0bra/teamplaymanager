@@ -66,7 +66,7 @@ namespace TPM.DAL
             return dt;
         }
 
-        public int JugadorInsert(string nombre, string apellido, int tipoDoc, string nroDoc, string dom, int loc)
+        public int JugadorInsert(string nombre, string apellido, int tipoDoc, string nroDoc, DateTime fechanac, string dom, int loc)
         {
             int ret = 0;
             using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
@@ -80,6 +80,7 @@ namespace TPM.DAL
                     cmd.Parameters.Add("@Apellido", SqlDbType.VarChar).Value = apellido;
                     cmd.Parameters.Add("@TipoDocId", SqlDbType.Int).Value = tipoDoc;
                     cmd.Parameters.Add("@NumeroDoc", SqlDbType.VarChar).Value = nroDoc;
+                    cmd.Parameters.Add("@FechaNac", SqlDbType.DateTime).Value = fechanac;
                     cmd.Parameters.Add("@Domicilio", SqlDbType.VarChar).Value = dom;
                     cmd.Parameters.Add("@LocalidadId", SqlDbType.Int).Value = loc;
 
@@ -110,7 +111,7 @@ namespace TPM.DAL
             return ret;
         }
 
-        public int JugadorUpdate(int id, string nombre, string apellido, int tipoDoc, string nroDoc, string dom, int loc)
+        public int JugadorUpdate(int id, string nombre, string apellido, int tipoDoc, string nroDoc, string dom, int loc, DateTime fechaNac)
         {
             int ret;
             using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
@@ -125,6 +126,7 @@ namespace TPM.DAL
                     cmd.Parameters.Add("@Apellido", SqlDbType.VarChar).Value = apellido;
                     cmd.Parameters.Add("@TipoDocId", SqlDbType.VarChar).Value = tipoDoc;
                     cmd.Parameters.Add("@NumeroDoc", SqlDbType.VarChar).Value = nroDoc;
+                    cmd.Parameters.Add("@FechaNac", SqlDbType.DateTime).Value = fechaNac;
                     cmd.Parameters.Add("@Domicilio", SqlDbType.VarChar).Value = dom;
                     cmd.Parameters.Add("@LocalidadId", SqlDbType.VarChar).Value = loc;
 

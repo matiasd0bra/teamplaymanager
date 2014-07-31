@@ -30,6 +30,7 @@ namespace TPM.Repositorio
                 jugador.TipoDocId = int.Parse(item["TipoDocId"].ToString());
                 jugador.TipoDocNombre = item["tdNombre"].ToString();
                 jugador.NumeroDoc = item["NumeroDoc"].ToString();
+                jugador.FechaNac = Convert.ToDateTime(item["FechaNac"].ToString());
                 jugador.Domicilio = item["Domicilio"].ToString();
                 jugador.LocalidadId = int.Parse(item["LocalidadId"].ToString());
                 jugador.LocalidadNombre = item["lNombre"].ToString();
@@ -53,6 +54,7 @@ namespace TPM.Repositorio
             jugador.Apellido = dt.Rows[0]["Apellido"].ToString();
             jugador.TipoDocId = int.Parse(dt.Rows[0]["TipoDocId"].ToString());
             jugador.NumeroDoc = dt.Rows[0]["NumeroDoc"].ToString();
+            jugador.FechaNac = Convert.ToDateTime(dt.Rows[0]["FechaNac"].ToString());
             jugador.Domicilio = dt.Rows[0]["Domicilio"].ToString();
             jugador.LocalidadId = int.Parse(dt.Rows[0]["LocalidadId"].ToString());
             jugador.LocalidadNombre = dt.Rows[0]["lNombre"].ToString();
@@ -64,7 +66,7 @@ namespace TPM.Repositorio
         public static int JugadorInsert(Jugador jugador)
         {
             JugadoresDAL jugadoresDal = new JugadoresDAL();
-            return jugadoresDal.JugadorInsert(jugador.Nombre, jugador.Apellido, jugador.TipoDocId, jugador.NumeroDoc,
+            return jugadoresDal.JugadorInsert(jugador.Nombre, jugador.Apellido, jugador.TipoDocId, jugador.NumeroDoc, jugador.FechaNac,
                 jugador.Domicilio, jugador.LocalidadId);
 
 
@@ -82,8 +84,8 @@ namespace TPM.Repositorio
         {
             JugadoresDAL jugadoresDal = new JugadoresDAL();
             return  jugadoresDal.JugadorUpdate(jugador.Id, jugador.Nombre, jugador.Apellido, jugador.TipoDocId,
-                jugador.NumeroDoc,
-                jugador.Domicilio, jugador.LocalidadId);
+                jugador.NumeroDoc, 
+                jugador.Domicilio, jugador.LocalidadId,jugador.FechaNac);
         }
     }
 }
