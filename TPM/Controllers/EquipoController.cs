@@ -122,6 +122,7 @@ namespace TPM.Controllers
         {
             var assignarJugadoresViewModel = new AssignarJugadoresViewModel();
             assignarJugadoresViewModel.CategoriaList = CategoriaRepo.CategoriaGetAllRepo();
+            assignarJugadoresViewModel.ListaJugadores = JugadoresRepo.JugadoresGetAllRepo();
 
 
             return View(assignarJugadoresViewModel);

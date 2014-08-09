@@ -16,6 +16,7 @@ namespace TPM.Models
         public List<TipoDoc> TipoDocLista { get; set; }
         public string NumeroDoc { get; set; }
         public DateTime FechaNac { get; set; }
+        public string FechaNacFormateada { get; set; }
         public string Domicilio { get; set; }
         public int LocalidadId { get; set; }
         public string LocalidadNombre { get; set; }
