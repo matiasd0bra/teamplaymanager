@@ -20,6 +20,144 @@
     @Html.Label("Categoria")
     @Html.DropDownListFor(model => model.CategoriaId, new SelectList(Model.CategoriaList, "CategoriaId", "NombreCategoria", 1))
 
-    <input type="submit" value="Filtrar"/>
+    <input type="submit" value="Filtrar" />
+    
+    <table>
+        <tr>
+            <th>
+                @Html.DisplayName("Nombre")
+            </th>
+            <th>
+                @Html.DisplayName("Apellido")
+            </th>
+
+            <th>
+                @Html.DisplayName("Tipo de Documento")
+            </th>
+            <th>
+                @Html.DisplayName("Número de Documento")
+            </th>
+            <th>
+                @Html.DisplayName("Fecha de Nacimiento")
+            </th>
+            <th>
+                @Html.DisplayName("Domicilio")
+            </th>
+            <th>
+                @Html.DisplayName("Localidad")
+            </th>
+            <th>
+                @Html.Display("Equipo")
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.ListaJugadores)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apellido)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoDocNombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumeroDoc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaNacFormateada)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Domicilio)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.LocalidadNombre)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.EquiposNombre)
+                </td>
+                <td>
+                    <input type="button" id=@item.Id onClick="asignarjugador(@item.Id)"/>
+
+
+                    @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+                </td>
+            </tr>
+        }
+
+
+
+
+    </table>
+
+    
+           
+    <table id="tablaJugadorAsignar">
+        <tr>
+            <th>
+                @Html.DisplayName("Nombre")
+            </th>
+            <th>
+                @Html.DisplayName("Apellido")
+            </th>
+
+            <th>
+                @Html.DisplayName("Tipo de Documento")
+            </th>
+            <th>
+                @Html.DisplayName("Número de Documento")
+            </th>
+            <th>
+                @Html.DisplayName("Fecha de Nacimiento")
+            </th>
+            <th>
+                @Html.DisplayName("Domicilio")
+            </th>
+            <th>
+                @Html.DisplayName("Localidad")
+            </th>
+            <th>
+                @Html.Display("Equipo")
+            </th>
+            <th></th>
+        </tr>
+
+
+        
+
+    </table>
+
 
 }
+
+
+
+
+<script type="text/javascript">
+
+    function asignarjugador(idParam) {
+
+
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("GetJugadorPorId", "Jugador")',
+            data: { id : idParam },
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                $('#tablaJugadorAsignar tr:last').after(data);
+            },
+            error: function (textStatus, errorThrown) {
+                Success = false;//doesnt goes here
+            }
+
+        });
+    }
+</script>

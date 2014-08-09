@@ -1,1 +1,3 @@
-poner el campo fecha de nacimiento en las vistas de jugador
+* Poner el campo fecha de nacimiento en las vistas de jugador
+* Terminar de completar las url del menu principal
+* GetJugadorById hacer los joins que faltan

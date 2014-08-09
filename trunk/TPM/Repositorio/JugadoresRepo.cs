@@ -35,7 +35,7 @@ namespace TPM.Repositorio
                 jugador.LocalidadId = int.Parse(item["LocalidadId"].ToString());
                 jugador.LocalidadNombre = item["lNombre"].ToString();
                 jugador.LocalidadNombre = item["lNombre"].ToString();
-
+                jugador.FechaNacFormateada = jugador.FechaNac.ToShortDateString();
                 jugadorList.Add(jugador);
             }
 
@@ -57,7 +57,7 @@ namespace TPM.Repositorio
             jugador.FechaNac = Convert.ToDateTime(dt.Rows[0]["FechaNac"].ToString());
             jugador.Domicilio = dt.Rows[0]["Domicilio"].ToString();
             jugador.LocalidadId = int.Parse(dt.Rows[0]["LocalidadId"].ToString());
-            jugador.LocalidadNombre = dt.Rows[0]["lNombre"].ToString();
+            jugador.LocalidadNombre = dt.Rows[0]["NombreLocalidad"].ToString();
 
             return jugador;
         }

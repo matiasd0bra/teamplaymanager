@@ -38,7 +38,7 @@
         </div>
         <div class="editor-field">
 
-            @Html.DropDownListFor(model => model.TipoDocId, new SelectList (Model.TipoDocLista, "TipoDocId", "TipoDocNombre",))
+            @Html.DropDownListFor(model => model.TipoDocId, new SelectList (Model.TipoDocLista, "TipoDocId", "TipoDocNombre",1))
         </div>
 
         <div class="editor-label">
@@ -47,6 +47,14 @@
         <div class="editor-field">
             @Html.TextBoxFor(model => model.NumeroDoc)
             @Html.ValidationMessageFor(model => model.NumeroDoc)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FechaNac)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.FechaNacFormateada)
+            @Html.ValidationMessageFor(model => model.FechaNacFormateada)
         </div>
 
         <div class="editor-label">

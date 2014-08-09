@@ -266,6 +266,7 @@
     <Content Include="Scripts\Bootstrap\cbpAnimatedHeader.min.js" />
     <Content Include="Scripts\Bootstrap\classie.js" />
     <Content Include="Scripts\Bootstrap\freelancer.js" />
+    <Content Include="Scripts\Custom\equipos.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.20.js" />

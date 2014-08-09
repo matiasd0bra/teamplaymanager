@@ -26,6 +26,9 @@
             @Html.DisplayNameFor(model => model.NumeroDoc)
         </th>
         <th>
+            @Html.DisplayName("Fecha de Nacimiento")
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Domicilio)
         </th>
         <th>
@@ -51,6 +54,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.NumeroDoc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FechaNacFormateada)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Domicilio)
