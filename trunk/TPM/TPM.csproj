@@ -29,6 +29,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <FilesToIncludeForPublish>AllFilesInTheProject</FilesToIncludeForPublish>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -166,6 +167,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JugadorController.cs" />
     <Compile Include="Controllers\LocalidadController.cs" />
+    <Compile Include="Controllers\PersonalEspController.cs" />
     <Compile Include="DAL\CategoriaDAL.cs" />
     <Compile Include="DAL\DivisionesDAL.cs" />
     <Compile Include="DAL\EquiposDAL.cs" />
@@ -173,6 +175,7 @@
     <Compile Include="DAL\JugadoresDAL.cs" />
     <Compile Include="DAL\LigaDAL.cs" />
     <Compile Include="DAL\LocalidadesDAL.cs" />
+    <Compile Include="DAL\PersonalEspDAL.cs" />
     <Compile Include="DAL\TipoDocDAL.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -185,6 +188,7 @@
     <Compile Include="Models\Jugador.cs" />
     <Compile Include="Models\Liga.cs" />
     <Compile Include="Models\Localidad.cs" />
+    <Compile Include="Models\PersonalEsp.cs" />
     <Compile Include="Models\TipoDoc.cs" />
     <Compile Include="Models\ViewModel\AssignarJugadoresViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -194,6 +198,7 @@
     <Compile Include="Repositorio\JugadoresRepo.cs" />
     <Compile Include="Repositorio\LigaRepo.cs" />
     <Compile Include="Repositorio\LocalidadesRepo.cs" />
+    <Compile Include="Repositorio\PersonalEspRepo.cs" />
     <Compile Include="Repositorio\TipoDocRepo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -259,7 +264,9 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <None Include="Properties\PublishProfiles\Martin.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Images\Jugador.png" />
     <Content Include="Scripts\Bootstrap\bootstrap.js" />
     <Content Include="Scripts\Bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\Bootstrap\cbpAnimatedHeader.js" />
@@ -323,13 +330,16 @@
     <Content Include="Views\Jugador\Edit.cshtml" />
     <Content Include="Views\Equipo\Details.cshtml" />
     <Content Include="Views\Equipo\Create.cshtml" />
-    <Content Include="Views\Equipo\Edit.cshtml" />
     <Content Include="Views\Equipo\Index.cshtml" />
     <Content Include="Views\Jugador\Index.cshtml" />
     <Content Include="Views\Home\Main.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_emptyLayout.cshtml" />
     <Content Include="Views\Equipo\AssignarJugadores.cshtml" />
+    <Content Include="Views\Equipo\Edit.cshtml" />
+    <Content Include="Views\PersonalEsp\Index.cshtml" />
+    <Content Include="Views\PersonalEsp\Details.cshtml" />
+    <Content Include="Views\PersonalEsp\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

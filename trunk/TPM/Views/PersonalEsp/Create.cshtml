@@ -1,19 +1,18 @@
-﻿@model TPM.Models.Jugador
+﻿@model TPM.Models.PersonalEsp
 
 @{
     ViewBag.Title = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Crear Nuevo Jugador</h2>
+<h2>Crear</h2>
 
-@using (Html.BeginForm())
-{
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Jugador</legend>
-        
+        <legend>Personal Especializado</legend>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Nombre)
@@ -50,14 +49,6 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.FechaNac)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.FechaNacFormateada)
-            @Html.ValidationMessageFor(model => model.FechaNacFormateada)
-        </div>
-
-        <div class="editor-label">
             @Html.LabelFor(model => model.Domicilio)
         </div>
         <div class="editor-field">
@@ -83,15 +74,14 @@
             (Model.Equipos, "Id", "NombreEquipo"))
         </div>
 
-
         <p>
-            <input type="submit" value="Crear" />
+            <input type="submit" value="Create" />
         </p>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Volver", "Index")
+    @Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {

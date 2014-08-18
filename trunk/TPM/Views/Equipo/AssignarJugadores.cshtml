@@ -5,22 +5,40 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>AssignarJugadores</h2>
+<h2>AsignarJugadores</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
+    <table>
+        <tr>
+            <th>
+                @Html.Label("Equipo Seleccionado: " + Model.EquipoSeleccionado.NombreEquipo)
+            </th>
+        </tr>
+        <tr>
+            <th>
+                      @Html.Label("Buscar Jugadores")
+            </th>
 
-    @Html.DisplayFor(model => model.EquipoSeleccionado.NombreEquipo)
+        </tr>
+        <tr>
+            <th>
+                @Html.Label("Nombre")
+                @Html.TextBoxFor(model => model.NombreFiltro)
+            </th>
+        </tr>
+        <tr>
+            <th>
+                @Html.Label("Categoria")
+                @Html.DropDownListFor(model => model.CategoriaId, new SelectList(Model.CategoriaList, "CategoriaId", "NombreCategoria", 1))
+            </th>
+        </tr>
+        
+    </table>@*
 
-    @Html.Label("Nombre")
-    @Html.TextBoxFor(model => model.NombreFiltro)
-
-    @Html.Label("Categoria")
-    @Html.DropDownListFor(model => model.CategoriaId, new SelectList(Model.CategoriaList, "CategoriaId", "NombreCategoria", 1))
-
-    <input type="submit" value="Filtrar" />
+    *@<input type="submit" value="Filtrar" />
     
     <table>
         <tr>
@@ -55,41 +73,41 @@
         @foreach (var item in Model.ListaJugadores)
         {
             <tr>
-                <td>
+                <th>
                     @Html.DisplayFor(modelItem => item.Nombre)
-                </td>
-                <td>
+                </th>
+                <th>
                     @Html.DisplayFor(modelItem => item.Apellido)
-                </td>
+                </th>
 
-                <td>
+                <th>
                     @Html.DisplayFor(modelItem => item.TipoDocNombre)
-                </td>
-                <td>
+                </th>
+                <th>
                     @Html.DisplayFor(modelItem => item.NumeroDoc)
-                </td>
-                <td>
+                </th>
+                <th>
                     @Html.DisplayFor(modelItem => item.FechaNacFormateada)
-                </td>
-                <td>
+                </th>
+                <th>
                     @Html.DisplayFor(modelItem => item.Domicilio)
-                </td>
+                </th>
 
-                <td>
+                <th>
                     @Html.DisplayFor(modelItem => item.LocalidadNombre)
-                </td>
+                </th>
 
-                <td>
+                <th>
                     @Html.DisplayFor(modelItem => item.EquiposNombre)
-                </td>
-                <td>
-                    <input type="button" id=@item.Id onClick="asignarjugador(@item.Id)"/>
+                </th>
+                <th>
+                    <input type="button" value="Agregar" id=@item.Id onClick="asignarjugador(@item.Id)"/>
 
 
                     @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
-                </td>
+                    @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+                </th>
             </tr>
         }
 
@@ -98,7 +116,7 @@
 
     </table>
 
-    
+    <h1></h1>
            
     <table id="tablaJugadorAsignar">
         <tr>
@@ -134,6 +152,8 @@
         
 
     </table>
+    
+    <input type="submit" value="Asignar Jugadores"  />
 
 
 }
@@ -157,7 +177,6 @@
             error: function (textStatus, errorThrown) {
                 Success = false;//doesnt goes here
             }
-
         });
     }
 </script>

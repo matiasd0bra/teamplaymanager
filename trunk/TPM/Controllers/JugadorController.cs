@@ -51,8 +51,8 @@ namespace TPM.Controllers
         {
             try
             {
-                jugador.Id = JugadoresRepo.JugadorInsert(jugador);
                 jugador.FechaNac = DateTime.Parse(jugador.FechaNacFormateada);
+                jugador.Id = JugadoresRepo.JugadorInsert(jugador);
                 
                 JugadoresRepo.JugadorPorEquipoInsert(jugador);
                 return RedirectToAction("Index");

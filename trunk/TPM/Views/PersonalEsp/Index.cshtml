@@ -1,11 +1,11 @@
-﻿@model IEnumerable<TPM.Models.Jugador>
+﻿@model IEnumerable<TPM.Models.PersonalEsp>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Lista de Jugadores</h2>
+<h2>Index</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -18,15 +18,11 @@
         <th>
             @Html.DisplayNameFor(model => model.Apellido)
         </th>
-
         <th>
             @Html.DisplayNameFor(model => model.TipoDocNombre)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.NumeroDoc)
-        </th>
-        <th>
-            @Html.DisplayName("Fecha de Nacimiento")
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Domicilio)
@@ -48,7 +44,6 @@
         <td>
             @Html.DisplayFor(modelItem => item.Apellido)
         </td>
-
         <td>
             @Html.DisplayFor(modelItem => item.TipoDocNombre)
         </td>
@@ -56,17 +51,11 @@
             @Html.DisplayFor(modelItem => item.NumeroDoc)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FechaNacFormateada)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Domicilio)
         </td>
-
         <td>
             @Html.DisplayFor(modelItem => item.LocalidadNombre)
         </td>
-        
-        
         <td>
             @Html.DisplayFor(modelItem => item.EquiposNombre)
         </td>
