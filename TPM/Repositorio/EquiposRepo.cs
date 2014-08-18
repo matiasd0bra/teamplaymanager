@@ -43,8 +43,8 @@ namespace TPM.Repositorio
             Equipo equipo = new Equipo();
 
             equipo.Id = int.Parse(dt.Rows[0]["EquipoId"].ToString());
-            equipo.CategoriaId = int.Parse(dt.Rows[0]["CategoriaId"].ToString());
-            equipo.CategoriaNombre = dt.Rows[0]["Nombre"].ToString();
+            equipo.NombreEquipo = dt.Rows[0]["NombreEquipo"].ToString();
+            equipo.CategoriaNombre = dt.Rows[0]["NombreCategoria"].ToString();
             equipo.Liga = dt.Rows[0]["NombreLiga"].ToString();
             equipo.Division = dt.Rows[0]["NombreDivision"].ToString();
 

@@ -1,14 +1,14 @@
-﻿@model TPM.Models.Jugador
+﻿@model TPM.Models.PersonalEsp
 
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Detalle del Jugador</h2>
+<h2>Details</h2>
 
 <fieldset>
-    <legend>Jugador</legend>
+    <legend>PersonalEsp</legend>
 
     <div class="display-label">
          @Html.DisplayNameFor(model => model.Nombre)
@@ -32,6 +32,13 @@
     </div>
 
     <div class="display-label">
+         @Html.DisplayNameFor(model => model.TipoDocNombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.TipoDocNombre)
+    </div>
+
+    <div class="display-label">
          @Html.DisplayNameFor(model => model.NumeroDoc)
     </div>
     <div class="display-field">
@@ -51,8 +58,29 @@
     <div class="display-field">
         @Html.DisplayFor(model => model.LocalidadId)
     </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.LocalidadNombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.LocalidadNombre)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EquipoId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EquipoId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EquiposNombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EquiposNombre)
+    </div>
 </fieldset>
 <p>
-    @*@Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |*@
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

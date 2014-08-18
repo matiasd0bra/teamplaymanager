@@ -71,7 +71,8 @@ namespace TPM.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View();
+            Equipo equipo = EquiposRepo.EquipoByIdRepo(id);
+            return View(equipo);
         }
 
         //
@@ -118,12 +119,13 @@ namespace TPM.Controllers
             }
         }
 
-        public ActionResult AssignarJugadores()
+        public ActionResult AssignarJugadores(int id)
         {
             var assignarJugadoresViewModel = new AssignarJugadoresViewModel();
+            assignarJugadoresViewModel.EquipoSeleccionado = EquiposRepo.EquipoByIdRepo(id);
             assignarJugadoresViewModel.CategoriaList = CategoriaRepo.CategoriaGetAllRepo();
             assignarJugadoresViewModel.ListaJugadores = JugadoresRepo.JugadoresGetAllRepo();
-
+            assignarJugadoresViewModel.Equipos = EquiposRepo.EquiposGetAllRepo();
 
             return View(assignarJugadoresViewModel);
         }
@@ -131,7 +133,14 @@ namespace TPM.Controllers
         [HttpPost]
         public ActionResult AssignarJugadores(AssignarJugadoresViewModel model)
         {
-            
+            foreach (var item in model.JugadoresAsignados)
+            {
+                Jugador j = new Jugador();
+                j.Id = item.Id;
+                j.EquipoId = item.EquipoId;
+
+                JugadoresRepo.JugadorPorEquipoInsert(j);
+            }
 
 
             return View();
