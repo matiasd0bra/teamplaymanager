@@ -112,5 +112,24 @@ namespace TPM.Controllers
                 return View();
             }
         }
+
+        public string GetPersonalEspPorId(int id)
+        {
+            try
+            {
+                var personalEsp = PersonalEspRepo.PersonalEspByIdRepo(id);
+                //var serializer = new JavaScriptSerializer();
+                //var res = serializer.Serialize(result);
+
+                var res = "<tr><td>" + personalEsp.Nombre + "</td><td>" + personalEsp.Apellido + "</td><td>" + personalEsp.TipoDocNombre + "</td><td>" + personalEsp.NumeroDoc +
+                    "</td><td>" + personalEsp.Domicilio + "</td><td>" + personalEsp.LocalidadNombre + "</td></tr>";
+
+                return res;
+            }
+            catch
+            {
+                return "false";
+            }
+        }
     }
 }

@@ -1,12 +1,11 @@
-﻿@model TPM.Models.ViewModel.AssignarJugadoresViewModel
+﻿@model TPM.Models.ViewModel.AsignarPersonalEspViewModel
 
 @{
-    ViewBag.Title = "AssignarJugadores";
+    ViewBag.Title = "AsignarPersonalEsp";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>AsignarJugadores</h2>
-
+<h2>Asignar Personal Especializado</h2>
 
 @using (Html.BeginForm())
 {
@@ -19,7 +18,7 @@
         </tr>
         <tr>
             <th>
-                      @Html.Label("Buscar Jugadores")
+                      @Html.Label("Buscar Personal Especializado")
             </th>
 
         </tr>
@@ -31,8 +30,8 @@
         </tr>
         <tr>
             <th>
-                @Html.Label("Categoria")
-                @Html.DropDownListFor(model => model.CategoriaId, new SelectList(Model.CategoriaList, "CategoriaId", "NombreCategoria", 1))
+                @Html.Label("Numero Documento")
+                @Html.TextBoxFor(model => model.NumeroDniFiltro)
             </th>
         </tr>
         
@@ -56,9 +55,6 @@
                 @Html.DisplayName("Número de Documento")
             </th>
             <th>
-                @Html.DisplayName("Fecha de Nacimiento")
-            </th>
-            <th>
                 @Html.DisplayName("Domicilio")
             </th>
             <th>
@@ -70,7 +66,7 @@
             <th></th>
         </tr>
 
-        @foreach (var item in Model.ListaJugadores)
+        @foreach (var item in Model.ListaPersonalEsp)
         {
             <tr>
                 <th>
@@ -87,9 +83,6 @@
                     @Html.DisplayFor(modelItem => item.NumeroDoc)
                 </th>
                 <th>
-                    @Html.DisplayFor(modelItem => item.FechaNacFormateada)
-                </th>
-                <th>
                     @Html.DisplayFor(modelItem => item.Domicilio)
                 </th>
 
@@ -101,7 +94,7 @@
                     @Html.DisplayFor(modelItem => item.EquiposNombre)
                 </th>
                 <th>
-                    <input type="button" value="Agregar" id=@item.Id onClick="asignarjugador(@item.Id)"/>
+                    <input type="button" value="Agregar" id=@item.Id onClick="asignarPersonalEsp(@item.Id)"/>
 
 
                     @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
@@ -116,9 +109,9 @@
 
     </table>
 
-    <h1>Jugadores a Asignar</h1>
+    <h1>Personal Especializado a Asignar</h1>
            
-    <table id="tablaJugadorAsignar">
+    <table id="tablaPersonalEspAsignar">
         <tr>
             <th>
                 @Html.DisplayName("Nombre")
@@ -132,9 +125,6 @@
             </th>
             <th>
                 @Html.DisplayName("Número de Documento")
-            </th>
-            <th>
-                @Html.DisplayName("Fecha de Nacimiento")
             </th>
             <th>
                 @Html.DisplayName("Domicilio")
@@ -163,16 +153,16 @@
 
 <script type="text/javascript">
 
-    function asignarjugador(idParam) {
+    function asignarPersonalEsp(idParam) {
 
 
         $.ajax({
             type: "GET",
-            url: '@Url.Action("GetJugadorPorId", "Jugador")',
+            url: '@Url.Action("GetPersonalEspPorId", "PersonalEsp")',
             data: { id : idParam },
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-                $('#tablaJugadorAsignar tr:last').after(data);
+                $('#tablaPersonalEspAsignar tr:last').after(data);
             },
             error: function (textStatus, errorThrown) {
                 Success = false;//doesnt goes here

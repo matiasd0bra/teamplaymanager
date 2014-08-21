@@ -182,14 +182,18 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Campeonato.cs" />
     <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\Division.cs" />
     <Compile Include="Models\Equipo.cs" />
     <Compile Include="Models\Jugador.cs" />
     <Compile Include="Models\Liga.cs" />
     <Compile Include="Models\Localidad.cs" />
+    <Compile Include="Models\Partido.cs" />
+    <Compile Include="Models\PartidoPorJugador.cs" />
     <Compile Include="Models\PersonalEsp.cs" />
     <Compile Include="Models\TipoDoc.cs" />
+    <Compile Include="Models\ViewModel\AsignarPersonalEspViewModel.cs" />
     <Compile Include="Models\ViewModel\AssignarJugadoresViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositorio\CategoriaRepo.cs" />
@@ -266,7 +270,10 @@
     <Content Include="Global.asax" />
     <None Include="Properties\PublishProfiles\Martin.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Images\fondo.jpg" />
+    <Content Include="Images\header.jpg" />
     <Content Include="Images\Jugador.png" />
+    <Content Include="Images\TPMbox.png" />
     <Content Include="Scripts\Bootstrap\bootstrap.js" />
     <Content Include="Scripts\Bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\Bootstrap\cbpAnimatedHeader.js" />
@@ -340,6 +347,7 @@
     <Content Include="Views\PersonalEsp\Index.cshtml" />
     <Content Include="Views\PersonalEsp\Details.cshtml" />
     <Content Include="Views\PersonalEsp\Create.cshtml" />
+    <Content Include="Views\Equipo\AsignarPersonalEsp.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
