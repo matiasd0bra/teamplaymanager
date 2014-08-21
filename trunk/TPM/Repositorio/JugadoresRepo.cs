@@ -52,6 +52,7 @@ namespace TPM.Repositorio
             jugador.Nombre = dt.Rows[0]["Nombre"].ToString();
             jugador.Apellido = dt.Rows[0]["Apellido"].ToString();
             jugador.TipoDocId = int.Parse(dt.Rows[0]["TipoDocId"].ToString());
+            jugador.TipoDocNombre = dt.Rows[0]["TipoDocNombre"].ToString();
             jugador.NumeroDoc = dt.Rows[0]["NumeroDoc"].ToString();
             jugador.FechaNac = Convert.ToDateTime(dt.Rows[0]["FechaNac"].ToString());
             jugador.Domicilio = dt.Rows[0]["Domicilio"].ToString();

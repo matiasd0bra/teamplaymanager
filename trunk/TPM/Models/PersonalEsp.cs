@@ -21,5 +21,6 @@ namespace TPM.Models
         public List<Equipo> Equipos { get; set; }
         public int EquipoId { get; set; }
         public string EquiposNombre { get; set; }
+        public string Mail { get; set; }
     }
 }

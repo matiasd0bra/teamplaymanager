@@ -131,16 +131,35 @@ namespace TPM.Controllers
         }
 
         [HttpPost]
-        public ActionResult AssignarJugadores(AssignarJugadoresViewModel model)
+        public ActionResult AssignarJugadores (List<Jugador> jugadoresAsignados)
         {
-            foreach (var item in model.JugadoresAsignados)
+            foreach (var item in jugadoresAsignados)
             {
-                Jugador j = new Jugador();
-                j.Id = item.Id;
-                j.EquipoId = item.EquipoId;
+                Jugador jugador = new Jugador();
+                jugador.Id = item.Id;
+                jugador.EquipoId = item.EquipoId;
 
-                JugadoresRepo.JugadorPorEquipoInsert(j);
+                JugadoresRepo.JugadorPorEquipoInsert(jugador);
             }
+
+
+            return View();
+        }
+
+        public ActionResult AsignarPersonalEsp (int id)
+        {
+            var asignarPersonalEspViewModel = new AsignarPersonalEspViewModel ();
+            asignarPersonalEspViewModel.ListaPersonalEsp = PersonalEspRepo.PersonalEspesGetAllRepo();
+            asignarPersonalEspViewModel.Equipos = EquiposRepo.EquiposGetAllRepo();
+            asignarPersonalEspViewModel.EquipoSeleccionado = EquiposRepo.EquipoByIdRepo(id);
+
+            return View(asignarPersonalEspViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult AssignarPersonalEsp(List<PersonalEsp> PersonalEspAsignados)
+        {
+            
 
 
             return View();

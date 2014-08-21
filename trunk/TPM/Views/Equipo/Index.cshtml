@@ -10,7 +10,7 @@
 <p>
     @Html.ActionLink("Crear Nuevo Equipo", "Create")
 </p>
-<table>
+<table class="table table-striped">
     <tr>
         <th>
             @Html.DisplayName("Categoria")
@@ -39,7 +39,8 @@
             @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Detalle", "Details", new { id=item.Id }) |
             @Html.ActionLink("Eliminar", "Delete", new { id=item.Id }) |
-            @Html.ActionLink("Asignar Jugadores", "AssignarJugadores", new { id=item.Id })
+            @Html.ActionLink("Asignar Jugadores", "AssignarJugadores", new { id=item.Id }) |
+            @Html.ActionLink("Asignar Personal Especializado", "AsignarPersonalEsp", new { id=item.Id })
         </td>
     </tr>
 }

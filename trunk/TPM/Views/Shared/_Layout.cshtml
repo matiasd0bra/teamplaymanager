@@ -13,30 +13,52 @@
     <link href="~/Content/OwnStyle.css" rel="stylesheet" />
 
 </head>
-<body>
-    <header>
-        <div class="content-wrapper">
-            <div class="float-left">
-                <p class="site-title">@Html.ActionLink("TPM", "Index", "Home")</p>
-            </div>
-            <div class="float-right">
-                <section id="login">
-                    @Html.Partial("_LoginPartial")
-                </section>
-                <nav>
-                    <ul id="menu">
-                        <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                        <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
+    <body>
+        @*<body style="background-image: url('/Images/fondo.jpg') ">*@
+        <header>
+            <div style="background-image: url('/Images/header.jpg'); height: 130px;background-repeat: no-repeat;margin: 0 auto;max-width: 967px;">
+                <div  style="background-image: url('~/Images/header.jpg')">
+                    <div class="float-left">
+                        @*<p class="site-title">@Html.ActionLink("TPM", "Index", "Home")</p>*@
+                        <img style="margin-top: 20px;margin-left: 20px" width="150px" src="~/Images/TPMbox.png" />
+                    </div>
+                    @*<div class="float-right">
+                    <section id="login">
+                        @Html.Partial("_LoginPartial")
+                    </section>
+                    <nav>
+                        <ul id="menu">
+                            <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
+                            <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
 
-                    </ul>
-                </nav>
+                        </ul>
+                    </nav>
+                </div>*@
+                </div>
             </div>
-        </div>
-    </header>
-    <div id="body">
+            @*<div class="content-wrapper">
+            <div  style="background-image: url('~/Images/header.jpg')">
+                <div class="float-left">
+                    <p class="site-title">@Html.ActionLink("TPM", "Index", "Home")</p>
+                </div>
+                <div class="float-right">
+                    <section id="login">
+                        @Html.Partial("_LoginPartial")
+                    </section>
+                    <nav>
+                        <ul id="menu">
+                            <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
+                            <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
 
-        
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>*@
+        </header>
+        <div id="body">
             <div class="row clearfix">
                 <div class="col-md-3 column">
                     <section class="content-wrapper main-content clear-fix">
@@ -142,17 +164,17 @@
             </div>
         </div>
 
-    <footer>
-        <div class="content-wrapper">
-            <div class="float-left">
-                <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET MVC</p>
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET MVC</p>
+                </div>
             </div>
-        </div>
-    </footer>
+        </footer>
 
-    @Scripts.Render("~/bundles/jquery")
-    <script src="~/Scripts/Bootstrap/bootstrap.js"></script>
-    @RenderSection("scripts", required: false)
-    @*@Scripts.Render("~/Scripts/Custom")*@
-</body>
+        @Scripts.Render("~/bundles/jquery")
+        <script src="~/Scripts/Bootstrap/bootstrap.js"></script>
+        @RenderSection("scripts", required: false)
+        @*@Scripts.Render("~/Scripts/Custom")*@
+    </body>
 </html>
