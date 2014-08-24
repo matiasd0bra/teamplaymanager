@@ -10,6 +10,6 @@ namespace TPM.Models
         public int Duracion { get; set; }
         public int GolesPropios { get; set; }
         public int GolesRival { get; set; }
-        public int Duracion { get; set; }
+        //public int Duracion { get; set; }
     }
 }

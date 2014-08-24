@@ -5,13 +5,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Lista de Equipos</h2>
-
-<p>
-    @Html.ActionLink("Crear Nuevo Equipo", "Create")
-</p>
-<table class="table table-striped">
+<div class="panel panel-primary">
+  <div class="panel-heading">Lista de Equipos
+      <div class="pull-right">
+          <a class="link-panel" href="/Equipo/Create">
+              <img src="~/Images/boton_nuevo.png" />
+              Nuevo equipo
+          </a>
+      </div>
+      @*@Html.ActionLink("Nuevo Equipo", "Create")*@
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped">
     <tr>
+        <th>
+            @Html.DisplayName("Nombre")
+        </th>
         <th>
             @Html.DisplayName("Categoria")
         </th>
@@ -21,11 +30,16 @@
         <th>
             @Html.DisplayNameFor(model => model.Liga)
         </th>
-
+        <th>
+            @Html.DisplayName("Acción")
+        </th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NombreEquipo)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.CategoriaNombre)
         </td>
@@ -36,13 +50,20 @@
             @Html.DisplayFor(modelItem => item.Liga)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
+            @*@Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Detalle", "Details", new { id=item.Id }) |
             @Html.ActionLink("Eliminar", "Delete", new { id=item.Id }) |
             @Html.ActionLink("Asignar Jugadores", "AssignarJugadores", new { id=item.Id }) |
-            @Html.ActionLink("Asignar Personal Especializado", "AsignarPersonalEsp", new { id=item.Id })
+            @Html.ActionLink("Asignar Personal Especializado", "AsignarPersonalEsp", new { id=item.Id })*@
+            <a href="/Equipo/Edit/@item.Id"><img title="Editar" src="~/Images/boton_editar.png" /></a>
+            <a href="/Equipo/Details/@item.Id"><img title="Detalle" src="~/Images/boton_ver.png" /></a>
+            <a href="/Equipo/Delete/@item.Id"><img title="Eliminar" src="~/Images/boton_borrar.png" /></a>
+            <a href="/Equipo/AssignarJugadores/@item.Id"><img title="Asignar jugadores" width="25px" src="~/Images/boton_asignarJugador.png" /></a>
+            <a href="/Equipo/AsignarPersonalEsp/@item.Id"><img title="Asignar profesional especializado" width="25px" src="~/Images/boton_asignarProfesional2.png" /></a>
         </td>
     </tr>
 }
 
 </table>
+  </div>
+</div>

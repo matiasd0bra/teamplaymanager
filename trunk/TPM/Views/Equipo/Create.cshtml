@@ -5,58 +5,51 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Crear Nuevo Equipo</h2>
-
-@using (Html.BeginForm())
+<div class="panel panel-primary">
+  <div class="panel-heading">Crear equipo
+      <div class="pull-right">
+          <a class="link-panel" href="/Equipo">
+             <img src="~/Images/boton_volver.png" />
+              Volver
+          </a>
+          @*@Html.ActionLink("Volver", "Index")*@
+      </div>
+      @*@Html.ActionLink("Nuevo Equipo", "Create")*@
+  </div>
+  <div class="panel-body">
+      @using (Html.BeginForm())
 {
     @Html.ValidationSummary(true)
 
     <fieldset>
         <legend>Equipo</legend>
-
         <div class="editor-label">
             @Html.Label("Categoria")
-        </div>
-        <div class="editor-field">
             @Html.DropDownListFor(model => model.CategoriaId, new SelectList(
                 Model.CategoriaLista,
                 "CategoriaId",
                 "NombreCategoria"))
-            
-        </div>
-        
-        
+        </div>       
         <div class="editor-label">
             @Html.Label("Division")
-        </div>
-        <div class="editor-field">
             @Html.DropDownListFor(model => model.DivisionId, new SelectList(
                 Model.DivisionLista,
                 "DivisionId",
                 "NombreDivision"))
-            
-        </div>
-        
-        
+        </div>       
         <div class="editor-label">
             @Html.Label("Liga")
-        </div>
-        <div class="editor-field">
             @Html.DropDownListFor(model => model.LigaId, new SelectList(
               Model.LigaLista,
               "LigaId",
               "NombreLiga"))
-            
         </div>
-
         <p>
-            <input type="submit" value="Crear" />
+            <input class="btn btn-primary" type="submit" value="Crear" />
         </p>
     </fieldset>
 }
-
-<div>
-    @Html.ActionLink("Volver", "Index")
+  </div>
 </div>
 
 @section Scripts {

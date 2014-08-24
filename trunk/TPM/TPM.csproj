@@ -210,6 +210,10 @@
     <Content Include="Content\General\bootstrap-theme.min.css" />
     <Content Include="Content\General\bootstrap.css" />
     <Content Include="Content\General\bootstrap.min.css" />
+    <Content Include="Images\boton_asignarJugador.png" />
+    <Content Include="Images\boton_asignarProfesional2.png" />
+    <Content Include="Images\boton_borrar.png" />
+    <Content Include="Images\boton_editar.png" />
     <Content Include="Content\General\freelancer.css" />
     <Content Include="Content\OwnStyle.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
@@ -270,6 +274,9 @@
     <Content Include="Global.asax" />
     <None Include="Properties\PublishProfiles\Martin.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
+    <Content Include="Images\boton_nuevo.png" />
+    <Content Include="Images\boton_ver.png" />
+    <Content Include="Images\boton_volver.png" />
     <Content Include="Images\fondo.jpg" />
     <Content Include="Images\header.jpg" />
     <Content Include="Images\Jugador.png" />
@@ -294,7 +301,9 @@
     <Content Include="Scripts\knockout-2.1.0.debug.js" />
     <Content Include="Scripts\knockout-2.1.0.js" />
     <Content Include="Scripts\modernizr-2.5.3.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -331,7 +340,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Web.config" />
     <Content Include="Views\Jugador\Details.cshtml" />
     <Content Include="Views\Jugador\Create.cshtml" />
     <Content Include="Views\Jugador\Edit.cshtml" />
