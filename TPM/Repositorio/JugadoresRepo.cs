@@ -33,7 +33,7 @@ namespace TPM.Repositorio
                 jugador.FechaNac = Convert.ToDateTime(item["FechaNac"].ToString());
                 jugador.Domicilio = item["Domicilio"].ToString();
                 jugador.LocalidadId = int.Parse(item["LocalidadId"].ToString());
-                jugador.LocalidadNombre = item["LocalidadNombre"].ToString();
+                //jugador.LocalidadNombre = item["LocalidadNombre"].ToString();
                 jugador.FechaNacFormateada = jugador.FechaNac.ToShortDateString();
                 jugadorList.Add(jugador);
             }

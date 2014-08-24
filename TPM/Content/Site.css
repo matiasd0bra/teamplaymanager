@@ -14,6 +14,8 @@ body {
     padding: 0;
 }
 
+
+
 a {
     color: #333;
     outline: none;
@@ -586,7 +588,6 @@ tr.pager td {
     padding: 0 0.25em 0 0;
 }
 
-
 /********************
 *   Mobile Styles   *
 ********************/
@@ -753,4 +754,13 @@ tr.pager td {
         footer p {
             margin: 0;
         }
+}
+
+/********************
+*   Style propios   *
+********************/
+
+.link-panel {
+    font-size: 12px;
+    font-weight:normal;
 }
