@@ -63,7 +63,8 @@ namespace TPM.Repositorio
         public static int EquipoUpdate(Equipo Equipo)
         {
             EquiposDAL EquiposDal = new EquiposDAL();
-            return EquiposDal.EquipoUpdate(Equipo.Id, Equipo.CategoriaId);
+
+            return EquiposDal.EquipoUpdate(Equipo.Id, Equipo.CategoriaId, Equipo.DivisionId, Equipo.LigaId, Equipo.NombreEquipo);
         }
     }
 }

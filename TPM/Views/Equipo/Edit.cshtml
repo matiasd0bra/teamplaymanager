@@ -1,4 +1,7 @@
-﻿@model TPM.Models.Equipo
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using System.Web.UI.WebControls
+@model TPM.Models.Equipo
 
 @{
     ViewBag.Title = "Edit";
@@ -17,59 +20,22 @@
         @Html.HiddenFor(model => model.Id)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.CategoriaId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CategoriaId)
-            @Html.ValidationMessageFor(model => model.CategoriaId)
-        </div>
-
+            @Html.Label("Categoria")
+            @Html.DropDownListFor(model => model.CategoriaId, new SelectList(Model.CategoriaLista,"CategoriaId","NombreCategoria"))
+        </div>       
         <div class="editor-label">
-            @Html.LabelFor(model => model.CategoriaNombre)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.CategoriaNombre)
-            @Html.ValidationMessageFor(model => model.CategoriaNombre)
-        </div>
-
+            @Html.Label("Division")
+            @Html.DropDownListFor(model => model.DivisionId, new SelectList(
+                Model.DivisionLista,
+                "DivisionId",
+                "NombreDivision"))
+        </div>       
         <div class="editor-label">
-            @Html.LabelFor(model => model.LigaId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.LigaId)
-            @Html.ValidationMessageFor(model => model.LigaId)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.DivisionId)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.DivisionId)
-            @Html.ValidationMessageFor(model => model.DivisionId)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Liga)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Liga)
-            @Html.ValidationMessageFor(model => model.Liga)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Division)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Division)
-            @Html.ValidationMessageFor(model => model.Division)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.NombreEquipo)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.NombreEquipo)
-            @Html.ValidationMessageFor(model => model.NombreEquipo)
+            @Html.Label("Liga")
+            @Html.DropDownListFor(model => model.LigaId, new SelectList(
+              Model.LigaLista,
+              "LigaId",
+              "NombreLiga"))
         </div>
 
         <p>

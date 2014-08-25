@@ -186,7 +186,6 @@ E:\Facultad\Habilitacion Profesional\TPM proyecto\TPM\bin\es\Microsoft.Web.WebPa
 E:\Facultad\Habilitacion Profesional\TPM proyecto\TPM\bin\es\WebMatrix.WebData.resources.dll
 E:\Facultad\Habilitacion Profesional\TPM proyecto\TPM\obj\Debug\TPM.dll
 E:\Facultad\Habilitacion Profesional\TPM proyecto\TPM\obj\Debug\TPM.pdb
-E:\Facultad\Habilitacion Profesional\TPM proyecto\TPM\obj\Debug\TPM.csprojResolveAssemblyReference.cache
 C:\Users\MATEO\Documents\teamplaymanager\TPM\bin\TPM.dll
 C:\Users\MATEO\Documents\teamplaymanager\TPM\bin\TPM.pdb
 C:\Users\MATEO\Documents\teamplaymanager\TPM\bin\Antlr3.Runtime.dll
