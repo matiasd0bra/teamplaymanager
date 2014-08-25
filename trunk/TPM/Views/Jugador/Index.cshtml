@@ -5,12 +5,17 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Lista de Jugadores</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
+<div class="panel panel-primary">
+  <div class="panel-heading">Lista de Jugadores
+      <div class="pull-right">
+          <a class="link-panel" href="/Jugador/Create">
+              <img src="~/Images/boton_nuevo.png" />
+              Nuevo jugador
+          </a>
+      </div>
+  </div>
+  <div class="panel-body">
+<table class="table table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Nombre)
@@ -18,17 +23,16 @@
         <th>
             @Html.DisplayNameFor(model => model.Apellido)
         </th>
-
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.TipoDocNombre)
-        </th>
+        </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.NumeroDoc)
+            @Html.DisplayName("N° de documento")
         </th>
         <th>
             @Html.DisplayName("Fecha de Nacimiento")
         </th>
-        <th>
+       @* <th>
             @Html.DisplayNameFor(model => model.Domicilio)
         </th>
         <th>
@@ -36,8 +40,10 @@
         </th>
         <th>
             @Html.Display("Equipo")
+        </th>*@
+        <th>
+            @Html.DisplayName("Acción")
         </th>
-        <th></th>
     </tr>
 
 @foreach (var item in Model) {
@@ -48,17 +54,16 @@
         <td>
             @Html.DisplayFor(modelItem => item.Apellido)
         </td>
-
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.TipoDocNombre)
-        </td>
+        </td>*@
         <td>
             @Html.DisplayFor(modelItem => item.NumeroDoc)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.FechaNacFormateada)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.Domicilio)
         </td>
 
@@ -69,13 +74,18 @@
         
         <td>
             @Html.DisplayFor(modelItem => item.EquiposNombre)
-        </td>
+        </td>*@
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
             @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+            <a href="/Jugador/Edit/@item.Id"><img title="Editar" src="~/Images/boton_editar.png" /></a>
+            <a href="/Jugador/Details/@item.Id"><img title="Detalle" src="~/Images/boton_ver.png" /></a>
+            <a href="/Jugador/Delete/@item.Id"><img title="Eliminar" src="~/Images/boton_borrar.png" /></a>
         </td>
     </tr>
 }
 
 </table>
+</div>
+</div>
