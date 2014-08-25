@@ -5,7 +5,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Detalle del Equipo</h2>
+<div class="panel panel-primary">
+  <div class="panel-heading">Detalle del equipo
+      <div class="pull-right">
+          <a class="link-panel" href="/Equipo">
+             <img src="~/Images/boton_volver.png" />
+              Volver
+          </a>
+      </div>
+  </div>
+  <div class="panel-body">
 
 <fieldset>
     <legend>Equipo</legend>
@@ -32,7 +41,8 @@
     </div>
 
 </fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+      </div>
+</div>
+@*<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id })
+</p>*@

@@ -5,93 +5,97 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Crear Nuevo Jugador</h2>
+<div class="panel panel-primary">
+  <div class="panel-heading">Crear Jugador
+      <div class="pull-right">
+          <a class="link-panel" href="/Jugador">
+             <img src="~/Images/boton_volver.png" />
+              Volver
+          </a>
+      </div>
+  </div>
+  <div class="panel-body">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
 
-@using (Html.BeginForm())
-{
-    @Html.ValidationSummary(true)
-
-    <fieldset>
-        <legend>Jugador</legend>
+        <fieldset>
+            <legend>Jugador</legend>
         
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Nombre)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Nombre)
-            @Html.ValidationMessageFor(model => model.Nombre)
-        </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Nombre)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Nombre)
+                @Html.ValidationMessageFor(model => model.Nombre)
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Apellido)
-
-
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Apellido)
-            @Html.ValidationMessageFor(model => model.Apellido)
-        </div>
-
-        <div class="editor-label">
-            @Html.Label("Tipo De Documento")
-        </div>
-        <div class="editor-field">
-
-            @Html.DropDownListFor(model => model.TipoDocId, new SelectList (Model.TipoDocLista, "TipoDocId", "TipoDocNombre",1))
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.NumeroDoc)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.NumeroDoc)
-            @Html.ValidationMessageFor(model => model.NumeroDoc)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.FechaNac)
-        </div>
-        <div class="editor-field">
-            @Html.TextBoxFor(model => model.FechaNacFormateada)
-            @Html.ValidationMessageFor(model => model.FechaNacFormateada)
-        </div>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Domicilio)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Domicilio)
-            @Html.ValidationMessageFor(model => model.Domicilio)
-        </div>
-
-        <div class="editor-label">
-            @Html.Label("Localidad")
-        </div>
-
-        <div class="editor-field">
-            @Html.DropDownListFor(model => model.LocalidadId, new SelectList
-            (Model.LocalidadLista, "LocalidadId", "LocalidadNombre"))
-        </div>
-
-        <div class="editor-label">
-            @Html.Label("Equipos")
-        </div>
-
-        <div class="editor-field">
-            @Html.DropDownListFor(model => model.EquipoId, new SelectList
-            (Model.Equipos, "Id", "NombreEquipo"))
-        </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Apellido)
 
 
-        <p>
-            <input type="submit" value="Crear" />
-        </p>
-    </fieldset>
-}
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Apellido)
+                @Html.ValidationMessageFor(model => model.Apellido)
+            </div>
 
-<div>
-    @Html.ActionLink("Volver", "Index")
+            <div class="editor-label">
+                @Html.Label("Tipo De Documento")
+            </div>
+            <div class="editor-field">
+
+                @Html.DropDownListFor(model => model.TipoDocId, new SelectList (Model.TipoDocLista, "TipoDocId", "TipoDocNombre",1))
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.NumeroDoc)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.NumeroDoc)
+                @Html.ValidationMessageFor(model => model.NumeroDoc)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.FechaNac)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.FechaNacFormateada)
+                @Html.ValidationMessageFor(model => model.FechaNacFormateada)
+            </div>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Domicilio)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Domicilio)
+                @Html.ValidationMessageFor(model => model.Domicilio)
+            </div>
+
+            <div class="editor-label">
+                @Html.Label("Localidad")
+            </div>
+
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.LocalidadId, new SelectList
+                (Model.LocalidadLista, "LocalidadId", "LocalidadNombre"))
+            </div>
+
+            <div class="editor-label">
+                @Html.Label("Equipos")
+            </div>
+
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.EquipoId, new SelectList
+                (Model.Equipos, "Id", "NombreEquipo"))
+            </div>
+            <p>
+                <input class="btn btn-primary" type="submit" value="Crear" />
+            </p>
+        </fieldset>
+    }
+    </div>
 </div>
 
 @section Scripts {
