@@ -20,7 +20,5 @@ namespace TPM.Models
         public String NombreEquipo { get; set; }
 
 
-
-
     }
 }

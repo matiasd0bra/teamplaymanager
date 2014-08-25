@@ -72,6 +72,9 @@ namespace TPM.Controllers
         public ActionResult Edit(int id)
         {
             Equipo equipo = EquiposRepo.EquipoByIdRepo(id);
+            equipo.CategoriaLista = CategoriaRepo.CategoriaGetAllRepo();
+            equipo.DivisionLista = DivisionesRepo.DivisionGetAllRepo();
+            equipo.LigaLista = LigaRepo.LigaGetAllRepo();
             return View(equipo);
         }
 
@@ -83,6 +86,11 @@ namespace TPM.Controllers
         {
             try
             {
+                string divisionNombre = DivisionesRepo.DivisionByIdRepo(equipo.DivisionId).NombreDivision;
+                string ligaNombre = LigaRepo.LigaByIdRepo(equipo.LigaId).NombreLiga;
+                string categoriaNombre = CategoriaRepo.categoriaByIdRepo(equipo.CategoriaId).NombreCategoria;
+                equipo.NombreEquipo = divisionNombre + " " + ligaNombre + " " + categoriaNombre;
+
                 EquiposRepo.EquipoUpdate(equipo);
 
                 return RedirectToAction("Index");

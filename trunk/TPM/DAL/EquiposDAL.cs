@@ -83,7 +83,7 @@ namespace TPM.DAL
             return ret;
         }
 
-        public int EquipoUpdate(int id, int categoriaId)
+        public int EquipoUpdate(int id, int categoriaId, int divisionId, int ligaId, string nombreEquipo)
         {
             int ret;
             using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
@@ -95,6 +95,9 @@ namespace TPM.DAL
 
                     cmd.Parameters.Add("@Id", SqlDbType.VarChar).Value = id;
                     cmd.Parameters.Add("@CategoriaId", SqlDbType.VarChar).Value = categoriaId;
+                    cmd.Parameters.Add("@DivisionId", SqlDbType.VarChar).Value = divisionId;
+                    cmd.Parameters.Add("@LigaId", SqlDbType.VarChar).Value = ligaId;
+                    cmd.Parameters.Add("@NombreEquipo", SqlDbType.VarChar).Value = nombreEquipo;
 
 
                     con.Open();
