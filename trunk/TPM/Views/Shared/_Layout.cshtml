@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - Mi aplicación ASP.NET MVC</title>
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
+    @Scripts.Render("~/bundles/jquery")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/Content/General/bootstrap.css" rel="stylesheet" />
@@ -13,52 +14,30 @@
     <link href="~/Content/OwnStyle.css" rel="stylesheet" />
 
 </head>
-    <body>
-        @*<body style="background-image: url('/Images/fondo.jpg') ">*@
-        <header>
-            <div style="background-image: url('/Images/header.jpg'); height: 130px;background-repeat: no-repeat;margin: 0 auto;max-width: 967px;">
-                <div  style="background-image: url('~/Images/header.jpg')">
-                    <div class="float-left">
-                        @*<p class="site-title">@Html.ActionLink("TPM", "Index", "Home")</p>*@
-                        <img style="margin-top: 20px;margin-left: 20px" width="150px" src="~/Images/TPMbox.png" />
-                    </div>
-                    @*<div class="float-right">
-                    <section id="login">
-                        @Html.Partial("_LoginPartial")
-                    </section>
-                    <nav>
-                        <ul id="menu">
-                            <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                            <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
-
-                        </ul>
-                    </nav>
-                </div>*@
-                </div>
+<body>
+    <header>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p class="site-title">@Html.ActionLink("su logotipo aquí", "Index", "Home")</p>
             </div>
-            @*<div class="content-wrapper">
-            <div  style="background-image: url('~/Images/header.jpg')">
-                <div class="float-left">
-                    <p class="site-title">@Html.ActionLink("TPM", "Index", "Home")</p>
-                </div>
-                <div class="float-right">
-                    <section id="login">
-                        @Html.Partial("_LoginPartial")
-                    </section>
-                    <nav>
-                        <ul id="menu">
-                            <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                            <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                            <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
+            <div class="float-right">
+                <section id="login">
+                    @Html.Partial("_LoginPartial")
+                </section>
+                <nav>
+                    <ul id="menu">
+                        <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
 
-                        </ul>
-                    </nav>
-                </div>
+                    </ul>
+                </nav>
             </div>
-        </div>*@
-        </header>
-        <div id="body">
+        </div>
+    </header>
+    <div id="body">
+
+        
             <div class="row clearfix">
                 <div class="col-md-3 column">
                     <section class="content-wrapper main-content clear-fix">
@@ -112,9 +91,9 @@
                                 <div id="collapseFour" class="accordion-body collapse" style="height: 0px;">
                                     <div class="accordion-inner">
                                         <ul>
-                                            <li>  <a href="~/Equipo/Index">Lista de Equipos</a></li>
-                                            <li>  <a href="~/Equipo/Create">Crear nuevo Equipo</a></li>
-                                            <li>  <a href="~/Equipo/AssignarJugadores">Asignar jugadores a Equipo</a></li>
+                                            <li>Lista de los Equipos</li>
+                                            <li>Crear nuevo Equipo</li>
+                                            <li>Asignar jugadores a Equipo</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -164,17 +143,17 @@
             </div>
         </div>
 
-        <footer>
-            <div class="content-wrapper">
-                <div class="float-left">
-                    <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET MVC</p>
-                </div>
+    <footer>
+        <div class="content-wrapper">
+            <div class="float-left">
+                <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET MVC</p>
             </div>
-        </footer>
+        </div>
+    </footer>
 
-        @Scripts.Render("~/bundles/jquery")
-        <script src="~/Scripts/Bootstrap/bootstrap.js"></script>
-        @RenderSection("scripts", required: false)
-        @*@Scripts.Render("~/Scripts/Custom")*@
-    </body>
+    
+    <script src="~/Scripts/Bootstrap/bootstrap.js"></script>
+    @RenderSection("scripts", required: false)
+    @*@Scripts.Render("~/Scripts/Custom")*@
+</body>
 </html>
