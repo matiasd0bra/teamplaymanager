@@ -1,4 +1,6 @@
-﻿@model TPM.Models.ViewModel.AssignarJugadoresViewModel
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@model TPM.Models.ViewModel.AssignarJugadoresViewModel
 
 @{
     ViewBag.Title = "AssignarJugadores";
@@ -167,7 +169,8 @@
         $('#btnGuardar').bind('click', function () {
             $('.btnPrint').removeClass('disable');
             $('.btnPrint').addClass('enable');
-            var datos = "{'Id':[" + JugadoresAsignados + "],'IdEquipo':" + '1' + "}";
+            var equipoId = $('hidden').val();
+            var datos = "{'Id':[" + JugadoresAsignados + "],'IdEquipo':'" + equipoId + "'}";
 
             $.ajax({
 

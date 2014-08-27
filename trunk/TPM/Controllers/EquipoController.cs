@@ -139,19 +139,19 @@ namespace TPM.Controllers
         }
 
         [HttpPost]
-        public ActionResult AssignarJugadores (List<Jugador> jugadoresAsignados)
+        public ActionResult AssignarJugadores (JugadoresAsignados jugadoresAsignados)
         {
-            foreach (var item in jugadoresAsignados)
-            {
-                Jugador jugador = new Jugador();
-                jugador.Id = item.Id;
-                jugador.EquipoId = item.EquipoId;
+        //    foreach (var item in jugadoresAsignados)
+        //    {
+        //        Jugador jugador = new Jugador();
+        //        jugador.Id = item.Id;
+        //        jugador.EquipoId = item.EquipoId;
 
-                JugadoresRepo.JugadorPorEquipoInsert(jugador);
-            }
+        //        JugadoresRepo.JugadorPorEquipoInsert(jugador);
+        //    }
 
 
-            return View();
+            return RedirectToAction("AssignarJugadores", new {id=jugadoresAsignados.IdEquipo});
         }
 
         public ActionResult AsignarPersonalEsp (int id)
