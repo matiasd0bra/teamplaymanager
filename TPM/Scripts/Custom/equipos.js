@@ -9,7 +9,7 @@ function asignarjugador(idParam) {
         success: function (data) {
             $('#tablaJugadorAsignar tr:last').after(data);
 
-            JugadoresAsignados.push("{'Id':'" + idParam + "'}");
+            JugadoresAsignados.push("{'Id':" + idParam + "}");
         },
         error: function (textStatus, errorThrown) {
             Success = false;//doesnt goes here
@@ -27,7 +27,7 @@ $(document).ready(function () {
 
         $.ajax({
 
-            url: '@Url.Action("AssignarJugadores", "Equipo")',
+            url: 'http://localhost:18371/Equipo/AssignarJug/',
             type: 'POST',
             data: datos,
             dataType: "json",
