@@ -139,7 +139,7 @@ namespace TPM.Controllers
         }
 
         [HttpPost]
-        public ActionResult AssignarJugadores (JugadoresAsignados jugadoresAsignados)
+        public ActionResult AssignarJug (JugadoresAsignados jugadoresAsignados)
         {
         //    foreach (var item in jugadoresAsignados)
         //    {
@@ -151,7 +151,7 @@ namespace TPM.Controllers
         //    }
 
 
-            return RedirectToAction("AssignarJugadores", new {id=jugadoresAsignados.IdEquipo});
+            return View();
         }
 
         public ActionResult AsignarPersonalEsp (int id)
