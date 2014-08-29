@@ -139,7 +139,7 @@ namespace TPM.Controllers
         }
 
         [HttpPost]
-        public ActionResult AssignarJug (JugadoresAsignados jugadoresAsignados)
+        public JsonResult AssignarJug(JugadoresAsignados jugadoresAsignados)
         {
         //    foreach (var item in jugadoresAsignados)
         //    {
@@ -151,7 +151,7 @@ namespace TPM.Controllers
         //    }
 
 
-            return View();
+            return Json(new { success = false, message = "Un tag failed " }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult AsignarPersonalEsp (int id)
