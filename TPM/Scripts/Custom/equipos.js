@@ -27,13 +27,12 @@ $(document).ready(function () {
 
         $.ajax({
 
-            url: 'http://localhost:18371/Equipo/AssignarJug/',
+            url: '/Equipo/AssignarJug',
             type: 'POST',
             data: datos,
             dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-
+            success: function () {
+                //window.location.href = "?Id=" + equipoId;
             },
             error: function (jqXHR, textStatus, error) {
 
