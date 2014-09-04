@@ -1,4 +1,6 @@
-﻿@model TPM.Models.Jugador
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@model TPM.Models.Jugador
 
 @{
     ViewBag.Title = "Edit";
@@ -35,8 +37,7 @@
             @Html.LabelFor(model => model.TipoDocId)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.TipoDocId)
-            @Html.ValidationMessageFor(model => model.TipoDocId)
+              @Html.DropDownListFor(model => model.TipoDocId, new SelectList (Model.TipoDocLista, "TipoDocId", "TipoDocNombre", Model.TipoDocNombre))
         </div>
 
         <div class="editor-label">
@@ -46,6 +47,14 @@
             @Html.EditorFor(model => model.NumeroDoc)
             @Html.ValidationMessageFor(model => model.NumeroDoc)
         </div>
+        
+        <div class="editor-label">
+                @Html.LabelFor(model => model.FechaNac)
+            </div>
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.FechaNacFormateada)
+                @Html.ValidationMessageFor(model => model.FechaNacFormateada)
+            </div>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Domicilio)
@@ -59,8 +68,7 @@
             @Html.LabelFor(model => model.LocalidadId)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.LocalidadId)
-            @Html.ValidationMessageFor(model => model.LocalidadId)
+            @Html.DropDownListFor(model => model.LocalidadId, new SelectList (Model.LocalidadLista, "LocalidadId", "LocalidadNombre", Model.LocalidadNombre))
         </div>
 
         <p>

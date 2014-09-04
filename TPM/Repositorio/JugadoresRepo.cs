@@ -84,8 +84,7 @@ namespace TPM.Repositorio
         {
             JugadoresDAL jugadoresDal = new JugadoresDAL();
             return  jugadoresDal.JugadorUpdate(jugador.Id, jugador.Nombre, jugador.Apellido, jugador.TipoDocId,
-                jugador.NumeroDoc, 
-                jugador.Domicilio, jugador.LocalidadId,jugador.FechaNac);
+                jugador.NumeroDoc, jugador.Domicilio, jugador.LocalidadId, jugador.FechaNac);
         }
 
         public static List<Jugador> JugadoresNoEquipo(int idEquipo)

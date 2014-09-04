@@ -165,12 +165,12 @@
                     @Html.DisplayFor(modelItem => item.EquiposNombre)
                 </td>
                 <td>
-                   <a href=""><img title="Eliminar" src="~/Images/boton_borrar.png" /></a>
+                              <a href=""><img title="Eliminar" src="~/Images/boton_borrar.png" /></a>
                 </td>
             </tr>
     }
  </table>
-    <input type="button" value="guardar jugadores" id="btnGuardar" />
+    <input type="button" value="guardar jugadores" id="btnGuardar"/>
     
     
     <script type="text/javascript">
@@ -211,7 +211,7 @@
                 dataType: "json",
                 contentType: "application/json; charset=utf-8",
                 success: function (data) {
-                
+                    location.href="";
                 },
                 error: function (jqXHR, textStatus, error) {
 
@@ -219,8 +219,9 @@
                 }
             });
         });
-
     });
+
+
 </script>
 }
 
