@@ -87,6 +87,66 @@ namespace TPM.Repositorio
                 jugador.NumeroDoc, 
                 jugador.Domicilio, jugador.LocalidadId,jugador.FechaNac);
         }
+
+        public static List<Jugador> JugadoresNoEquipo(int idEquipo)
+        {
+            JugadoresDAL jugadoresDal = new JugadoresDAL();
+            DataTable dt = jugadoresDal.JugadoresNoEquipo(idEquipo);
+
+            Jugador jugador;
+            List<Jugador> jugadorList = new List<Jugador>();
+
+
+            foreach (DataRow item in dt.Rows)
+            {
+                jugador = new Jugador();
+
+                jugador.Id = int.Parse(item["JugadorId"].ToString());
+                jugador.Nombre = item["Nombre"].ToString();
+                jugador.Apellido = item["Apellido"].ToString();
+                jugador.TipoDocId = int.Parse(item["TipoDocId"].ToString());
+                jugador.TipoDocNombre = item["tdNombre"].ToString();
+                jugador.NumeroDoc = item["NumeroDoc"].ToString();
+                jugador.FechaNac = Convert.ToDateTime(item["FechaNac"].ToString());
+                jugador.Domicilio = item["Domicilio"].ToString();
+                jugador.LocalidadId = int.Parse(item["LocalidadId"].ToString());
+                //jugador.LocalidadNombre = item["LocalidadNombre"].ToString();
+                jugador.FechaNacFormateada = jugador.FechaNac.ToShortDateString();
+                jugadorList.Add(jugador);
+            }
+
+            return jugadorList;
+        }
+
+        public static List<Jugador> JugadoresByEquipo(int IdEquipo)
+        {
+            JugadoresDAL jugadoresDal = new JugadoresDAL();
+            DataTable dt = jugadoresDal.JugadoresByEquipo(IdEquipo);
+
+            Jugador jugador;
+            List<Jugador> jugadorList = new List<Jugador>();
+
+
+            foreach (DataRow item in dt.Rows)
+            {
+                jugador = new Jugador();
+
+                jugador.Id = int.Parse(item["JugadorId"].ToString());
+                jugador.Nombre = item["Nombre"].ToString();
+                jugador.Apellido = item["Apellido"].ToString();
+                jugador.TipoDocId = int.Parse(item["TipoDocId"].ToString());
+                jugador.TipoDocNombre = item["tdNombre"].ToString();
+                jugador.NumeroDoc = item["NumeroDoc"].ToString();
+                jugador.FechaNac = Convert.ToDateTime(item["FechaNac"].ToString());
+                jugador.Domicilio = item["Domicilio"].ToString();
+                jugador.LocalidadId = int.Parse(item["LocalidadId"].ToString());
+                //jugador.LocalidadNombre = item["LocalidadNombre"].ToString();
+                jugador.FechaNacFormateada = jugador.FechaNac.ToShortDateString();
+                jugadorList.Add(jugador);
+            }
+
+            return jugadorList;
+        }
     }
 }
 

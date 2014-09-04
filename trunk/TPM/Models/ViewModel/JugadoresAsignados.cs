@@ -7,7 +7,7 @@ namespace TPM.Models.ViewModel
 {
     public class JugadoresAsignados
     {
-        public List<IdJugadores> Id { get; set; }
+        public List<IdJugadores> listJug { get; set; }
         public int IdEquipo { get; set; }
     }
 
