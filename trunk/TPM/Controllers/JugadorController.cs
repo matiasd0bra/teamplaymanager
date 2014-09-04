@@ -35,7 +35,6 @@ namespace TPM.Controllers
         public ActionResult Create()
         {
             Jugador jugador = new Jugador();
-            jugador.Equipos = EquiposRepo.EquiposGetAllRepo();
             jugador.TipoDocLista = TipoDocRepo.TipoDocGetAllRepo();
             jugador.LocalidadLista = LocalidadesRepo.LocalidadesGetAllRepo();
             jugador.FechaNac = DateTime.Now;
@@ -53,8 +52,7 @@ namespace TPM.Controllers
             {
                 jugador.FechaNac = DateTime.Parse(jugador.FechaNacFormateada);
                 jugador.Id = JugadoresRepo.JugadorInsert(jugador);
-                
-                JugadoresRepo.JugadorPorEquipoInsert(jugador);
+
                 return RedirectToAction("Index");
             }
             catch
@@ -69,6 +67,9 @@ namespace TPM.Controllers
         public ActionResult Edit(int id)
         {
             Jugador jugador = JugadoresRepo.JugadorByIdRepo(id);
+            jugador.TipoDocLista = TipoDocRepo.TipoDocGetAllRepo();
+            jugador.LocalidadLista = LocalidadesRepo.LocalidadesGetAllRepo();
+            jugador.FechaNacFormateada = jugador.FechaNac.ToShortDateString();
             return View(jugador);
         }
 
@@ -80,7 +81,7 @@ namespace TPM.Controllers
         {
             try
             {
-
+                jugador.FechaNac = DateTime.Parse(jugador.FechaNacFormateada);
                 JugadoresRepo.JugadorUpdate(jugador);
                 return RedirectToAction("Index");
             }

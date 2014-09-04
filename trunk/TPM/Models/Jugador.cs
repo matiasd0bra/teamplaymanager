@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.UI.WebControls;
 
 namespace TPM.Models
 {
@@ -24,6 +25,8 @@ namespace TPM.Models
         public int EquipoId { get; set; }
         public string EquiposNombre { get; set; }
         public int Categoria { get; set; }
+
+        public Image Imagen { get; set; }
 
 
     }

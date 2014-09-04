@@ -7118,4 +7118,17 @@ td.visible-print {
   td.hidden-print {
     display: none !important;
   }
+
+  .titulo{ font-size: 12pt; font-weight: bold; height: 30pt;}
+    #marcoVistaPrevia{
+    border: 1px solid #008000;
+    width: 400px;
+    height: 400px;
+    }
+    #vistaPrevia{
+    max-width: 400px;
+    max-height: 400px;            
+    }
+
+
 }
