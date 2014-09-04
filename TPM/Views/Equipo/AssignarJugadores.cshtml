@@ -44,15 +44,6 @@
             <th>
                 @Html.DisplayName("Fecha de Nacimiento")
             </th>
-            <th>
-                @Html.DisplayName("Domicilio")
-            </th>
-            <th>
-                @Html.DisplayName("Localidad")
-            </th>
-            <th>
-                @Html.Display("Equipo")
-            </th>
             <th></th>
         </tr>
 
@@ -74,17 +65,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.FechaNacFormateada)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Domicilio)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.LocalidadNombre)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.EquiposNombre)
                 </td>
                 <td>
                     <input type="button" value="Asignar" id=@item.Id onClick="asignarjugador(@item.Id)"/>
@@ -122,15 +102,6 @@
             <th>
                 @Html.DisplayName("Fecha de Nacimiento")
             </th>
-            <th>
-                @Html.DisplayName("Domicilio")
-            </th>
-            <th>
-                @Html.DisplayName("Localidad")
-            </th>
-            <th>
-                @Html.Display("Equipo")
-            </th>
             <th></th>
         </tr>
    
@@ -154,18 +125,8 @@
                     @Html.DisplayFor(modelItem => item.FechaNacFormateada)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Domicilio)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.LocalidadNombre)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.EquiposNombre)
-                </td>
-                <td>
-                              <a href=""><img title="Eliminar" src="~/Images/boton_borrar.png" /></a>
+  @*                  <a href=""><img title="Eliminar" src="~/Images/boton_borrar.png" /></a>*@
+                    <input type="button" value="Borrar" id=@item.Id onClick="borrarjugador(@item.Id)"/>
                 </td>
             </tr>
     }
@@ -174,7 +135,8 @@
     
     
     <script type="text/javascript">
-     var JugadoresAsignados = [];
+        var JugadoresAsignados = [];
+        var JugadorEquipoEliminar = [];
 
      function asignarjugador(idParam) {
          $.ajax({
@@ -220,7 +182,48 @@
             });
         });
     });
+        function borrarjugador(idParam) {
+            $.ajax({
+                type: "GET",
+                url: '@Url.Action("GetJugadorPorId", "Jugador")',
+             data: { id : idParam },
+             contentType: "application/json; charset=utf-8",
+             success: function (data) {
+            
+                 JugadorEquipoEliminar.push("{'Id':" + idParam + "}");
+                 $('#'+idParam).css("display","none");
 
+                 $('.btnPrint').removeClass('disable');
+                 $('.btnPrint').addClass('enable');
+                 var equipoId = $('#hidden').val();
+
+                 var datos = "{'listJug':[" + JugadorEquipoEliminar + "],'IdEquipo':'" + equipoId + "'}";
+
+                 $.ajax({
+
+                     url: '@Url.Action("BorrarJugEquipo", "Equipo")',
+                type: 'POST',
+                data: datos,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    location.href="";
+                },
+                error: function (jqXHR, textStatus, error) {
+
+                    alert("error: " + jqXHR.responseText);
+                }
+                 });
+
+
+
+             },
+             error: function (textStatus, errorThrown) {
+                 Success = false;//doesnt goes here
+             }
+
+            });           
+        }
 
 </script>
 }

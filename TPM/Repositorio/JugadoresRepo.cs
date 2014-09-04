@@ -80,6 +80,12 @@ namespace TPM.Repositorio
 
         }
 
+        public static int JugadorPorEquipoDelete(Jugador jugador)
+        {
+            JugadoresDAL jugadoresDal = new JugadoresDAL();
+            return jugadoresDal.JugadorPorEquipoDelete(jugador.Id, jugador.EquipoId);
+        }
+
         public static int JugadorUpdate(Jugador jugador)
         {
             JugadoresDAL jugadoresDal = new JugadoresDAL();
