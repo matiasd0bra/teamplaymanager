@@ -132,8 +132,9 @@ namespace TPM.Controllers
             var assignarJugadoresViewModel = new AssignarJugadoresViewModel();
             assignarJugadoresViewModel.EquipoSeleccionado = EquiposRepo.EquipoByIdRepo(id);
             assignarJugadoresViewModel.CategoriaList = CategoriaRepo.CategoriaGetAllRepo();
-            assignarJugadoresViewModel.ListaJugadores = JugadoresRepo.JugadoresGetAllRepo();
+            assignarJugadoresViewModel.ListaJugadores = JugadoresRepo.JugadoresNoEquipo(id);
             assignarJugadoresViewModel.Equipos = EquiposRepo.EquiposGetAllRepo();
+            assignarJugadoresViewModel.JugadoresAsignados = JugadoresRepo.JugadoresByEquipo(id);
 
             return View(assignarJugadoresViewModel);
         }
@@ -141,14 +142,14 @@ namespace TPM.Controllers
         [HttpPost]
         public JsonResult AssignarJug(JugadoresAsignados jugadoresAsignados)
         {
-        //    foreach (var item in jugadoresAsignados)
-        //    {
-        //        Jugador jugador = new Jugador();
-        //        jugador.Id = item.Id;
-        //        jugador.EquipoId = item.EquipoId;
+            foreach(var item in jugadoresAsignados.listJug)
+            {
+                Jugador jugador = new Jugador();
+                jugador.Id = item.Id;
+                jugador.EquipoId = jugadoresAsignados.IdEquipo;
 
-        //        JugadoresRepo.JugadorPorEquipoInsert(jugador);
-        //    }
+                JugadoresRepo.JugadorPorEquipoInsert(jugador);
+            }
 
 
             return Json(new { success = false, message = "Un tag failed " }, JsonRequestBehavior.AllowGet);

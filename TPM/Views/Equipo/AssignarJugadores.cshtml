@@ -22,7 +22,7 @@
     @Html.Label("Categoria")
     @Html.DropDownListFor(model => model.CategoriaId, new SelectList(Model.CategoriaList, "CategoriaId", "NombreCategoria", 1))
 
-    @Html.HiddenFor( model => model.EquipoSeleccionado.Id, new {id="hidden"} )
+    @Html.HiddenFor(model => model.EquipoSeleccionado.Id, new { id = "hidden" })
 
     <input type="submit" value="Filtrar" />
     
@@ -58,7 +58,7 @@
 
         @foreach (var item in Model.ListaJugadores)
         {
-            <tr>
+            <tr id="@item.Id">
                 <td>
                     @Html.DisplayFor(modelItem => item.Nombre)
                 </td>
@@ -87,7 +87,7 @@
                     @Html.DisplayFor(modelItem => item.EquiposNombre)
                 </td>
                 <td>
-                    <input type="button" id=@item.Id onClick="asignarjugador(@item.Id)"/>
+                    <input type="button" value="Asignar" id=@item.Id onClick="asignarjugador(@item.Id)"/>
 
 
                     @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
@@ -133,48 +133,79 @@
             </th>
             <th></th>
         </tr>
+   
+    @foreach (var item in Model.JugadoresAsignados)
+    {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apellido)
+                </td>
 
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoDocNombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumeroDoc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaNacFormateada)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Domicilio)
+                </td>
 
+                <td>
+                    @Html.DisplayFor(modelItem => item.LocalidadNombre)
+                </td>
 
-
-    </table>
-
+                <td>
+                    @Html.DisplayFor(modelItem => item.EquiposNombre)
+                </td>
+                <td>
+                   <a href=""><img title="Eliminar" src="~/Images/boton_borrar.png" /></a>
+                </td>
+            </tr>
+    }
+ </table>
     <input type="button" value="guardar jugadores" id="btnGuardar" />
     
     
     <script type="text/javascript">
+     var JugadoresAsignados = [];
 
+     function asignarjugador(idParam) {
+         $.ajax({
+             type: "GET",
+             url: '@Url.Action("GetJugadorPorId", "Jugador")',
+             data: { id : idParam },
+             contentType: "application/json; charset=utf-8",
+             success: function (data) {
+                 $('#tablaJugadorAsignar tr:last').after(data);
+            
+                 JugadoresAsignados.push("{'Id':" + idParam + "}");
+                 $('#'+idParam).css("display","none");
 
-        var JugadoresAsignados = [];
+             },
+             error: function (textStatus, errorThrown) {
+             Success = false;//doesnt goes here
+             }
 
-        function asignarjugador(idParam) {
-            $.ajax({
-                type: "GET",
-                url: '@Url.Action("GetJugadorPorId", "Jugador")',
-            data: { id : idParam },
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                $('#tablaJugadorAsignar tr:last').after(data);
-               
-                JugadoresAsignados.push("{'Id':'"+ idParam +"'}");
-            },
-            error: function (textStatus, errorThrown) {
-                Success = false;//doesnt goes here
-            }
-
-        });
-    }
+         });
+     }
 
     $(document).ready(function() {
         $('#btnGuardar').bind('click', function () {
             $('.btnPrint').removeClass('disable');
             $('.btnPrint').addClass('enable');
-            var equipoId = $('hidden').val();
-            var datos = "{'Id':[" + JugadoresAsignados + "],'IdEquipo':'" + equipoId + "'}";
+            var equipoId = $('#hidden').val();
+            var datos = "{'listJug':[" + JugadoresAsignados + "],'IdEquipo':'" + equipoId + "'}";
 
             $.ajax({
 
-                url: '@Url.Action("AssignarJugadores", "Equipo")',
+                url: '@Url.Action("AssignarJug", "Equipo")',
                 type: 'POST',
                 data: datos,
                 dataType: "json",
@@ -190,9 +221,6 @@
         });
 
     });
-
-
-
 </script>
 }
 
