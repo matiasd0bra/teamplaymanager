@@ -155,6 +155,22 @@ namespace TPM.Controllers
             return Json(new { success = false, message = "Un tag failed " }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public JsonResult BorrarJugEquipo(JugadorPorEquipoEliminar jugadorEliminar)
+        {
+
+            foreach (var item in jugadorEliminar.listJug)
+            {
+                Jugador jugador = new Jugador();
+                jugador.Id = item.Id;
+                jugador.EquipoId = jugadorEliminar.IdEquipo;
+
+                JugadoresRepo.JugadorPorEquipoDelete(jugador);
+            }
+
+            return Json(new { success = false, message = "Un tag failed " }, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult AsignarPersonalEsp (int id)
         {
             var asignarPersonalEspViewModel = new AsignarPersonalEspViewModel ();

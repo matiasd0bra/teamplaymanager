@@ -111,6 +111,26 @@ namespace TPM.DAL
             return ret;
         }
 
+        public int JugadorPorEquipoDelete(int jugadorId, int equipoId)
+        {
+            int ret;
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
+            {
+                using (SqlCommand cmd = new SqlCommand("JugadorPorEquipoDelete", con))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@JugadorId", SqlDbType.Int).Value = jugadorId;
+                    cmd.Parameters.Add("@EquipoId", SqlDbType.Int).Value = equipoId;
+
+                    con.Open();
+                    ret = cmd.ExecuteNonQuery();
+                }
+            }
+            return ret;
+        }
+
         public int JugadorUpdate(int id, string nombre, string apellido, int tipoDoc, string nroDoc, string dom, int loc, DateTime fechaNac)
         {
             int ret;
