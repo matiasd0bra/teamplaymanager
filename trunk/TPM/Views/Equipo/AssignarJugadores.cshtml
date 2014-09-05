@@ -7,19 +7,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="panel panel-primary">
+  <div class="panel-heading">Asignar Jugadores 
+      <div class="pull-right">
+          <a class="link-panel" href="/Equipo">
+             <img src="~/Images/boton_volver.png" />
+              Volver
+          </a>
+      </div>
+  </div>
+  <div class="panel-body">
 @using (Html.BeginForm(null, null, FormMethod.Get))
 {
     <h2>
-        Asignar Jugadores a @Html.DisplayFor(model => model.EquipoSeleccionado.NombreEquipo) 
+        Equipo: @Html.DisplayFor(model => model.EquipoSeleccionado.NombreEquipo) 
     </h2>
     
     @Html.ValidationSummary(true)
 
     
     var jugadoresAsig = Model.JugadoresAsignados;
-    if (jugadoresAsig.Count > 0)
-    { 
-      <table id="tablaJugadorAsignar">
+     <table id="tablaJugadorAsignar">
         <tr>
             <th>
                 @Html.DisplayName("Nombre")
@@ -39,8 +47,10 @@
             </th>
             <th></th>
         </tr>
+    @if (jugadoresAsig.Count > 0)
+    {     
    
-        @foreach (var item in Model.JugadoresAsignados)
+        foreach (var item in Model.JugadoresAsignados)
         {
             <tr>
                 <td>
@@ -62,14 +72,14 @@
                     <input type="button" value="Borrar" id=@item.Id onClick="borrarjugador(@item.Id)"/>
                 </td>
             </tr>
-        }
-     </table>
-        <div><input style="display:none" type="button" value="guardar jugadores" id="btnGuardar"/></div>
-    }
+        }     
+}
     else
     {
     <div>@Html.DisplayName("Este equipo no tiene asignado ningun jugador")</div>
     }
+         </table>
+        <div><input style="display:none" type="button" value="guardar jugadores" id="btnGuardar"/></div>
     
     <h3>@Html.DisplayName("Jugadores")</h3>
     <div>
@@ -88,8 +98,10 @@
     @Html.HiddenFor(model => model.EquipoSeleccionado.Id, new { id = "hidden" })
 
     <input type="submit" value="Buscar" />
-    if (Model.ListaJugadores.Count > 0)
-    {    
+    if (Model.ListaJugadores.Count > 0 )
+    {
+        if(Model.NombreFiltro != null)
+        {   
         <table>
             <tr>
                 <th>
@@ -140,12 +152,16 @@
                     </td>
                 </tr>
             }
-        </table>   
+        </table>  
+        }
     }
     else
     {
         <div>@Html.DisplayName("No se encontraron resultados de la busqueda")</div>
     }
+    
+    @*</div>*@
+ @*</div>*@
     <script type="text/javascript">
         var JugadoresAsignados = [];
         var JugadorEquipoEliminar = [];
@@ -162,7 +178,6 @@
                  JugadoresAsignados.push("{'Id':" + idParam + "}");
                  $('#'+idParam).css("display","none");
                  $('#btnGuardar').css("display","block");
-
              },
              error: function (textStatus, errorThrown) {
              Success = false;//doesnt goes here

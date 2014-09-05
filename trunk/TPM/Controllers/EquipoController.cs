@@ -135,8 +135,9 @@ namespace TPM.Controllers
             assignarJugadoresViewModel.ListaJugadores = JugadoresRepo.JugadoresSearch(id, NombreFiltro, ApellidoFiltro);
             assignarJugadoresViewModel.Equipos = EquiposRepo.EquiposGetAllRepo();
             assignarJugadoresViewModel.JugadoresAsignados = JugadoresRepo.JugadoresByEquipo(id);
-
-            assignarJugadoresViewModel.obtenerPaginaJugadoresFiltrados(page, '2', id, NombreFiltro, ApellidoFiltro);
+            assignarJugadoresViewModel.NombreFiltro = NombreFiltro;
+            
+                assignarJugadoresViewModel.obtenerPaginaJugadoresFiltrados(page, '2', id, NombreFiltro, ApellidoFiltro);
 
             return View(assignarJugadoresViewModel);
         }
