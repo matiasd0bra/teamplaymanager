@@ -66,7 +66,7 @@ namespace TPM.DAL
             return dt;
         }
 
-        public int JugadorInsert(string nombre, string apellido, int tipoDoc, string nroDoc, DateTime fechanac, string dom, int loc)
+        public int JugadorInsert(string nombre, string apellido, int tipoDoc, string nroDoc, DateTime fechanac, string dom, int loc, string imagenPath)
         {
             int ret = 0;
             using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
@@ -83,6 +83,8 @@ namespace TPM.DAL
                     cmd.Parameters.Add("@FechaNac", SqlDbType.DateTime).Value = fechanac;
                     cmd.Parameters.Add("@Domicilio", SqlDbType.VarChar).Value = dom;
                     cmd.Parameters.Add("@LocalidadId", SqlDbType.Int).Value = loc;
+                    cmd.Parameters.Add("@ImagenPath", SqlDbType.VarChar).Value = imagenPath;
+
 
                     con.Open();
                     ret = int.Parse(cmd.ExecuteScalar().ToString());
@@ -150,6 +152,32 @@ namespace TPM.DAL
                     cmd.Parameters.Add("@Domicilio", SqlDbType.VarChar).Value = dom;
                     cmd.Parameters.Add("@LocalidadId", SqlDbType.VarChar).Value = loc;
 
+                    con.Open();
+                    ret = cmd.ExecuteNonQuery();
+                }
+            }
+            return ret;
+        }
+
+        public int JugadorUpdateFoto(int id, string nombre, string apellido, int tipoDoc, string nroDoc, string dom, int loc, DateTime fechaNac, string imagenPath)
+        {
+            int ret;
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
+            {
+                using (SqlCommand cmd = new SqlCommand("JugadorUpdateFoto", con))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@Id", SqlDbType.VarChar).Value = id;
+                    cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = nombre;
+                    cmd.Parameters.Add("@Apellido", SqlDbType.VarChar).Value = apellido;
+                    cmd.Parameters.Add("@TipoDocId", SqlDbType.VarChar).Value = tipoDoc;
+                    cmd.Parameters.Add("@NumeroDoc", SqlDbType.VarChar).Value = nroDoc;
+                    cmd.Parameters.Add("@FechaNac", SqlDbType.DateTime).Value = fechaNac;
+                    cmd.Parameters.Add("@Domicilio", SqlDbType.VarChar).Value = dom;
+                    cmd.Parameters.Add("@LocalidadId", SqlDbType.VarChar).Value = loc;
+                    cmd.Parameters.Add("@ImagenPath", SqlDbType.VarChar).Value = imagenPath;
 
                     con.Open();
                     ret = cmd.ExecuteNonQuery();

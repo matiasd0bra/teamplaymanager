@@ -26,8 +26,8 @@ namespace TPM.Models
         public string EquiposNombre { get; set; }
         public int Categoria { get; set; }
 
+        public string ImagenPath { get; set; }
         public Image Imagen { get; set; }
-
 
     }
 }

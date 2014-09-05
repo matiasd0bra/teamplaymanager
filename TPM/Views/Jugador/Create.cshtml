@@ -18,14 +18,17 @@
       </div>
   </div>
   <div class="panel-body">
-    @using (Html.BeginForm())
-    {
+    @using (Html.BeginForm("Create", "Jugador", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {       
+        
+        //"Create", "Jugador", FormMethod.Post, new { enctype = "multipart/form-data" }
+        
         @Html.ValidationSummary(true)
 
         <fieldset>
             <legend>Jugador</legend>    
             <table>
-                    <td >
+                    <td>
                                     <div class="editor-label">
                                         @Html.LabelFor(model => model.Nombre)
                                     </div>
@@ -49,7 +52,7 @@
                                     </div>
                                     <div class="editor-field">
 
-                                        @Html.DropDownListFor(model => model.TipoDocId, new SelectList (Model.TipoDocLista, "TipoDocId", "TipoDocNombre",1))
+                                        @Html.DropDownListFor(model => model.TipoDocId, new SelectList(Model.TipoDocLista, "TipoDocId", "TipoDocNombre", 1))
                                     </div>
 
                                     <div class="editor-label">
@@ -87,54 +90,65 @@
 
             
                                     <p>
-                                        <input class="btn btn-primary" type="submit" value="Crear" id="btnGuardar"/>
+                                        <input class="btn btn-primary" type="submit" value="Crear"/>
                                     </p>
                                 </fieldset>
-                            }
+    }
                             </div>
                     </td>
                     <td>
                                         <div>
-                                <html>
-                                    <head>
-                                        <meta charset="utf-8">
-                                        <title>Vista previa antes de enviar</title>
-                                        <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
-                                        <style type="text/css">
-                                            .titulo{ font-size: 12pt; font-weight: bold; height: 30pt;}
-                                            #marcoVistaPrevia{
-                                                border: 1px solid #008000;
-                                                width: 200px;
-                                                height: 200px;                                              
-                                            }
-                                            #vistaPrevia{
-                                                max-width: 200px;
-                                                max-height: 200px;          
-                                            }
-                                        </style>
+                                            <html>
+                                                <head>
+                                                    <meta charset="utf-8">
+                                                    <title>Vista previa antes de enviar</title>
+                                                    <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
+                                                    <style type="text/css">
+                                                        .titulo{ font-size: 12pt; font-weight: bold; height: 30pt;}
+                                                        #marcoVistaPrevia{
+                                                            width: 200px;
+                                                            height: 200px;                                              
+                                                        }
+                                                        #vistaPrevia{
+                                                            max-width: 200px;
+                                                            max-height: 200px;          
+                                                        }
+                                                    </style>
  
-                                        <!-- El contenido del script más adelante -->
-                                        <script type="text/javascript">
-                                        </script>
+                                                    <!-- El contenido del script más adelante -->
+                                                    <script type="text/javascript">
+                                                    </script>
  
-                                    </head>
-                                    <body>
-                                        <div id='botonera'>
-                                            <input id="archivo" type="file" accept="image/*"></input>
-                                            <input id="cancelar" type="button" value="Cancelar"></input>
-                                        </div>
-                                        <div class="contenedor">
-                                            <div class="titulo">
-                                                <span>Vista Previa:</span> 
-                                                <span id="infoNombre">[Seleccione una imagen]</span><br/>
-                                            </div>
-                                            <div id="marcoVistaPrevia">
-                                                <img id="vistaPrevia" src="" alt="" />
-                                            </div>
-                                        </div>
-                                    </body>
-                                    </html>
-                            </div>    
+                                                </head>
+                                                <body>
+                                                    <div id='botonera'>
+                                                        <input type="file" name="file" id="file" accept="image/*"></input>
+                                                        <input id="cancelar" type="button" value="Cancelar"></input>
+                                                    </div>
+                                                    <div class="contenedor">
+                                                        <div class="titulo">
+                                                            <span>Vista Previa:</span> 
+                                                            <span id="infoNombre">[Seleccione una imagen]</span><br/>
+                                                        </div>
+                                                        <div id="marcoVistaPrevia">
+                                                            <img id="vistaPrevia" src="" alt="" />
+                                                        </div>
+                                                    </div>
+                                                </body>
+                                            </html>
+                                            
+                                            
+                                            
+                                                    
+                                       @*             <div>
+                                                    <input type="file" name="file" id="file" style="width: 100%;" /> <br />
+                                                    </div>    *@
+                                                    
+                                            
+                                            
+                                            
+
+                                        </div>    
                     </td>
             </table>
                                                                
@@ -161,7 +175,7 @@
                 return;
             }
 
-            Archivos = jQuery('#archivo')[0].files;
+            Archivos = jQuery('#file')[0].files;
             if (Archivos.length > 0) {
 
                 Lector = new FileReader();
@@ -192,7 +206,7 @@
                 Lector.readAsDataURL(Archivos[0]);
 
             } else {
-                var objeto = jQuery('#archivo');
+                var objeto = jQuery('#file');
                 objeto.replaceWith(objeto.val('').clone());
                 jQuery('#vistaPrevia').attr('src', window.imagenVacia);
                 jQuery('#infoNombre').text('[Seleccione una imagen]');
@@ -225,13 +239,13 @@
             jQuery('#vistaPrevia').attr('src', window.imagenVacia);
 
             //El input del archivo lo vigilamos con un "delegado"
-            jQuery('#botonera').on('change', '#archivo', function (e) {
+            jQuery('#botonera').on('change', '#file', function (e) {
                 window.mostrarVistaPrevia();
             });
 
             //El botón Cancelar lo vigilamos normalmente
             jQuery('#cancelar').on('click', function (e) {
-                var objeto = jQuery('#archivo');
+                var objeto = jQuery('#file');
                 objeto.replaceWith(objeto.val('').clone());
 
                 jQuery('#vistaPrevia').attr('src', window.imagenVacia);

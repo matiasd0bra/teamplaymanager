@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using System.Web.UI.WebControls;
 using TPM.Models;
 using TPM.Repositorio;
 
@@ -46,10 +48,20 @@ namespace TPM.Controllers
         // POST: /Jugador/Create
 
         [HttpPost]
-        public ActionResult Create(Jugador jugador)
+        public ActionResult Create(Jugador jugador, HttpPostedFileBase file)
         {
+            //HttpPostedFileBase file
+
             try
             {
+                string ImageName = System.IO.Path.GetFileName(file.FileName);
+                string physicalPath = Server.MapPath("~/Images/Jugadores/" + ImageName);
+
+                // save image in folder
+                file.SaveAs(physicalPath);
+
+
+                jugador.ImagenPath = ImageName;
                 jugador.FechaNac = DateTime.Parse(jugador.FechaNacFormateada);
                 jugador.Id = JugadoresRepo.JugadorInsert(jugador);
 
@@ -70,6 +82,8 @@ namespace TPM.Controllers
             jugador.TipoDocLista = TipoDocRepo.TipoDocGetAllRepo();
             jugador.LocalidadLista = LocalidadesRepo.LocalidadesGetAllRepo();
             jugador.FechaNacFormateada = jugador.FechaNac.ToShortDateString();
+            
+
             return View(jugador);
         }
 
@@ -77,12 +91,29 @@ namespace TPM.Controllers
         // POST: /Jugador/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Jugador jugador)
+        public ActionResult Edit(Jugador jugador, HttpPostedFileBase file)
         {
             try
             {
-                jugador.FechaNac = DateTime.Parse(jugador.FechaNacFormateada);
-                JugadoresRepo.JugadorUpdate(jugador);
+                if (file != null)
+                {
+                    string ImageName = System.IO.Path.GetFileName(file.FileName);
+                    string physicalPath = Server.MapPath("~/Images/Jugadores/" + ImageName);
+
+                    // save image in folder
+                    file.SaveAs(physicalPath);
+
+
+                    jugador.ImagenPath = ImageName;
+
+                    jugador.FechaNac = DateTime.Parse(jugador.FechaNacFormateada);
+                    JugadoresRepo.JugadorUpdateFoto(jugador);   
+                }
+                else
+                {
+                    jugador.FechaNac = DateTime.Parse(jugador.FechaNacFormateada);
+                    JugadoresRepo.JugadorUpdate(jugador); 
+                }
                 return RedirectToAction("Index");
             }
             catch
@@ -137,5 +168,30 @@ namespace TPM.Controllers
                 return "false";
             }
         }
+
+        //public ActionResult FileUpload(HttpPostedFileBase file)
+        //{
+
+        //    if (file != null)
+        //    {
+        //        string ImageName = System.IO.Path.GetFileName(file.FileName);
+        //        string physicalPath = Server.MapPath("~" + "/Images/Jugadores/" + ImageName);
+
+        //        // save image in folder
+        //        file.SaveAs(ImageName);
+
+        //        //save new record in database
+
+        //        //tblA newRecord = new tblA();
+        //        //newRecord.fname = Request.Form["fname"];
+        //        //newRecord.lname = Request.Form["lname"];
+        //        //newRecord.imageUrl = ImageName;
+        //        //db.tblAs.Add(newRecord);
+        //        //db.SaveChanges();
+
+        //    }
+        //    //Display records
+        //    return RedirectToAction("");
+        //}
     }
 }
