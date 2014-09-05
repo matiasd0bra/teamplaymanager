@@ -1,6 +1,7 @@
 ﻿@using System.Web.Mvc
 @using System.Web.Mvc.Html
 @using System.Web.Optimization
+@using TPM.Models
 @model TPM.Models.Jugador
 
 @{
@@ -17,84 +18,86 @@
           </a>
       </div>
   </div>
-  <div class="panel-body">
-    @using (Html.BeginForm("Create", "Jugador", FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {       
+    <div class="panel-body">
         
-        //"Create", "Jugador", FormMethod.Post, new { enctype = "multipart/form-data" }
         
-        @Html.ValidationSummary(true)
 
-        <fieldset>
-            <legend>Jugador</legend>    
-            <table>
-                    <td>
-                                    <div class="editor-label">
-                                        @Html.LabelFor(model => model.Nombre)
-                                    </div>
-                                    <div class="editor-field">
-                                        @Html.EditorFor(model => model.Nombre)
-                                        @Html.ValidationMessageFor(model => model.Nombre)
-                                    </div>
+        @using (Html.BeginForm("Create", "Jugador", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {       
+            
+            @Html.ValidationSummary(true)
+          
+            <fieldset>
+                <legend>Jugador</legend>   
+             
+                <table>
+                <td>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Nombre)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Nombre)
+                    @Html.ValidationMessage("Nombre", "Por favor, ingrese el nombre")
+                </div>
 
-                                    <div class="editor-label">
-                                        @Html.LabelFor(model => model.Apellido)
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.Apellido)
 
 
-                                    </div>
-                                    <div class="editor-field">
-                                        @Html.EditorFor(model => model.Apellido)
-                                        @Html.ValidationMessageFor(model => model.Apellido)
-                                    </div>
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Apellido)
+                    @Html.ValidationMessageFor(model => model.Apellido, "Por favor, ingrese el apellido")
+                </div>
 
-                                    <div class="editor-label">
-                                        @Html.Label("Tipo De Documento")
-                                    </div>
-                                    <div class="editor-field">
+                <div class="editor-label">
+                    @Html.Label("Tipo De Documento")
+                </div>
+                <div class="editor-field">
 
-                                        @Html.DropDownListFor(model => model.TipoDocId, new SelectList(Model.TipoDocLista, "TipoDocId", "TipoDocNombre", 1))
-                                    </div>
+                    @Html.DropDownListFor(model => model.TipoDocId, new SelectList(Model.TipoDocLista, "TipoDocId", "TipoDocNombre", 1))
+                </div>
 
-                                    <div class="editor-label">
-                                        @Html.Label("Numero De Documento")
-                                    </div>
-                                    <div class="editor-field">
-                                        @Html.TextBoxFor(model => model.NumeroDoc)
-                                        @Html.ValidationMessageFor(model => model.NumeroDoc)
-                                    </div>
+                <div class="editor-label">
+                    @Html.Label("Numero De Documento")
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.NumeroDoc)
+                    @Html.ValidationMessageFor(model => model.NumeroDoc, "Por favor, ingrese el número de documento")
+                </div>
 
-                                    <div class="editor-label">
-                                        @Html.Label("Fecha de Nacimiento")
-                                    </div>
-                                    <div class="editor-field">
-                                        @Html.TextBoxFor(model => model.FechaNacFormateada)
-                                        @Html.ValidationMessageFor(model => model.FechaNacFormateada)
-                                    </div>
+                <div class="editor-label">
+                    @Html.Label("Fecha de Nacimiento")
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.FechaNacFormateada)
+                    @Html.ValidationMessageFor(model => model.FechaNacFormateada, "Por favor, ingrese la fecha de nacimiento")
+                </div>
 
-                                    <div class="editor-label">
-                                        @Html.Label("Domicilio de residencia")
-                                    </div>
-                                    <div class="editor-field">
-                                        @Html.EditorFor(model => model.Domicilio)
-                                        @Html.ValidationMessageFor(model => model.Domicilio)
-                                    </div>
+                <div class="editor-label">
+                    @Html.Label("Domicilio de residencia")
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Domicilio)
+                    @Html.ValidationMessageFor(model => model.Domicilio, "Por favor, ingrese el domicilio")
+                </div>
 
-                                    <div class="editor-label">
-                                        @Html.Label("Localidad de residencia")
-                                    </div>
+                <div class="editor-label">
+                    @Html.Label("Localidad de residencia")
+                </div>
 
-                                    <div class="editor-field">
-                                        @Html.DropDownListFor(model => model.LocalidadId, new SelectList
-                                            (Model.LocalidadLista, "LocalidadId", "LocalidadNombre"))
-                                    </div>
+                <div class="editor-field">
+                    @Html.DropDownListFor(model => model.LocalidadId, new SelectList
+                        (Model.LocalidadLista, "LocalidadId", "LocalidadNombre"))
+                </div>
 
             
-                                    <p>
-                                        <input class="btn btn-primary" type="submit" value="Crear"/>
-                                    </p>
-                                </fieldset>
-    }
-                            </div>
+                <p>
+                    <input class="btn btn-primary" type="submit" value="Crear"/>
+                </p>
+            </fieldset>
+        }
+    </div>
                     </td>
                     <td>
                                         <div>
