@@ -101,10 +101,10 @@ namespace TPM.Repositorio
                 jugador.NumeroDoc, jugador.Domicilio, jugador.LocalidadId, jugador.FechaNac, jugador.ImagenPath);
         }
 
-        public static List<Jugador> JugadoresNoEquipo(int idEquipo)
+        public static List<Jugador> JugadoresSearch(int idEquipo, string nombre, string apellido)
         {
             JugadoresDAL jugadoresDal = new JugadoresDAL();
-            DataTable dt = jugadoresDal.JugadoresNoEquipo(idEquipo);
+            DataTable dt = jugadoresDal.JugadoresSearch(idEquipo, nombre, apellido);
 
             Jugador jugador;
             List<Jugador> jugadorList = new List<Jugador>();

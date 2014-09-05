@@ -186,7 +186,7 @@ namespace TPM.DAL
             return ret;
         }
 
-        public DataTable JugadoresNoEquipo(int idEquipo)
+        public DataTable JugadoresSearch(int idEquipo, string nombre, string apellido)
         {
 
             var dt = new DataTable();
@@ -194,12 +194,22 @@ namespace TPM.DAL
 
             using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
             {
-                using (SqlCommand cmd = new SqlCommand("JugadoresNoEquipo", con))
+                using (SqlCommand cmd = new SqlCommand("JugadoresSearch", con))
                 {
+                    if (nombre == null)
+                    {
+                        nombre = "";
+                    }
+                    if (apellido == null)
+                    {
+                        apellido = "";
+                    }
 
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add("@IdEquipo", SqlDbType.VarChar).Value = idEquipo;
+                    cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
+                    cmd.Parameters.Add("@apellido", SqlDbType.VarChar).Value = apellido;
 
                     con.Open();
                     sqlDataReader = cmd.ExecuteReader();

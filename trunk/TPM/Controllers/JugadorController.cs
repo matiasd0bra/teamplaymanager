@@ -159,7 +159,7 @@ namespace TPM.Controllers
                 jugador.FechaNacFormateada = jugador.FechaNac.ToShortDateString();
 
                 var res = "<tr><td>"+jugador.Nombre+"</td><td>"+jugador.Apellido+"</td><td>"+jugador.TipoDocNombre+"</td><td>"+jugador.NumeroDoc+
-                    "</td><td>"+jugador.FechaNacFormateada+"</td><td>"+jugador.Domicilio+"</td><td>"+jugador.LocalidadNombre+"</td></tr>";
+                    "</td><td>"+jugador.FechaNacFormateada+"</td></tr>";
 
                 return res;
             }

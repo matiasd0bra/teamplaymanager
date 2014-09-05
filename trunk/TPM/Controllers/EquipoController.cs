@@ -127,14 +127,16 @@ namespace TPM.Controllers
             }
         }
 
-        public ActionResult AssignarJugadores(int id)
+        public ActionResult AssignarJugadores(int id, string NombreFiltro = null, string ApellidoFiltro = null, int page = 0)
         {
             var assignarJugadoresViewModel = new AssignarJugadoresViewModel();
             assignarJugadoresViewModel.EquipoSeleccionado = EquiposRepo.EquipoByIdRepo(id);
             assignarJugadoresViewModel.CategoriaList = CategoriaRepo.CategoriaGetAllRepo();
-            assignarJugadoresViewModel.ListaJugadores = JugadoresRepo.JugadoresNoEquipo(id);
+            assignarJugadoresViewModel.ListaJugadores = JugadoresRepo.JugadoresSearch(id, NombreFiltro, ApellidoFiltro);
             assignarJugadoresViewModel.Equipos = EquiposRepo.EquiposGetAllRepo();
             assignarJugadoresViewModel.JugadoresAsignados = JugadoresRepo.JugadoresByEquipo(id);
+
+            assignarJugadoresViewModel.obtenerPaginaJugadoresFiltrados(page, '2', id, NombreFiltro, ApellidoFiltro);
 
             return View(assignarJugadoresViewModel);
         }

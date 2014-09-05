@@ -3,88 +3,23 @@
 @model TPM.Models.ViewModel.AssignarJugadoresViewModel
 
 @{
-    ViewBag.Title = "AssignarJugadores";
+    ViewBag.Title = "Asignar Jugadores";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>AssignarJugadores</h2>
-
-
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Get))
 {
+    <h2>
+        Asignar Jugadores a @Html.DisplayFor(model => model.EquipoSeleccionado.NombreEquipo) 
+    </h2>
+    
     @Html.ValidationSummary(true)
 
-    @Html.DisplayFor(model => model.EquipoSeleccionado.NombreEquipo)
-
-    @Html.Label("Nombre")
-    @Html.TextBoxFor(model => model.NombreFiltro)
-
-    @Html.Label("Categoria")
-    @Html.DropDownListFor(model => model.CategoriaId, new SelectList(Model.CategoriaList, "CategoriaId", "NombreCategoria", 1))
-
-    @Html.HiddenFor(model => model.EquipoSeleccionado.Id, new { id = "hidden" })
-
-    <input type="submit" value="Filtrar" />
     
-    <table>
-        <tr>
-            <th>
-                @Html.DisplayName("Nombre")
-            </th>
-            <th>
-                @Html.DisplayName("Apellido")
-            </th>
-
-            <th>
-                @Html.DisplayName("Tipo de Documento")
-            </th>
-            <th>
-                @Html.DisplayName("Número de Documento")
-            </th>
-            <th>
-                @Html.DisplayName("Fecha de Nacimiento")
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model.ListaJugadores)
-        {
-            <tr id="@item.Id">
-                <td>
-                    @Html.DisplayFor(modelItem => item.Nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Apellido)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.TipoDocNombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NumeroDoc)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FechaNacFormateada)
-                </td>
-                <td>
-                    <input type="button" value="Asignar" id=@item.Id onClick="asignarjugador(@item.Id)"/>
-
-
-                    @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
-                </td>
-            </tr>
-        }
-
-
-
-
-    </table>
-
-    
-           
-    <table id="tablaJugadorAsignar">
+    var jugadoresAsig = Model.JugadoresAsignados;
+    if (jugadoresAsig.Count > 0)
+    { 
+      <table id="tablaJugadorAsignar">
         <tr>
             <th>
                 @Html.DisplayName("Nombre")
@@ -105,8 +40,8 @@
             <th></th>
         </tr>
    
-    @foreach (var item in Model.JugadoresAsignados)
-    {
+        @foreach (var item in Model.JugadoresAsignados)
+        {
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Nombre)
@@ -114,7 +49,6 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Apellido)
                 </td>
-
                 <td>
                     @Html.DisplayFor(modelItem => item.TipoDocNombre)
                 </td>
@@ -125,15 +59,93 @@
                     @Html.DisplayFor(modelItem => item.FechaNacFormateada)
                 </td>
                 <td>
-  @*                  <a href=""><img title="Eliminar" src="~/Images/boton_borrar.png" /></a>*@
                     <input type="button" value="Borrar" id=@item.Id onClick="borrarjugador(@item.Id)"/>
                 </td>
             </tr>
+        }
+     </table>
+        <div><input style="display:none" type="button" value="guardar jugadores" id="btnGuardar"/></div>
     }
- </table>
-    <input type="button" value="guardar jugadores" id="btnGuardar"/>
+    else
+    {
+    <div>@Html.DisplayName("Este equipo no tiene asignado ningun jugador")</div>
+    }
     
-    
+    <h3>@Html.DisplayName("Jugadores")</h3>
+    <div>
+        @Html.Label("Nombre")
+        @Html.TextBoxFor(model => model.NombreFiltro)
+    </div>
+    <div>
+        @Html.Label("Apellido")
+        @Html.TextBoxFor(model => model.ApellidoFiltro)
+    </div>
+   
+
+    @*@Html.Label("Categoria")
+    @Html.DropDownListFor(model => model.CategoriaId, new SelectList(Model.CategoriaList, "CategoriaId", "NombreCategoria", 1))*@
+
+    @Html.HiddenFor(model => model.EquipoSeleccionado.Id, new { id = "hidden" })
+
+    <input type="submit" value="Buscar" />
+    if (Model.ListaJugadores.Count > 0)
+    {    
+        <table>
+            <tr>
+                <th>
+                    @Html.DisplayName("Nombre")
+                </th>
+                <th>
+                    @Html.DisplayName("Apellido")
+                </th>
+
+                <th>
+                    @Html.DisplayName("Tipo de Documento")
+                </th>
+                <th>
+                    @Html.DisplayName("Número de Documento")
+                </th>
+                <th>
+                    @Html.DisplayName("Fecha de Nacimiento")
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model.ListaJugadores)
+            {
+                <tr id="@item.Id">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Apellido)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TipoDocNombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NumeroDoc)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FechaNacFormateada)
+                    </td>
+                    <td>
+                        <input type="button" value="Asignar" id=@item.Id onClick="asignarjugador(@item.Id)"/>
+
+
+                        @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
+                    </td>
+                </tr>
+            }
+        </table>   
+    }
+    else
+    {
+        <div>@Html.DisplayName("No se encontraron resultados de la busqueda")</div>
+    }
     <script type="text/javascript">
         var JugadoresAsignados = [];
         var JugadorEquipoEliminar = [];
@@ -149,6 +161,7 @@
             
                  JugadoresAsignados.push("{'Id':" + idParam + "}");
                  $('#'+idParam).css("display","none");
+                 $('#btnGuardar').css("display","block");
 
              },
              error: function (textStatus, errorThrown) {
@@ -183,46 +196,46 @@
         });
     });
         function borrarjugador(idParam) {
-            $.ajax({
-                type: "GET",
-                url: '@Url.Action("GetJugadorPorId", "Jugador")',
-             data: { id : idParam },
-             contentType: "application/json; charset=utf-8",
-             success: function (data) {
+            var r = confirm("Seguro desea eliminar este jugador del equipo??");
+            if(r == true){
+                $.ajax({
+                    type: "GET",
+                    url: '@Url.Action("GetJugadorPorId", "Jugador")',
+                    data: { id : idParam },
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
             
-                 JugadorEquipoEliminar.push("{'Id':" + idParam + "}");
-                 $('#'+idParam).css("display","none");
+                        JugadorEquipoEliminar.push("{'Id':" + idParam + "}");
+                        $('#'+idParam).css("display","none");
 
-                 $('.btnPrint').removeClass('disable');
-                 $('.btnPrint').addClass('enable');
-                 var equipoId = $('#hidden').val();
+                        $('.btnPrint').removeClass('disable');
+                        $('.btnPrint').addClass('enable');
+                        var equipoId = $('#hidden').val();
 
-                 var datos = "{'listJug':[" + JugadorEquipoEliminar + "],'IdEquipo':'" + equipoId + "'}";
+                        var datos = "{'listJug':[" + JugadorEquipoEliminar + "],'IdEquipo':'" + equipoId + "'}";
 
-                 $.ajax({
+                        $.ajax({
 
-                     url: '@Url.Action("BorrarJugEquipo", "Equipo")',
-                type: 'POST',
-                data: datos,
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                success: function (data) {
-                    location.href="";
-                },
-                error: function (jqXHR, textStatus, error) {
+                            url: '@Url.Action("BorrarJugEquipo", "Equipo")',
+                            type: 'POST',
+                            data: datos,
+                            dataType: "json",
+                            contentType: "application/json; charset=utf-8",
+                            success: function (data) {
+                                location.href="";
+                            },
+                            error: function (jqXHR, textStatus, error) {
 
-                    alert("error: " + jqXHR.responseText);
-                }
-                 });
+                                alert("error: " + jqXHR.responseText);
+                            }
+                        });
+                    },
+                    error: function (textStatus, errorThrown) {
+                        Success = false;//doesnt goes here
+                    }
 
-
-
-             },
-             error: function (textStatus, errorThrown) {
-                 Success = false;//doesnt goes here
-             }
-
-            });           
+                }); 
+            }
         }
 
 </script>
