@@ -54,14 +54,21 @@ namespace TPM.Controllers
 
             try
             {
-                string ImageName = System.IO.Path.GetFileName(file.FileName);
-                string physicalPath = Server.MapPath("~/Images/Jugadores/" + ImageName);
+                if (file != null)
+                {
+                    string ImageName = System.IO.Path.GetFileName(file.FileName);
+                    string physicalPath = Server.MapPath("~/Images/Jugadores/" + ImageName);
 
-                // save image in folder
-                file.SaveAs(physicalPath);
+                    // save image in folder
+                    file.SaveAs(physicalPath);
 
 
-                jugador.ImagenPath = ImageName;
+                    jugador.ImagenPath = ImageName;
+                }
+                else
+                {
+                    jugador.ImagenPath = "DefaultImage.jpg";
+                }
                 jugador.FechaNac = DateTime.Parse(jugador.FechaNacFormateada);
                 jugador.Id = JugadoresRepo.JugadorInsert(jugador);
 
