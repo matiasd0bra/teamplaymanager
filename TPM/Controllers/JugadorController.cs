@@ -54,28 +54,35 @@ namespace TPM.Controllers
 
             try
             {
-                if (file != null)
-                {
-                    string ImageName = System.IO.Path.GetFileName(file.FileName);
-                    string physicalPath = Server.MapPath("~/Images/Jugadores/" + ImageName);
+                if(ModelState.IsValid)
+                    {
+                        if (file != null)
+                        {
+                            string ImageName = System.IO.Path.GetFileName(file.FileName);
+                            string physicalPath = Server.MapPath("~/Images/Jugadores/" + ImageName);
 
-                    // save image in folder
-                    file.SaveAs(physicalPath);
+                            // save image in folder
+                            file.SaveAs(physicalPath);
 
 
-                    jugador.ImagenPath = ImageName;
-                }
-                else
-                {
-                    jugador.ImagenPath = "DefaultImage.jpg";
-                }
-                jugador.FechaNac = DateTime.Parse(jugador.FechaNacFormateada);
-                jugador.Id = JugadoresRepo.JugadorInsert(jugador);
+                            jugador.ImagenPath = ImageName;
+                        }
+                        else
+                        {
+                            jugador.ImagenPath = "DefaultImage.jpg";
+                        }
+                        jugador.FechaNac = DateTime.Parse(jugador.FechaNacFormateada);
+                        jugador.Id = JugadoresRepo.JugadorInsert(jugador);
 
-                return RedirectToAction("Index");
-            }
+                        return RedirectToAction("Index");
+                    }
+            jugador.TipoDocLista = TipoDocRepo.TipoDocGetAllRepo();
+            jugador.LocalidadLista = LocalidadesRepo.LocalidadesGetAllRepo();
+            return View(jugador);
+        }
             catch
             {
+
                 return View();
             }
         }
@@ -102,26 +109,34 @@ namespace TPM.Controllers
         {
             try
             {
-                if (file != null)
+                if (ModelState.IsValid)
                 {
-                    string ImageName = System.IO.Path.GetFileName(file.FileName);
-                    string physicalPath = Server.MapPath("~/Images/Jugadores/" + ImageName);
+                    if (file != null)
+                    {
+                        string ImageName = System.IO.Path.GetFileName(file.FileName);
+                        string physicalPath = Server.MapPath("~/Images/Jugadores/" + ImageName);
 
-                    // save image in folder
-                    file.SaveAs(physicalPath);
+                        // save image in folder
+                        file.SaveAs(physicalPath);
 
+                        jugador.ImagenPath = ImageName;
 
-                    jugador.ImagenPath = ImageName;
-
-                    jugador.FechaNac = DateTime.Parse(jugador.FechaNacFormateada);
-                    JugadoresRepo.JugadorUpdateFoto(jugador);   
+                        jugador.FechaNac = DateTime.Parse(jugador.FechaNacFormateada);
+                        JugadoresRepo.JugadorUpdateFoto(jugador);
+                    }
+                    else
+                    {
+                        jugador.FechaNac = DateTime.Parse(jugador.FechaNacFormateada);
+                        JugadoresRepo.JugadorUpdate(jugador);
+                    }
+                    return RedirectToAction("Index");
                 }
-                else
-                {
-                    jugador.FechaNac = DateTime.Parse(jugador.FechaNacFormateada);
-                    JugadoresRepo.JugadorUpdate(jugador); 
-                }
-                return RedirectToAction("Index");
+                Jugador jugador1 = JugadoresRepo.JugadorByIdRepo(jugador.Id);
+                jugador.ImagenPath = jugador1.ImagenPath;
+
+                jugador.TipoDocLista = TipoDocRepo.TipoDocGetAllRepo();
+                jugador.LocalidadLista = LocalidadesRepo.LocalidadesGetAllRepo();
+                return View(jugador);
             }
             catch
             {
