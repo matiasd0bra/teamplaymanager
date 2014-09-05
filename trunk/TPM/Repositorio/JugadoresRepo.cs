@@ -58,6 +58,7 @@ namespace TPM.Repositorio
             jugador.Domicilio = dt.Rows[0]["Domicilio"].ToString();
             jugador.LocalidadId = int.Parse(dt.Rows[0]["LocalidadId"].ToString());
             jugador.LocalidadNombre = dt.Rows[0]["NombreLocalidad"].ToString();
+            jugador.ImagenPath = dt.Rows[0]["ImagenPath"].ToString();
 
             return jugador;
         }
@@ -67,7 +68,7 @@ namespace TPM.Repositorio
         {
             JugadoresDAL jugadoresDal = new JugadoresDAL();
             return jugadoresDal.JugadorInsert(jugador.Nombre, jugador.Apellido, jugador.TipoDocId, jugador.NumeroDoc, jugador.FechaNac,
-                jugador.Domicilio, jugador.LocalidadId);
+                jugador.Domicilio, jugador.LocalidadId, jugador.ImagenPath);
 
 
         }
@@ -89,8 +90,15 @@ namespace TPM.Repositorio
         public static int JugadorUpdate(Jugador jugador)
         {
             JugadoresDAL jugadoresDal = new JugadoresDAL();
-            return  jugadoresDal.JugadorUpdate(jugador.Id, jugador.Nombre, jugador.Apellido, jugador.TipoDocId,
+            return jugadoresDal.JugadorUpdate(jugador.Id, jugador.Nombre, jugador.Apellido, jugador.TipoDocId,
                 jugador.NumeroDoc, jugador.Domicilio, jugador.LocalidadId, jugador.FechaNac);
+        }
+
+        public static int JugadorUpdateFoto(Jugador jugador)
+        {
+            JugadoresDAL jugadoresDal = new JugadoresDAL();
+            return  jugadoresDal.JugadorUpdateFoto(jugador.Id, jugador.Nombre, jugador.Apellido, jugador.TipoDocId,
+                jugador.NumeroDoc, jugador.Domicilio, jugador.LocalidadId, jugador.FechaNac, jugador.ImagenPath);
         }
 
         public static List<Jugador> JugadoresNoEquipo(int idEquipo)
