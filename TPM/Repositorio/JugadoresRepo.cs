@@ -11,10 +11,10 @@ namespace TPM.Repositorio
 {
     public class JugadoresRepo
     {
-        public static List<Jugador> JugadoresGetAllRepo()
+        public static List<Jugador> JugadoresGetAllRepo(string parametroBuscar)
         {
             JugadoresDAL jugadoresDal = new JugadoresDAL();
-            DataTable dt = jugadoresDal.JugadoresGetAll();
+            DataTable dt = jugadoresDal.JugadoresGetAll(parametroBuscar);
 
             Jugador jugador;
             List<Jugador> jugadorList = new List<Jugador>();
@@ -159,6 +159,26 @@ namespace TPM.Repositorio
             }
 
             return jugadorList;
+        }
+        public static List<Equipo> JugadorEquiposList(int jugadorId)
+        {
+            JugadoresDAL jugadoresDal = new JugadoresDAL();
+            DataTable dt = jugadoresDal.JugadorEquiposList(jugadorId);
+
+            Equipo equipo;
+            List<Equipo> EquipoList = new List<Equipo>();
+
+
+            foreach (DataRow item in dt.Rows)
+            {
+                equipo = new Equipo();
+
+                equipo.NombreEquipo = item["NombreEquipo"].ToString();
+
+                EquipoList.Add(equipo);
+            }
+
+            return EquipoList;
         }
     }
 }

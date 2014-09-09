@@ -4,92 +4,59 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    WebGrid gridJugadores = new WebGrid(Model, rowsPerPage: 10);
 }
 
 <div class="panel panel-primary">
-  <div class="panel-heading">Lista de Jugadores
-      <div class="pull-right">
-          <a class="link-panel" href="/Jugador/Create">
-              <img src="~/Images/boton_nuevo.png" />
-              Nuevo jugador
-          </a>
-      </div>
+    <div class="panel-heading">Lista de Jugadores
+        <div class="pull-right">
+            <form name="formBuscador" id="formBuscador" method="POST">
+                <input type="text" name="parametroBuscar" id="parametroBuscar" placeholder="Buscar" class="buscarHeader" onchange="submit"/>
+            <a class="link-panel" href="/Jugador/Create" style="color: #FFF;font-size: 14px;">
+                <img src="~/Images/boton_nuevo.png" />
+                Nuevo Jugador
+            </a>
+                </form>
+        </div>
   </div>
-  <div class="panel-body">
-<table class="table table-striped">
-    <tr>
-        <th>
-            @Html.DisplayName("Foto")
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Apellido)
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.TipoDocNombre)
-        </th>*@
-        <th>
-            @Html.DisplayName("N° de documento")
-        </th>
-        <th>
-            @Html.DisplayName("Fecha de Nacimiento")
-        </th>
-        @* <th>
-            @Html.DisplayNameFor(model => model.Domicilio)
-        </th>
-        <th>
-            @Html.DisplayName("Localidad")
-        </th>
-        <th>
-            @Html.Display("Equipo")
-        </th>*@
-        <th>
-            @Html.DisplayName("Acción")
-        </th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Apellido)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TipoDocNombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumeroDoc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaNacFormateada)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.Domicilio)
-        </td>
-
-        <td>
-            @Html.DisplayFor(modelItem => item.LocalidadNombre)
-        </td>
+    <div class="panel-body">
         
-        
-        <td>
-            @Html.DisplayFor(modelItem => item.EquiposNombre)
-        </td>*@
-        <td>
-            @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
-            <a href="/Jugador/Edit/@item.Id"><img title="Editar" src="~/Images/boton_editar.png" /></a>
-            <a href="/Jugador/Details/@item.Id"><img title="Detalle" src="~/Images/boton_ver.png" /></a>
-            <a href="/Jugador/Delete/@item.Id"><img title="Eliminar" src="~/Images/boton_borrar.png" /></a>
-        </td>
-    </tr>
-}
+    @if (Model != null)
+    {
 
-</table>
-</div>
+        @gridJugadores.GetHtml(
+            fillEmptyRows: false,
+            alternatingRowStyle: "fila-alternativa",
+            headerStyle: "encabezado-grid",
+            footerStyle: "pie-grid",
+            mode: WebGridPagerModes.All,
+            firstText: "<< Primera",
+            previousText: "< Anterior",
+            nextText: "Siguiente >",
+            lastText: "Última >>",
+            tableStyle: "table table-striped",
+
+             columns: new[]
+             {
+                 gridJugadores.Column("Nombre"),
+                 gridJugadores.Column("Apellido"),
+                 gridJugadores.Column("NumeroDoc", "N° de documento"),
+                 gridJugadores.Column("FechaNacFormateada",
+                     header: "Fecha de nacimiento"
+                     ),
+                 gridJugadores.Column("",
+                     header: "Acciones",
+                     format: @<text>
+                                  <a href="/Jugador/Edit/@item.Id"><img title="Editar" src="~/Images/boton_editar.png" /></a>
+                                  <a href="/Jugador/Details/@item.Id"><img title="Detalle" src="~/Images/boton_ver.png" /></a>
+                                  <a href="/Jugador/Delete/@item.Id"><img title="Eliminar" src="~/Images/boton_borrar.png" /></a>
+                              </text>
+                     )
+             })
+     }
+    else
+    {
+    <div>@Html.DisplayName("No existen jugadores")</div>
+    }          
+    </div>
 </div>

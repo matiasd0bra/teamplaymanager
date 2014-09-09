@@ -58,6 +58,7 @@ namespace TPM.Controllers
 
                 EquiposRepo.EquipoInsert(equipo);
 
+               
                 return RedirectToAction("Index");
             }
             catch
@@ -127,7 +128,7 @@ namespace TPM.Controllers
             }
         }
 
-        public ActionResult AssignarJugadores(int id, string NombreFiltro = null, string ApellidoFiltro = null, int page = 0)
+        public ActionResult AssignarJugadores(int id, string NombreFiltro = null, string ApellidoFiltro = null)
         {
             var assignarJugadoresViewModel = new AssignarJugadoresViewModel();
             assignarJugadoresViewModel.EquipoSeleccionado = EquiposRepo.EquipoByIdRepo(id);
@@ -136,61 +137,69 @@ namespace TPM.Controllers
             assignarJugadoresViewModel.Equipos = EquiposRepo.EquiposGetAllRepo();
             assignarJugadoresViewModel.JugadoresAsignados = JugadoresRepo.JugadoresByEquipo(id);
             assignarJugadoresViewModel.NombreFiltro = NombreFiltro;
-            
-                assignarJugadoresViewModel.obtenerPaginaJugadoresFiltrados(page, '2', id, NombreFiltro, ApellidoFiltro);
 
             return View(assignarJugadoresViewModel);
         }
 
         [HttpPost]
-        public JsonResult AssignarJug(JugadoresAsignados jugadoresAsignados)
+        public JsonResult AssignarJug(JugadoresAsignados jugadorAsignado)
         {
-            foreach(var item in jugadoresAsignados.listJug)
-            {
-                Jugador jugador = new Jugador();
-                jugador.Id = item.Id;
-                jugador.EquipoId = jugadoresAsignados.IdEquipo;
+            Jugador jugador = new Jugador();
+            jugador.Id = jugadorAsignado.IdJugador;
+            jugador.EquipoId = jugadorAsignado.IdEquipo;
 
-                JugadoresRepo.JugadorPorEquipoInsert(jugador);
-            }
+            JugadoresRepo.JugadorPorEquipoInsert(jugador);
 
 
             return Json(new { success = false, message = "Un tag failed " }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
-        public JsonResult BorrarJugEquipo(JugadorPorEquipoEliminar jugadorEliminar)
+        public JsonResult BorrarJugEquipo(JugadoresAsignados jugadorEliminar)
         {
+            Jugador jugador = new Jugador();
+            jugador.Id = jugadorEliminar.IdJugador;
+            jugador.EquipoId = jugadorEliminar.IdEquipo;
 
-            foreach (var item in jugadorEliminar.listJug)
-            {
-                Jugador jugador = new Jugador();
-                jugador.Id = item.Id;
-                jugador.EquipoId = jugadorEliminar.IdEquipo;
-
-                JugadoresRepo.JugadorPorEquipoDelete(jugador);
-            }
+            JugadoresRepo.JugadorPorEquipoDelete(jugador);
 
             return Json(new { success = false, message = "Un tag failed " }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult AsignarPersonalEsp (int id)
+        public ActionResult AsignarPersonalEsp(int id, string NombreFiltro = null, string ApellidoFiltro = null)
         {
-            var asignarPersonalEspViewModel = new AsignarPersonalEspViewModel ();
-            asignarPersonalEspViewModel.ListaPersonalEsp = PersonalEspRepo.PersonalEspesGetAllRepo();
-            asignarPersonalEspViewModel.Equipos = EquiposRepo.EquiposGetAllRepo();
-            asignarPersonalEspViewModel.EquipoSeleccionado = EquiposRepo.EquipoByIdRepo(id);
+            var asignarPersonal = new AsignarPersonalEspViewModel();
+            asignarPersonal.EquipoSeleccionado = EquiposRepo.EquipoByIdRepo(id);
+            asignarPersonal.ListaPersonalEsp = PersonalEspRepo.PersonalSearch(id, NombreFiltro, ApellidoFiltro);
+            asignarPersonal.ListaPersonalEspsAsignados = PersonalEspRepo.PersonalByEquipo(id);
+            asignarPersonal.NombreFiltro = NombreFiltro;
 
-            return View(asignarPersonalEspViewModel);
+            return View(asignarPersonal);
         }
 
         [HttpPost]
-        public ActionResult AssignarPersonalEsp(List<PersonalEsp> PersonalEspAsignados)
+        public JsonResult AsignarPersonal(PersonalEspAsignados personalEspAsignados)
         {
-            
+            PersonalEsp personal = new PersonalEsp();
+            personal.Id = personalEspAsignados.IdPersonalEsp;
+            personal.EquipoId = personalEspAsignados.IdEquipo;
+
+            PersonalEspRepo.PersonalEspPorEquipoInsert(personal);
 
 
-            return View();
+            return Json(new { success = false, message = "Un tag failed " }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult BorrarPersonalEquipo(PersonalEspAsignados personalEspEliminar)
+        {
+            PersonalEsp personal = new PersonalEsp();
+            personal.Id = personalEspEliminar.IdPersonalEsp;
+            personal.EquipoId = personalEspEliminar.IdEquipo;
+
+            PersonalEspRepo.PersonalEspPorEquipoDelete(personal);
+
+            return Json(new { success = false, message = "Un tag failed " }, JsonRequestBehavior.AllowGet);
         }
     }
 }

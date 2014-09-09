@@ -10,150 +10,105 @@
 }
 
 <div class="panel panel-primary">
-  <div class="panel-heading">Crear Jugador
+    <div class="panel-heading">
+        Crear Jugador
       <div class="pull-right">
-          <a class="link-panel" href="/Jugador">
-             <img src="~/Images/boton_volver.png" />
+          <a class="link-panel" href="@ViewBag.returnUrl">
+              <img src="~/Images/boton_volver.png" />
               Volver
           </a>
       </div>
-  </div>
+    </div>
     <div class="panel-body">
-        
-        
+
+
 
         @using (Html.BeginForm("Create", "Jugador", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {       
+            <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
             
             @Html.ValidationSummary(true)
           
             <fieldset>
-                <legend>Jugador</legend>   
-             
-                <table>
-                <td>
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.Nombre)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.Nombre)
-                    @Html.ValidationMessage("Nombre", "Por favor, ingrese el nombre")
-                </div>
+                <legend>Jugador</legend>
 
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.Apellido)
+                <table id="tablaCreateJug">
+                    <tr>
+                        <td valign="top">
+                            <div>
+                                <div id='botonera'>
+                                    <input type="file" name="file" id="file" accept="image/*"></input>
+                                    <input id="cancelar" type="button" value="Cancelar"></input>
+                                </div>
+                            </div>
+                            <div class="titulo">
+                                <span>Vista Previa:</span>
+                                <span id="infoNombre">[Seleccione una imagen]</span><br />
+                            </div>
+                            <img id="vistaPrevia" src="" alt="" />
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td valign="top">
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Nombre)
+                                @Html.EditorFor(model => model.Nombre)
+                                @Html.ValidationMessage("Nombre", "Por favor, ingrese el nombre")
+                            </div>
+                            <div class="editor-label">
+                                @Html.LabelFor(model => model.Apellido)
+                                @Html.EditorFor(model => model.Apellido)
+                                @Html.ValidationMessageFor(model => model.Apellido, "Por favor, ingrese el apellido")
+                            </div>
+                            <div class="editor-label">
+                                @Html.Label("Tipo De Documento")
+                                @Html.DropDownListFor(model => model.TipoDocId, new SelectList(Model.TipoDocLista, "TipoDocId", "TipoDocNombre", 1))
+                            </div>
+                            <div class="editor-label">
+                                @Html.Label("Numero De Documento")
+                                @Html.TextBoxFor(model => model.NumeroDoc)
+                                @Html.ValidationMessageFor(model => model.NumeroDoc, "Por favor, ingrese el número de documento")
+                            </div>
+                            <div class="editor-label">
+                                @Html.Label("Fecha de Nacimiento")
+                                @Html.TextBoxFor(model => model.FechaNacFormateada)
+                                @Html.ValidationMessageFor(model => model.FechaNacFormateada, "Por favor, ingrese la fecha de nacimiento")
+                            </div>
+                            <script>
+                                $('#FechaNacFormateada').datepicker({
+                                    format: "dd/mm/yyyy",
+                                    language: "es",
+                                    autoclose: true,
+                                    startView: 2
+                                });
+                            </script>
 
 
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.Apellido)
-                    @Html.ValidationMessageFor(model => model.Apellido, "Por favor, ingrese el apellido")
-                </div>
 
-                <div class="editor-label">
-                    @Html.Label("Tipo De Documento")
-                </div>
-                <div class="editor-field">
+                            <div class="editor-label">
+                                @Html.Label("Domicilio de residencia")
+                                @Html.EditorFor(model => model.Domicilio)
+                                @Html.ValidationMessageFor(model => model.Domicilio, "Por favor, ingrese el domicilio")
+                            </div>
 
-                    @Html.DropDownListFor(model => model.TipoDocId, new SelectList(Model.TipoDocLista, "TipoDocId", "TipoDocNombre", 1))
-                </div>
-
-                <div class="editor-label">
-                    @Html.Label("Numero De Documento")
-                </div>
-                <div class="editor-field">
-                    @Html.TextBoxFor(model => model.NumeroDoc)
-                    @Html.ValidationMessageFor(model => model.NumeroDoc, "Por favor, ingrese el número de documento")
-                </div>
-
-                <div class="editor-label">
-                    @Html.Label("Fecha de Nacimiento")
-                </div>
-                <div class="editor-field">
-                    @Html.TextBoxFor(model => model.FechaNacFormateada)
-                    @Html.ValidationMessageFor(model => model.FechaNacFormateada, "Por favor, ingrese la fecha de nacimiento")
-                </div>
-
-                <div class="editor-label">
-                    @Html.Label("Domicilio de residencia")
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.Domicilio)
-                    @Html.ValidationMessageFor(model => model.Domicilio, "Por favor, ingrese el domicilio")
-                </div>
-
-                <div class="editor-label">
-                    @Html.Label("Localidad de residencia")
-                </div>
-
-                <div class="editor-field">
-                    @Html.DropDownListFor(model => model.LocalidadId, new SelectList
+                            <div class="editor-label">
+                                @Html.Label("Localidad de residencia")
+                                @Html.DropDownListFor(model => model.LocalidadId, new SelectList
                         (Model.LocalidadLista, "LocalidadId", "LocalidadNombre"))
-                </div>
-
-            
-                <p>
-                    <input class="btn btn-primary" type="submit" value="Crear"/>
-                </p>
+                            </div>
+                        </td>
+                    </tr>
+                    <td>
+                        <p>
+                            <input class="btn btn-primary" type="submit" value="Crear" />
+                        </p>
             </fieldset>
         }
     </div>
-                    </td>
-                    <td>
-                                        <div>
-                                            <html>
-                                                <head>
-                                                    <meta charset="utf-8">
-                                                    <title>Vista previa antes de enviar</title>
-                                                    <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
-                                                    <style type="text/css">
-                                                        .titulo{ font-size: 12pt; font-weight: bold; height: 30pt;}
-                                                        #marcoVistaPrevia{
-                                                            width: 200px;
-                                                            height: 200px;                                              
-                                                        }
-                                                        #vistaPrevia{
-                                                            max-width: 200px;
-                                                            max-height: 200px;          
-                                                        }
-                                                    </style>
- 
-                                                    <!-- El contenido del script más adelante -->
-                                                    <script type="text/javascript">
-                                                    </script>
- 
-                                                </head>
-                                                <body>
-                                                    <div id='botonera'>
-                                                        <input type="file" name="file" id="file" accept="image/*"></input>
-                                                        <input id="cancelar" type="button" value="Cancelar"></input>
-                                                    </div>
-                                                    <div class="contenedor">
-                                                        <div class="titulo">
-                                                            <span>Vista Previa:</span> 
-                                                            <span id="infoNombre">[Seleccione una imagen]</span><br/>
-                                                        </div>
-                                                        <div id="marcoVistaPrevia">
-                                                            <img id="vistaPrevia" src="" alt="" />
-                                                        </div>
-                                                    </div>
-                                                </body>
-                                            </html>
-                                            
-                                            
-                                            
-                                                    
-                                       @*             <div>
-                                                    <input type="file" name="file" id="file" style="width: 100%;" /> <br />
-                                                    </div>    *@
-                                                    
-                                            
-                                            
-                                            
-
-                                        </div>    
-                    </td>
-            </table>
+    </td>
+                    <td></td>
+    </table>
                                                                
 
 

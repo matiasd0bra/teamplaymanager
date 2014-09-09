@@ -19,7 +19,7 @@ namespace TPM.DAL
         }
 
 
-        public DataTable JugadoresGetAll()
+        public DataTable JugadoresGetAll(string parametroBuscar)
         {
             
             var dt = new DataTable();
@@ -31,9 +31,12 @@ namespace TPM.DAL
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
-                    
-                    //cmd.Parameters.Add("@FirstName", SqlDbType.VarChar).Value = txtFirstName.Text;
-                    //cmd.Parameters.Add("@LastName", SqlDbType.VarChar).Value = txtLastName.Text;
+
+                    if (parametroBuscar == null)
+                    {
+                        parametroBuscar = "";
+                    }
+                    cmd.Parameters.Add("@parametroBuscar", SqlDbType.VarChar).Value = parametroBuscar;
 
                     con.Open();
                     sqlDataReader = cmd.ExecuteReader();
@@ -233,6 +236,29 @@ namespace TPM.DAL
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add("@IdEquipo", SqlDbType.VarChar).Value = idEquipo;
+
+                    con.Open();
+                    sqlDataReader = cmd.ExecuteReader();
+                    dt.Load(sqlDataReader);
+                }
+            }
+            return dt;
+        }
+
+        public DataTable JugadorEquiposList(int jugadorId)
+        {
+
+            var dt = new DataTable();
+            SqlDataReader sqlDataReader;
+
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
+            {
+                using (SqlCommand cmd = new SqlCommand("JugadorEquiposList", con))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@IdJugador", SqlDbType.VarChar).Value = jugadorId;
 
                     con.Open();
                     sqlDataReader = cmd.ExecuteReader();

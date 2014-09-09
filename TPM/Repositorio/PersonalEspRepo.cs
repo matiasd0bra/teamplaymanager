@@ -33,6 +33,7 @@ namespace TPM.Repositorio
                 personalEsp.Domicilio = item["Domicilio"].ToString();
                 personalEsp.LocalidadId = int.Parse(item["LocalidadId"].ToString());
                 personalEsp.LocalidadNombre = item["LocalidadNombre"].ToString();
+                personalEsp.EspecialidadNombre = item["EspecialidadNombre"].ToString();
                 personalEspList.Add(personalEsp);
             }
 
@@ -64,7 +65,7 @@ namespace TPM.Repositorio
         {
             PersonalEspDAL PersonalEspesDal = new PersonalEspDAL();
             return PersonalEspesDal.PersonalEspInsert(PersonalEsp.Nombre, PersonalEsp.Apellido, PersonalEsp.TipoDocId, PersonalEsp.NumeroDoc,
-                PersonalEsp.Domicilio, PersonalEsp.LocalidadId);
+                PersonalEsp.Domicilio, PersonalEsp.LocalidadId, PersonalEsp.EspecialidadId);
 
 
         }
@@ -73,8 +74,11 @@ namespace TPM.Repositorio
         {
             PersonalEspDAL PersonalEspesDal = new PersonalEspDAL();
             return PersonalEspesDal.PersonalEspPorEquipoInsert(PersonalEsp.Id, PersonalEsp.EquipoId);
-
-
+        }
+        public static int PersonalEspPorEquipoDelete(PersonalEsp PersonalEsp)
+        {
+            PersonalEspDAL PersonalEspesDal = new PersonalEspDAL();
+            return PersonalEspesDal.PersonalEspPorEquipoDelete(PersonalEsp.Id, PersonalEsp.EquipoId);
         }
 
         public static int PersonalEspUpdate(PersonalEsp PersonalEsp)
@@ -83,6 +87,82 @@ namespace TPM.Repositorio
             return PersonalEspesDal.PersonalEspUpdate(PersonalEsp.Id, PersonalEsp.Nombre, PersonalEsp.Apellido, PersonalEsp.TipoDocId,
                 PersonalEsp.NumeroDoc,
                 PersonalEsp.Domicilio, PersonalEsp.LocalidadId);
+        }
+
+        public static List<PersonalEsp> PersonalSearch(int idEquipo, string nombre, string apellido)
+        {
+            PersonalEspDAL personalDal = new PersonalEspDAL();
+            DataTable dt = personalDal.PersonalSearch(idEquipo, nombre, apellido);
+
+            PersonalEsp personalEsp;
+            List<PersonalEsp> personalList = new List<PersonalEsp>();
+
+
+            foreach (DataRow item in dt.Rows)
+            {
+                personalEsp = new PersonalEsp();
+
+                personalEsp.Id = int.Parse(item["PersonalEspId"].ToString());
+                personalEsp.Nombre = item["Nombre"].ToString();
+                personalEsp.Apellido = item["Apellido"].ToString();
+                personalEsp.TipoDocId = int.Parse(item["TipoDocId"].ToString());
+                personalEsp.TipoDocNombre = item["NombreDoc"].ToString();
+                personalEsp.NumeroDoc = item["NumeroDoc"].ToString();
+                personalEsp.Domicilio = item["Domicilio"].ToString();
+                personalEsp.LocalidadId = int.Parse(item["LocalidadId"].ToString());
+                personalEsp.EspecialidadNombre = item["EspecialidadNombre"].ToString();
+                personalList.Add(personalEsp);
+            }
+
+            return personalList;
+        }
+
+        public static List<PersonalEsp> PersonalByEquipo(int IdEquipo)
+        {
+            PersonalEspDAL personalDal = new PersonalEspDAL();
+            DataTable dt = personalDal.PersonalByEquipo(IdEquipo);
+
+            PersonalEsp personalEsp;
+            List<PersonalEsp> personalList = new List<PersonalEsp>();
+
+
+            foreach (DataRow item in dt.Rows)
+            {
+                personalEsp = new PersonalEsp();
+
+                personalEsp.Id = int.Parse(item["PersonalEspId"].ToString());
+                personalEsp.Nombre = item["Nombre"].ToString();
+                personalEsp.Apellido = item["Apellido"].ToString();
+                personalEsp.TipoDocId = int.Parse(item["TipoDocId"].ToString());
+                personalEsp.TipoDocNombre = item["NombreDoc"].ToString();
+                personalEsp.NumeroDoc = item["NumeroDoc"].ToString();
+                personalEsp.Domicilio = item["Domicilio"].ToString();
+                personalEsp.LocalidadId = int.Parse(item["LocalidadId"].ToString());
+                personalEsp.EspecialidadNombre = item["EspecialidadNombre"].ToString();
+                personalList.Add(personalEsp);
+            }
+
+            return personalList;
+        }
+        public static List<Equipo> JugadorEquiposList(int jugadorId)
+        {
+            JugadoresDAL jugadoresDal = new JugadoresDAL();
+            DataTable dt = jugadoresDal.JugadorEquiposList(jugadorId);
+
+            Equipo equipo;
+            List<Equipo> EquipoList = new List<Equipo>();
+
+
+            foreach (DataRow item in dt.Rows)
+            {
+                equipo = new Equipo();
+
+                equipo.NombreEquipo = item["NombreEquipo"].ToString();
+
+                EquipoList.Add(equipo);
+            }
+
+            return EquipoList;
         }
 
     }

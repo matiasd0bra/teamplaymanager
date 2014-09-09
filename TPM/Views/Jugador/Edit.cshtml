@@ -9,49 +9,39 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Editar Jugador</h2>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Editar Jugador
+      <div class="pull-right">
+          <a class="link-panel" href="/Jugador">
+              <img src="~/Images/boton_volver.png" />
+              Volver
+          </a>
+      </div>
+    </div>
+    <div class="panel-body">
 
 @using (Html.BeginForm("Edit", "Jugador", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true)
 
-    var a = "/Images/Jugadores/" + @Model.ImagenPath;
+    var imagenPath = "/Images/Jugadores/" + @Model.ImagenPath;
 
     <fieldset>
-        <legend>Jugador</legend>      
+        <legend>Jugador</legend>
         <table>
             <td>
                 <div class="editor-label">
                     @Html.Label("Foto Actual")
                 </div>
                 <div>
-                <html>
-                        <head>
-                            <meta charset="utf-8">
-                            <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
-                            <style type="text/css">
-                                .titulo{ font-size: 12pt; font-weight: bold; height: 30pt;}
-                                #marcoVP{
-                                    width: 200px;
-                                    height: 200px;                                              
-                                }
-                                #vistaP{
-                                    max-width: 200px;
-                                    max-height: 200px;          
-                                }
-                            </style>
-                        </head>
-                        <body>
-                            <div class="contenedor">
-                                <div id="marcoVP">
-                                    <img id="vistaP" src="@a" alt="" />
-                                </div>
+                        <div class="contenedor">
+                            <div id="marcoVP">
+                                <img id="vistaP" src="@imagenPath" alt="" />
                             </div>
-                        </body>
-                    </html>          
-                
+                        </div>
                 </div>
-                
+
                 <div class="editor-label">
                     @Html.LabelFor(model => model.Nombre)
                 </div>
@@ -72,7 +62,7 @@
                     @Html.LabelFor(model => model.TipoDocId)
                 </div>
                 <div class="editor-field">
-                    @Html.DropDownListFor(model => model.TipoDocId, new SelectList (Model.TipoDocLista, "TipoDocId", "TipoDocNombre", Model.TipoDocNombre))
+                    @Html.DropDownListFor(model => model.TipoDocId, new SelectList(Model.TipoDocLista, "TipoDocId", "TipoDocNombre", Model.TipoDocNombre))
                 </div>
 
                 <div class="editor-label">
@@ -82,7 +72,7 @@
                     @Html.EditorFor(model => model.NumeroDoc)
                     @Html.ValidationMessageFor(model => model.NumeroDoc, "Por favor, ingrese el número de documento")
                 </div>
-        
+
                 <div class="editor-label">
                     @Html.LabelFor(model => model.FechaNac)
                 </div>
@@ -90,6 +80,15 @@
                     @Html.TextBoxFor(model => model.FechaNacFormateada)
                     @Html.ValidationMessageFor(model => model.FechaNacFormateada, "Por favor, ingrese la fecha de nacimiento")
                 </div>
+
+                <script>
+                    $('#FechaNacFormateada').datepicker({
+                        format: "dd/mm/yyyy",
+                        language: "es",
+                        autoclose: true,
+                        startView: 2
+                    });
+                </script>
 
                 <div class="editor-label">
                     @Html.LabelFor(model => model.Domicilio)
@@ -103,7 +102,7 @@
                     @Html.LabelFor(model => model.LocalidadId)
                 </div>
                 <div class="editor-field">
-                    @Html.DropDownListFor(model => model.LocalidadId, new SelectList (Model.LocalidadLista, "LocalidadId", "LocalidadNombre", Model.LocalidadNombre))
+                    @Html.DropDownListFor(model => model.LocalidadId, new SelectList(Model.LocalidadLista, "LocalidadId", "LocalidadNombre", Model.LocalidadNombre))
                 </div>
 
                 <p>
@@ -113,51 +112,26 @@
             </td>
             <td>
                 <div>
-                    
                 </div>
-        
+
                 <div class="editor-label">
                     @Html.Label("Foto Nueva")
                 </div>
                 <div>
-                    <html>
-                        <head>
-                            <meta charset="utf-8">
-                            <title>Vista previa antes de enviar</title>
-                            <script type="text/javascript" src="jquery-1.8.2.min.js"></script>
-                            <style type="text/css">
-                                .titulo{ font-size: 12pt; font-weight: bold; height: 30pt;}
-                                #marcoVistaPrevia{
-                                    width: 200px;
-                                    height: 200px;                                              
-                                }
-                                #vistaPrevia{
-                                    max-width: 200px;
-                                    max-height: 200px;          
-                                }
-                            </style>
- 
-                            <!-- El contenido del script más adelante -->
-                            <script type="text/javascript">
-                            </script>
- 
-                        </head>
-                        <body>
-                            <div id='botonera'>
-                                <input type="file" name="file" id="file" accept="image/*"></input>
-                                <input id="cancelar" type="button" value="Cancelar"></input>
-                            </div>
-                            <div class="contenedor">
-                                <div class="titulo">
-                                    <span>Vista Previa:</span> 
-                                    <span id="infoNombre">[Seleccione una imagen]</span><br/>
-                                </div>
-                                <div id="marcoVistaPrevia">
-                                    <img id="vistaPrevia" src="@a" alt="" />
-                                </div>
-                            </div>
-                        </body>
-                    </html>          
+                    <div id='botonera'>
+                        <input type="file" name="file" id="file" accept="image/*"></input>
+                        <input id="cancelar" type="button" value="Cancelar"></input>
+                    </div>
+                    <div class="contenedor">
+                        <div class="titulo">
+                            <span>Vista Previa:</span>
+                            <span id="infoNombre">[Seleccione una imagen]</span><br />
+                        </div>
+                        <div id="marcoVistaPrevia">
+                            <img id="vistaPrevia" src="" alt="" />
+                        </div>
+                    </div>
+
                 </div>
             </td>
 
@@ -165,9 +139,6 @@
 
     </fieldset>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
 
 @section Scripts {
@@ -268,8 +239,8 @@
         });
 
     </script>
-    
-    
+
+
 
 }
 

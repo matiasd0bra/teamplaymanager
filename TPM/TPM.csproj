@@ -169,6 +169,7 @@
     <Compile Include="Controllers\LocalidadController.cs" />
     <Compile Include="Controllers\PersonalEspController.cs" />
     <Compile Include="DAL\CategoriaDAL.cs" />
+    <Compile Include="DAL\EspecialidadesDAL.cs" />
     <Compile Include="DAL\DivisionesDAL.cs" />
     <Compile Include="DAL\EquiposDAL.cs" />
     <Compile Include="DAL\HelperDal.cs" />
@@ -186,6 +187,7 @@
     <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\Division.cs" />
     <Compile Include="Models\Equipo.cs" />
+    <Compile Include="Models\Especialidad.cs" />
     <Compile Include="Models\Jugador.cs" />
     <Compile Include="Models\Liga.cs" />
     <Compile Include="Models\Localidad.cs" />
@@ -196,9 +198,10 @@
     <Compile Include="Models\ViewModel\AsignarPersonalEspViewModel.cs" />
     <Compile Include="Models\ViewModel\AssignarJugadoresViewModel.cs" />
     <Compile Include="Models\ViewModel\JugadoresAsignados.cs" />
-    <Compile Include="Models\ViewModel\JugadorPorEquipoEliminar.cs" />
+    <Compile Include="Models\ViewModel\PersonalEspAsignados.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositorio\CategoriaRepo.cs" />
+    <Compile Include="Repositorio\EspecialidadesRepo.cs" />
     <Compile Include="Repositorio\DivisionesRepo.cs" />
     <Compile Include="Repositorio\EquiposRepo.cs" />
     <Compile Include="Repositorio\JugadoresRepo.cs" />
@@ -212,6 +215,7 @@
     <Content Include="Content\General\bootstrap-theme.min.css" />
     <Content Include="Content\General\bootstrap.css" />
     <Content Include="Content\General\bootstrap.min.css" />
+    <Content Include="Content\General\datepicker3.css" />
     <Content Include="Images\boton_asignarJugador.png" />
     <Content Include="Images\boton_asignarProfesional2.png" />
     <Content Include="Images\boton_borrar.png" />
@@ -288,6 +292,7 @@
     <Content Include="Scripts\Bootstrap\cbpAnimatedHeader.js" />
     <Content Include="Scripts\Bootstrap\cbpAnimatedHeader.min.js" />
     <Content Include="Scripts\Bootstrap\classie.js" />
+    <Content Include="Scripts\Bootstrap\bootstrap-datepicker.js" />
     <Content Include="Scripts\Bootstrap\freelancer.js" />
     <Content Include="Scripts\Custom\equipos.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />

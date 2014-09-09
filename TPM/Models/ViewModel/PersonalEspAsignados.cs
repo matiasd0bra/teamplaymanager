@@ -5,10 +5,9 @@ using System.Web;
 
 namespace TPM.Models.ViewModel
 {
-    public class JugadorPorEquipoEliminar
+    public class PersonalEspAsignados
     {
-        public List<IdJugadores> listJug { get; set; }
+        public int IdPersonalEsp { get; set; }
         public int IdEquipo { get; set; }
     }
-
 }

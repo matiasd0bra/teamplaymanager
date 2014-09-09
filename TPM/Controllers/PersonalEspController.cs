@@ -38,6 +38,8 @@ namespace TPM.Controllers
             personalEsp.LocalidadLista = LocalidadesRepo.LocalidadesGetAllRepo();
             personalEsp.TipoDocLista = TipoDocRepo.TipoDocGetAllRepo();
             personalEsp.Equipos = EquiposRepo.EquiposGetAllRepo();
+            personalEsp.EspecialidadLista = EspecialidadesRepo.EspecialidadesGetAllRepo();
+            ViewBag.returnUrl = Request.UrlReferrer;
             return View(personalEsp);
         }
 
@@ -45,15 +47,31 @@ namespace TPM.Controllers
         // POST: /PersonalEsp/Create
 
         [HttpPost]
-        public ActionResult Create(PersonalEsp personalEsp)
+        public ActionResult Create(PersonalEsp personalEsp, string returnUrl)
         {
             try
             {
-                personalEsp.Id = PersonalEspRepo.PersonalEspInsert(personalEsp);
+                if (ModelState.IsValid)
+                {
+                    personalEsp.Id = PersonalEspRepo.PersonalEspInsert(personalEsp);
 
-                PersonalEspRepo.PersonalEspPorEquipoInsert(personalEsp);
+                    if (returnUrl != "~/PersonalEsp/Index")
+                    {
+                        string equipoId = returnUrl.Substring(returnUrl.LastIndexOf('/') + 1);
+                        personalEsp.EquipoId = int.Parse(equipoId);
 
-                return RedirectToAction("Index");
+                        PersonalEspRepo.PersonalEspPorEquipoInsert(personalEsp);
+
+                        return Redirect(returnUrl);
+                    }
+
+                    return RedirectToAction("Index");
+                }
+                personalEsp.TipoDocLista = TipoDocRepo.TipoDocGetAllRepo();
+                personalEsp.LocalidadLista = LocalidadesRepo.LocalidadesGetAllRepo();
+                personalEsp.EspecialidadLista = EspecialidadesRepo.EspecialidadesGetAllRepo();
+
+                return View(personalEsp);
             }
             catch
             {

@@ -1,4 +1,6 @@
-﻿@using System.Web.Mvc.Html
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using TPM.Models
 @model TPM.Models.Jugador
 
 @{
@@ -6,54 +8,79 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Detalle del Jugador</h2>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Detalles Jugador
+      <div class="pull-right">
+          <a class="link-panel" href="/Jugador">
+              <img src="~/Images/boton_volver.png" />
+              Volver
+          </a>
+      </div>
+    </div>
+    <div class="panel-body">
 
-<fieldset>
-    <legend>Jugador</legend>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Nombre)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Nombre)
-    </div>
+    var imagenPath = "/Images/Jugadores/" + @Model.ImagenPath;
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Apellido)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Apellido)
-    </div>
+    <fieldset>
+        <legend>Jugador</legend>
+        <table>
+            <td>
+                <div class="editor-label">
+                    @Html.Label("Foto")
+                </div>
+                <div>
+                        <div class="contenedor">
+                            <div id="marcoVP">
+                                <img id="vistaP" src="@imagenPath" alt="" />
+                            </div>
+                        </div>
+                </div>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.TipoDocId)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.TipoDocId)
-    </div>
+                <div>
+                    @Html.Label("Nombre: ")
+                    @Html.Label(Model.Nombre)
+                </div>
+                <div>
+                    @Html.Label("Apellido: ")
+                    @Html.Label(Model.Apellido)
+                </div>
+                <div>
+                    @Html.Label("Tipo de Documento: ")
+                    @Html.Label(Model.TipoDocNombre)
+                </div>
+                <div>
+                    @Html.Label("Numero de Documento: ")
+                    @Html.Label(Model.NumeroDoc)
+                </div>
+                <div>
+                    @Html.Label("Fecha de Naciemiento: ")
+                    @Html.Label(Model.FechaNacFormateada)
+                </div>
+                <div>
+                    @Html.Label("Domicilio de Residencia: ")
+                    @Html.Label(Model.Domicilio)
+                </div>
+                <div>
+                    @Html.Label("Localidad de Residencia: ")
+                    @Html.Label(Model.LocalidadNombre)
+                </div>
+                <div>
+                    @Html.Label("Equipos en los que juega: ")
+                    @foreach (Equipo equipo in Model.Equipos)
+                    {
+                        <div>
+                        @Html.Label(equipo.NombreEquipo)
+                        </div>
+                    }
+                </div>              
+            </td>
+        </table>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.NumeroDoc)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.NumeroDoc)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Domicilio)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Domicilio)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.LocalidadId)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.LocalidadId)
-    </div>
-</fieldset>
-<p>
-    @*@Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |*@
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    </fieldset>
+}
+</div>
