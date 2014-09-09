@@ -16,9 +16,9 @@ namespace TPM.Controllers
         //
         // GET: /Jugador/
 
-        public ActionResult Index()
+        public ActionResult Index(string parametroBuscar)
         {
-            List<Jugador> jugadores = JugadoresRepo.JugadoresGetAllRepo();
+            List<Jugador> jugadores = JugadoresRepo.JugadoresGetAllRepo(parametroBuscar);
             return View(jugadores);
         }
 
@@ -28,6 +28,9 @@ namespace TPM.Controllers
         public ActionResult Details(int id)
         {
             Jugador jugador = JugadoresRepo.JugadorByIdRepo(id);
+            jugador.FechaNacFormateada = jugador.FechaNac.ToShortDateString();
+            jugador.Equipos = JugadoresRepo.JugadorEquiposList(id);
+
             return View(jugador);
         }
 
@@ -39,8 +42,7 @@ namespace TPM.Controllers
             Jugador jugador = new Jugador();
             jugador.TipoDocLista = TipoDocRepo.TipoDocGetAllRepo();
             jugador.LocalidadLista = LocalidadesRepo.LocalidadesGetAllRepo();
-            jugador.FechaNac = DateTime.Now;
-            jugador.FechaNacFormateada = jugador.FechaNac.ToShortDateString();
+            ViewBag.returnUrl = Request.UrlReferrer;
             return View(jugador);
         }
 
@@ -48,12 +50,11 @@ namespace TPM.Controllers
         // POST: /Jugador/Create
 
         [HttpPost]
-        public ActionResult Create(Jugador jugador, HttpPostedFileBase file)
+        public ActionResult Create(Jugador jugador, HttpPostedFileBase file, string returnUrl)
         {
-            //HttpPostedFileBase file
 
             try
-            {
+            {       
                 if(ModelState.IsValid)
                     {
                         if (file != null)
@@ -73,6 +74,15 @@ namespace TPM.Controllers
                         }
                         jugador.FechaNac = DateTime.Parse(jugador.FechaNacFormateada);
                         jugador.Id = JugadoresRepo.JugadorInsert(jugador);
+                        if (returnUrl != "~/Jugador/Index")
+                        {
+                            string equipoId = returnUrl.Substring(returnUrl.LastIndexOf('/') + 1);
+                            jugador.EquipoId = int.Parse(equipoId);
+
+                            JugadoresRepo.JugadorPorEquipoInsert(jugador);
+
+                            return Redirect(returnUrl);
+                        }
 
                         return RedirectToAction("Index");
                     }

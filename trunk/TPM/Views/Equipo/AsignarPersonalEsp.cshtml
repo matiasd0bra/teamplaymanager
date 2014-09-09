@@ -1,172 +1,170 @@
-﻿@model TPM.Models.ViewModel.AsignarPersonalEspViewModel
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@model TPM.Models.ViewModel.AsignarPersonalEspViewModel
 
 @{
     ViewBag.Title = "AsignarPersonalEsp";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    WebGrid gridPersonalEsp = new WebGrid(Model.ListaPersonalEsp, rowsPerPage: 10);
+    WebGrid gridPersonalEspAsignados = new WebGrid(Model.ListaPersonalEspsAsignados, rowsPerPage: 10, fieldNamePrefix: "order");
 }
 
-<h2>Asignar Personal Especializado</h2>
+<div class="panel panel-primary">
+  <div class="panel-heading">Asignar Personal Especializado a Equipo 
+      <div class="pull-right">
+          <a class="link-panel" href="/Equipo">
+             <img src="~/Images/boton_volver.png" />
+              Volver
+          </a>
+      </div>
+  </div>
+  <div class="panel-body">
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(null, null, FormMethod.Get))
 {
-    @Html.ValidationSummary(true)
-    <table>
-        <tr>
-            <th>
-                @Html.Label("Equipo Seleccionado: " + Model.EquipoSeleccionado.NombreEquipo)
-            </th>
-        </tr>
-        <tr>
-            <th>
-                      @Html.Label("Buscar Personal Especializado")
-            </th>
-
-        </tr>
-        <tr>
-            <th>
-                @Html.Label("Nombre")
-                @Html.TextBoxFor(model => model.NombreFiltro)
-            </th>
-        </tr>
-        <tr>
-            <th>
-                @Html.Label("Numero Documento")
-                @Html.TextBoxFor(model => model.NumeroDniFiltro)
-            </th>
-        </tr>
-        
-    </table>@*
-
-    *@<input type="submit" value="Filtrar" />
+    <h2>
+        Equipo: @Html.DisplayFor(model => model.EquipoSeleccionado.NombreEquipo) 
+    </h2>
     
-    <table>
-        <tr>
-            <th>
-                @Html.DisplayName("Nombre")
-            </th>
-            <th>
-                @Html.DisplayName("Apellido")
-            </th>
+    @Html.ValidationSummary(true)
 
-            <th>
-                @Html.DisplayName("Tipo de Documento")
-            </th>
-            <th>
-                @Html.DisplayName("Número de Documento")
-            </th>
-            <th>
-                @Html.DisplayName("Domicilio")
-            </th>
-            <th>
-                @Html.DisplayName("Localidad")
-            </th>
-            <th>
-                @Html.Display("Equipo")
-            </th>
-            <th></th>
-        </tr>
+    var personalEspAsig = Model.ListaPersonalEspsAsignados;
+    if (personalEspAsig.Count > 0)
+    {
 
-        @foreach (var item in Model.ListaPersonalEsp)
-        {
-            <tr>
-                <th>
-                    @Html.DisplayFor(modelItem => item.Nombre)
-                </th>
-                <th>
-                    @Html.DisplayFor(modelItem => item.Apellido)
-                </th>
+        @gridPersonalEspAsignados.GetHtml(
+            fillEmptyRows: false,
+            alternatingRowStyle: "fila-alternativa",
+            headerStyle: "encabezado-grid",
+            footerStyle: "pie-grid",
+            mode: WebGridPagerModes.All,
+            firstText: "<< Primera",
+            previousText: "< Anterior",
+            nextText: "Siguiente >",
+            lastText: "Última >>",
+            tableStyle: "table table-striped",
 
-                <th>
-                    @Html.DisplayFor(modelItem => item.TipoDocNombre)
-                </th>
-                <th>
-                    @Html.DisplayFor(modelItem => item.NumeroDoc)
-                </th>
-                <th>
-                    @Html.DisplayFor(modelItem => item.Domicilio)
-                </th>
+             columns: new[]
+             {
+                 gridPersonalEspAsignados.Column("Nombre"),
+                 gridPersonalEspAsignados.Column("Apellido"),
+                 gridPersonalEspAsignados.Column("EspecialidadNombre", "Especialidad"),
+                 gridPersonalEspAsignados.Column("",
+                     header: "Acciones",
+                     format: @<text>
+                                  <input type="button" value="Borrar" id=@item.Id onClick=" borrarPersonal(@item.Id) "/>
+                              </text>
+                     )
+             })
+     }
+    else
+    {
+    <div>@Html.DisplayName("Este equipo no tiene asignado ningun Personal")</div>
+    }
+    
+    <h3>@Html.DisplayName("Personal Especializado")</h3>
+    <div class="pull-right">
+          <a class="link-panel" href="/PersonalEsp/Create">
+              <img src="~/Images/boton_nuevo.png" />
+              Nuevo Personal
+          </a>
+      </div>
+    <div>
+        @Html.Label("Nombre")
+        @Html.TextBoxFor(model => model.NombreFiltro)
+    </div>
+    <div>
+        @Html.Label("Apellido")
+        @Html.TextBoxFor(model => model.ApellidoFiltro)
+    </div>  
 
-                <th>
-                    @Html.DisplayFor(modelItem => item.LocalidadNombre)
-                </th>
+    @Html.HiddenFor(model => model.EquipoSeleccionado.Id, new { id = "hidden" })
 
-                <th>
-                    @Html.DisplayFor(modelItem => item.EquiposNombre)
-                </th>
-                <th>
-                    <input type="button" value="Agregar" id=@item.Id onClick="asignarPersonalEsp(@item.Id)"/>
+    <input type="submit" value="Buscar" />
+    var personalEsp = Model.ListaPersonalEsp;
+    if (personalEsp.Count > 0)
+    {
+        @gridPersonalEsp.GetHtml(
+            fillEmptyRows: false,
+            alternatingRowStyle: "fila-alternativa",
+            headerStyle: "encabezado-grid",
+            footerStyle: "pie-grid",
+            mode: WebGridPagerModes.All,
+            firstText: "<< Primera",
+            previousText: "< Anterior",
+            nextText: "Siguiente >",
+            lastText: "Última >>",
+            tableStyle: "table table-striped",
 
 
-                    @*@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id=item.Id })*@
-                </th>
-            </tr>
+            columns: new[]
+            {
+                gridPersonalEsp.Column("Nombre"),
+                gridPersonalEsp.Column("Apellido"),
+                gridPersonalEspAsignados.Column("EspecialidadNombre", "Especialidad"),
+                gridPersonalEsp.Column("",
+                    header: "Acciones",
+                    format: @<text>
+                                 <input type="button" value="Asignar" id=@item.Id onClick=" asignarPersonal(@item.Id) "/>
+                             </text>
+                    )
+            })
+    }
+    else
+    {
+    <div>@Html.DisplayName("No se han encontrado resultados")</div>
+    }
+
+    <script type="text/javascript">
+        var PersonalAsignados = [];
+        var PersonalEquipoEliminar = [];
+
+        function asignarPersonal(idParam) {
+            $('.btnPrint').removeClass('disable');
+            $('.btnPrint').addClass('enable');
+            var equipoId = $('#hidden').val();
+            var datos = "{'IdPersonalEsp':'"+ idParam +"','IdEquipo':'" + equipoId + "'}";
+
+            $.ajax({
+                url: '@Url.Action("AsignarPersonal", "Equipo")',
+                type: 'POST',
+                data: datos,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    location.href="";
+                },
+                error: function (jqXHR, textStatus, error) {
+
+                    alert("error: " + jqXHR.responseText);
+                }
+            });
+     }
+        function borrarPersonal(idParam) {
+            var r = confirm("Seguro desea eliminar este personal del equipo?");
+            if(r == true){
+                $('.btnPrint').removeClass('disable');
+                $('.btnPrint').addClass('enable');
+                var equipoId = $('#hidden').val();
+                var datos = "{'IdPersonalEsp':'"+ idParam +"','IdEquipo':'" + equipoId + "'}";
+
+                $.ajax({
+
+                    url: '@Url.Action("BorrarPersonalEquipo", "Equipo")',
+                type: 'POST',
+                data: datos,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    location.href="";
+                },
+                error: function (jqXHR, textStatus, error) {
+
+                    alert("error: " + jqXHR.responseText);
+                }
+            });
+            }
         }
 
-
-
-
-    </table>
-
-    <h1>Personal Especializado a Asignar</h1>
-           
-    <table id="tablaPersonalEspAsignar">
-        <tr>
-            <th>
-                @Html.DisplayName("Nombre")
-            </th>
-            <th>
-                @Html.DisplayName("Apellido")
-            </th>
-
-            <th>
-                @Html.DisplayName("Tipo de Documento")
-            </th>
-            <th>
-                @Html.DisplayName("Número de Documento")
-            </th>
-            <th>
-                @Html.DisplayName("Domicilio")
-            </th>
-            <th>
-                @Html.DisplayName("Localidad")
-            </th>
-            <th>
-                @Html.Display("Equipo")
-            </th>
-            <th></th>
-        </tr>
-
-
-        
-
-    </table>
-    
-    <input type="submit" value="Asignar Jugadores"  />
-
-
-}
-
-
-
-
-<script type="text/javascript">
-
-    function asignarPersonalEsp(idParam) {
-
-
-        $.ajax({
-            type: "GET",
-            url: '@Url.Action("GetPersonalEspPorId", "PersonalEsp")',
-            data: { id : idParam },
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                $('#tablaPersonalEspAsignar tr:last').after(data);
-            },
-            error: function (textStatus, errorThrown) {
-                Success = false;//doesnt goes here
-            }
-        });
-    }
 </script>
+}

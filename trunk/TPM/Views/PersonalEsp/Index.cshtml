@@ -1,70 +1,57 @@
-﻿@model IEnumerable<TPM.Models.PersonalEsp>
+﻿@using System.Web.Mvc.Html
+@model IEnumerable<TPM.Models.PersonalEsp>
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    WebGrid gridPersonalEsp = new WebGrid(Model, rowsPerPage: 10);
 }
 
-<h2>Index</h2>
+<div class="panel panel-primary">
+  <div class="panel-heading">Lista de Personal Especializado
+      <div class="pull-right">
+          <a class="link-panel" href="/PersonalEsp/Create">
+              <img src="~/Images/boton_nuevo.png" />
+              Nuevo Personal Especializado
+          </a>
+      </div>
+  </div>
+    <div class="panel-body">
+        
+    @if (Model != null)
+    {
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Apellido)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TipoDocNombre)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NumeroDoc)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Domicilio)
-        </th>
-        <th>
-            @Html.DisplayName("Localidad")
-        </th>
-        <th>
-            @Html.Display("Equipo")
-        </th>
-        <th></th>
-    </tr>
+        @gridPersonalEsp.GetHtml(
+            fillEmptyRows: false,
+            alternatingRowStyle: "fila-alternativa",
+            headerStyle: "encabezado-grid",
+            footerStyle: "pie-grid",
+            mode: WebGridPagerModes.All,
+            firstText: "<< Primera",
+            previousText: "< Anterior",
+            nextText: "Siguiente >",
+            lastText: "Última >>",
+            tableStyle: "table table-striped",
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Apellido)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TipoDocNombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NumeroDoc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Domicilio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LocalidadNombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EquiposNombre)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
-</table>
+             columns: new[]
+             {
+                 gridPersonalEsp.Column("Nombre"),
+                 gridPersonalEsp.Column("Apellido"),
+                 gridPersonalEsp.Column("NumeroDoc", "N° de documento"),
+                 gridPersonalEsp.Column("EspecialidadNombre", "Especialidad"),
+                 gridPersonalEsp.Column("",
+                     header: "Acciones",
+                     format: @<text>
+                                  <a href="/PersonalEsp/Edit/@item.Id"><img title="Editar" src="~/Images/boton_editar.png" /></a>
+                                  <a href="/PersonalEsp/Details/@item.Id"><img title="Detalle" src="~/Images/boton_ver.png" /></a>
+                                  <a href="/PersonalEsp/Delete/@item.Id"><img title="Eliminar" src="~/Images/boton_borrar.png" /></a>
+                              </text>
+                     )
+             })
+     }
+    else
+    {
+    <div>@Html.DisplayName("No se ha cargado ningun Personal Especializado")</div>
+    }          
+    </div>
+</div>

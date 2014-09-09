@@ -27,6 +27,7 @@ a {
     a:link, a:visited,
     a:active, a:hover {
         color: #333;
+        font-size: 20px;
     }
 
     a:hover {
@@ -764,3 +765,31 @@ tr.pager td {
     font-size: 12px;
     font-weight:normal;
 }
+
+.titulo{ font-size: 12pt; font-weight: bold; height: 30pt;}
+ #marcoVistaPrevia{
+     width: 200px;
+     height: 200px;                                              
+ }
+ #vistaPrevia{
+     max-width: 200px;
+     max-height: 200px;          
+ }
+  #marcoVP{
+     width: 200px;
+     height: 200px;                                              
+ }
+ #vistaP{
+     max-width: 200px;
+     max-height: 200px;          
+ }
+ .buscarHeader{
+    max-height: 28px;
+    max-width: 145px;
+     font-size: 14px;
+ }
+ #formBuscador{
+     a{
+         color: #FFF;  
+     } 
+ }

@@ -15,6 +15,9 @@
     <link href="~/Content/General/bootstrap.css" rel="stylesheet" />
     <link href="~/Content/General/bootstrap-theme.css" rel="stylesheet" />
     <link href="~/Content/OwnStyle.css" rel="stylesheet" />
+    <script src="~/Scripts/Bootstrap/bootstrap-datepicker.js"></script>
+    <link href="~/Content/General/datepicker3.css" rel="stylesheet" />
+
 
 </head>
 <body>
@@ -46,11 +49,11 @@
                     <section class="content-wrapper main-content clear-fix">
                         <div class="accordion" id="leftMenu">
                             <div class="accordion-group">
-                                <div class="accordion-heading">
+                                @*<div class="accordion-heading">
                                     <a class="accordion-toggle" data-toggle="collapse" data-parent="#leftMenu" href="#">
                                         <i class="icon-home"></i>Inicio
                                     </a>
-                                </div>
+                                </div>*@
                             </div>
                             <div class="accordion-group">
                                 <div class="accordion-heading">
@@ -61,7 +64,8 @@
                                 <div id="collapseTwo" class="accordion-body collapse" style="height: 0px;">
                                     <div class="accordion-inner">
                                         <ul>
-                                            <li>  <a href="~/Jugador/Index">Lista de Jugadores</a></li>
+                                            <li>  <a href="~/Jugador/Index" class="">Lista de Jugadores</a></li>
+                                            <li>  <a href="~/Jugador/Create" class="">Crear Nuevo Jugador</a></li>
                                             <li>Control de asistencia</li>
                                             <li>Estadisticas</li>
                                             <li>Sanciones</li>
@@ -79,8 +83,8 @@
                                 <div id="collapseThree" class="accordion-body collapse" style="height: 0px;">
                                     <div class="accordion-inner">
                                         <ul>
-                                            <li>Fichas de Personal</li>
-                                            <li>Asignar Personal a Equipo</li>
+                                            <li>  <a href="~/PersonalEsp/Index" class="">Lista de Personal</a></li>
+                                            <li>  <a href="~/PersonalEsp/Create" class="">Crear Nuevo Personal</a></li>
                                         </ul>
                                     </div>
                                 </div>

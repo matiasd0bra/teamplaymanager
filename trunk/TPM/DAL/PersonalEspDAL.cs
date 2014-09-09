@@ -63,7 +63,7 @@ namespace TPM.DAL
             return dt;
         }
 
-        public int PersonalEspInsert(string nombre, string apellido, int tipoDoc, string nroDoc, string dom, int loc)
+        public int PersonalEspInsert(string nombre, string apellido, int tipoDoc, string nroDoc, string dom, int loc, int especialidad)
         {
             int ret = 0;
             using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
@@ -79,6 +79,7 @@ namespace TPM.DAL
                     cmd.Parameters.Add("@NumeroDoc", SqlDbType.VarChar).Value = nroDoc;
                     cmd.Parameters.Add("@Domicilio", SqlDbType.VarChar).Value = dom;
                     cmd.Parameters.Add("@LocalidadId", SqlDbType.Int).Value = loc;
+                    cmd.Parameters.Add("@EspecialidadId", SqlDbType.Int).Value = especialidad;
 
                     con.Open();
                     ret = int.Parse(cmd.ExecuteScalar().ToString());
@@ -98,6 +99,25 @@ namespace TPM.DAL
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add("@PersonalEspId", SqlDbType.Int).Value = personalEspId;
+                    cmd.Parameters.Add("@EquipoId", SqlDbType.Int).Value = equipoId;
+
+                    con.Open();
+                    ret = cmd.ExecuteNonQuery();
+                }
+            }
+            return ret;
+        }
+        public int PersonalEspPorEquipoDelete(int personalId, int equipoId)
+        {
+            int ret;
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
+            {
+                using (SqlCommand cmd = new SqlCommand("PersonalEspPorEquipoDelete", con))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@personalId", SqlDbType.Int).Value = personalId;
                     cmd.Parameters.Add("@EquipoId", SqlDbType.Int).Value = equipoId;
 
                     con.Open();
@@ -131,6 +151,84 @@ namespace TPM.DAL
                 }
             }
             return ret;
+        }
+        public DataTable PersonalSearch(int idEquipo, string nombre, string apellido)
+        {
+
+            var dt = new DataTable();
+            SqlDataReader sqlDataReader;
+
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
+            {
+                using (SqlCommand cmd = new SqlCommand("PersonalSearch", con))
+                {
+                    if (nombre == null)
+                    {
+                        nombre = "";
+                    }
+                    if (apellido == null)
+                    {
+                        apellido = "";
+                    }
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@IdEquipo", SqlDbType.VarChar).Value = idEquipo;
+                    cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
+                    cmd.Parameters.Add("@apellido", SqlDbType.VarChar).Value = apellido;
+
+                    con.Open();
+                    sqlDataReader = cmd.ExecuteReader();
+                    dt.Load(sqlDataReader);
+                }
+            }
+            return dt;
+        }
+
+        public DataTable PersonalByEquipo(int idEquipo)
+        {
+
+            var dt = new DataTable();
+            SqlDataReader sqlDataReader;
+
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
+            {
+                using (SqlCommand cmd = new SqlCommand("PersonalByEquipo", con))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@IdEquipo", SqlDbType.VarChar).Value = idEquipo;
+
+                    con.Open();
+                    sqlDataReader = cmd.ExecuteReader();
+                    dt.Load(sqlDataReader);
+                }
+            }
+            return dt;
+        }
+
+        public DataTable JugadorEquiposList(int jugadorId)
+        {
+
+            var dt = new DataTable();
+            SqlDataReader sqlDataReader;
+
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
+            {
+                using (SqlCommand cmd = new SqlCommand("JugadorEquiposList", con))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@IdJugador", SqlDbType.VarChar).Value = jugadorId;
+
+                    con.Open();
+                    sqlDataReader = cmd.ExecuteReader();
+                    dt.Load(sqlDataReader);
+                }
+            }
+            return dt;
         }
 
     }
