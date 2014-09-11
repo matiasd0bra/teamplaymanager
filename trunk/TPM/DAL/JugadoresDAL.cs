@@ -69,7 +69,8 @@ namespace TPM.DAL
             return dt;
         }
 
-        public int JugadorInsert(string nombre, string apellido, int tipoDoc, string nroDoc, DateTime fechanac, string dom, int loc, string imagenPath)
+        public int JugadorInsert(string nombre, string apellido, int tipoDoc, string nroDoc, DateTime fechanac, string dom, int loc, string imagenPath
+            , string apodo, float peso, float estatura, string colegio, string telefono, string email, string ciudadania, string representante)
         {
             int ret = 0;
             using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
@@ -87,7 +88,14 @@ namespace TPM.DAL
                     cmd.Parameters.Add("@Domicilio", SqlDbType.VarChar).Value = dom;
                     cmd.Parameters.Add("@LocalidadId", SqlDbType.Int).Value = loc;
                     cmd.Parameters.Add("@ImagenPath", SqlDbType.VarChar).Value = imagenPath;
-
+                    cmd.Parameters.Add("@Apodo", SqlDbType.Int).Value = apodo;
+                    cmd.Parameters.Add("@Peso", SqlDbType.Int).Value = peso;
+                    cmd.Parameters.Add("@Estatura", SqlDbType.Int).Value = estatura;
+                    cmd.Parameters.Add("@Colegio", SqlDbType.Int).Value = colegio;
+                    cmd.Parameters.Add("@Telefono", SqlDbType.Int).Value = telefono;
+                    cmd.Parameters.Add("@Email", SqlDbType.Int).Value = email;
+                    cmd.Parameters.Add("@Ciudadania", SqlDbType.Int).Value = ciudadania;
+                    cmd.Parameters.Add("@Representante", SqlDbType.Int).Value = representante;
 
                     con.Open();
                     ret = int.Parse(cmd.ExecuteScalar().ToString());

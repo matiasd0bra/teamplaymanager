@@ -20,9 +20,6 @@
       </div>
     </div>
     <div class="panel-body">
-
-
-
         @using (Html.BeginForm("Create", "Jugador", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {       
             <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
@@ -32,86 +29,182 @@
             <fieldset>
                 <legend>Jugador</legend>
 
-                <table id="tablaCreateJug">
+                <table width="100%">
                     <tr>
-                        <td valign="top">
-                            <div>
-                                <div id='botonera'>
-                                    <input type="file" name="file" id="file" accept="image/*"></input>
-                                    <input id="cancelar" type="button" value="Cancelar"></input>
-                                </div>
-                            </div>
-                            <div class="titulo">
-                                <span>Vista Previa:</span>
-                                <span id="infoNombre">[Seleccione una imagen]</span><br />
-                            </div>
-                            <img id="vistaPrevia" src="" alt="" />
-
+                        <td valign="top" colspan="2">
+                            <table width="100%">
+                                <tr>
+                                    <td>
+                                        @Html.Label("Foto Jugador:")
+                                    </td>
+                                    <td>
+                                        <div id='botonera'>
+                                            <input type="file" name="file" id="file" accept="image/*"></input>
+                                            <input id="cancelar" type="button" value="Cancelar"></input>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <img id="vistaPrevia" src="" alt="" />
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
-                    <tr>
-                        <td valign="top">
-                            <div class="editor-label">
-                                @Html.LabelFor(model => model.Nombre)
+                </table>
+                <div class="well">
+                    <div class="titleDatos"><span class="label label-default">Datos Personales</span></div>
+                    <table class="tablaCreate" width="100%">
+                        <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Nombre:")
+                            </td>
+                            <td>
                                 @Html.EditorFor(model => model.Nombre)
                                 @Html.ValidationMessage("Nombre", "Por favor, ingrese el nombre")
-                            </div>
-                            <div class="editor-label">
-                                @Html.LabelFor(model => model.Apellido)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="primerColumna">
+                                 @Html.Label("Apellido:")
+                            </td>
+                            <td>
                                 @Html.EditorFor(model => model.Apellido)
                                 @Html.ValidationMessageFor(model => model.Apellido, "Por favor, ingrese el apellido")
-                            </div>
-                            <div class="editor-label">
-                                @Html.Label("Tipo De Documento")
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Apodo:")
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(model => model.Apodo)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Tipo De Documento:")
+                            </td>
+                            <td>
                                 @Html.DropDownListFor(model => model.TipoDocId, new SelectList(Model.TipoDocLista, "TipoDocId", "TipoDocNombre", 1))
-                            </div>
-                            <div class="editor-label">
-                                @Html.Label("Numero De Documento")
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Numero De Documento:")
+                            </td>
+                            <td>
                                 @Html.TextBoxFor(model => model.NumeroDoc)
                                 @Html.ValidationMessageFor(model => model.NumeroDoc, "Por favor, ingrese el número de documento")
-                            </div>
-                            <div class="editor-label">
-                                @Html.Label("Fecha de Nacimiento")
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Fecha de Nacimiento:")
+                            </td>
+                            <td>
                                 @Html.TextBoxFor(model => model.FechaNacFormateada)
                                 @Html.ValidationMessageFor(model => model.FechaNacFormateada, "Por favor, ingrese la fecha de nacimiento")
-                            </div>
-                            <script>
-                                $('#FechaNacFormateada').datepicker({
-                                    format: "dd/mm/yyyy",
-                                    language: "es",
-                                    autoclose: true,
-                                    startView: 2
-                                });
-                            </script>
-
-
-
-                            <div class="editor-label">
-                                @Html.Label("Domicilio de residencia")
+                            </td>
+                        </tr>
+                        <script>
+                            $('#FechaNacFormateada').datepicker({
+                                format: "dd/mm/yyyy",
+                                language: "es",
+                                autoclose: true,
+                                startView: 2
+                            });
+                        </script>
+                        <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Domicilio de residencia:")
+                            </td>
+                            <td>
                                 @Html.EditorFor(model => model.Domicilio)
                                 @Html.ValidationMessageFor(model => model.Domicilio, "Por favor, ingrese el domicilio")
-                            </div>
-
-                            <div class="editor-label">
-                                @Html.Label("Localidad de residencia")
-                                @Html.DropDownListFor(model => model.LocalidadId, new SelectList
-                        (Model.LocalidadLista, "LocalidadId", "LocalidadNombre"))
-                            </div>
-                        </td>
-                    </tr>
-                    <td>
-                        <p>
-                            <input class="btn btn-primary" type="submit" value="Crear" />
-                        </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Localidad de residencia:")
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(model => model.LocalidadId, new SelectList(Model.LocalidadLista, "LocalidadId", "LocalidadNombre"))
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Peso:")
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(model => model.Peso)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Estatura:")
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(model => model.Estatura)
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Colegio:")
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(model => model.Colegio)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Teléfono:")
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(model => model.Telefono)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="primerColumna">
+                                @Html.Label("E-mail:")
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(model => model.Email)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Tiene ciudadania europea:")
+                            </td>
+                            <td>
+                                @*@Html.TextBoxFor(model => model.CiudadaniaEuropea)*@
+                                <select name="CiudadaniaEuropea" id="CiudadaniaEuropea">
+                                    <option value="S">Si</option>
+                                    <option value="N">No</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Representante:")
+                            </td>
+                            <td>
+                                @*@Html.TextBoxFor(model => model.Representante)*@
+                                <select name="Representante" id="Representante">
+                                    <option value="S">Si</option>
+                                    <option value="N">No</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <br />
+                <div class="well">
+                    <div class="titleDatos"><span class="label label-default">Cobertura Médica</span></div>
+                </div>
+                <input class="btn btn-primary" type="submit" value="Crear" />
             </fieldset>
         }
     </div>
-    </td>
-                    <td></td>
-    </table>
-                                                               
-
-
 </div>
 
 @section Scripts {
@@ -212,5 +305,11 @@
             });
         });
 
+
+
+        $('#FechaNacFormateada').datepicker({
+            format: "dd/mm/yy",
+            language: "es"
+        });
     </script>
 }

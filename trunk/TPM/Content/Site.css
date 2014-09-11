@@ -27,7 +27,7 @@ a {
     a:link, a:visited,
     a:active, a:hover {
         color: #333;
-        font-size: 20px;
+        font-size: 16px;
     }
 
     a:hover {
@@ -538,7 +538,7 @@ table {
 }
 
 th {
-    font-size: 1.2em;
+    font-size: 16px;
     text-align: left;
     border: none 0px;
     padding-left: 0;
@@ -581,7 +581,7 @@ th {
     }
 
 td {
-    padding: 0.25em 2em 0.25em 0em;
+    padding: 3px;
     border: 0 none;
 }
 
@@ -793,3 +793,17 @@ tr.pager td {
          color: #FFF;  
      } 
  }
+
+.tablaCreate select, input{
+    height: 30px;
+    width: 100%;
+}
+.titleDatos {
+    margin-left: 25px;
+    margin-top: -31px;
+    position: absolute;
+}
+.primerColumna {
+    text-align: right;
+    max-width: 75px;
+}
