@@ -197,6 +197,7 @@
     <Compile Include="Models\TipoDoc.cs" />
     <Compile Include="Models\ViewModel\AsignarPersonalEspViewModel.cs" />
     <Compile Include="Models\ViewModel\AssignarJugadoresViewModel.cs" />
+    <Compile Include="Models\ViewModel\HistorialEquiposJugador.cs" />
     <Compile Include="Models\ViewModel\JugadoresAsignados.cs" />
     <Compile Include="Models\ViewModel\PersonalEspAsignados.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

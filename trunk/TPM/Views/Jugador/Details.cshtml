@@ -6,6 +6,8 @@
 @{
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    WebGrid gridEquiposActual = new WebGrid(Model.EquiposList, rowsPerPage: 10);
+    WebGrid gridEquiposHistorico = new WebGrid(Model.EquiposListHistorico, rowsPerPage: 10);
 }
 
 <div class="panel panel-primary">
@@ -43,41 +45,87 @@
 
                 <div>
                     @Html.Label("Nombre: ")
-                    @Html.Label(Model.Nombre)
+                    @Html.DisplayName(Model.Nombre)
                 </div>
                 <div>
                     @Html.Label("Apellido: ")
-                    @Html.Label(Model.Apellido)
+                    @Html.DisplayName(Model.Apellido)
                 </div>
                 <div>
                     @Html.Label("Tipo de Documento: ")
-                    @Html.Label(Model.TipoDocNombre)
+                    @Html.DisplayName(Model.TipoDocNombre)
                 </div>
                 <div>
                     @Html.Label("Numero de Documento: ")
-                    @Html.Label(Model.NumeroDoc)
+                    @Html.DisplayName(Model.NumeroDoc)
                 </div>
                 <div>
                     @Html.Label("Fecha de Naciemiento: ")
-                    @Html.Label(Model.FechaNacFormateada)
+                    @Html.DisplayName(Model.FechaNacFormateada)
                 </div>
                 <div>
                     @Html.Label("Domicilio de Residencia: ")
-                    @Html.Label(Model.Domicilio)
+                    @Html.DisplayName(Model.Domicilio)
                 </div>
                 <div>
                     @Html.Label("Localidad de Residencia: ")
-                    @Html.Label(Model.LocalidadNombre)
+                    @Html.DisplayName(Model.LocalidadNombre)
                 </div>
                 <div>
                     @Html.Label("Equipos en los que juega: ")
-                    @foreach (Equipo equipo in Model.Equipos)
+                    @if (Model.EquiposList.Count > 0)
                     {
-                        <div>
-                        @Html.Label(equipo.NombreEquipo)
-                        </div>
+                        @gridEquiposActual.GetHtml(
+                        fillEmptyRows: false,
+                        alternatingRowStyle: "fila-alternativa",
+                        headerStyle: "encabezado-grid",
+                        footerStyle: "pie-grid",
+                        mode: WebGridPagerModes.All,
+                        firstText: "<< Primera",
+                        previousText: "< Anterior",
+                        nextText: "Siguiente >",
+                        lastText: "Última >>",
+                        tableStyle: "table table-striped",
+
+                         columns: new[]
+                         {
+                             gridEquiposActual.Column("Equipo.NombreEquipo", "Equipo"),
+                             gridEquiposActual.Column("FechaDesdeHistorial", "Fecha Desde"),
+                         })                                                          
                     }
-                </div>              
+                    else
+                    {
+                        <div>@Html.DisplayName("El jugador no en nigun equipo actualmente.")</div>
+                    }
+                </div>
+                <div>
+                    @Html.Label("Equipos en los que ha jugado: ")
+                    @if (Model.EquiposList.Count > 0)
+                    {
+                        @gridEquiposHistorico.GetHtml(
+                        fillEmptyRows: false,
+                        alternatingRowStyle: "fila-alternativa",
+                        headerStyle: "encabezado-grid",
+                        footerStyle: "pie-grid",
+                        mode: WebGridPagerModes.All,
+                        firstText: "<< Primera",
+                        previousText: "< Anterior",
+                        nextText: "Siguiente >",
+                        lastText: "Última >>",
+                        tableStyle: "table table-striped",
+
+                         columns: new[]
+                         {
+                             gridEquiposHistorico.Column("Equipo.NombreEquipo", "Equipo"),
+                             gridEquiposHistorico.Column("FechaDesdeHistorial", "Fecha Desde"),
+                             gridEquiposHistorico.Column("FechaHastaHistorial", "Fecha Hasta"),
+                         })                                                          
+                    }
+                    else
+                    {
+                        <div>@Html.DisplayName("El jugador no ha jugado en ningun equipo.")</div>
+                    }
+                </div>
             </td>
         </table>
 

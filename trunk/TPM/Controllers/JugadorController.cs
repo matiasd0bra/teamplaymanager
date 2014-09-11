@@ -29,7 +29,8 @@ namespace TPM.Controllers
         {
             Jugador jugador = JugadoresRepo.JugadorByIdRepo(id);
             jugador.FechaNacFormateada = jugador.FechaNac.ToShortDateString();
-            jugador.Equipos = JugadoresRepo.JugadorEquiposList(id);
+            jugador.EquiposList = JugadoresRepo.JugadorEquiposList(id);
+            jugador.EquiposListHistorico = JugadoresRepo.JugadorEquiposListHistorico(id);
 
             return View(jugador);
         }
