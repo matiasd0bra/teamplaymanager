@@ -18,7 +18,5 @@ namespace TPM.Models
         public List<Division> DivisionLista { get; set; }
         public List<Liga> LigaLista { get; set; }
         public String NombreEquipo { get; set; }
-
-
     }
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using TPM.DAL;
 using TPM.Models;
+using TPM.Models.ViewModel;
 
 namespace TPM.Repositorio
 {
@@ -77,7 +78,7 @@ namespace TPM.Repositorio
         public static int JugadorPorEquipoInsert(Jugador jugador)
         {
             JugadoresDAL jugadoresDal = new JugadoresDAL();
-            return jugadoresDal.JugadorPorEquipoInsert(jugador.Id, jugador.EquipoId);
+            return jugadoresDal.JugadorPorEquipoInsert(jugador.Id, jugador.EquipoId, jugador.FechaDesdeEquipo);
 
 
         }
@@ -85,7 +86,7 @@ namespace TPM.Repositorio
         public static int JugadorPorEquipoDelete(Jugador jugador)
         {
             JugadoresDAL jugadoresDal = new JugadoresDAL();
-            return jugadoresDal.JugadorPorEquipoDelete(jugador.Id, jugador.EquipoId);
+            return jugadoresDal.JugadorPorEquipoDelete(jugador.Id, jugador.EquipoId, jugador.FechaHastaEquipo);
         }
 
         public static int JugadorUpdate(Jugador jugador)
@@ -161,25 +162,47 @@ namespace TPM.Repositorio
 
             return jugadorList;
         }
-        public static List<Equipo> JugadorEquiposList(int jugadorId)
+        public static List<HistorialEquiposJugador> JugadorEquiposList(int jugadorId)
         {
             JugadoresDAL jugadoresDal = new JugadoresDAL();
             DataTable dt = jugadoresDal.JugadorEquiposList(jugadorId);
 
-            Equipo equipo;
-            List<Equipo> EquipoList = new List<Equipo>();
-
+            HistorialEquiposJugador historial = new HistorialEquiposJugador();
+            List<HistorialEquiposJugador> historialList = new List<HistorialEquiposJugador>();
 
             foreach (DataRow item in dt.Rows)
             {
-                equipo = new Equipo();
+                historial = new HistorialEquiposJugador();
+                historial.Equipo = new Equipo();
 
-                equipo.NombreEquipo = item["NombreEquipo"].ToString();
+                historial.Equipo.NombreEquipo = item["NombreEquipo"].ToString();
+                historial.FechaDesdeHistorial = Convert.ToDateTime(item["FechaDesde"].ToString());
 
-                EquipoList.Add(equipo);
+                historialList.Add(historial);
             }
 
-            return EquipoList;
+            return historialList;
+        }
+        public static List<HistorialEquiposJugador> JugadorEquiposListHistorico(int jugadorId)
+        {
+            JugadoresDAL jugadoresDal = new JugadoresDAL();
+            DataTable dt = jugadoresDal.JugadorEquiposListHistorial(jugadorId);
+
+            HistorialEquiposJugador historial = new HistorialEquiposJugador();
+            List<HistorialEquiposJugador> historialList = new List<HistorialEquiposJugador>();
+
+            foreach (DataRow item in dt.Rows)
+            {
+                historial = new HistorialEquiposJugador();
+                historial.Equipo = new Equipo();
+
+                historial.Equipo.NombreEquipo = item["NombreEquipo"].ToString();
+                historial.FechaDesdeHistorial = Convert.ToDateTime(item["FechaDesde"].ToString());
+                historial.FechaHastaHistorial = Convert.ToDateTime(item["FechaHasta"].ToString());
+
+                historialList.Add(historial);
+            }
+            return historialList;
         }
     }
 }

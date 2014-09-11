@@ -147,6 +147,7 @@ namespace TPM.Controllers
             Jugador jugador = new Jugador();
             jugador.Id = jugadorAsignado.IdJugador;
             jugador.EquipoId = jugadorAsignado.IdEquipo;
+            jugador.FechaDesdeEquipo = DateTime.Now;
 
             JugadoresRepo.JugadorPorEquipoInsert(jugador);
 
@@ -160,6 +161,7 @@ namespace TPM.Controllers
             Jugador jugador = new Jugador();
             jugador.Id = jugadorEliminar.IdJugador;
             jugador.EquipoId = jugadorEliminar.IdEquipo;
+            jugador.FechaHastaEquipo = DateTime.Now;
 
             JugadoresRepo.JugadorPorEquipoDelete(jugador);
 
