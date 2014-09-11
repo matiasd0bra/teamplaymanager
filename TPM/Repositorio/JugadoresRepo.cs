@@ -68,7 +68,8 @@ namespace TPM.Repositorio
         {
             JugadoresDAL jugadoresDal = new JugadoresDAL();
             return jugadoresDal.JugadorInsert(jugador.Nombre, jugador.Apellido, jugador.TipoDocId, jugador.NumeroDoc, jugador.FechaNac,
-                jugador.Domicilio, jugador.LocalidadId, jugador.ImagenPath);
+                jugador.Domicilio, jugador.LocalidadId, jugador.ImagenPath, jugador.Apodo, jugador.Peso, jugador.Estatura, jugador.Colegio, 
+                jugador.Telefono, jugador.Email, jugador.CiudadaniaEuropea, jugador.Representante);
 
 
         }

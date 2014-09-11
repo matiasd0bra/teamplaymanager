@@ -358,6 +358,11 @@
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff428bca', endColorstr='#ff357ebd', GradientType=0);
 }
 
+.panel-primary > .panel-heading a{
+    color: #FFF;
+    font-size: 14px;
+}
+
 .panel-success > .panel-heading {
   background-image: -webkit-linear-gradient(top, #dff0d8 0%, #d0e9c6 100%);
   background-image: linear-gradient(to bottom, #dff0d8 0%, #d0e9c6 100%);
