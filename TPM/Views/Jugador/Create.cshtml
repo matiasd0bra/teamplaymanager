@@ -2,6 +2,7 @@
 @using System.Web.Mvc.Html
 @using System.Web.Optimization
 @using TPM.Models
+@using TPM.Models.ViewModel
 @model TPM.Models.Jugador
 
 @{
@@ -37,13 +38,13 @@
                                     <td>
                                         @Html.Label("Foto Jugador:")
                                     </td>
-                                    <td>
+                                    <td style="text-align: center">
                                         <div id='botonera'>
                                             <input type="file" name="file" id="file" accept="image/*"></input>
                                             <input id="cancelar" type="button" value="Cancelar"></input>
                                         </div>
                                     </td>
-                                    <td>
+                                    <td style="text-align: right">
                                         <img id="vistaPrevia" src="" alt="" />
                                     </td>
                                 </tr>
@@ -200,6 +201,80 @@
                 <br />
                 <div class="well">
                     <div class="titleDatos"><span class="label label-default">Cobertura Médica</span></div>
+                     <table class="tablaCreate" width="100%">
+                        <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Obra Social:")
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.CoberturaMedica.ObraSocial)
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Número de afiliado:")
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.CoberturaMedica.NroObraSocial)
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Servicio de emergencia:")
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.CoberturaMedica.ServicioEmergencia)
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Número de afiliado:")
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.CoberturaMedica.NroServicioEmergencia)
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Hospital:")
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.CoberturaMedica.Hospital)
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Teléfono:")
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.CoberturaMedica.Telefono)
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Medicamento:")
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.CoberturaMedica.Medicamente)
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Alergico:")
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.CoberturaMedica.Alergico)
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Observaciones:")
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.CoberturaMedica.Observaciones)
+                            </td>
+                        </tr>
+                     </table>
                 </div>
                 <input class="btn btn-primary" type="submit" value="Crear" />
             </fieldset>

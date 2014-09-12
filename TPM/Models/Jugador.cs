@@ -58,5 +58,6 @@ namespace TPM.Models
         public List<HistorialEquiposJugador> EquiposList { get; set; }
         public List<HistorialEquiposJugador> EquiposListHistorico { get; set; }
 
+        public CoberturaMedicaJugador CoberturaMedica { get; set; }
     }
 }
