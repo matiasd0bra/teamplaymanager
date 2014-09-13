@@ -44,6 +44,7 @@ namespace TPM.Controllers
             jugador.TipoDocLista = TipoDocRepo.TipoDocGetAllRepo();
             jugador.LocalidadLista = LocalidadesRepo.LocalidadesGetAllRepo();
             ViewBag.returnUrl = Request.UrlReferrer;
+
             return View(jugador);
         }
 
@@ -55,7 +56,9 @@ namespace TPM.Controllers
         {
 
             try
-            {       
+            {
+                bool Url = returnUrl.Contains("AssignarJugadores/");
+
                 if(ModelState.IsValid)
                     {
                         if (file != null)
@@ -75,7 +78,8 @@ namespace TPM.Controllers
                         }
                         jugador.FechaNac = DateTime.Parse(jugador.FechaNacFormateada);
                         jugador.Id = JugadoresRepo.JugadorInsert(jugador);
-                        if (returnUrl != "~/Jugador/Index")
+
+                        if (Url == true)
                         {
                             string equipoId = returnUrl.Substring(returnUrl.LastIndexOf('/') + 1);
                             jugador.EquipoId = int.Parse(equipoId);
@@ -87,6 +91,7 @@ namespace TPM.Controllers
 
                         return RedirectToAction("Index");
                     }
+            ViewBag.returnUrl = Request.UrlReferrer;
             jugador.TipoDocLista = TipoDocRepo.TipoDocGetAllRepo();
             jugador.LocalidadLista = LocalidadesRepo.LocalidadesGetAllRepo();
             return View(jugador);

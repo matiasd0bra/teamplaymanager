@@ -185,6 +185,7 @@
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Campeonato.cs" />
     <Compile Include="Models\Categoria.cs" />
+    <Compile Include="Models\DatosGeneralesJugador.cs" />
     <Compile Include="Models\Division.cs" />
     <Compile Include="Models\Equipo.cs" />
     <Compile Include="Models\Especialidad.cs" />
@@ -197,6 +198,7 @@
     <Compile Include="Models\TipoDoc.cs" />
     <Compile Include="Models\ViewModel\AsignarPersonalEspViewModel.cs" />
     <Compile Include="Models\ViewModel\AssignarJugadoresViewModel.cs" />
+    <Compile Include="Models\ViewModel\CoberturaMedicaJugador.cs" />
     <Compile Include="Models\ViewModel\HistorialEquiposJugador.cs" />
     <Compile Include="Models\ViewModel\JugadoresAsignados.cs" />
     <Compile Include="Models\ViewModel\PersonalEspAsignados.cs" />

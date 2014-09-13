@@ -68,11 +68,23 @@ namespace TPM.Repositorio
         public static int JugadorInsert(Jugador jugador)
         {
             JugadoresDAL jugadoresDal = new JugadoresDAL();
-            return jugadoresDal.JugadorInsert(jugador.Nombre, jugador.Apellido, jugador.TipoDocId, jugador.NumeroDoc, jugador.FechaNac,
+            var idJugador = jugadoresDal.JugadorInsert(jugador.Nombre, jugador.Apellido, jugador.TipoDocId, jugador.NumeroDoc, jugador.FechaNac,
                 jugador.Domicilio, jugador.LocalidadId, jugador.ImagenPath, jugador.Apodo, jugador.Peso, jugador.Estatura, jugador.Colegio, 
                 jugador.Telefono, jugador.Email, jugador.CiudadaniaEuropea, jugador.Representante);
 
+            jugadoresDal.CoberturaMedicaInsert(idJugador, jugador.CoberturaMedica.ObraSocial, jugador.CoberturaMedica.NroObraSocial, jugador.CoberturaMedica.ServicioEmergencia,
+                jugador.CoberturaMedica.NroServicioEmergencia, jugador.CoberturaMedica.Telefono, jugador.CoberturaMedica.Hospital, 
+                jugador.CoberturaMedica.Direccion, jugador.CoberturaMedica.Medicamento, jugador.CoberturaMedica.Alergico, jugador.CoberturaMedica.Observaciones);
 
+            jugadoresDal.DatosGeneralesJugadorInsert(idJugador, jugador.DatosGenerales.JuegaOtroEquipo, jugador.DatosGenerales.QuieLoTrajo, jugador.DatosGenerales.NombreMadre,
+                jugador.DatosGenerales.TelMadre, jugador.DatosGenerales.OcupacionMadre, jugador.DatosGenerales.TrabajoMadre,
+                jugador.DatosGenerales.DireccionTrabajoMadre, jugador.DatosGenerales.TelefonoTrabajoMadre, jugador.DatosGenerales.NombrePadre, jugador.DatosGenerales.TelPadre,
+                jugador.DatosGenerales.OcupacionPadre, jugador.DatosGenerales.TrabajoPadre,
+                jugador.DatosGenerales.DireccionTrabajoPadre, jugador.DatosGenerales.TelefonoTrabajoPadre, jugador.DatosGenerales.PadresConviven, jugador.DatosGenerales.Hermanos,
+                jugador.DatosGenerales.NombreResponsable, jugador.DatosGenerales.OcupacionResponsable, jugador.DatosGenerales.ParentescoResponsable,
+                jugador.DatosGenerales.Lesiones, jugador.DatosGenerales.PiernaHabil, jugador.DatosGenerales.Posicion);
+
+            return idJugador;
         }
 
         public static int JugadorPorEquipoInsert(Jugador jugador)

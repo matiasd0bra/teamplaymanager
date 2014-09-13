@@ -25,6 +25,7 @@
         {       
             <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
             
+            @Html.AntiForgeryToken()
             @Html.ValidationSummary(true)
           
             <fieldset>
@@ -41,7 +42,7 @@
                                     <td style="text-align: center">
                                         <div id='botonera'>
                                             <input type="file" name="file" id="file" accept="image/*"></input>
-                                            <input id="cancelar" type="button" value="Cancelar"></input>
+                                            <input id="cancelar" type="button" value="" class="btnEliminar"></input>
                                         </div>
                                     </td>
                                     <td style="text-align: right">
@@ -54,6 +55,9 @@
                 </table>
                 <div class="well">
                     <div class="titleDatos"><span class="label label-default">Datos Personales</span></div>
+                   @* <div>
+                         @Html.Label("Nombre:")
+                    </div>*@
                     <table class="tablaCreate" width="100%">
                         <tr>
                             <td class="primerColumna">
@@ -201,7 +205,7 @@
                 <br />
                 <div class="well">
                     <div class="titleDatos"><span class="label label-default">Cobertura Médica</span></div>
-                     <table class="tablaCreate" width="100%">
+                    <table class="tablaCreate" width="100%">
                         <tr>
                             <td class="primerColumna">
                                 @Html.Label("Obra Social:")
@@ -210,7 +214,7 @@
                                 @Html.EditorFor(model => model.CoberturaMedica.ObraSocial)
                             </td>
                         </tr>
-                         <tr>
+                        <tr>
                             <td class="primerColumna">
                                 @Html.Label("Número de afiliado:")
                             </td>
@@ -218,7 +222,7 @@
                                 @Html.EditorFor(model => model.CoberturaMedica.NroObraSocial)
                             </td>
                         </tr>
-                         <tr>
+                        <tr>
                             <td class="primerColumna">
                                 @Html.Label("Servicio de emergencia:")
                             </td>
@@ -226,7 +230,7 @@
                                 @Html.EditorFor(model => model.CoberturaMedica.ServicioEmergencia)
                             </td>
                         </tr>
-                         <tr>
+                        <tr>
                             <td class="primerColumna">
                                 @Html.Label("Número de afiliado:")
                             </td>
@@ -234,7 +238,7 @@
                                 @Html.EditorFor(model => model.CoberturaMedica.NroServicioEmergencia)
                             </td>
                         </tr>
-                         <tr>
+                        <tr>
                             <td class="primerColumna">
                                 @Html.Label("Hospital:")
                             </td>
@@ -242,7 +246,15 @@
                                 @Html.EditorFor(model => model.CoberturaMedica.Hospital)
                             </td>
                         </tr>
-                         <tr>
+                        <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Dirección Hospital:")
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.CoberturaMedica.Direccion)
+                            </td>
+                        </tr>
+                        <tr>
                             <td class="primerColumna">
                                 @Html.Label("Teléfono:")
                             </td>
@@ -250,15 +262,15 @@
                                 @Html.EditorFor(model => model.CoberturaMedica.Telefono)
                             </td>
                         </tr>
-                         <tr>
+                        <tr>
                             <td class="primerColumna">
                                 @Html.Label("Medicamento:")
                             </td>
                             <td>
-                                @Html.EditorFor(model => model.CoberturaMedica.Medicamente)
+                                @Html.EditorFor(model => model.CoberturaMedica.Medicamento)
                             </td>
                         </tr>
-                         <tr>
+                        <tr>
                             <td class="primerColumna">
                                 @Html.Label("Alergico:")
                             </td>
@@ -266,12 +278,225 @@
                                 @Html.EditorFor(model => model.CoberturaMedica.Alergico)
                             </td>
                         </tr>
-                         <tr>
+                        <tr>
                             <td class="primerColumna">
                                 @Html.Label("Observaciones:")
                             </td>
                             <td>
                                 @Html.EditorFor(model => model.CoberturaMedica.Observaciones)
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                 <br />
+                <div class="well">
+                    <div class="titleDatos"><span class="label label-default">Datos Generales</span></div>
+                     <table class="tablaCreate" width="100%">
+                        <tr>
+                            <td class="primerColumna">
+                                @Html.Label("¿En qué otro lugar juega o ha jugado?")
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.DatosGenerales.JuegaOtroEquipo)
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="primerColumna">
+                                @Html.Label("¿Quién lo trajo al club?")
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.DatosGenerales.QuieLoTrajo)
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Nombre de la madre:")
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.DatosGenerales.NombreMadre)
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Teléfono:")
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.DatosGenerales.TelMadre)
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Ocupación:")
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.DatosGenerales.OcupacionMadre)
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Trabaja en:")
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.DatosGenerales.TrabajoMadre)
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Dirección:")
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.DatosGenerales.DireccionTrabajoMadre)
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Teléfono:")
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.DatosGenerales.TelefonoTrabajoMadre)
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Nombre del padre:")
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.DatosGenerales.NombrePadre)
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Teléfono:")
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.DatosGenerales.TelPadre)
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Ocupación:")
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.DatosGenerales.OcupacionPadre)
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Trabaja en:")
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.DatosGenerales.TrabajoPadre)
+                            </td>
+                        </tr>
+                         <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Dirección:")
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.DatosGenerales.DireccionTrabajoPadre)
+                            </td>
+                        </tr>
+                         <tr>
+                             <td class="primerColumna">
+                                 @Html.Label("Teléfono:")
+                             </td>
+                             <td>
+                                 @Html.EditorFor(model => model.DatosGenerales.TelefonoTrabajoPadre)
+                             </td>
+                         </tr>
+                         <tr>
+                             <td class="primerColumna">
+                                 @Html.Label("¿Los padres viven juntos?")
+                             </td>
+                             <td>
+                                 <select name="DatosGenerales.PadresConviven" id="DatosGenerales.PadresConviven">
+                                     <option value="S">Si</option>
+                                     <option value="N">No</option>
+                                 </select>
+                             </td>
+                         </tr>
+@*                         <tr>
+                             <td class="primerColumna">
+                                 @Html.Label("¿Tiene hermanos?")
+                             </td>
+                             <td>
+                                 <select name="HermanosCant" id="HermanosCant" onchange="habilitarCantidad(this.value)">
+                                     <option value="S">Si</option>
+                                     <option value="N">No</option>
+                                 </select>
+                             </td>
+                         </tr>*@
+@*                         <script type="text/javascript">
+                             //function habilitarCantidad(data) {
+                             //    console.log(data);
+                             //    if (data == "S") {
+                             //        $('#Hermanos').style('display':'block');
+                             //    }
+                                 
+                             //}
+                         </script>*@
+                         <tr>
+                             <td class="primerColumna">
+                                 @Html.Label("Cantidad de Hermanos")
+                             </td>
+                             <td>
+                                 <input type="text" name="DatosGenerales.Hermanos" id="DatosGenerales.Hermanos" />
+                             </td>
+                         </tr>
+                         <tr>
+                             <td class="primerColumna">
+                                 @Html.Label("Nombre Responsable:")
+                             </td>
+                             <td>
+                                 @Html.EditorFor(model => model.DatosGenerales.NombreResponsable)
+                             </td>
+                         </tr>
+                         <tr>
+                             <td class="primerColumna">
+                                 @Html.Label("Parentesco:")
+                             </td>
+                             <td>
+                                 @Html.EditorFor(model => model.DatosGenerales.ParentescoResponsable)
+                             </td>
+                         </tr>
+                         <tr>
+                             <td class="primerColumna">
+                                 @Html.Label("Ocupación:")
+                             </td>
+                             <td>
+                                 @Html.EditorFor(model => model.DatosGenerales.OcupacionResponsable)
+                             </td>
+                         </tr>
+                         <tr>
+                             <td class="primerColumna">
+                                 @Html.Label("¿El jugador tuvo lesiones?")
+                             </td>
+                             <td>
+                                 @Html.EditorFor(model => model.DatosGenerales.Lesiones)
+                             </td>
+                         </tr>
+                         <tr>
+                             <td class="primerColumna">
+                                 @Html.Label("Pierna habil:")
+                             </td>
+                             <td>
+                                 <select name="DatosGenerales.PiernaHabil" id="DatosGenerales.PiernaHabil">
+                                     <option value="Derecha">Derecha</option>
+                                     <option value="Izquierda">Izquierda</option>
+                                 </select>
+                             </td>
+                         </tr>
+                         <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Posición:")
+                            </td>
+                            <td>
+                                <select name="DatosGenerales.Posicion" id="DatosGenerales.Posicion">
+                                     <option value="Arquero">Arquero</option>
+                                    <option value="Defensor">Defensor</option>
+                                    <option value="Medicampisita">Mediocampista</option>
+                                    <option value="Delantero">Delantero</option>
+                                 </select>
                             </td>
                         </tr>
                      </table>

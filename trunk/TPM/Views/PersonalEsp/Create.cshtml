@@ -18,19 +18,19 @@
           </a>
       </div>
     </div>
-<div class="panel-body">
+    <div class="panel-body">
 
-    @using (Html.BeginForm("Create", "PersonalEsp", FormMethod.Post))
-    {
-        <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+        @using (Html.BeginForm("Create", "PersonalEsp", FormMethod.Post))
+        {
+            <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
             
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary(true)
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
 
-        <fieldset>
-            <legend>Personal Especializado</legend>
+            <fieldset>
+                <legend>Personal Especializado</legend>
 
-            <div class="editor-label">
+                <div class="editor-label">
                 @Html.LabelFor(model => model.Nombre)
             </div>
             <div class="editor-field">
