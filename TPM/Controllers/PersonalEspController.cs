@@ -51,11 +51,13 @@ namespace TPM.Controllers
         {
             try
             {
+                bool Url = returnUrl.Contains("AsignarPersonalEsp/");
+
                 if (ModelState.IsValid)
                 {
                     personalEsp.Id = PersonalEspRepo.PersonalEspInsert(personalEsp);
 
-                    if (returnUrl != "~/PersonalEsp/Index")
+                    if (Url == true)
                     {
                         string equipoId = returnUrl.Substring(returnUrl.LastIndexOf('/') + 1);
                         personalEsp.EquipoId = int.Parse(equipoId);

@@ -14,7 +14,7 @@ namespace TPM.Models.ViewModel
         public string Telefono { get; set; }
         public string Hospital { get; set; }
         public string Direccion { get; set; }
-        public string Medicamente { get; set; }
+        public string Medicamento { get; set; }
         public string Alergico { get; set; }
         public string Observaciones { get; set; }
     }

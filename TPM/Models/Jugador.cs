@@ -21,6 +21,7 @@ namespace TPM.Models
         public string TipoDocNombre { get; set; }
         public List<TipoDoc> TipoDocLista { get; set; }
         [Required]
+        [Range(0, 99999999)]
         public string NumeroDoc { get; set; }
         public DateTime FechaNac { get; set; }
         [Required]
@@ -59,5 +60,6 @@ namespace TPM.Models
         public List<HistorialEquiposJugador> EquiposListHistorico { get; set; }
 
         public CoberturaMedicaJugador CoberturaMedica { get; set; }
+        public DatosGeneralesJugador DatosGenerales { get; set; }
     }
 }

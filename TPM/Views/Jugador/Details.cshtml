@@ -95,12 +95,14 @@
                     }
                     else
                     {
-                        <div>@Html.DisplayName("El jugador no en nigun equipo actualmente.")</div>
+                        <div>
+                            @Html.Label("El jugador no juega en nigun equipo actualmente.")
+                        </div>
                     }
                 </div>
                 <div>
                     @Html.Label("Equipos en los que ha jugado: ")
-                    @if (Model.EquiposList.Count > 0)
+                    @if (Model.EquiposListHistorico.Count > 0)
                     {
                         @gridEquiposHistorico.GetHtml(
                         fillEmptyRows: false,
@@ -123,7 +125,9 @@
                     }
                     else
                     {
-                        <div>@Html.DisplayName("El jugador no ha jugado en ningun equipo.")</div>
+                        <div>
+                            @Html.Label("El jugador no tiene histrorial.")
+                        </div>
                     }
                 </div>
             </td>

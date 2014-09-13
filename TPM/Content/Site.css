@@ -788,10 +788,10 @@ tr.pager td {
     max-width: 145px;
      font-size: 14px;
  }
- #formBuscador{
-     a{
+ #formBuscador a{
+     
          color: #FFF;  
-     } 
+     
  }
 
 .tablaCreate select, input{
@@ -806,4 +806,11 @@ tr.pager td {
 .primerColumna {
     text-align: right;
     max-width: 75px;
+}
+.btnEliminar{
+     background-color: transparent  !important;
+    background-image: url("../Images/boton_borrar.png");
+    border: 0 none  !important;
+    height: 20px;
+    width: 20px !important;
 }
