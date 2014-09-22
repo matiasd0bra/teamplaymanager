@@ -1,0 +1,39 @@
+﻿@model TPM.Models.Partido
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">Calendario Partidos
+  </div>
+    <div class="panel-body">
+
+        <table>
+            <tr>
+                <td class="primerColumna">
+                    @Html.Label("Temporada:")
+                </td>
+                <td>
+                    @Html.DropDownListFor(model => model.TemporadaId, new SelectList(Model.TemporadasList, "TemporadaId", "TemporadaNombre", 1))
+                </td>
+            </tr>
+            <tr>
+                <td class="primerColumna">
+                    @Html.Label("Equipo:")
+                </td>
+                <td>
+                    @Html.DropDownListFor(model => model.EquipoId, new SelectList(Model.EquiposList, "Id", "EquipoNombre", 1))
+                </td>
+            </tr>
+
+
+
+
+
+
+
+        </table>
+   </div>
+</div>

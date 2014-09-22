@@ -106,7 +106,6 @@ namespace TPM.DAL
         public void CoberturaMedicaInsert(int id, string ObraSocial, int NroObraSocial, string ServicioEmergencia, int NroServicioEmergencia, string Telefono,
             string Hospital, string Direccion, string Medicamento, string Alergico, string Observaciones)
         {
-            int ret = 0;
             using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
             {
                 using (SqlCommand cmd = new SqlCommand("CoberturaMedicaInsert", con))
