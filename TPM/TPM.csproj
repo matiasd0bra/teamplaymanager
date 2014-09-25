@@ -167,6 +167,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JugadorController.cs" />
     <Compile Include="Controllers\LocalidadController.cs" />
+    <Compile Include="Controllers\PartidoController.cs" />
     <Compile Include="Controllers\PersonalEspController.cs" />
     <Compile Include="DAL\CategoriaDAL.cs" />
     <Compile Include="DAL\EspecialidadesDAL.cs" />
@@ -176,14 +177,15 @@
     <Compile Include="DAL\JugadoresDAL.cs" />
     <Compile Include="DAL\LigaDAL.cs" />
     <Compile Include="DAL\LocalidadesDAL.cs" />
+    <Compile Include="DAL\PartidoDAL.cs" />
     <Compile Include="DAL\PersonalEspDAL.cs" />
+    <Compile Include="DAL\TemporadasDAL.cs" />
     <Compile Include="DAL\TipoDocDAL.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\Campeonato.cs" />
     <Compile Include="Models\Categoria.cs" />
     <Compile Include="Models\DatosGeneralesJugador.cs" />
     <Compile Include="Models\Division.cs" />
@@ -195,10 +197,12 @@
     <Compile Include="Models\Partido.cs" />
     <Compile Include="Models\PartidoPorJugador.cs" />
     <Compile Include="Models\PersonalEsp.cs" />
+    <Compile Include="Models\Temporada.cs" />
     <Compile Include="Models\TipoDoc.cs" />
     <Compile Include="Models\ViewModel\AsignarPersonalEspViewModel.cs" />
     <Compile Include="Models\ViewModel\AssignarJugadoresViewModel.cs" />
     <Compile Include="Models\ViewModel\CoberturaMedicaJugador.cs" />
+    <Compile Include="Models\ViewModel\GolesJugadorPorPartido.cs" />
     <Compile Include="Models\ViewModel\HistorialEquiposJugador.cs" />
     <Compile Include="Models\ViewModel\JugadoresAsignados.cs" />
     <Compile Include="Models\ViewModel\PersonalEspAsignados.cs" />
@@ -210,7 +214,9 @@
     <Compile Include="Repositorio\JugadoresRepo.cs" />
     <Compile Include="Repositorio\LigaRepo.cs" />
     <Compile Include="Repositorio\LocalidadesRepo.cs" />
+    <Compile Include="Repositorio\PartidoRepo.cs" />
     <Compile Include="Repositorio\PersonalEspRepo.cs" />
+    <Compile Include="Repositorio\TemporadasRepo.cs" />
     <Compile Include="Repositorio\TipoDocRepo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -282,6 +288,10 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <None Include="Properties\PublishProfiles\Martin.pubxml" />
+    <Content Include="Scripts\Bootstrap\datetimepicker-master\.gitignore" />
+    <Content Include="Scripts\Bootstrap\datetimepicker-master\bower.json" />
+    <Content Include="Scripts\Bootstrap\datetimepicker-master\datetimepicker.jquery.json" />
+    <Content Include="Scripts\Bootstrap\datetimepicker-master\README.md" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Images\boton_nuevo.png" />
     <Content Include="Images\boton_ver.png" />
@@ -296,6 +306,15 @@
     <Content Include="Scripts\Bootstrap\cbpAnimatedHeader.min.js" />
     <Content Include="Scripts\Bootstrap\classie.js" />
     <Content Include="Scripts\Bootstrap\bootstrap-datepicker.js" />
+    <Content Include="Scripts\Bootstrap\datetimepicker-master\index.html" />
+    <Content Include="Scripts\Bootstrap\datetimepicker-master\jquery.datetimepicker.css" />
+    <Content Include="Scripts\Bootstrap\datetimepicker-master\jquery.datetimepicker.js" />
+    <Content Include="Scripts\Bootstrap\datetimepicker-master\jquery.js" />
+    <Content Include="Scripts\Bootstrap\datetimepicker-master\MIT-LICENSE.txt" />
+    <Content Include="Scripts\Bootstrap\datetimepicker-master\screen\1.png" />
+    <Content Include="Scripts\Bootstrap\datetimepicker-master\screen\2.png" />
+    <Content Include="Scripts\Bootstrap\datetimepicker-master\screen\3.1.png" />
+    <Content Include="Scripts\Bootstrap\datetimepicker-master\screen\3.png" />
     <Content Include="Scripts\Bootstrap\freelancer.js" />
     <Content Include="Scripts\Custom\equipos.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
@@ -366,6 +385,8 @@
     <Content Include="Views\PersonalEsp\Details.cshtml" />
     <Content Include="Views\PersonalEsp\Create.cshtml" />
     <Content Include="Views\Equipo\AsignarPersonalEsp.cshtml" />
+    <Content Include="Views\Partido\Index.cshtml" />
+    <Content Include="Views\Partido\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

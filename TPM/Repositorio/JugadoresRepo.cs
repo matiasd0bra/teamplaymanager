@@ -216,6 +216,17 @@ namespace TPM.Repositorio
             }
             return historialList;
         }
+
+        public static int JugadorPorPartidoInsert(Jugador jugador)
+        {
+            JugadoresDAL jugadoresDal = new JugadoresDAL();
+            return jugadoresDal.JugadorPorPartidoInsert(jugador.Id, jugador.PartidoId);
+        }
+        public static int JugadorPorPartidoDelete(Jugador jugador)
+        {
+            JugadoresDAL jugadoresDal = new JugadoresDAL();
+            return jugadoresDal.JugadorPorPartidoDelete(jugador.Id, jugador.PartidoId);
+        }
     }
 }
 

@@ -17,7 +17,7 @@ namespace TPM.Models
         public string Apellido { get; set; }
         [Required]
         public int TipoDocId { get; set; }
-        public List<Localidad> LocalidadLista { get; set; }
+        
         public string TipoDocNombre { get; set; }
         public List<TipoDoc> TipoDocLista { get; set; }
         [Required]
@@ -31,11 +31,12 @@ namespace TPM.Models
         [Required]
         public int LocalidadId { get; set; }
         public string LocalidadNombre { get; set; }
+        public List<Localidad> LocalidadLista { get; set; }
 
         public List<Equipo> Equipos { get; set; }
         public int EquipoId { get; set; }
-        public string EquiposNombre { get; set; }  
-      
+        public string EquiposNombre { get; set; }
+        public int PartidoId { get; set; }
 
         public int Categoria { get; set; }
         public string Apodo { get; set; }

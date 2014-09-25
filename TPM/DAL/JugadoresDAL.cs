@@ -410,12 +410,45 @@ namespace TPM.DAL
             }
             return dt;
         }
+
+        public int JugadorPorPartidoInsert(int jugadorId, int partidoId)
+        {
+            int ret;
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
+            {
+                using (SqlCommand cmd = new SqlCommand("JugadorPorPartidoInsert", con))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@JugadorId", SqlDbType.Int).Value = jugadorId;
+                    cmd.Parameters.Add("@PartidoId", SqlDbType.Int).Value = partidoId;
+
+                    con.Open();
+                    ret = cmd.ExecuteNonQuery();
+                }
+            }
+            return ret;
+        }
+
+        public int JugadorPorPartidoDelete(int jugadorId, int partidoId)
+        {
+            int ret;
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
+            {
+                using (SqlCommand cmd = new SqlCommand("JugadorPorPartidoDelete", con))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@JugadorId", SqlDbType.Int).Value = jugadorId;
+                    cmd.Parameters.Add("@PartidoId", SqlDbType.Int).Value = partidoId;
+
+                    con.Open();
+                    ret = cmd.ExecuteNonQuery();
+                }
+            }
+            return ret;
+        }
     }
 }
-
-    //@Nombre nvarchar(50)
-    //,@Apellido nvarchar(50)
-    //,@TipoDocId int
-    //,@NumeroDoc int
-    //,@Domicilio nvarchar(50)
-    //,@LocalidadId int

@@ -5,8 +5,8 @@
 @{
     ViewBag.Title = "Asignar Jugadores";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    WebGrid gridJugadores = new WebGrid(Model.ListaJugadores, rowsPerPage: 10);
-    WebGrid gridJugadoresAsignados = new WebGrid(Model.JugadoresAsignados, rowsPerPage: 10, fieldNamePrefix: "order");
+    WebGrid gridJugadores = new WebGrid(Model.ListaJugadores, rowsPerPage: 2);
+    WebGrid gridJugadoresAsignados = new WebGrid(Model.ListaJugadoresAsignados, rowsPerPage: 10, fieldNamePrefix: "order");
 }
 
 <div class="panel panel-primary">
@@ -27,7 +27,7 @@
     
     @Html.ValidationSummary(true)
 
-    var jugadoresAsig = Model.JugadoresAsignados;
+    var jugadoresAsig = Model.ListaJugadoresAsignados;
     if (jugadoresAsig.Count > 0)
     {
 
