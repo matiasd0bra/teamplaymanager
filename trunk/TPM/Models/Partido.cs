@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TPM.Models.ViewModel;
 
 namespace TPM.Models
 {
@@ -13,18 +14,21 @@ namespace TPM.Models
 
         public int TipoPartidoId { get; set; }
         public string TipoPartidoNombre { get; set; }
+
         public DateTime FechaHoraInicio { get; set; }
+        public string FechaHoraInicioString { get; set; }
+
         public int EstadoId { get; set; }
         public string EstadoNombre { get; set; }
 
         public int EquipoId { get; set; }
         public string EquipoNombre { get; set; }
-        public string RivalNombre { get; set; }
+        public string Rival { get; set; }
 
         
-        public bool Local { get; set; }
-        public string LocalString { get; set; }
+        public string Local { get; set; }
 
+        public List<Localidad> LocalidadLista { get; set; }
         public int LocalidadId { get; set; }         //Lugar del partido, si es local, va 0.
         public string LocalidadNombre { get; set; }
 
@@ -34,5 +38,7 @@ namespace TPM.Models
 
         public List<Temporada> TemporadasList { get; set; }
         public List<Equipo> EquiposList { get; set; }
+
+        public AssignarJugadoresViewModel JugadoresViewModel { get; set; }
     }
 }

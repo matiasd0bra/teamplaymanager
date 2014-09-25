@@ -149,6 +149,19 @@
                                 @Html.TextBoxFor(model => model.Estatura)
                             </td>
                         </tr>
+                        <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Posición:")
+                            </td>
+                            <td>
+                                <select name="DatosGenerales.Posicion" id="DatosGenerales.Posicion">
+                                     <option value="Arquero">Arquero</option>
+                                    <option value="Defensor">Defensor</option>
+                                    <option value="Medicampisita">Mediocampista</option>
+                                    <option value="Delantero">Delantero</option>
+                                 </select>
+                            </td>
+                        </tr>
                          <tr>
                             <td class="primerColumna">
                                 @Html.Label("Colegio:")
@@ -482,20 +495,7 @@
                                      <option value="Izquierda">Izquierda</option>
                                  </select>
                              </td>
-                         </tr>
-                         <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Posición:")
-                            </td>
-                            <td>
-                                <select name="DatosGenerales.Posicion" id="DatosGenerales.Posicion">
-                                     <option value="Arquero">Arquero</option>
-                                    <option value="Defensor">Defensor</option>
-                                    <option value="Medicampisita">Mediocampista</option>
-                                    <option value="Delantero">Delantero</option>
-                                 </select>
-                            </td>
-                        </tr>
+                         </tr>                      
                      </table>
                 </div>
                 <input class="btn btn-primary" type="submit" value="Crear" />

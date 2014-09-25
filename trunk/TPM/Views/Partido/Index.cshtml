@@ -1,4 +1,6 @@
-﻿@model TPM.Models.Partido
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@model TPM.Models.Partido
 
 @{
     ViewBag.Title = "Index";
@@ -7,7 +9,7 @@
 
 <div class="panel panel-primary">
     <div class="panel-heading">Calendario Partidos
-  </div>
+    </div>
     <div class="panel-body">
 
         <table>
@@ -24,16 +26,27 @@
                     @Html.Label("Equipo:")
                 </td>
                 <td>
-                    @Html.DropDownListFor(model => model.EquipoId, new SelectList(Model.EquiposList, "Id", "EquipoNombre", 1))
+                    @Html.DropDownListFor(model => model.EquipoId, new SelectList(Model.EquiposList, "Id", "NombreEquipo", 1))
                 </td>
             </tr>
-
-
-
-
-
-
-
+            <tr>
+                <td>
+                    <input type="button" value="Cargar Calendario" />
+                </td> 
+            </tr>
         </table>
-   </div>
+    </div>
 </div>
+
+
+ <script>
+$(function() {
+$( "#datepicker" ).datepicker({
+    
+});
+$("#datepicker").datepicker({ month: 5 });
+});
+</script>
+
+
+Date: <div id="datepicker"></div>

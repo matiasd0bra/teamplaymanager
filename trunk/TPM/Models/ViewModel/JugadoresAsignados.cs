@@ -9,6 +9,7 @@ namespace TPM.Models.ViewModel
     {
         public int IdJugador { get; set; }
         public int IdEquipo { get; set; }
+        public int IdPartido { get; set; }
     }
 
 }
