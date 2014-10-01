@@ -24,7 +24,6 @@ namespace TPM.Repositorio
                 equipo = new Equipo();
 
                 equipo.Id = int.Parse(item["EquipoId"].ToString());
-                equipo.CategoriaNombre = item["NombreCategoria"].ToString();
                 equipo.Liga = item["NombreLiga"].ToString();
                 equipo.Division = item["NombreDivision"].ToString();
                 equipo.NombreEquipo = item["NombreEquipo"].ToString();
@@ -44,7 +43,6 @@ namespace TPM.Repositorio
 
             equipo.Id = int.Parse(dt.Rows[0]["EquipoId"].ToString());
             equipo.NombreEquipo = dt.Rows[0]["NombreEquipo"].ToString();
-            equipo.CategoriaNombre = dt.Rows[0]["NombreCategoria"].ToString();
             equipo.Liga = dt.Rows[0]["NombreLiga"].ToString();
             equipo.Division = dt.Rows[0]["NombreDivision"].ToString();
 
@@ -55,7 +53,7 @@ namespace TPM.Repositorio
         public static int EquipoInsert(Equipo equipo)
         {
             EquiposDAL EquiposDal = new EquiposDAL();
-            return EquiposDal.EquipoInsert(equipo.CategoriaId, equipo.DivisionId, equipo.LigaId, equipo.NombreEquipo);
+            return EquiposDal.EquipoInsert(equipo.DivisionId, equipo.LigaId, equipo.NombreEquipo);
 
 
         }
@@ -64,7 +62,7 @@ namespace TPM.Repositorio
         {
             EquiposDAL EquiposDal = new EquiposDAL();
 
-            return EquiposDal.EquipoUpdate(Equipo.Id, Equipo.CategoriaId, Equipo.DivisionId, Equipo.LigaId, Equipo.NombreEquipo);
+            return EquiposDal.EquipoUpdate(Equipo.Id, Equipo.DivisionId, Equipo.LigaId, Equipo.NombreEquipo);
         }
     }
 }

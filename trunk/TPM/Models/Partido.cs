@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using TPM.Models.ViewModel;
@@ -15,6 +16,7 @@ namespace TPM.Models
         public int TipoPartidoId { get; set; }
         public string TipoPartidoNombre { get; set; }
 
+        [Required]
         public DateTime FechaHoraInicio { get; set; }
         public string FechaHoraInicioString { get; set; }
 
@@ -23,6 +25,7 @@ namespace TPM.Models
 
         public int EquipoId { get; set; }
         public string EquipoNombre { get; set; }
+        [Required]
         public string Rival { get; set; }
 
         
@@ -40,5 +43,7 @@ namespace TPM.Models
         public List<Equipo> EquiposList { get; set; }
 
         public AssignarJugadoresViewModel JugadoresViewModel { get; set; }
+
+        public List<Partido> listPartidosSinDatos { get; set; }
     }
 }

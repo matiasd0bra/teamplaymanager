@@ -1,4 +1,7 @@
-﻿@model TPM.Models.Equipo
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@using System.Web.Optimization
+@model TPM.Models.Equipo
 
 @{
     ViewBag.Title = "Create";
@@ -22,14 +25,7 @@
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Equipo</legend>
-        <div class="editor-label">
-            @Html.Label("Categoria")
-            @Html.DropDownListFor(model => model.CategoriaId, new SelectList(
-                Model.CategoriaLista,
-                "CategoriaId",
-                "NombreCategoria"))
-        </div>       
+        <legend>Equipo</legend>      
         <div class="editor-label">
             @Html.Label("Division")
             @Html.DropDownListFor(model => model.DivisionId, new SelectList(

@@ -1,16 +1,56 @@
 ﻿@using System.Web.Mvc
 @using System.Web.Mvc.Html
+@using System.Web.UI.WebControls
 @model TPM.Models.Partido
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    WebGrid gridPartidosSinDatos = new WebGrid(Model.listPartidosSinDatos, rowsPerPage: 5);
 }
 
 <div class="panel panel-primary">
     <div class="panel-heading">Calendario Partidos
+        <div class="pull-right">
+          <a class="link-panel"  href="/Partido/Create">
+              <img src="~/Images/boton_nuevo.png" />
+              Nuevo partido
+          </a>
+      </div>
     </div>
     <div class="panel-body">
+        @if (Model.listPartidosSinDatos != null)
+                        {
+                                  @gridPartidosSinDatos.GetHtml(
+                                      fillEmptyRows: false,
+                                      alternatingRowStyle: "fila-alternativa",
+                                      headerStyle: "encabezado-grid",
+                                      footerStyle: "pie-grid",
+                                      mode: WebGridPagerModes.All,
+                                      firstText: "<< Primera",
+                                      previousText: "< Anterior",
+                                      nextText: "Siguiente >",
+                                      lastText: "Última >>",
+                                      tableStyle: "table table-striped",
+
+                                      columns: new[]
+                                      {
+                                          gridPartidosSinDatos.Column("FechaHoraInicio"),
+                                          gridPartidosSinDatos.Column("EquipoNombre"),
+                                          gridPartidosSinDatos.Column("",
+                                              header: "Acciones",
+                                              format: @<text>
+                                                           <a href="/Partido/ConvocarJugadores/@item.PartidoId">
+                                                               Convocar
+                                                           </a>
+                                                       </text>
+                                              )
+                                      })
+                        }
+                        else
+                        {
+                                  <div>@Html.DisplayName("No se han encontrado resultados")</div>
+                        }
 
         <table>
             <tr>
@@ -35,6 +75,7 @@
                 </td> 
             </tr>
         </table>
+        <div id="datepicker"></div>
     </div>
 </div>
 
@@ -44,9 +85,6 @@ $(function() {
 $( "#datepicker" ).datepicker({
     
 });
-$("#datepicker").datepicker({ month: 5 });
-});
 </script>
 
 
-Date: <div id="datepicker"></div>

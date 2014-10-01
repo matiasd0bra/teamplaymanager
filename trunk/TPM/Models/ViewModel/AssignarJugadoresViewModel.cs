@@ -21,5 +21,7 @@ namespace TPM.Models.ViewModel
 
         public List<Jugador> ListaJugadoresAsignados { get; set; }
         public List<Jugador> ListaJugadores { get; set; }
+
+        public Partido PartidoSeleccionado { get; set; }
     }
 }

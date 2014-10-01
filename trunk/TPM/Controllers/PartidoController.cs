@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls.WebParts;
+using Antlr.Runtime;
 using TPM.Models;
 using TPM.Models.ViewModel;
 using TPM.Repositorio;
@@ -17,6 +18,7 @@ namespace TPM.Controllers
             Partido partido = new Partido();
             partido.TemporadasList = TemporadasRepo.TemporadasGetAllRepo();
             partido.EquiposList = EquiposRepo.EquiposGetAllRepo();
+            partido.listPartidosSinDatos = PartidoRepo.getPartidosSinDatos() ;
             return View(partido);
         }
 
@@ -36,7 +38,7 @@ namespace TPM.Controllers
             }
         }
 
-        public ActionResult Create( string NombreFiltro = null, string ApellidoFiltro = null, string CategoriaFiltro = null)
+        public ActionResult Create()
         {
             Partido partido = new Partido();
             partido.EquiposList = EquiposRepo.EquiposGetAllRepo();
@@ -59,29 +61,47 @@ namespace TPM.Controllers
         //
         // POST: /Jugador/Create
         [HttpPost]
-        public ActionResult Create(Partido partido)
+        public ActionResult Create(Partido partido, string accion)
         {
-            try
+            if (ModelState.IsValid)
             {
                 try
                 {
                     partido.FechaHoraInicio = DateTime.Parse(partido.FechaHoraInicioString);
-                    PartidoRepo.PartidoInsert(partido);
-                    return RedirectToAction("Index");
+                    partido.PartidoId = PartidoRepo.PartidoInsert(partido);
+
+                    if (accion == "Guardar y volver al calendario") return RedirectToAction("Index");
+                    if (accion == "Guardar y convocar Jugadores")
+                    {
+                        return RedirectToAction("ConvocarJugadores", new { id = partido.PartidoId });
+                    }
                 }
                 catch
                 {
                     return View();
                 }
             }
-            catch
-            {
-                return View();
-            }
+            partido.JugadoresViewModel = new AssignarJugadoresViewModel();
+            partido.EquiposList = EquiposRepo.EquiposGetAllRepo();
+            partido.LocalidadLista = LocalidadesRepo.LocalidadesGetAllRepo();
+            partido.TemporadasList = TemporadasRepo.TemporadasGetAllRepo();
+            partido.JugadoresViewModel.ListaJugadores = JugadoresRepo.JugadoresGetAllRepo("");
+            partido.PartidoId = -1;
+            return View(partido);
         }
 
-        //JugadoresConvocados
-        [HttpPost]
+        public ActionResult ConvocarJugadores(int id, string NombreFiltro = null, string ApellidoFiltro = null, string CategoriaFiltro = null)
+        {
+            var assignarJugadoresViewModel = new AssignarJugadoresViewModel();
+            assignarJugadoresViewModel.CategoriaList = CategoriaRepo.CategoriaGetAllRepo();
+            assignarJugadoresViewModel.ListaJugadores = JugadoresRepo.JugadoresSearchPartido(id, NombreFiltro, ApellidoFiltro);
+            assignarJugadoresViewModel.PartidoSeleccionado = PartidoRepo.PartidoByIdRepo(id);
+            assignarJugadoresViewModel.ListaJugadoresAsignados = JugadoresRepo.JugadoresByPartido(id);
+            assignarJugadoresViewModel.NombreFiltro = NombreFiltro;
+
+            return View(assignarJugadoresViewModel);
+        }
+
         public JsonResult ConvocarJugador(JugadoresAsignados jugadorAsignado)
         {
             Jugador jugador = new Jugador();
@@ -89,6 +109,7 @@ namespace TPM.Controllers
             jugador.PartidoId = jugadorAsignado.IdPartido;
 
             JugadoresRepo.JugadorPorPartidoInsert(jugador);
+
 
             return Json(new { success = false, message = "Un tag failed " }, JsonRequestBehavior.AllowGet);
         }
@@ -98,14 +119,11 @@ namespace TPM.Controllers
         {
             Jugador jugador = new Jugador();
             jugador.Id = jugadorEliminar.IdJugador;
-            jugador.EquipoId = jugadorEliminar.IdEquipo;
-            jugador.FechaHastaEquipo = DateTime.Now;
+            jugador.PartidoId = jugadorEliminar.IdPartido;
 
             JugadoresRepo.JugadorPorPartidoDelete(jugador);
 
             return Json(new { success = false, message = "Un tag failed " }, JsonRequestBehavior.AllowGet);
         }
-
-
     }
 }
