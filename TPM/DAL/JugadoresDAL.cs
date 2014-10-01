@@ -365,6 +365,27 @@ namespace TPM.DAL
             }
             return dt;
         }
+        public DataTable JugadoresByPartido(int idPartido)
+        {
+
+            var dt = new DataTable();
+            SqlDataReader sqlDataReader;
+
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
+            {
+                using (SqlCommand cmd = new SqlCommand("JugadoresByPartido", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@IdPartido", SqlDbType.VarChar).Value = idPartido;
+
+                    con.Open();
+                    sqlDataReader = cmd.ExecuteReader();
+                    dt.Load(sqlDataReader);
+                }
+            }
+            return dt;
+        }
 
         public DataTable JugadorEquiposList(int jugadorId)
         {
@@ -449,6 +470,39 @@ namespace TPM.DAL
                 }
             }
             return ret;
+        }
+
+        public DataTable JugadoresSearchPartido(int idPartido, string nombre, string apellido)
+        {
+
+            var dt = new DataTable();
+            SqlDataReader sqlDataReader;
+
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
+            {
+                using (SqlCommand cmd = new SqlCommand("JugadoresSearchPartido", con))
+                {
+                    if (nombre == null)
+                    {
+                        nombre = "";
+                    }
+                    if (apellido == null)
+                    {
+                        apellido = "";
+                    }
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@idPartido", SqlDbType.VarChar).Value = idPartido;
+                    cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
+                    cmd.Parameters.Add("@apellido", SqlDbType.VarChar).Value = apellido;
+
+                    con.Open();
+                    sqlDataReader = cmd.ExecuteReader();
+                    dt.Load(sqlDataReader);
+                }
+            }
+            return dt;
         }
     }
 }

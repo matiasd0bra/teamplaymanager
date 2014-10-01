@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    WebGrid gridEquipos = new WebGrid(Model, rowsPerPage: 10);
+    WebGrid gridEquipos = new WebGrid(Model, rowsPerPage: 10, defaultSort: "Liga");
 }
 
 <div class="panel panel-primary">
@@ -37,7 +37,6 @@
              columns: new[]
              {
                  gridEquipos.Column("NombreEquipo", "Nombre"),
-                 gridEquipos.Column("CategoriaNombre", "Categoria"),
                  gridEquipos.Column("Division"),
                  gridEquipos.Column("Liga"),
                  gridEquipos.Column("",
