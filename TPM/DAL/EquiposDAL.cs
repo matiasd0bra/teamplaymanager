@@ -104,5 +104,34 @@ namespace TPM.DAL
             }
             return ret;
         }
+
+        public int EquipoDelete(int id)
+        {
+            int ret;
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
+            {
+                using (SqlCommand cmd = new SqlCommand("ReiniciarEquipo", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@EquipoId", SqlDbType.VarChar).Value = id;
+
+                    con.Open();
+                    ret = cmd.ExecuteNonQuery();
+                }
+                if (ret != 0)
+                {
+                    using (SqlCommand cmd = new SqlCommand("EquipoDelete", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@Id", SqlDbType.VarChar).Value = id;
+
+                        con.Open();
+                        ret = cmd.ExecuteNonQuery();
+                    }
+                }
+
+            }
+            return ret;
+        }
     }
 }

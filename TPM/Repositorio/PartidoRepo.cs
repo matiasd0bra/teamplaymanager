@@ -13,7 +13,7 @@ namespace TPM.Repositorio
         public static int PartidoInsert(Partido partido)
         {
             PartidoDAL partidoDal = new PartidoDAL();
-            return partidoDal.PartidoInsert(partido.TemporadaId, partido.TipoPartidoId, partido.EquipoId, partido.Rival, partido.FechaHoraInicio, partido.LocalidadId, partido.Local);
+            return partidoDal.PartidoInsert(partido);
         }
 
         public static Partido PartidoByIdRepo(int id)
@@ -28,8 +28,8 @@ namespace TPM.Repositorio
             partido.EquipoId = int.Parse(dt.Rows[0]["EquipoId"].ToString());
             partido.Rival = dt.Rows[0]["Rival"].ToString();
             partido.FechaHoraInicio = Convert.ToDateTime(dt.Rows[0]["FechaHoraInicio"].ToString());
-            partido.LocalidadId = int.Parse(dt.Rows[0]["LocalidadId"].ToString());
-            partido.Local = dt.Rows[0]["Local"].ToString();
+            //partido.LocalidadId = int.Parse(dt.Rows[0]["LocalidadId"].ToString());
+            //partido.Local = dt.Rows[0]["Local"].ToString();
             partido.EquipoNombre = dt.Rows[0]["NombreEquipo"].ToString();
 
             return partido;
