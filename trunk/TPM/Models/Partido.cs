@@ -20,6 +20,9 @@ namespace TPM.Models
         public DateTime FechaHoraInicio { get; set; }
         public string FechaHoraInicioString { get; set; }
 
+        public DateTime HoraCitacion { get; set; }
+        public string HoraCitacionString { get; set; }
+
         public int EstadoId { get; set; }
         public string EstadoNombre { get; set; }
 
@@ -29,11 +32,14 @@ namespace TPM.Models
         public string Rival { get; set; }
 
         
-        public string Local { get; set; }
+        public string Condicion { get; set; }
 
-        public List<Localidad> LocalidadLista { get; set; }
-        public int LocalidadId { get; set; }         //Lugar del partido, si es local, va 0.
-        public string LocalidadNombre { get; set; }
+        public string Lugar { get; set; }
+
+        public int NumeroFecha { get; set; }
+        public string NumeroFechaString { get; set; }
+
+        public string Cancha { get; set; }
 
         public int Duracion { get; set; }
         public int GolesPropios { get; set; }

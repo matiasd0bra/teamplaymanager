@@ -42,18 +42,13 @@ namespace TPM.Controllers
         {
             Partido partido = new Partido();
             partido.EquiposList = EquiposRepo.EquiposGetAllRepo();
-            partido.LocalidadLista = LocalidadesRepo.LocalidadesGetAllRepo();
             partido.TemporadasList = TemporadasRepo.TemporadasGetAllRepo();
 
             partido.JugadoresViewModel = new AssignarJugadoresViewModel();
 
             partido.JugadoresViewModel.CategoriaList = CategoriaRepo.CategoriaGetAllRepo();
-            //partido.JugadoresViewModel.ListaJugadores = JugadoresRepo.JugadoresPartidoSearch(NombreFiltro, ApellidoFiltro, CategoriaFiltro); //NO CONVOCADOS
-            //partido.JugadoresViewModel.ListaJugadoresAsignados = JugadoresRepo.JugadoresByEquipo(0); //CONVOCADOS
-            //partido.JugadoresViewModel.NombreFiltro = NombreFiltro;
 
             partido.JugadoresViewModel.ListaJugadores = JugadoresRepo.JugadoresGetAllRepo("");
-            partido.PartidoId = -1;
 
             return View(partido);
         }
@@ -68,6 +63,9 @@ namespace TPM.Controllers
                 try
                 {
                     partido.FechaHoraInicio = DateTime.Parse(partido.FechaHoraInicioString);
+                    partido.HoraCitacion = DateTime.Parse(partido.HoraCitacionString);
+                    partido.NumeroFecha = Convert.ToInt32(partido.NumeroFechaString);
+
                     partido.PartidoId = PartidoRepo.PartidoInsert(partido);
 
                     if (accion == "Guardar y volver al calendario") return RedirectToAction("Index");
@@ -83,7 +81,6 @@ namespace TPM.Controllers
             }
             partido.JugadoresViewModel = new AssignarJugadoresViewModel();
             partido.EquiposList = EquiposRepo.EquiposGetAllRepo();
-            partido.LocalidadLista = LocalidadesRepo.LocalidadesGetAllRepo();
             partido.TemporadasList = TemporadasRepo.TemporadasGetAllRepo();
             partido.JugadoresViewModel.ListaJugadores = JugadoresRepo.JugadoresGetAllRepo("");
             partido.PartidoId = -1;

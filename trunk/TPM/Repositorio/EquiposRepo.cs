@@ -64,5 +64,13 @@ namespace TPM.Repositorio
 
             return EquiposDal.EquipoUpdate(Equipo.Id, Equipo.DivisionId, Equipo.LigaId, Equipo.NombreEquipo);
         }
+
+        public static int EquipoDelete(int Id)
+        {
+            EquiposDAL EquiposDal = new EquiposDAL();
+
+            return EquiposDal.EquipoDelete(Id);
+        }
+
     }
 }

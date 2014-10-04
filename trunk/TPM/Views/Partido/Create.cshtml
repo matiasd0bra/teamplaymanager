@@ -37,6 +37,14 @@
                             <td>
                                 @Html.DropDownListFor(model => model.TemporadaId, new SelectList(Model.TemporadasList, "TemporadaId", "TemporadaNombre", 1))
                             </td>
+                        </tr>}
+                        <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Fecha N°:")
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.NumeroFechaString)
+                            </td>
                         </tr>
                         <tr>
                             <td class="primerColumna">
@@ -69,7 +77,7 @@
                         </tr>
                         <tr>
                             <td class="primerColumna">
-                                @Html.Label("Fecha:")
+                                @Html.Label("Fecha y Hora Partido:")
                             </td>
                             <td>
                                 @Html.TextBoxFor(model => model.FechaHoraInicioString)
@@ -84,10 +92,25 @@
                         </script>
                         <tr>
                             <td class="primerColumna">
+                                @Html.Label("Fecha y Hora Citacion:")
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(model => model.HoraCitacionString)
+                            </td>
+                        </tr>
+                        <script type="text/javascript">
+                            $(function () {
+                                $("#HoraCitacionString").datetimepicker({
+                                    format: 'd.m.Y H:i'
+                                });
+                            });
+                        </script>
+                        <tr>
+                            <td class="primerColumna">
                                 @Html.Label("Local:")
                             </td>
                             <td>
-                                <input type="checkbox" id="Local" name="Local" value="L">
+                                <input type="checkbox" id="Condicion" name="Condicion" value="Local">
                             </td>
                         </tr>
                         <tr>
@@ -95,8 +118,15 @@
                                 @Html.Label("Lugar:")
                             </td>
                             <td>
-                                @Html.DropDownListFor(model => model.LocalidadId, new SelectList(Model.LocalidadLista, "LocalidadId", "LocalidadNombre", 1)) 
-
+                                @Html.EditorFor(model => model.Lugar)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Cancha:")
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.Cancha)
                             </td>
                         </tr>
                     </table>
