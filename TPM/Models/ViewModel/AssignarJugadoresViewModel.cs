@@ -17,7 +17,8 @@ namespace TPM.Models.ViewModel
         public int CategoriaFiltro { get; set; }
         public int CategoriaId { get; set; }
         public List<Categoria> CategoriaList { get; set; }
-
+        public string Fecha { get; set; }
+        public string Hora { get; set; }
 
         public List<Jugador> ListaJugadoresAsignados { get; set; }
         public List<Jugador> ListaJugadores { get; set; }

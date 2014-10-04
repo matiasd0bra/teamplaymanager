@@ -30,15 +30,15 @@ namespace TPM.Repositorio
             partido.FechaHoraInicio = Convert.ToDateTime(dt.Rows[0]["FechaHoraInicio"].ToString());
             partido.LocalidadId = int.Parse(dt.Rows[0]["LocalidadId"].ToString());
             partido.Local = dt.Rows[0]["Local"].ToString();
-
+            partido.EquipoNombre = dt.Rows[0]["NombreEquipo"].ToString();
 
             return partido;
         }
 
-        public static List<Partido> getPartidosSinDatos()
+        public static List<Partido> PartidosSinDatos()
         {
             PartidoDAL PartidoDAL = new PartidoDAL();
-            DataTable dt = PartidoDAL.getPartidosSinDatos();
+            DataTable dt = PartidoDAL.PartidosSinDatos();
 
             Partido partido;
             List<Partido> equipoList = new List<Partido>();

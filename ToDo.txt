@@ -1,3 +1,14 @@
-* Poner el campo fecha de nacimiento en las vistas de jugador
-* Terminar de completar las url del menu principal
-* GetJugadorById hacer los joins que faltan
+*Agregar Fecha nº partido
+*Agregar a Partido hora de citacion
+*En la vista de create partido al selecciona local, no nos permite elegir lugay
+y carge "La agustina"
+*En la vista de convocarJugadores hay que mostrar las categorias del equipo seleccionado
+*En la vista de convocarJugadores hay que mostrar la fecha Nº del partido
+*Agregar en el create de partido la hora de citación (Tambien en BD)
+*Agregar en el create de partido el campo cancha
+*En la vista de convocarJugadores hay que mostrar la cancha
+*En BD en la tabla partido cambiar la columna local por condicion y que se guarde Local
+o Visitante respectivamente.
+*En Bd en la tabla partido sacar la columna localidadID y agregar lugar (Varchar[50])
+y cancha (Varchar[50])
+*Buscar como hacer para imprimir una pantalla
