@@ -18,7 +18,7 @@ namespace TPM.Controllers
             Partido partido = new Partido();
             partido.TemporadasList = TemporadasRepo.TemporadasGetAllRepo();
             partido.EquiposList = EquiposRepo.EquiposGetAllRepo();
-            partido.listPartidosSinDatos = PartidoRepo.getPartidosSinDatos() ;
+            partido.listPartidosSinDatos = PartidoRepo.PartidosSinDatos() ;
             return View(partido);
         }
 
@@ -94,10 +94,12 @@ namespace TPM.Controllers
         {
             var assignarJugadoresViewModel = new AssignarJugadoresViewModel();
             assignarJugadoresViewModel.CategoriaList = CategoriaRepo.CategoriaGetAllRepo();
-            assignarJugadoresViewModel.ListaJugadores = JugadoresRepo.JugadoresSearchPartido(id, NombreFiltro, ApellidoFiltro);
             assignarJugadoresViewModel.PartidoSeleccionado = PartidoRepo.PartidoByIdRepo(id);
+            assignarJugadoresViewModel.ListaJugadores = JugadoresRepo.JugadoresSearchPartido(id, assignarJugadoresViewModel.PartidoSeleccionado.EquipoId, NombreFiltro, ApellidoFiltro);
             assignarJugadoresViewModel.ListaJugadoresAsignados = JugadoresRepo.JugadoresByPartido(id);
             assignarJugadoresViewModel.NombreFiltro = NombreFiltro;
+            assignarJugadoresViewModel.Fecha = assignarJugadoresViewModel.PartidoSeleccionado.FechaHoraInicio.ToShortDateString();
+            assignarJugadoresViewModel.Hora = assignarJugadoresViewModel.PartidoSeleccionado.FechaHoraInicio.ToShortTimeString();
 
             return View(assignarJugadoresViewModel);
         }

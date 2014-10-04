@@ -56,7 +56,7 @@ namespace TPM.DAL
             return dt;
         }
 
-        public DataTable getPartidosSinDatos()
+        public DataTable PartidosSinDatos()
         {
 
             var dt = new DataTable();
@@ -64,7 +64,7 @@ namespace TPM.DAL
 
             using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
             {
-                using (SqlCommand cmd = new SqlCommand("getPartidosSinDatos", con))
+                using (SqlCommand cmd = new SqlCommand("PartidosSinDatos", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 

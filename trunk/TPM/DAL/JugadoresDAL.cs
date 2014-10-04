@@ -472,7 +472,7 @@ namespace TPM.DAL
             return ret;
         }
 
-        public DataTable JugadoresSearchPartido(int idPartido, string nombre, string apellido)
+        public DataTable JugadoresSearchPartido(int idPartido, int idEquipo, string nombre, string apellido)
         {
 
             var dt = new DataTable();
@@ -494,6 +494,7 @@ namespace TPM.DAL
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add("@idPartido", SqlDbType.VarChar).Value = idPartido;
+                    cmd.Parameters.Add("@idEquipo", SqlDbType.VarChar).Value = idEquipo;
                     cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
                     cmd.Parameters.Add("@apellido", SqlDbType.VarChar).Value = apellido;
 

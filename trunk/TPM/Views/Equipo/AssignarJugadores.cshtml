@@ -5,7 +5,7 @@
 @{
     ViewBag.Title = "Asignar Jugadores";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    WebGrid gridJugadores = new WebGrid(Model.ListaJugadores, rowsPerPage: 2);
+    WebGrid gridJugadores = new WebGrid(Model.ListaJugadores, rowsPerPage: 10);
     WebGrid gridJugadoresAsignados = new WebGrid(Model.ListaJugadoresAsignados, rowsPerPage: 10, fieldNamePrefix: "order");
 }
 

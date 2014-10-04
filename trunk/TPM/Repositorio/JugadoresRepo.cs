@@ -257,10 +257,10 @@ namespace TPM.Repositorio
             return jugadoresDal.JugadorPorPartidoDelete(jugador.Id, jugador.PartidoId);
         }
 
-        public static List<Jugador> JugadoresSearchPartido(int idPartido, string nombre, string apellido)
+        public static List<Jugador> JugadoresSearchPartido(int idPartido, int idEquipo, string nombre, string apellido)
         {
             JugadoresDAL jugadoresDal = new JugadoresDAL();
-            DataTable dt = jugadoresDal.JugadoresSearchPartido(idPartido, nombre, apellido);
+            DataTable dt = jugadoresDal.JugadoresSearchPartido(idPartido,idEquipo, nombre, apellido);
 
             Jugador jugador;
             List<Jugador> jugadorList = new List<Jugador>();

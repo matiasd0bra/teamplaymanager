@@ -3,4 +3,111 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>DatosPartido</h2>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Datos Partido
+        <div class="pull-right">
+            <a class="link-panel" href="/Partido">
+                <img src="~/Images/boton_volver.png" />
+                Volver
+            </a>
+        </div>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm("formDatosPartido", "Partido", FormMethod.Post, new {enctype = "multipart/form-data"}))
+        {
+           @*<input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />*@
+
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <fieldset>
+                <legend>Partido</legend>
+                <div class="well">
+                    <div class="titleDatos"><span class="label label-default">Datos Partido</span></div>
+
+                    <table class="tablaCreate" width="100%">
+                        <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Temporada:")
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(model => model.TemporadaId, new SelectList(Model.TemporadasList, "TemporadaId", "TemporadaNombre", 1))
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Tipo:")
+                            </td>
+                            <td>
+                                <select name="TipoPartidoNombre" id="TipoPartidoNombre">
+                                    <option value="Amistoso">Amistoso</option>
+                                    <option value="Liga">Liga</option>
+                                    <option value="Campeonato">Campeonato</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Equipo:")
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(model => model.EquipoId, new SelectList(Model.EquiposList, "Id", "NombreEquipo", 1))
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Rival:")
+                            </td>
+                            <td>
+                                @Html.EditorFor(model => model.Rival)
+                                @Html.ValidationMessage("Nombre", "Por favor, ingrese el rival")
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Fecha:")
+                            </td>
+                            <td>
+                                @Html.TextBoxFor(model => model.FechaHoraInicioString)
+                            </td>
+                        </tr>
+                        <script type="text/javascript">
+                            $(function() {
+                                $("#FechaHoraInicioString").datetimepicker({
+                                    format: 'd.m.Y H:i'
+                                });
+                            });
+                        </script>
+                        <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Local:")
+                            </td>
+                            <td>
+                                <input type="checkbox" id="Local" name="Local" value="L">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="primerColumna">
+                                @Html.Label("Lugar:")
+                            </td>
+                            <td>
+                                @Html.DropDownListFor(model => model.LocalidadId, new SelectList(Model.LocalidadLista, "LocalidadId", "LocalidadNombre", 1)) 
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+         
+                    <input class="btn btn-primary" name="accion" type="submit" value="Guardar y volver al calendario" />
+                    <input class="btn btn-primary" name="accion" type="submit" value="Guardar y convocar Jugadores" />
+
+                
+
+            </fieldset>
+            <link href="~/Scripts/Bootstrap/datetimepicker-master/jquery.datetimepicker.css" rel="stylesheet" />
+            <script src="~/Scripts/Bootstrap/datetimepicker-master/jquery.js"></script>
+            <script type="text/javascript" src="~/Scripts/Bootstrap/datetimepicker-master/jquery.datetimepicker.js"></script> 
+        }
+    </div>
+</div>

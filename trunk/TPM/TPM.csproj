@@ -376,7 +376,6 @@
     <Content Include="Views\Equipo\Create.cshtml" />
     <Content Include="Views\Equipo\Index.cshtml" />
     <Content Include="Views\Jugador\Index.cshtml" />
-    <Content Include="Views\Home\Main.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_emptyLayout.cshtml" />
     <Content Include="Views\Equipo\AssignarJugadores.cshtml" />
@@ -387,6 +386,8 @@
     <Content Include="Views\Equipo\AsignarPersonalEsp.cshtml" />
     <Content Include="Views\Partido\Index.cshtml" />
     <Content Include="Views\Partido\Create.cshtml" />
+    <Content Include="Views\Partido\ConvocarJugadores.cshtml" />
+    <Content Include="Views\Partido\DatosPartido.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

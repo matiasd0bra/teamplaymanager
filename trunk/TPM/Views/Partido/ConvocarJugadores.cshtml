@@ -6,24 +6,90 @@
     ViewBag.Title = "Asignar Jugadores";
     Layout = "~/Views/Shared/_Layout.cshtml";
     WebGrid gridJugadores = new WebGrid(Model.ListaJugadores, rowsPerPage: 10);
-    WebGrid gridJugadoresConvocados = new WebGrid(Model.ListaJugadoresAsignados, rowsPerPage: 10, fieldNamePrefix: "order");
+    WebGrid gridJugadoresConvocados = new WebGrid(Model.ListaJugadoresAsignados, rowsPerPage: 11, fieldNamePrefix: "order");
 }
 
 <div class="panel panel-primary">
-  <div class="panel-heading">Asignar Jugadores 
+  <div class="panel-heading">Planilla de citación
       <div class="pull-right">
-          <a class="link-panel" href="/Equipo">
+          <a class="link-panel" href="/Partido">
              <img src="~/Images/boton_volver.png" />
               Volver
           </a>
       </div>
   </div>
   <div class="panel-body">
-    <h2>
-       Fecha: @Model.PartidoSeleccionado.FechaHoraInicio
-    </h2>
-    
-    @Html.ValidationSummary(true)
+<label>División: @Model.PartidoSeleccionado.EquipoNombre</label>
+<label>Categoría: 93 - 94 - 95 (Falta traerlas BD)</label>
+      
+<label>Fecha Nº: (Falta en BD)</label>
+<label>Riva: @Model.PartidoSeleccionado.Rival</label>   
+<label>Hora de Citación: (Cargar en create de partido)</label>
+<label>Hora de inicio de partido: @Model.Hora</label>
+<label>Fecha: @Model.Fecha</label>
+<label>Cancha: (falta traer de BD)</label>
+<label>Condición: @Model.PartidoSeleccionado.Local</label>
+<label>Lugar: (falta en BD)</label>
+
+<h2>TITULARES</h2>
+<div class="row">
+    <div class="col-xs-6">
+        @gridJugadoresConvocados.GetHtml(
+            fillEmptyRows: true,
+            alternatingRowStyle: "fila-alternativa",
+            headerStyle: "encabezado-grid",
+            footerStyle: "pie-grid",
+            mode: WebGridPagerModes.All,
+            firstText: "<< Primera",
+            previousText: "< Anterior",
+            nextText: "Siguiente >",
+            lastText: "Última >>",
+            tableStyle: "table table-striped",
+
+            columns: new[]
+            {
+                gridJugadoresConvocados.Column("Nombre"),
+                gridJugadoresConvocados.Column("Apellido"),
+                gridJugadoresConvocados.Column("Categoria"),
+                gridJugadoresConvocados.Column("",
+                    header: "Acciones",
+                    format: @<text>
+                                 <input type="button" value="Borrar" id=@item.Id onClick=" BorrarJugadorConvocado(@item.Id) "/>
+                             </text>
+                    )
+            })
+    </div>
+    <div class="col-xs-6">
+        @gridJugadores.GetHtml(
+                                      fillEmptyRows: false,
+                                      alternatingRowStyle: "fila-alternativa",
+                                      headerStyle: "encabezado-grid",
+                                      footerStyle: "pie-grid",
+                                      mode: WebGridPagerModes.All,
+                                      firstText: "<< Primera",
+                                      previousText: "< Anterior",
+                                      nextText: "Siguiente >",
+                                      lastText: "Última >>",
+                                      tableStyle: "table table-striped",
+
+                                      columns: new[]
+                                      {
+                                          gridJugadores.Column("Nombre"),
+                                          gridJugadores.Column("Apellido"),
+                                          gridJugadores.Column("Categoria"),
+                                          gridJugadores.Column("",
+                                              header: "Acciones",
+                                              format: @<text>
+                                                           <input type="button" value="Convocar" id=@item.Id onClick=" ConvocarJugador(@item.Id) "/>
+                                                       </text>
+                                              )
+                                      })
+    </div>
+</div>
+  
+
+
+      @Html.ValidationSummary(true)
 
     
     <div class="well">
@@ -53,7 +119,7 @@
 
                         <input type="submit" value="Buscar" />
             <div class="row">
-                <div class="col-xs-6">
+                <div class="col-xs-12">
                     @if (Model.ListaJugadores != null)
                         {
                                   @gridJugadores.GetHtml(
@@ -86,7 +152,7 @@
                                   <div>@Html.DisplayName("No se han encontrado resultados")</div>
                         }
                 </div>
-                <div class="col-xs-6">
+                @*<div class="col-xs-6">
                     @Html.ValidationSummary(true)
 
                         @if (Model.ListaJugadoresAsignados != null)
@@ -121,7 +187,7 @@
                         {
                             <div>@Html.DisplayName("Este equipo no tiene asignado ningun jugador")</div>
                         }
-                </div>
+                </div>*@
             </div>
         }
     </div>
