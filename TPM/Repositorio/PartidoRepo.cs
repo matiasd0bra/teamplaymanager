@@ -31,6 +31,11 @@ namespace TPM.Repositorio
             //partido.LocalidadId = int.Parse(dt.Rows[0]["LocalidadId"].ToString());
             //partido.Local = dt.Rows[0]["Local"].ToString();
             partido.EquipoNombre = dt.Rows[0]["NombreEquipo"].ToString();
+            partido.Lugar = dt.Rows[0]["Lugar"].ToString();
+            partido.Cancha = dt.Rows[0]["Cancha"].ToString();
+            partido.HoraCitacion = Convert.ToDateTime(dt.Rows[0]["HoraCitacion"].ToString());
+            partido.NumeroFecha = int.Parse(dt.Rows[0]["NumeroFecha"].ToString());
+            partido.Condicion = dt.Rows[0]["Condicion"].ToString();
 
             return partido;
         }

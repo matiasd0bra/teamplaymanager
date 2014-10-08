@@ -33,6 +33,8 @@ namespace TPM.Models
         public string LocalidadNombre { get; set; }
         public List<Localidad> LocalidadLista { get; set; }
 
+        public string Titular { get; set; }
+
         public List<Equipo> Equipos { get; set; }
         public int EquipoId { get; set; }
         public string EquiposNombre { get; set; }
@@ -62,5 +64,13 @@ namespace TPM.Models
 
         public CoberturaMedicaJugador CoberturaMedica { get; set; }
         public DatosGeneralesJugador DatosGenerales { get; set; }
+
+        public string NombreApellido { get; set; }
+        public string NumeroCamiseta { get; set; }
+        public string Posicion { get; set; }
+        public string PiernaHabil { get; set; }
+
+        public int NumeroSuplentes { get; set; }
+
     }
 }

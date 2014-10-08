@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using Microsoft.Ajax.Utilities;
+using TPM.Models;
 
 namespace TPM.DAL
 {
@@ -69,8 +70,7 @@ namespace TPM.DAL
             return dt;
         }
 
-        public int JugadorInsert(string nombre, string apellido, int tipoDoc, string nroDoc, DateTime fechanac, string dom, int loc, string imagenPath
-            , string apodo, float peso, float estatura, string colegio, string telefono, string email, string ciudadania, string representante)
+        public int JugadorInsert(Jugador jugador)
         {
             int ret = 0;
             using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
@@ -80,22 +80,24 @@ namespace TPM.DAL
 
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = nombre;
-                    cmd.Parameters.Add("@Apellido", SqlDbType.VarChar).Value = apellido;
-                    cmd.Parameters.Add("@TipoDocId", SqlDbType.Int).Value = tipoDoc;
-                    cmd.Parameters.Add("@NumeroDoc", SqlDbType.VarChar).Value = nroDoc;
-                    cmd.Parameters.Add("@FechaNac", SqlDbType.DateTime).Value = fechanac;
-                    cmd.Parameters.Add("@Domicilio", SqlDbType.VarChar).Value = dom;
-                    cmd.Parameters.Add("@LocalidadId", SqlDbType.Int).Value = loc;
-                    cmd.Parameters.Add("@ImagenPath", SqlDbType.VarChar).Value = imagenPath;
-                    cmd.Parameters.Add("@Apodo", SqlDbType.VarChar).Value = apodo;
-                    cmd.Parameters.Add("@Peso", SqlDbType.Float).Value = peso;
-                    cmd.Parameters.Add("@Estatura", SqlDbType.Float).Value = estatura;
-                    cmd.Parameters.Add("@Colegio", SqlDbType.VarChar).Value = colegio;
-                    cmd.Parameters.Add("@Telefono", SqlDbType.VarChar).Value = telefono;
-                    cmd.Parameters.Add("@Email", SqlDbType.VarChar).Value = email;
-                    cmd.Parameters.Add("@Ciudadania", SqlDbType.VarChar).Value = ciudadania;
-                    cmd.Parameters.Add("@Representante", SqlDbType.VarChar).Value = representante;
+                    cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = jugador.Nombre;
+                    cmd.Parameters.Add("@Apellido", SqlDbType.VarChar).Value = jugador.Apellido;
+                    cmd.Parameters.Add("@TipoDocId", SqlDbType.Int).Value = jugador.TipoDocId;
+                    cmd.Parameters.Add("@NumeroDoc", SqlDbType.VarChar).Value = jugador.NumeroDoc;
+                    cmd.Parameters.Add("@FechaNac", SqlDbType.DateTime).Value = jugador.FechaNac;
+                    cmd.Parameters.Add("@Domicilio", SqlDbType.VarChar).Value = jugador.Domicilio;
+                    cmd.Parameters.Add("@LocalidadId", SqlDbType.Int).Value = jugador.LocalidadId;
+                    cmd.Parameters.Add("@ImagenPath", SqlDbType.VarChar).Value = jugador.ImagenPath;
+                    cmd.Parameters.Add("@Apodo", SqlDbType.VarChar).Value = jugador.Apodo;
+                    cmd.Parameters.Add("@Peso", SqlDbType.Float).Value = jugador.Peso;
+                    cmd.Parameters.Add("@Estatura", SqlDbType.Float).Value = jugador.Estatura;
+                    cmd.Parameters.Add("@Colegio", SqlDbType.VarChar).Value = jugador.Colegio;
+                    cmd.Parameters.Add("@Telefono", SqlDbType.VarChar).Value = jugador.Telefono;
+                    cmd.Parameters.Add("@Email", SqlDbType.VarChar).Value = jugador.Email;
+                    cmd.Parameters.Add("@Ciudadania", SqlDbType.VarChar).Value = jugador.CiudadaniaEuropea;
+                    cmd.Parameters.Add("@Representante", SqlDbType.VarChar).Value = jugador.Representante;
+                    cmd.Parameters.Add("@Posicion", SqlDbType.VarChar).Value = jugador.Posicion;
+                    cmd.Parameters.Add("@PiernaHabil", SqlDbType.VarChar).Value = jugador.PiernaHabil;
 
                     con.Open();
                     ret = int.Parse(cmd.ExecuteScalar().ToString());
@@ -144,7 +146,7 @@ namespace TPM.DAL
         public void DatosGeneralesJugadorInsert(int id, string otroEquipo, string quienLoTrajo, string nombreMadre, string telMadre, string ocupacionMadre, string trabajoMadre,
             string direccionTrabajoMadre, string telefonoTrabajoMadre, string nombrePadre, string telPadre, string ocupacionPadre, string trabajoPadre,
             string direccionTrabajoPadre, string telefonoTrabajoPadre, string padresConviven, int hermanos, string nombreResponsable, string ocupacionResponsable, string parentescoResponsable,
-            string lesiones, string piernaHabil, string posicion)
+            string lesiones)
         {
             using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
             {
@@ -172,8 +174,6 @@ namespace TPM.DAL
                     if (ocupacionResponsable == null) ocupacionResponsable = "";
                     if (parentescoResponsable == null) parentescoResponsable = "";
                     if (lesiones == null) lesiones = "";
-                    if (piernaHabil == null) piernaHabil = "";
-                    if (posicion == null) posicion = "";
 
 
                     cmd.Parameters.Add("@IdJugador", SqlDbType.Int).Value = id;
@@ -197,8 +197,6 @@ namespace TPM.DAL
                     cmd.Parameters.Add("@OcupacionResponsable", SqlDbType.VarChar).Value = ocupacionResponsable;
                     cmd.Parameters.Add("@ParentescoResponsable", SqlDbType.VarChar).Value = parentescoResponsable;
                     cmd.Parameters.Add("@Lesiones", SqlDbType.VarChar).Value = lesiones;
-                    cmd.Parameters.Add("@PiernaHabil", SqlDbType.VarChar).Value = piernaHabil;
-                    cmd.Parameters.Add("@Posicion", SqlDbType.VarChar).Value = posicion;
 
                     con.Open();
                     cmd.ExecuteScalar();
@@ -365,7 +363,7 @@ namespace TPM.DAL
             }
             return dt;
         }
-        public DataTable JugadoresByPartido(int idPartido)
+        public DataTable JugadoresByPartido(int idPartido, string Titular)
         {
 
             var dt = new DataTable();
@@ -377,7 +375,8 @@ namespace TPM.DAL
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@IdPartido", SqlDbType.VarChar).Value = idPartido;
+                    cmd.Parameters.Add("@IdPartido", SqlDbType.Int).Value = idPartido;
+                    cmd.Parameters.Add("@Titular", SqlDbType.VarChar).Value = Titular;
 
                     con.Open();
                     sqlDataReader = cmd.ExecuteReader();
@@ -432,7 +431,7 @@ namespace TPM.DAL
             return dt;
         }
 
-        public int JugadorPorPartidoInsert(int jugadorId, int partidoId)
+        public int JugadorPorPartidoInsert(Jugador jugador)
         {
             int ret;
             using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
@@ -442,8 +441,9 @@ namespace TPM.DAL
 
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@JugadorId", SqlDbType.Int).Value = jugadorId;
-                    cmd.Parameters.Add("@PartidoId", SqlDbType.Int).Value = partidoId;
+                    cmd.Parameters.Add("@JugadorId", SqlDbType.Int).Value = jugador.Id;
+                    cmd.Parameters.Add("@PartidoId", SqlDbType.Int).Value = jugador.PartidoId;
+                    cmd.Parameters.Add("@Titular", SqlDbType.VarChar).Value = jugador.Titular;
 
                     con.Open();
                     ret = cmd.ExecuteNonQuery();
@@ -472,7 +472,7 @@ namespace TPM.DAL
             return ret;
         }
 
-        public DataTable JugadoresSearchPartido(int idPartido, int idEquipo, string nombre, string apellido)
+        public DataTable JugadoresSearchPartido(int idPartido, int idEquipo, string nombre, string apellido, string categoria, string equiposFiltro, string posicionFiltro)
         {
 
             var dt = new DataTable();
@@ -480,27 +480,72 @@ namespace TPM.DAL
 
             using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
             {
-                using (SqlCommand cmd = new SqlCommand("JugadoresSearchPartido", con))
+                if (equiposFiltro == "on")
                 {
-                    if (nombre == null)
+                    using (SqlCommand cmd = new SqlCommand("JugadoresSearchPartidoTodosEquipos", con))
                     {
-                        nombre = "";
+                        if (nombre == null)
+                        {
+                            nombre = "";
+                        }
+                        if (apellido == null)
+                        {
+                            apellido = "";
+                        }
+                        if (categoria == null)
+                        {
+                            categoria = "";
+                        }
+                        if (posicionFiltro == null)
+                        {
+                            posicionFiltro = "";
+                        }
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.Add("@idPartido", SqlDbType.VarChar).Value = idPartido;
+                        cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
+                        cmd.Parameters.Add("@apellido", SqlDbType.VarChar).Value = apellido;
+                        cmd.Parameters.Add("@categoria", SqlDbType.VarChar).Value = categoria;
+                        cmd.Parameters.Add("@posicion", SqlDbType.VarChar).Value = posicionFiltro;
+
+                        con.Open();
+                        sqlDataReader = cmd.ExecuteReader();
+                        dt.Load(sqlDataReader);
                     }
-                    if (apellido == null)
+                }
+                else
+                {
+                    using (SqlCommand cmd = new SqlCommand("JugadoresSearchPartido", con))
                     {
-                        apellido = "";
+                        if (nombre == null)
+                        {
+                            nombre = "";
+                        }
+                        if (apellido == null)
+                        {
+                            apellido = "";
+                        }
+                        if (categoria == null)
+                        {
+                            categoria = "";
+                        }
+                        if (posicionFiltro == null)
+                        {
+                            posicionFiltro = "";
+                        }
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.Add("@idPartido", SqlDbType.VarChar).Value = idPartido;
+                        cmd.Parameters.Add("@idEquipo", SqlDbType.VarChar).Value = idEquipo;
+                        cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
+                        cmd.Parameters.Add("@apellido", SqlDbType.VarChar).Value = apellido;
+                        cmd.Parameters.Add("@categoria", SqlDbType.VarChar).Value = categoria;
+                        cmd.Parameters.Add("@posicion", SqlDbType.VarChar).Value = posicionFiltro;
+
+                        con.Open();
+                        sqlDataReader = cmd.ExecuteReader();
+                        dt.Load(sqlDataReader);
                     }
-
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.Parameters.Add("@idPartido", SqlDbType.VarChar).Value = idPartido;
-                    cmd.Parameters.Add("@idEquipo", SqlDbType.VarChar).Value = idEquipo;
-                    cmd.Parameters.Add("@nombre", SqlDbType.VarChar).Value = nombre;
-                    cmd.Parameters.Add("@apellido", SqlDbType.VarChar).Value = apellido;
-
-                    con.Open();
-                    sqlDataReader = cmd.ExecuteReader();
-                    dt.Load(sqlDataReader);
                 }
             }
             return dt;

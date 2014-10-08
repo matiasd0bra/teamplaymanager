@@ -34,6 +34,30 @@ namespace TPM.DAL
             return dt;
         }
 
+        public DataTable CategoriaByEquipo(int idEquipo)
+        {   
+
+            var dt = new DataTable();
+            SqlDataReader sqlDataReader;
+
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
+            {
+                using (SqlCommand cmd = new SqlCommand("CategoriaByEquipo", con))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@IdEquipo", SqlDbType.Int).Value = idEquipo;
+                   
+
+                    con.Open();
+                    sqlDataReader = cmd.ExecuteReader();
+                    dt.Load(sqlDataReader);
+                }
+            }
+            return dt;
+        }
+
         public DataTable CategoriaById(int categoriaId)
         {
             var dt = new DataTable();

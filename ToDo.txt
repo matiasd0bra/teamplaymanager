@@ -1,97 +1,19 @@
-*Agregar Fecha nº partido
-*Agregar a Partido hora de citacion
-*En la vista de create partido al selecciona local, no nos permite elegir lugay
-y carge "La agustina"
-*En la vista de convocarJugadores hay que mostrar las categorias del equipo seleccionado
-*En la vista de convocarJugadores hay que mostrar la fecha Nº del partido
-*Agregar en el create de partido la hora de citación (Tambien en BD)
-*Agregar en el create de partido el campo cancha
-*En la vista de convocarJugadores hay que mostrar la cancha
-*En BD en la tabla partido cambiar la columna local por condicion y que se guarde Local
-o Visitante respectivamente.
-*En Bd en la tabla partido sacar la columna localidadID y agregar lugar (Varchar[50])
-y cancha (Varchar[50])
-*Buscar como hacer para imprimir una pantalla
+LISTO	*Agregar Fecha nº partido
+LISTO	*Agregar a Partido hora de citacion
+	*En la vista de create partido al selecciona local, no nos permite elegir lugay
+	y carge "La agustina"
+	*En la vista de convocarJugadores hay que  	mostrar las categorias del equipo seleccionado
+LISTO	*En la vista de convocarJugadores hay que mostrar la fecha Nº del partido
+LISTO	*Agregar en el create de partido la hora de citación (Tambien en BD)
+LISTO	*Agregar en el create de partido el campo cancha
+LISTO	*En la vista de convocarJugadores hay que mostrar la cancha
+LISTO	*En BD en la tabla partido cambiar la columna local por condicion y que se guarde Local
+	o Visitante respectivamente.
+LISTO	*En Bd en la tabla partido sacar la columna localidadID y agregar lugar (Varchar[50])
+	y cancha (Varchar[50])
+	*Buscar como hacer para imprimir una pantalla
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-ALTER PROCEDURE [dbo].[PartidoInsert]
-	@TemporadaId int
-	,@NumeroFecha int
-	,@TipoPartido int
-	,@EquipoId int
-	,@Rival nvarchar(50)
-	,@FechaHoraInicio datetime
-	,@HoraCitacion datetime
-	,@Lugar nvarchar(50)
-	,@Cancha nvarchar(50)
-	,@Condicion nvarchar(10)
-AS
-BEGIN
-	-- SET NOCOUNT ON added to prevent extra result sets from
-	-- interfering with SELECT statements.
-	SET NOCOUNT ON;
-
-    -- Insert statements for procedure here
-	INSERT INTO Partidos
-	VALUES (@TemporadaId, @TipoPartido, @EquipoId, @Rival,@FechaHoraInicio ,@Lugar 
-	,@Condicion, null, null, null, null, 'Creado',@HoraCitacion,@NumeroFecha , @Cancha)
-
-	SELECT SCOPE_IDENTITY()
-END
-
-
-
-
-
-
-
-
-USE [TPM]
-GO
-
-/****** Object:  Table [dbo].[Partidos]    Script Date: 04/10/2014 02:14:37 p.m. ******/
-SET ANSI_NULLS ON
-GO
-
-SET QUOTED_IDENTIFIER ON
-GO
-
-CREATE TABLE [dbo].[Partidos](
-	[PartidoId] [int] IDENTITY(1,1) NOT NULL,
-	[TemporadaId] [int] NULL,
-	[TipoPartido] [nvarchar](50) NULL,
-	[EquipoId] [int] NULL,
-	[Rival] [nvarchar](50) NULL,
-	[FechaHoraInicio] [datetime] NULL,
-	[Lugar] [nvarchar](50) NULL,
-	[Condicion] [nvarchar](10) NULL,
-	[Duracion] [int] NULL,
-	[GolesAFavor] [int] NULL,
-	[GolesEnContra] [int] NULL,
-	[JugadorDestacadoRival] [nvarchar](50) NULL,
-	[EstadoPartido] [nvarchar](50) NULL,
-	[HoraCitacion] [datetime] NULL,
-	[NumeroFecha] [int] NULL,
-	[Cancha] [nvarchar](50) NULL,
- CONSTRAINT [PK_Partidos] PRIMARY KEY CLUSTERED 
-(
-	[PartidoId] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-
-GO
-
-ALTER TABLE [dbo].[Partidos] ADD  CONSTRAINT [DF_Partidos_EstadoPartido]  DEFAULT (N'C') FOR [EstadoPartido]
-GO
+*Darle estilo al create de jugador
+*En el convocar jugadores filtrar la busqueda por las categorias de ese equipo
+*Arreglar create jugadores
+*En el asignar jugadores filtrar que no se puedan asignar jugadores que no sean de la categoria asignada al equipo

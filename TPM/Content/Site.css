@@ -814,3 +814,18 @@ tr.pager td {
     height: 20px;
     width: 20px !important;
 }
+
+.titleSeccion {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.inputForm {
+    margin-top: 15px;
+}
+.labelForm {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 23px;
+}
