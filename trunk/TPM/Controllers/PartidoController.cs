@@ -69,10 +69,8 @@ namespace TPM.Controllers
                     partido.PartidoId = PartidoRepo.PartidoInsert(partido);
 
                     if (accion == "Guardar y volver al calendario") return RedirectToAction("Index");
-                    if (accion == "Guardar y convocar Jugadores")
-                    {
-                        return RedirectToAction("ConvocarJugadores", new { id = partido.PartidoId });
-                    }
+                    if (accion == "Guardar y convocar Jugadores") return RedirectToAction("ConvocarJugadores", new { id = partido.PartidoId });
+                    if (accion == "Guardar y cargar otro partido") return RedirectToAction("Create");
                 }
                 catch
                 {
@@ -87,16 +85,47 @@ namespace TPM.Controllers
             return View(partido);
         }
 
-        public ActionResult ConvocarJugadores(int id, string NombreFiltro = null, string ApellidoFiltro = null, string CategoriaFiltro = null)
+        public ActionResult ConvocarJugadores(int id, string NombreFiltro = null, string ApellidoFiltro = null, string CategoriaFiltro = null, string EquiposFiltro = null, string PosicionFiltro=null)
         {
             var assignarJugadoresViewModel = new AssignarJugadoresViewModel();
-            assignarJugadoresViewModel.CategoriaList = CategoriaRepo.CategoriaGetAllRepo();
             assignarJugadoresViewModel.PartidoSeleccionado = PartidoRepo.PartidoByIdRepo(id);
-            assignarJugadoresViewModel.ListaJugadores = JugadoresRepo.JugadoresSearchPartido(id, assignarJugadoresViewModel.PartidoSeleccionado.EquipoId, NombreFiltro, ApellidoFiltro);
-            assignarJugadoresViewModel.ListaJugadoresAsignados = JugadoresRepo.JugadoresByPartido(id);
+            assignarJugadoresViewModel.CategoriaList = CategoriaRepo.CategoriaByEquipo(assignarJugadoresViewModel.PartidoSeleccionado.EquipoId);
+            assignarJugadoresViewModel.ListaJugadoresTitulares = JugadoresRepo.JugadoresByPartido(id,"T");
+            assignarJugadoresViewModel.ListaJugadoresSuplentes = JugadoresRepo.JugadoresByPartido(id,"S");
             assignarJugadoresViewModel.NombreFiltro = NombreFiltro;
+            assignarJugadoresViewModel.CategoriaFiltro = CategoriaFiltro;
+            if (EquiposFiltro == "on")
+            {
+                assignarJugadoresViewModel.EquiposFiltro = "checked";   
+            }
+            assignarJugadoresViewModel.PosicionFiltro = PosicionFiltro;
             assignarJugadoresViewModel.Fecha = assignarJugadoresViewModel.PartidoSeleccionado.FechaHoraInicio.ToShortDateString();
             assignarJugadoresViewModel.Hora = assignarJugadoresViewModel.PartidoSeleccionado.FechaHoraInicio.ToShortTimeString();
+            assignarJugadoresViewModel.HoraCitacion = assignarJugadoresViewModel.PartidoSeleccionado.HoraCitacion.ToShortTimeString();
+            
+            foreach (var item in assignarJugadoresViewModel.CategoriaList)
+            {
+
+                assignarJugadoresViewModel.CategoriasString += item.NombreCategoria;
+                if (item != assignarJugadoresViewModel.CategoriaList[assignarJugadoresViewModel.CategoriaList.Count - 1])
+                {
+                    assignarJugadoresViewModel.CategoriasString += " - ";
+                }
+
+
+            }
+            foreach (var item in assignarJugadoresViewModel.CategoriaList)
+            {
+
+                assignarJugadoresViewModel.CategoriasBuscar += "and j.Categoria in (" + item.NombreCategoria;
+                if (item != assignarJugadoresViewModel.CategoriaList[assignarJugadoresViewModel.CategoriaList.Count - 1])
+                {
+                    assignarJugadoresViewModel.CategoriasBuscar += ", ";
+                }
+                assignarJugadoresViewModel.CategoriasBuscar += ")";
+
+            }
+            assignarJugadoresViewModel.ListaJugadores = JugadoresRepo.JugadoresSearchPartido(id, assignarJugadoresViewModel.PartidoSeleccionado.EquipoId, NombreFiltro, ApellidoFiltro, CategoriaFiltro, EquiposFiltro, PosicionFiltro);
 
             return View(assignarJugadoresViewModel);
         }
@@ -106,6 +135,7 @@ namespace TPM.Controllers
             Jugador jugador = new Jugador();
             jugador.Id = jugadorAsignado.IdJugador;
             jugador.PartidoId = jugadorAsignado.IdPartido;
+            jugador.Titular = jugadorAsignado.Titular;
 
             JugadoresRepo.JugadorPorPartidoInsert(jugador);
 

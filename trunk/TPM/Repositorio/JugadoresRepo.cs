@@ -68,9 +68,7 @@ namespace TPM.Repositorio
         public static int JugadorInsert(Jugador jugador)
         {
             JugadoresDAL jugadoresDal = new JugadoresDAL();
-            var idJugador = jugadoresDal.JugadorInsert(jugador.Nombre, jugador.Apellido, jugador.TipoDocId, jugador.NumeroDoc, jugador.FechaNac,
-                jugador.Domicilio, jugador.LocalidadId, jugador.ImagenPath, jugador.Apodo, jugador.Peso, jugador.Estatura, jugador.Colegio, 
-                jugador.Telefono, jugador.Email, jugador.CiudadaniaEuropea, jugador.Representante);
+            var idJugador = jugadoresDal.JugadorInsert(jugador);
 
             jugadoresDal.CoberturaMedicaInsert(idJugador, jugador.CoberturaMedica.ObraSocial, jugador.CoberturaMedica.NroObraSocial, jugador.CoberturaMedica.ServicioEmergencia,
                 jugador.CoberturaMedica.NroServicioEmergencia, jugador.CoberturaMedica.Telefono, jugador.CoberturaMedica.Hospital, 
@@ -82,7 +80,7 @@ namespace TPM.Repositorio
                 jugador.DatosGenerales.OcupacionPadre, jugador.DatosGenerales.TrabajoPadre,
                 jugador.DatosGenerales.DireccionTrabajoPadre, jugador.DatosGenerales.TelefonoTrabajoPadre, jugador.DatosGenerales.PadresConviven, jugador.DatosGenerales.Hermanos,
                 jugador.DatosGenerales.NombreResponsable, jugador.DatosGenerales.OcupacionResponsable, jugador.DatosGenerales.ParentescoResponsable,
-                jugador.DatosGenerales.Lesiones, jugador.DatosGenerales.PiernaHabil, jugador.DatosGenerales.Posicion);
+                jugador.DatosGenerales.Lesiones);
 
             return idJugador;
         }
@@ -174,10 +172,10 @@ namespace TPM.Repositorio
 
             return jugadorList;
         }
-        public static List<Jugador> JugadoresByPartido(int IdPartido)
+        public static List<Jugador> JugadoresByPartido(int IdPartido, string Titular)
         {
             JugadoresDAL jugadoresDal = new JugadoresDAL();
-            DataTable dt = jugadoresDal.JugadoresByPartido(IdPartido);
+            DataTable dt = jugadoresDal.JugadoresByPartido(IdPartido,Titular);
 
             Jugador jugador;
             List<Jugador> jugadorList = new List<Jugador>();
@@ -198,6 +196,9 @@ namespace TPM.Repositorio
                 jugador.LocalidadId = int.Parse(item["LocalidadId"].ToString());
                 //jugador.LocalidadNombre = item["LocalidadNombre"].ToString();
                 jugador.FechaNacFormateada = jugador.FechaNac.ToShortDateString();
+                jugador.NombreApellido = jugador.Apellido.ToUpper() + " " + jugador.Nombre;
+                jugador.Posicion = item["Posicion"].ToString();
+                jugador.NumeroSuplentes = dt.Rows.IndexOf(item) + 12;
                 jugadorList.Add(jugador);
             }
 
@@ -249,7 +250,7 @@ namespace TPM.Repositorio
         public static int JugadorPorPartidoInsert(Jugador jugador)
         {
             JugadoresDAL jugadoresDal = new JugadoresDAL();
-            return jugadoresDal.JugadorPorPartidoInsert(jugador.Id, jugador.PartidoId);
+            return jugadoresDal.JugadorPorPartidoInsert(jugador);
         }
         public static int JugadorPorPartidoDelete(Jugador jugador)
         {
@@ -257,10 +258,10 @@ namespace TPM.Repositorio
             return jugadoresDal.JugadorPorPartidoDelete(jugador.Id, jugador.PartidoId);
         }
 
-        public static List<Jugador> JugadoresSearchPartido(int idPartido, int idEquipo, string nombre, string apellido)
+        public static List<Jugador> JugadoresSearchPartido(int idPartido, int idEquipo, string nombre, string apellido, string categoria, string equiposFiltro, string posicionFiltro)
         {
             JugadoresDAL jugadoresDal = new JugadoresDAL();
-            DataTable dt = jugadoresDal.JugadoresSearchPartido(idPartido,idEquipo, nombre, apellido);
+            DataTable dt = jugadoresDal.JugadoresSearchPartido(idPartido, idEquipo, nombre, apellido, categoria, equiposFiltro, posicionFiltro);
 
             Jugador jugador;
             List<Jugador> jugadorList = new List<Jugador>();
@@ -279,7 +280,8 @@ namespace TPM.Repositorio
                 jugador.FechaNac = Convert.ToDateTime(item["FechaNac"].ToString());
                 jugador.Domicilio = item["Domicilio"].ToString();
                 jugador.LocalidadId = int.Parse(item["LocalidadId"].ToString());
-                //jugador.LocalidadNombre = item["LocalidadNombre"].ToString();
+                jugador.Categoria = int.Parse(item["Categoria"].ToString());
+                jugador.Posicion = item["Posicion"].ToString();
                 jugador.FechaNacFormateada = jugador.FechaNac.ToShortDateString();
                 jugadorList.Add(jugador);
             }

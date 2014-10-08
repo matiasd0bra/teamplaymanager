@@ -1,164 +1,97 @@
 ﻿@using System.Web.Mvc
 @using System.Web.Mvc.Html
+@using Microsoft.Ajax.Utilities
 @model TPM.Models.ViewModel.AssignarJugadoresViewModel
 
 @{
     ViewBag.Title = "Asignar Jugadores";
     Layout = "~/Views/Shared/_Layout.cshtml";
     WebGrid gridJugadores = new WebGrid(Model.ListaJugadores, rowsPerPage: 10);
-    WebGrid gridJugadoresConvocados = new WebGrid(Model.ListaJugadoresAsignados, rowsPerPage: 11, fieldNamePrefix: "order");
+    WebGrid gridJugadoresTitulares = new WebGrid(Model.ListaJugadoresTitulares, rowsPerPage: 11, fieldNamePrefix: "order");
+    WebGrid gridJugadoresSuplentes = new WebGrid(Model.ListaJugadoresSuplentes, rowsPerPage: 7, fieldNamePrefix: "order1");
 }
 
 <div class="panel panel-primary">
-  <div class="panel-heading">Planilla de citación
+    <div class="panel-heading">
+        Convocar jugadores
       <div class="pull-right">
           <a class="link-panel" href="/Partido">
-             <img src="~/Images/boton_volver.png" />
+              <img src="~/Images/boton_volver.png" />
               Volver
           </a>
       </div>
-  </div>
-  <div class="panel-body">
-<label>División: @Model.PartidoSeleccionado.EquipoNombre</label>
-<label>Categoría: 93 - 94 - 95 (Falta traerlas BD)</label>
-      
-<label>Fecha Nº: (Falta en BD)</label>
-<label>Riva: @Model.PartidoSeleccionado.Rival</label>   
-<label>Hora de Citación: (Cargar en create de partido)</label>
-<label>Hora de inicio de partido: @Model.Hora</label>
-<label>Fecha: @Model.Fecha</label>
-<label>Cancha: (falta traer de BD)</label>
-<label>Condición: @Model.PartidoSeleccionado.Local</label>
-<label>Lugar: (falta en BD)</label>
-
-<h2>TITULARES</h2>
-<div class="row">
-    <div class="col-xs-6">
-        @gridJugadoresConvocados.GetHtml(
-            fillEmptyRows: true,
-            alternatingRowStyle: "fila-alternativa",
-            headerStyle: "encabezado-grid",
-            footerStyle: "pie-grid",
-            mode: WebGridPagerModes.All,
-            firstText: "<< Primera",
-            previousText: "< Anterior",
-            nextText: "Siguiente >",
-            lastText: "Última >>",
-            tableStyle: "table table-striped",
-
-            columns: new[]
-            {
-                gridJugadoresConvocados.Column("Nombre"),
-                gridJugadoresConvocados.Column("Apellido"),
-                gridJugadoresConvocados.Column("Categoria"),
-                gridJugadoresConvocados.Column("",
-                    header: "Acciones",
-                    format: @<text>
-                                 <input type="button" value="Borrar" id=@item.Id onClick=" BorrarJugadorConvocado(@item.Id) "/>
-                             </text>
-                    )
-            })
     </div>
-    <div class="col-xs-6">
-        @gridJugadores.GetHtml(
-                                      fillEmptyRows: false,
-                                      alternatingRowStyle: "fila-alternativa",
-                                      headerStyle: "encabezado-grid",
-                                      footerStyle: "pie-grid",
-                                      mode: WebGridPagerModes.All,
-                                      firstText: "<< Primera",
-                                      previousText: "< Anterior",
-                                      nextText: "Siguiente >",
-                                      lastText: "Última >>",
-                                      tableStyle: "table table-striped",
-
-                                      columns: new[]
-                                      {
-                                          gridJugadores.Column("Nombre"),
-                                          gridJugadores.Column("Apellido"),
-                                          gridJugadores.Column("Categoria"),
-                                          gridJugadores.Column("",
-                                              header: "Acciones",
-                                              format: @<text>
-                                                           <input type="button" value="Convocar" id=@item.Id onClick=" ConvocarJugador(@item.Id) "/>
-                                                       </text>
-                                              )
-                                      })
-    </div>
-</div>
-  
-
-
-      @Html.ValidationSummary(true)
-
-    
-    <div class="well">
-        <div class="titleDatos"><span class="label label-default">Jugadores Convocados</span></div>
-        @using (Html.BeginForm("ConvocarJugadores", "Partido", FormMethod.Get))
-        {
-            <h3>@Html.DisplayName("Jugadores")</h3>
-                        <div class="pull-right">
+    <div class="panel-body">
+        <div>
+            <p><strong>División:</strong> @Model.PartidoSeleccionado.EquipoNombre</p>
+            <p><strong>Categoría:</strong> @Model.CategoriasString</p>
+        </div>
+        <div class="titleSeccion">Planilla de citación</div>
+        <div class="row">
+            <div class="col-xs-6">
+                <p><strong>Fecha Nº:</strong> @Model.PartidoSeleccionado.NumeroFecha</p>
+                <p><strong>Rival:</strong> @Model.PartidoSeleccionado.Rival</p>
+                <p><strong>Hora de citación:</strong> @Model.HoraCitacion</p>
+                <p><strong>Horario de inicio de partido:</strong> @Model.Hora</p>
+            </div>
+            <div class="col-xs-6" style="text-align: right;">
+                <p><strong>Fecha:</strong> @Model.Fecha</p>
+                <p><strong>Cancha: </strong>@Model.PartidoSeleccionado.Cancha</p>
+                <p><strong>Condición:</strong> @Model.PartidoSeleccionado.Condicion</p>
+                <p><strong>Lugar: </strong>@Model.PartidoSeleccionado.Lugar</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6" style="margin-top: 25px">
+                @using (Html.BeginForm("ConvocarJugadores", "Partido", FormMethod.Get))
+                {
+                    <div class="well row" style="margin: 0 10px">
+                        <div class="titleDatos"><span class="label label-default">Buscar jugadores</span></div>
+                        <div class="pull-right" style="margin-top: -45px;">
                             <a class="link-panel" href="/Jugador/Create">
                                 <img src="~/Images/boton_nuevo.png" />
                                 Nuevo jugador
                             </a>
                         </div>
-                        <div>
-                            @Html.Label("Nombre")
-                            @Html.TextBoxFor(model => Model.NombreFiltro)
+                        <div class="col-xs-4" style="text-align: right">
+                            <p class="labelForm">Nombre: </p>
+                            <p class="labelForm">Apellido: </p>
+                            <p class="labelForm">Categoría: </p>
+                            <p class="labelForm">Posición: </p>
+                            <p class="labelForm">Todos los equipos: </p>
                         </div>
-                        <div>
-                            @Html.Label("Apellido")
-                            @Html.TextBoxFor(model => model.ApellidoFiltro)
+                        <div class="col-xs-8">
+                            <input class="inputForm" type="text" value="@Model.ApellidoFiltro" name="ApellidoFiltro" id="ApellidoFiltro">
+                            <input class="inputForm" type="text" value="@Model.NombreFiltro" name="NombreFiltro" id="NombreFiltro">
+                            @*<input class="inputForm" type="text" value="@Model.CategoriaFiltro" name="CategoriaFiltro" id="CategoriaFiltro">*@
+                            @*@Html.DropDownListFor(model => model.CategoriaId, new SelectList(Model.CategoriaList, "CategoriaId", "NombreCategoria", 1))*@
+                            
+                            <select class="inputForm" name="CategoriaFiltro" id="CategoriaFiltro"style="width: 100%; height: 30px;">
+                                <option value=""></option>
+                                @foreach (var item in Model.CategoriaList)
+                                {
+                                    <option @(item.NombreCategoria == Model.CategoriaFiltro ? "selected" : "") value="@item.NombreCategoria"> @item.NombreCategoria </option> 
+                                }
+
+                            </select>
+                            
+                            <select class="inputForm" name="PosicionFiltro" id="PosicionFiltro" style="width: 100%; height: 30px;">
+                                <option value=""></option>
+                                <option @(Model.PosicionFiltro == "Arquero" ? "selected" : "") value="Arquero">Arquero</option>
+                                <option @(Model.PosicionFiltro == "Defensor" ? "selected" : "") value="Defensor">Defensor</option>
+                                <option @(Model.PosicionFiltro == "Volante" ? "selected" : "") value="Volante">Volante</option>
+                                <option @(Model.PosicionFiltro == "Delantero" ? "selected" : "") value="Delantero">Delantero</option>
+                            </select>
+                            <input class="inputForm" style="margin-top: 15px" type="checkbox" name="EquiposFiltro" id="EquiposFiltro" checked="@Model.EquiposFiltro"/>
                         </div>
-
-                        @*@Html.Label("Categoria")
-                                  @Html.DropDownListFor(model => model.CategoriaId, new SelectList(Model.CategoriaList, "CategoriaId", "NombreCategoria", 1))*@
-
-                        @Html.HiddenFor(model => model.PartidoSeleccionado.PartidoId, new { id = "hidden" })
-
-                        <input type="submit" value="Buscar" />
-            <div class="row">
-                <div class="col-xs-12">
-                    @if (Model.ListaJugadores != null)
+                        <div class="col-xs-12" style="text-align: right;margin-top: 15px;">
+                            @Html.HiddenFor(model => model.PartidoSeleccionado.PartidoId, new { id = "hidden" })
+                            <input type="submit" value="Buscar" class="btn btn-primary" />
+                        </div>
+                        
+                        @if (Model.ListaJugadores.Count != 0)
                         {
-                                  @gridJugadores.GetHtml(
-                                      fillEmptyRows: false,
-                                      alternatingRowStyle: "fila-alternativa",
-                                      headerStyle: "encabezado-grid",
-                                      footerStyle: "pie-grid",
-                                      mode: WebGridPagerModes.All,
-                                      firstText: "<< Primera",
-                                      previousText: "< Anterior",
-                                      nextText: "Siguiente >",
-                                      lastText: "Última >>",
-                                      tableStyle: "table table-striped",
-
-                                      columns: new[]
-                                      {
-                                          gridJugadores.Column("Nombre"),
-                                          gridJugadores.Column("Apellido"),
-                                          gridJugadores.Column("Categoria"),
-                                          gridJugadores.Column("",
-                                              header: "Acciones",
-                                              format: @<text>
-                                                           <input type="button" value="Convocar" id=@item.Id onClick=" ConvocarJugador(@item.Id) "/>
-                                                       </text>
-                                              )
-                                      })
-                        }
-                        else
-                        {
-                                  <div>@Html.DisplayName("No se han encontrado resultados")</div>
-                        }
-                </div>
-                @*<div class="col-xs-6">
-                    @Html.ValidationSummary(true)
-
-                        @if (Model.ListaJugadoresAsignados != null)
-                        {
-
-                            @gridJugadoresConvocados.GetHtml(
+                            @gridJugadores.GetHtml(
                                 fillEmptyRows: false,
                                 alternatingRowStyle: "fila-alternativa",
                                 headerStyle: "encabezado-grid",
@@ -172,36 +105,126 @@
 
                                 columns: new[]
                                 {
-                                    gridJugadoresConvocados.Column("Nombre"),
-                                    gridJugadoresConvocados.Column("Apellido"),
-                                    gridJugadoresConvocados.Column("Categoria"),
-                                    gridJugadoresConvocados.Column("",
+                                    gridJugadores.Column("Nombre"),
+                                    gridJugadores.Column("Apellido"),
+                                    gridJugadores.Column("Categoria"),
+                                    gridJugadores.Column("Posicion"),
+                                    gridJugadores.Column("",
                                         header: "Acciones",
                                         format: @<text>
-                                                     <input type="button" value="Borrar" id=@item.Id onClick=" BorrarJugadorConvocado(@item.Id) "/>
+                                                     <input type="button" value="Titular" id=@item.Id onClick=" ConvocarJugadorTitular(@item.Id) " class="btn btn-success"/>
+                                                     <input type="button" value="Suplente" id=@item.Id onClick=" ConvocarJugadorSuplente(@item.Id) " class="btn btn-danger"/>
                                                  </text>
                                         )
                                 })
                         }
                         else
                         {
-                            <div>@Html.DisplayName("Este equipo no tiene asignado ningun jugador")</div>
+                            <div>@Html.DisplayName("No se han encontrado resultados")</div>
                         }
-                </div>*@
+                    </div>
+                }
+                    </div>
+                    
+            <div class="col-xs-6">
+                <h1>TITULARES</h1>
+                @gridJugadoresTitulares.GetHtml(
+                    fillEmptyRows: true,
+                    alternatingRowStyle: "fila-alternativa",
+                    headerStyle: "encabezado-grid",
+                    footerStyle: "pie-grid",
+                    mode: WebGridPagerModes.All,
+                    firstText: "<< Primera",
+                    previousText: "< Anterior",
+                    nextText: "Siguiente >",
+                    lastText: "Última >>",
+                    tableStyle: "table table-striped",
+
+                    columns: new[]
+                    {
+                        gridJugadoresTitulares.Column(
+                        header: "Nº",
+                        format: item => item.WebGrid.Rows.IndexOf(item) + 1),
+                        
+                        gridJugadoresTitulares.Column("NombreApellido","Apellido y Nombre"),
+                        gridJugadoresTitulares.Column("Posicion","Posicón táctica"),
+                        gridJugadoresTitulares.Column("NumeroDoc","D.N.I"),
+                        gridJugadoresTitulares.Column("",
+                            header: "Acciones",
+                            format: @<text>
+                                         <input type="button" value="Borrar" id=@item.Id onClick=" BorrarJugadorConvocado(@item.Id) "  class="btn btn-primary"/>
+                                     </text>
+                            )
+                    })
+
+                <h1>SUPLENTES</h1>
+                @gridJugadoresSuplentes.GetHtml(
+                    fillEmptyRows: true,
+                    alternatingRowStyle: "fila-alternativa",
+                    headerStyle: "encabezado-grid",
+                    footerStyle: "pie-grid",
+                    mode: WebGridPagerModes.All,
+                    firstText: "<< Primera",
+                    previousText: "< Anterior",
+                    nextText: "Siguiente >",
+                    lastText: "Última >>",
+                    tableStyle: "table table-striped",
+
+                    columns: new[]
+                    {
+                        gridJugadoresTitulares.Column("NumeroSuplentes", "Nº"),
+                        
+                        gridJugadoresTitulares.Column("NombreApellido","Apellido y Nombre"),
+                        gridJugadoresTitulares.Column("Posicion","Posicón táctica"),
+                        gridJugadoresTitulares.Column("NumeroDoc","D.N.I"),
+                        gridJugadoresSuplentes.Column("",
+                            header: "Acciones",
+                            format: @<text>
+                                         <input type="button" value="Borrar" id=@item.Id onClick=" BorrarJugadorConvocado(@item.Id) "  class="btn btn-primary"/>
+                                     </text>
+                            )
+                    })
+
             </div>
-        }
+        </div>
     </div>
-                   
 
-    <script type="text/javascript">
-        var JugadoresAsignados = [];
-        var JugadorEquipoEliminar = [];
 
-        function ConvocarJugador(idParam) {
+
+        @Html.ValidationSummary(true)
+
+
+        <script type="text/javascript">
+            var JugadoresAsignados = [];
+            var JugadorEquipoEliminar = [];
+
+            function ConvocarJugadorTitular(idParam) {
+                $('.btnPrint').removeClass('disable');
+                $('.btnPrint').addClass('enable');
+                var partidoId = $('#hidden').val();
+                var datos = "{'IdJugador':'"+ idParam +"','IdPartido':'" + partidoId + "','Titular':'"+ "T'" +"}";
+
+                $.ajax({
+                    url: '@Url.Action("ConvocarJugador", "Partido")',
+                type: 'POST',
+                data: datos,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    location.href="";
+                },
+                error: function (jqXHR, textStatus, error) {
+
+                    alert("error: " + jqXHR.responseText);
+                }
+            });
+        }
+
+        function ConvocarJugadorSuplente(idParam) {
             $('.btnPrint').removeClass('disable');
             $('.btnPrint').addClass('enable');
             var partidoId = $('#hidden').val();
-            var datos = "{'IdJugador':'"+ idParam +"','IdPartido':'" + partidoId + "'}";
+            var datos = "{'IdJugador':'"+ idParam +"','IdPartido':'" + partidoId + "','Titular':'"+ "S'" +"}";
 
             $.ajax({
                 url: '@Url.Action("ConvocarJugador", "Partido")',
@@ -217,7 +240,8 @@
                     alert("error: " + jqXHR.responseText);
                 }
             });
-     }
+        }
+
         function BorrarJugadorConvocado(idParam) {
             var r = confirm("Seguro desea eliminar este jugador del equipo??");
             if(r == true){
@@ -227,19 +251,19 @@
                 $.ajax({
 
                     url: '@Url.Action("BorrarJugadorConvocado", "Partido")',
-                type: 'POST',
-                data: datos,
-                dataType: "json",
-                contentType: "application/json; charset=utf-8",
-                success: function (data) {
-                    location.href="";
-                },
-                error: function (jqXHR, textStatus, error) {
+                    type: 'POST',
+                    data: datos,
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        location.href="";
+                    },
+                    error: function (jqXHR, textStatus, error) {
 
-                    alert("error: " + jqXHR.responseText);
-                }
-            });
+                        alert("error: " + jqXHR.responseText);
+                    }
+                });
             }
         }
 
-</script>
+        </script>

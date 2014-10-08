@@ -37,7 +37,7 @@
                             <td>
                                 @Html.DropDownListFor(model => model.TemporadaId, new SelectList(Model.TemporadasList, "TemporadaId", "TemporadaNombre", 1))
                             </td>
-                        </tr>}
+                        </tr>
                         <tr>
                             <td class="primerColumna">
                                 @Html.Label("Fecha N°:")
@@ -101,7 +101,8 @@
                         <script type="text/javascript">
                             $(function () {
                                 $("#HoraCitacionString").datetimepicker({
-                                    format: 'd.m.Y H:i'
+                                    datepicker: false,
+                                    format: 'H:i'
                                 });
                             });
                         </script>
@@ -132,7 +133,8 @@
                     </table>
                 </div>
          
-                    <input class="btn btn-primary" name="accion" type="submit" value="Guardar y volver al calendario" />
+                <input class="btn btn-primary" name="accion" type="submit" value="Guardar y volver al calendario" />
+                <input class="btn btn-primary" name="accion" type="submit" value="Guardar y cargar otro partido" />
                     <input class="btn btn-primary" name="accion" type="submit" value="Guardar y convocar Jugadores" />
 
                 
