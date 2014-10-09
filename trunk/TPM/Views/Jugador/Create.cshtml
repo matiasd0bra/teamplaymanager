@@ -138,7 +138,7 @@
                                 @Html.Label("Peso:")
                             </td>
                             <td>
-                                @Html.TextBoxFor(model => model.Peso)
+                                @Html.TextBoxFor(model => model.PesoString)
                             </td>
                         </tr>
                         <tr>
@@ -146,7 +146,7 @@
                                 @Html.Label("Estatura:")
                             </td>
                             <td>
-                                @Html.TextBoxFor(model => model.Estatura)
+                                @Html.TextBoxFor(model => model.EstaturaString)
                             </td>
                         </tr>
                         <tr>
@@ -154,14 +154,25 @@
                                 @Html.Label("Posición:")
                             </td>
                             <td>
-                                <select name="DatosGenerales.Posicion" id="DatosGenerales.Posicion">
-                                     <option value="Arquero">Arquero</option>
+                                <select name="Posicion" id="Posicion">
+                                    <option value="Arquero">Arquero</option>
                                     <option value="Defensor">Defensor</option>
-                                    <option value="Medicampisita">Mediocampista</option>
+                                    <option value="Medicampisita">Volante</option>
                                     <option value="Delantero">Delantero</option>
-                                 </select>
+                                </select>
                             </td>
                         </tr>
+                        <tr>
+                             <td class="primerColumna">
+                                 @Html.Label("Pierna habil:")
+                             </td>
+                             <td>
+                                 <select name="PiernaHabil" id="PiernaHabil">
+                                     <option value="Derecha">Derecha</option>
+                                     <option value="Izquierda">Izquierda</option>
+                                 </select>
+                             </td>
+                         </tr>
                          <tr>
                             <td class="primerColumna">
                                 @Html.Label("Colegio:")
@@ -229,7 +240,7 @@
                                 @Html.Label("Número de afiliado:")
                             </td>
                             <td>
-                                @Html.EditorFor(model => model.CoberturaMedica.NroObraSocial)
+                                @Html.EditorFor(model => model.CoberturaMedica.NroObraSocialString)
                             </td>
                         </tr>
                         <tr>
@@ -245,7 +256,7 @@
                                 @Html.Label("Número de afiliado:")
                             </td>
                             <td>
-                                @Html.EditorFor(model => model.CoberturaMedica.NroServicioEmergencia)
+                                @Html.EditorFor(model => model.CoberturaMedica.NroServicioEmergenciaString)
                             </td>
                         </tr>
                         <tr>
@@ -420,6 +431,7 @@
                              </td>
                              <td>
                                  <select name="DatosGenerales.PadresConviven" id="DatosGenerales.PadresConviven">
+                                     <option value=""></option>
                                      <option value="S">Si</option>
                                      <option value="N">No</option>
                                  </select>
@@ -450,7 +462,7 @@
                                  @Html.Label("Cantidad de Hermanos")
                              </td>
                              <td>
-                                 <input type="text" name="DatosGenerales.Hermanos" id="DatosGenerales.Hermanos" />
+                                 <input type="text" name="DatosGenerales.HermanosString" id="DatosGenerales.HermanosString" />
                              </td>
                          </tr>
                          <tr>
@@ -484,18 +496,7 @@
                              <td>
                                  @Html.EditorFor(model => model.DatosGenerales.Lesiones)
                              </td>
-                         </tr>
-                         <tr>
-                             <td class="primerColumna">
-                                 @Html.Label("Pierna habil:")
-                             </td>
-                             <td>
-                                 <select name="DatosGenerales.PiernaHabil" id="DatosGenerales.PiernaHabil">
-                                     <option value="Derecha">Derecha</option>
-                                     <option value="Izquierda">Izquierda</option>
-                                 </select>
-                             </td>
-                         </tr>                      
+                         </tr>                  
                      </table>
                 </div>
                 <input class="btn btn-primary" type="submit" value="Crear" />

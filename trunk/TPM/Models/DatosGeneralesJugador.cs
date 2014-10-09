@@ -23,6 +23,7 @@ namespace TPM.Models
         public string TelefonoTrabajoPadre { get; set; }
         public string PadresConviven { get; set; }
         public int Hermanos { get; set; }
+        public string HermanosString { get; set; }
         public string NombreResponsable { get; set; }
         public string OcupacionResponsable { get; set; }
         public string ParentescoResponsable { get; set; }
