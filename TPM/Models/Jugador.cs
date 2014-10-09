@@ -42,8 +42,10 @@ namespace TPM.Models
 
         public int Categoria { get; set; }
         public string Apodo { get; set; }
-        public float Peso { get; set; }
-        public float Estatura { get; set; }
+        public int Peso { get; set; }
+        public string PesoString { get; set; }
+        public int Estatura { get; set; }
+        public string EstaturaString { get; set; }
         public string Colegio { get; set; }
         public string Telefono { get; set; }
         public string Email { get; set; }

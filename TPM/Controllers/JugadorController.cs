@@ -76,10 +76,18 @@ namespace TPM.Controllers
                         {
                             jugador.ImagenPath = "DefaultImage.jpg";
                         }
+
                         jugador.FechaNac = DateTime.Parse(jugador.FechaNacFormateada);
+
+                        jugador.CoberturaMedica.NroObraSocial = jugador.CoberturaMedica.NroObraSocialString == null ? 0 : Int32.Parse(jugador.CoberturaMedica.NroObraSocialString);
+                        jugador.CoberturaMedica.NroServicioEmergencia = jugador.CoberturaMedica.NroServicioEmergenciaString == null ? 0 : Int32.Parse(jugador.CoberturaMedica.NroServicioEmergenciaString);
+                        jugador.DatosGenerales.Hermanos = jugador.DatosGenerales.HermanosString == null ? 0 : Int32.Parse(jugador.DatosGenerales.HermanosString);
+                        jugador.Peso = jugador.PesoString == null ? 0 : Int32.Parse(jugador.PesoString);
+                        jugador.Estatura = jugador.EstaturaString == null ? 0 : Int32.Parse(jugador.EstaturaString);
+
                         jugador.Id = JugadoresRepo.JugadorInsert(jugador);
 
-                        if (Url == true)
+                        if (Url)
                         {
                             string equipoId = returnUrl.Substring(returnUrl.LastIndexOf('/') + 1);
                             jugador.EquipoId = int.Parse(equipoId);
