@@ -34,7 +34,6 @@ namespace TPM.Repositorio
                 jugador.FechaNac = Convert.ToDateTime(item["FechaNac"].ToString());
                 jugador.Domicilio = item["Domicilio"].ToString();
                 jugador.LocalidadId = int.Parse(item["LocalidadId"].ToString());
-                //jugador.LocalidadNombre = item["LocalidadNombre"].ToString();
                 jugador.FechaNacFormateada = jugador.FechaNac.ToShortDateString();
                 jugadorList.Add(jugador);
             }
@@ -48,6 +47,8 @@ namespace TPM.Repositorio
             DataTable dt = jugadoresDal.JugadorById(id);
 
             Jugador jugador = new Jugador();
+            CoberturaMedicaJugador cobertura = new CoberturaMedicaJugador();
+            DatosGeneralesJugador datosGenerales = new DatosGeneralesJugador();
 
             jugador.Id = int.Parse(dt.Rows[0]["JugadorId"].ToString());
             jugador.Nombre = dt.Rows[0]["Nombre"].ToString();
@@ -60,6 +61,51 @@ namespace TPM.Repositorio
             jugador.LocalidadId = int.Parse(dt.Rows[0]["LocalidadId"].ToString());
             jugador.LocalidadNombre = dt.Rows[0]["NombreLocalidad"].ToString();
             jugador.ImagenPath = dt.Rows[0]["ImagenPath"].ToString();
+            jugador.Telefono = dt.Rows[0]["Telefono"].ToString();
+            jugador.Apodo = dt.Rows[0]["Apodo"].ToString();
+            jugador.Email = dt.Rows[0]["Email"].ToString();
+            jugador.PesoString = dt.Rows[0]["Peso"].ToString();
+            jugador.EstaturaString = dt.Rows[0]["Estatura"].ToString();
+            jugador.Colegio = dt.Rows[0]["Colegio"].ToString();
+            jugador.Email = dt.Rows[0]["Email"].ToString();
+            jugador.Posicion = dt.Rows[0]["Posicion"].ToString();
+            jugador.PiernaHabil = dt.Rows[0]["PiernaHabil"].ToString();
+            jugador.CiudadaniaEuropea = dt.Rows[0]["CiudadaniaEuropea"].ToString();
+            jugador.Representante = dt.Rows[0]["Representante"].ToString();
+            cobertura.ObraSocial = dt.Rows[0]["ObraSocial"].ToString();
+            cobertura.NroObraSocialString = dt.Rows[0]["NroObraSocial"].ToString();
+            cobertura.ServicioEmergencia = dt.Rows[0]["ServicioEmergencia"].ToString();
+            cobertura.NroServicioEmergenciaString = dt.Rows[0]["NroServicioEmergencia"].ToString();
+            cobertura.Hospital = dt.Rows[0]["Hospital"].ToString();
+            cobertura.Direccion = dt.Rows[0]["Direccion"].ToString();
+            cobertura.Telefono = dt.Rows[0]["Telefono"].ToString();
+            cobertura.Medicamento = dt.Rows[0]["Medicamento"].ToString();
+            cobertura.Alergico = dt.Rows[0]["Alergico"].ToString();
+            cobertura.Observaciones = dt.Rows[0]["Observaciones"].ToString();
+            datosGenerales.NombreMadre = dt.Rows[0]["NombreMadre"].ToString();
+            datosGenerales.TelMadre = dt.Rows[0]["TelMadre"].ToString();
+            datosGenerales.OcupacionMadre = dt.Rows[0]["OcupacionMadre"].ToString();
+            datosGenerales.TrabajoMadre = dt.Rows[0]["TrabajoMadre"].ToString();
+            datosGenerales.DireccionTrabajoMadre = dt.Rows[0]["DireccionTrabajoMadre"].ToString();
+            datosGenerales.TelefonoTrabajoMadre = dt.Rows[0]["TelefonoTrabajoMadre"].ToString();
+            datosGenerales.NombrePadre = dt.Rows[0]["NombrePadre"].ToString();
+            datosGenerales.TelPadre = dt.Rows[0]["TelPadre"].ToString();
+            datosGenerales.OcupacionPadre = dt.Rows[0]["OcupacionPadre"].ToString();
+            datosGenerales.TrabajoPadre = dt.Rows[0]["TrabajoPadre"].ToString();
+            datosGenerales.DireccionTrabajoPadre = dt.Rows[0]["DireccionTrabajoPadre"].ToString();
+            datosGenerales.TelefonoTrabajoPadre = dt.Rows[0]["TelefonoTrabajoPadre"].ToString();
+            datosGenerales.PadresConviven = dt.Rows[0]["TelefonoTrabajoPadre"].ToString();
+            datosGenerales.TelefonoTrabajoPadre = dt.Rows[0]["PadresConviven"].ToString();
+            datosGenerales.HermanosString = dt.Rows[0]["Hermanos"].ToString();
+            datosGenerales.NombreResponsable = dt.Rows[0]["NombreResponsable"].ToString();
+            datosGenerales.OcupacionResponsable = dt.Rows[0]["OcupacionResponsable"].ToString();
+            datosGenerales.ParentescoResponsable = dt.Rows[0]["ParentescoResponsable"].ToString();
+            datosGenerales.Lesiones = dt.Rows[0]["Lesiones"].ToString();
+            datosGenerales.JuegaOtroEquipo = dt.Rows[0]["JuegaOtroLugar"].ToString();
+            datosGenerales.QuieLoTrajo = dt.Rows[0]["QuienLoTrajo"].ToString();
+
+            jugador.CoberturaMedica = cobertura;
+            jugador.DatosGenerales = datosGenerales;
 
             return jugador;
         }
@@ -92,15 +138,17 @@ namespace TPM.Repositorio
         public static int JugadorUpdate(Jugador jugador)
         {
             JugadoresDAL jugadoresDal = new JugadoresDAL();
-            return jugadoresDal.JugadorUpdate(jugador.Id, jugador.Nombre, jugador.Apellido, jugador.TipoDocId,
-                jugador.NumeroDoc, jugador.Domicilio, jugador.LocalidadId, jugador.FechaNac);
+            jugadoresDal.CoberturaMedicaUpdate(jugador);
+            jugadoresDal.DatosGeneralesJugadorUpdate(jugador);
+            return jugadoresDal.JugadorUpdate(jugador);
         }
 
         public static int JugadorUpdateFoto(Jugador jugador)
         {
             JugadoresDAL jugadoresDal = new JugadoresDAL();
-            return  jugadoresDal.JugadorUpdateFoto(jugador.Id, jugador.Nombre, jugador.Apellido, jugador.TipoDocId,
-                jugador.NumeroDoc, jugador.Domicilio, jugador.LocalidadId, jugador.FechaNac, jugador.ImagenPath);
+            jugadoresDal.CoberturaMedicaUpdate(jugador);
+            jugadoresDal.DatosGeneralesJugadorUpdate(jugador);
+            return  jugadoresDal.JugadorUpdateFoto(jugador);
         }
 
         public static List<Jugador> JugadoresSearch(int idEquipo, string nombre, string apellido)

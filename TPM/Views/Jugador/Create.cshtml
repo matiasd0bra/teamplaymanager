@@ -30,476 +30,408 @@
           
             <fieldset>
                 <legend>Jugador</legend>
-
-                <table width="100%">
-                    <tr>
-                        <td valign="top" colspan="2">
-                            <table width="100%">
-                                <tr>
-                                    <td>
-                                        @Html.Label("Foto Jugador:")
-                                    </td>
-                                    <td style="text-align: center">
-                                        <div id='botonera'>
-                                            <input type="file" name="file" id="file" accept="image/*"></input>
-                                            <input id="cancelar" type="button" value="" class="btnEliminar"></input>
-                                        </div>
-                                    </td>
-                                    <td style="text-align: right">
-                                        <img id="vistaPrevia" src="" alt="" />
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
+                <div style="padding-bottom: 15px; text-align: center;">
+                    @Html.ValidationMessageFor(model => model.Domicilio, "Debe completar los campos obligatorios.")
+                </div>         
                 <div class="well">
                     <div class="titleDatos"><span class="label label-default">Datos Personales</span></div>
-                    <table class="tablaCreate" width="100%">
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Nombre:")
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.Nombre)
-                                @Html.ValidationMessage("Nombre", "Por favor, ingrese el nombre")
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                 @Html.Label("Apellido:")
-                            </td>
-                            <td>
+                    <div class="createJugador" style="margin-top:15px">     
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Foto del jugador:</p>
+                            </div>                            
+                            <div class="col-xs-6">
+                                <div id='botonera'>
+                                    <input type="file" name="file" id="file" accept="image/*" style="padding: 0px;"></input>
+                                    <div style="position: absolute; margin-left: 455px; margin-top: -34px;">
+                                        <input id="cancelar" type="button" value="" class="btnEliminar"></input>
+                                    </div>                                    
+                                </div>
+                            </div>
+                            <div class="col-xs-4" align="right">
+                                <img id="vistaPrevia" src="" alt="" />                                
+                            </div>
+                        </div>                    
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Nombre:</p>
+                            </div>
+                            <div class="col-xs-2">
+                                @Html.EditorFor(model => model.Nombre) 
+                            </div>
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Apellido:</p>
+                            </div>
+                            <div class="col-xs-2">
                                 @Html.EditorFor(model => model.Apellido)
-                                @Html.ValidationMessageFor(model => model.Apellido, "Por favor, ingrese el apellido")
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Apodo:")
-                            </td>
-                            <td>
+                            </div>
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Apodo:</p>
+                            </div>
+                            <div class="col-xs-2">
                                 @Html.TextBoxFor(model => model.Apodo)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Tipo De Documento:")
-                            </td>
-                            <td>
-                                @Html.DropDownListFor(model => model.TipoDocId, new SelectList(Model.TipoDocLista, "TipoDocId", "TipoDocNombre", 1))
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Numero De Documento:")
-                            </td>
-                            <td>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Tipo de documento:</p>
+                            </div>
+                            <div class="col-xs-2">
+                                 @Html.DropDownListFor(model => model.TipoDocId, new SelectList(Model.TipoDocLista, "TipoDocId", "TipoDocNombre", 1))
+                            </div>
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Número de documento:</p>
+                            </div>
+                            <div class="col-xs-2">
                                 @Html.TextBoxFor(model => model.NumeroDoc)
-                                @Html.ValidationMessageFor(model => model.NumeroDoc, "Por favor, ingrese el número de documento")
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Fecha de Nacimiento:")
-                            </td>
-                            <td>
+                            </div>
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Fecha de Nacimiento:</p>
+                            </div>
+                            <div class="col-xs-2">
                                 @Html.TextBoxFor(model => model.FechaNacFormateada)
-                                @Html.ValidationMessageFor(model => model.FechaNacFormateada, "Por favor, ingrese la fecha de nacimiento")
-                            </td>
-                        </tr>
-                        <script>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Domicilio de residencia:</p>
+                            </div>
+                            <div class="col-xs-2">
+                                  @Html.EditorFor(model => model.Domicilio)
+                            </div>
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Localidad de residencia:</p>
+                            </div>
+                            <div class="col-xs-2">
+                                 @Html.DropDownListFor(model => model.LocalidadId, new SelectList(Model.LocalidadLista, "LocalidadId", "LocalidadNombre"))
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Teléfono:</p>
+                            </div>
+                            <div class="col-xs-2">
+                                  @Html.TextBoxFor(model => model.Telefono)
+                            </div>
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Email:</p>
+                            </div>
+                            <div class="col-xs-2">
+                                 @Html.TextBoxFor(model => model.Email) 
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Peso:</p>
+                            </div>
+                            <div class="col-xs-2">
+                                  @Html.TextBoxFor(model => model.PesoString)
+                            </div>
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Estatura:</p>
+                            </div>
+                            <div class="col-xs-2">
+                                 @Html.TextBoxFor(model => model.EstaturaString) 
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Posición:</p>
+                            </div>
+                            <div class="col-xs-2">
+                                <select name="Posicion" id="Posicion">
+                                    <option value=""></option>
+                                    <option value="Arquero">Arquero</option>
+                                    <option value="Defensor">Defensor</option>
+                                    <option value="Volante">Volante</option>
+                                    <option value="Delantero">Delantero</option>
+                                </select> 
+                            </div>
+                            <div class="col-xs-2">
+                                 <p class="textCreateJugador">Pierna habil:</p>
+                            </div>
+                            <div class="col-xs-2">
+                                <select name="PiernaHabil" id="PiernaHabil">
+                                    <option value="Derecha">Derecha</option>
+                                    <option value="Izquierda">Izquierda</option>
+                                </select> 
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Colegio:</p>
+                            </div>
+                            <div class="col-xs-6">
+                                @Html.TextBoxFor(model => model.Colegio)
+                            </div>                            
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Ciudadania Europea:</p>
+                            </div>
+                            <div class="col-xs-2">
+                                <select name="CiudadaniaEuropea" id="CiudadaniaEuropea">
+                                    <option value=""></option>
+                                    <option value="S">Si</option>
+                                    <option value="N">No</option>
+                                </select>
+                            </div>
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Representante:</p>
+                            </div>
+                            <div class="col-xs-2">
+                                <select name="Representante" id="Representante">
+                                    <option value=""></option>
+                                    <option value="S">Si</option>
+                                    <option value="N">No</option>
+                                </select> 
+                            </div>
+                        </div>                        
+                    </div>
+                    <script>
                             $('#FechaNacFormateada').datepicker({
                                 format: "dd/mm/yyyy",
                                 language: "es",
                                 autoclose: true,
                                 startView: 2
                             });
-                        </script>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Domicilio de residencia:")
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.Domicilio)
-                                @Html.ValidationMessageFor(model => model.Domicilio, "Por favor, ingrese el domicilio")
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Localidad de residencia:")
-                            </td>
-                            <td>
-                                @Html.DropDownListFor(model => model.LocalidadId, new SelectList(Model.LocalidadLista, "LocalidadId", "LocalidadNombre"))
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Peso:")
-                            </td>
-                            <td>
-                                @Html.TextBoxFor(model => model.PesoString)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Estatura:")
-                            </td>
-                            <td>
-                                @Html.TextBoxFor(model => model.EstaturaString)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Posición:")
-                            </td>
-                            <td>
-                                <select name="Posicion" id="Posicion">
-                                    <option value="Arquero">Arquero</option>
-                                    <option value="Defensor">Defensor</option>
-                                    <option value="Medicampisita">Volante</option>
-                                    <option value="Delantero">Delantero</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                             <td class="primerColumna">
-                                 @Html.Label("Pierna habil:")
-                             </td>
-                             <td>
-                                 <select name="PiernaHabil" id="PiernaHabil">
-                                     <option value="Derecha">Derecha</option>
-                                     <option value="Izquierda">Izquierda</option>
-                                 </select>
-                             </td>
-                         </tr>
-                         <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Colegio:")
-                            </td>
-                            <td>
-                                @Html.TextBoxFor(model => model.Colegio)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Teléfono:")
-                            </td>
-                            <td>
-                                @Html.TextBoxFor(model => model.Telefono)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("E-mail:")
-                            </td>
-                            <td>
-                                @Html.TextBoxFor(model => model.Email)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Tiene ciudadania europea:")
-                            </td>
-                            <td>
-                                @*@Html.TextBoxFor(model => model.CiudadaniaEuropea)*@
-                                <select name="CiudadaniaEuropea" id="CiudadaniaEuropea">
-                                    <option value="S">Si</option>
-                                    <option value="N">No</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Representante:")
-                            </td>
-                            <td>
-                                @*@Html.TextBoxFor(model => model.Representante)*@
-                                <select name="Representante" id="Representante">
-                                    <option value="S">Si</option>
-                                    <option value="N">No</option>
-                                </select>
-                            </td>
-                        </tr>
-                    </table>
+                    </script>
                 </div>
-                <br />
-                <div class="well">
+                <div class="well" style="margin-top: 35px">
                     <div class="titleDatos"><span class="label label-default">Cobertura Médica</span></div>
-                    <table class="tablaCreate" width="100%">
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Obra Social:")
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.CoberturaMedica.ObraSocial)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Número de afiliado:")
-                            </td>
-                            <td>
+                    <div class="createJugador" style="margin-top:15px">
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Obra social:</p>
+                            </div>
+                            <div class="col-xs-2">
+                                @Html.EditorFor(model => model.CoberturaMedica.ObraSocial) 
+                            </div>
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Número de afiliado:</p>
+                            </div>
+                            <div class="col-xs-2">
                                 @Html.EditorFor(model => model.CoberturaMedica.NroObraSocialString)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Servicio de emergencia:")
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.CoberturaMedica.ServicioEmergencia)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Número de afiliado:")
-                            </td>
-                            <td>
+                            </div>                            
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Servicio de emergencia:</p>
+                            </div>
+                            <div class="col-xs-2">
+                                @Html.EditorFor(model => model.CoberturaMedica.ServicioEmergencia) 
+                            </div>
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Número de afiliado:</p>
+                            </div>
+                            <div class="col-xs-2">
                                 @Html.EditorFor(model => model.CoberturaMedica.NroServicioEmergenciaString)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Hospital:")
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.CoberturaMedica.Hospital)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Dirección Hospital:")
-                            </td>
-                            <td>
+                            </div>                            
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Hospital:</p>
+                            </div>
+                            <div class="col-xs-2">
+                                 @Html.EditorFor(model => model.CoberturaMedica.Hospital) 
+                            </div>
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Dirección:</p>
+                            </div>
+                            <div class="col-xs-2">
                                 @Html.EditorFor(model => model.CoberturaMedica.Direccion)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Teléfono:")
-                            </td>
-                            <td>
+                            </div>   
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Teléfono:</p>
+                            </div>
+                            <div class="col-xs-2">
                                 @Html.EditorFor(model => model.CoberturaMedica.Telefono)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Medicamento:")
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.CoberturaMedica.Medicamento)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Alergico:")
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.CoberturaMedica.Alergico)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Observaciones:")
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.CoberturaMedica.Observaciones)
-                            </td>
-                        </tr>
-                    </table>
+                            </div>                         
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Medicamento:</p>
+                            </div>
+                            <div class="col-xs-10">
+                                 @Html.EditorFor(model => model.CoberturaMedica.Medicamento) 
+                            </div>                                                   
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Alergico:</p>
+                            </div>
+                            <div class="col-xs-10">
+                                 @Html.EditorFor(model => model.CoberturaMedica.Alergico) 
+                            </div>                                                   
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Observaciones:</p>
+                            </div>
+                            <div class="col-xs-10">
+                                 @Html.EditorFor(model => model.CoberturaMedica.Observaciones) 
+                            </div>                                                   
+                        </div>
+                    </div>                    
                 </div>
-                 <br />
-                <div class="well">
+                <div class="well" style="margin-top: 35px">
                     <div class="titleDatos"><span class="label label-default">Datos Generales</span></div>
-                     <table class="tablaCreate" width="100%">
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("¿En qué otro lugar juega o ha jugado?")
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.DatosGenerales.JuegaOtroEquipo)
-                            </td>
-                        </tr>
-                         <tr>
-                            <td class="primerColumna">
-                                @Html.Label("¿Quién lo trajo al club?")
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.DatosGenerales.QuieLoTrajo)
-                            </td>
-                        </tr>
-                         <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Nombre de la madre:")
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.DatosGenerales.NombreMadre)
-                            </td>
-                        </tr>
-                         <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Teléfono:")
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.DatosGenerales.TelMadre)
-                            </td>
-                        </tr>
-                         <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Ocupación:")
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.DatosGenerales.OcupacionMadre)
-                            </td>
-                        </tr>
-                         <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Trabaja en:")
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.DatosGenerales.TrabajoMadre)
-                            </td>
-                        </tr>
-                         <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Dirección:")
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.DatosGenerales.DireccionTrabajoMadre)
-                            </td>
-                        </tr>
-                         <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Teléfono:")
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.DatosGenerales.TelefonoTrabajoMadre)
-                            </td>
-                        </tr>
-                         <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Nombre del padre:")
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.DatosGenerales.NombrePadre)
-                            </td>
-                        </tr>
-                         <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Teléfono:")
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.DatosGenerales.TelPadre)
-                            </td>
-                        </tr>
-                         <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Ocupación:")
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.DatosGenerales.OcupacionPadre)
-                            </td>
-                        </tr>
-                         <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Trabaja en:")
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.DatosGenerales.TrabajoPadre)
-                            </td>
-                        </tr>
-                         <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Dirección:")
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.DatosGenerales.DireccionTrabajoPadre)
-                            </td>
-                        </tr>
-                         <tr>
-                             <td class="primerColumna">
-                                 @Html.Label("Teléfono:")
-                             </td>
-                             <td>
-                                 @Html.EditorFor(model => model.DatosGenerales.TelefonoTrabajoPadre)
-                             </td>
-                         </tr>
-                         <tr>
-                             <td class="primerColumna">
-                                 @Html.Label("¿Los padres viven juntos?")
-                             </td>
-                             <td>
+                    <div class="createJugador" style="margin-top:15px">                        
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Nombre de la madre:</p>
+                            </div>
+                            <div class="col-xs-2">
+                                @Html.EditorFor(model => model.DatosGenerales.NombreMadre) 
+                            </div>
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Teléfono</p>
+                            </div>
+                            <div class="col-xs-2">
+                                 @Html.EditorFor(model => model.DatosGenerales.TelMadre) 
+                            </div>
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Ocupación:</p>
+                            </div>
+                            <div class="col-xs-2">
+                               @Html.EditorFor(model => model.DatosGenerales.OcupacionMadre) 
+                            </div>                                                      
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Trabaja en:</p>
+                            </div>
+                            <div class="col-xs-2">
+                                @Html.EditorFor(model => model.DatosGenerales.TrabajoMadre) 
+                            </div>
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Dirección:</p>
+                            </div>
+                            <div class="col-xs-2">
+                                 @Html.EditorFor(model => model.DatosGenerales.DireccionTrabajoMadre)
+                            </div>
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Teléfono:</p>
+                            </div>
+                            <div class="col-xs-2">
+                               @Html.EditorFor(model => model.DatosGenerales.TelefonoTrabajoMadre) 
+                            </div>                                                      
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Nombre del padre:</p>
+                            </div>
+                            <div class="col-xs-2">
+                                @Html.EditorFor(model => model.DatosGenerales.NombrePadre) 
+                            </div>
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Teléfono</p>
+                            </div>
+                            <div class="col-xs-2">
+                                 @Html.EditorFor(model => model.DatosGenerales.TelPadre) 
+                            </div>
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Ocupación:</p>
+                            </div>
+                            <div class="col-xs-2">
+                               @Html.EditorFor(model => model.DatosGenerales.OcupacionPadre) 
+                            </div>                                                      
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Trabaja en:</p>
+                            </div>
+                            <div class="col-xs-2">
+                                @Html.EditorFor(model => model.DatosGenerales.TrabajoPadre) 
+                            </div>
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Dirección:</p>
+                            </div>
+                            <div class="col-xs-2">
+                                 @Html.EditorFor(model => model.DatosGenerales.DireccionTrabajoPadre)
+                            </div>
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Teléfono:</p>
+                            </div>
+                            <div class="col-xs-2">
+                               @Html.EditorFor(model => model.DatosGenerales.TelefonoTrabajoPadre) 
+                            </div>                                                      
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">¿Los padres viven juntos?</p>
+                            </div>
+                            <div class="col-xs-2">
                                  <select name="DatosGenerales.PadresConviven" id="DatosGenerales.PadresConviven">
                                      <option value=""></option>
                                      <option value="S">Si</option>
                                      <option value="N">No</option>
-                                 </select>
-                             </td>
-                         </tr>
-@*                         <tr>
-                             <td class="primerColumna">
-                                 @Html.Label("¿Tiene hermanos?")
-                             </td>
-                             <td>
-                                 <select name="HermanosCant" id="HermanosCant" onchange="habilitarCantidad(this.value)">
+                                 </select> 
+                            </div>
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">¿Tiene hermanos?</p>
+                            </div>
+                            <div class="col-xs-2">
+                                 <select name="DatosGenerales.HermanosString" id="DatosGenerales.HermanosString">
+                                     <option value=""></option>
                                      <option value="S">Si</option>
                                      <option value="N">No</option>
                                  </select>
-                             </td>
-                         </tr>*@
-@*                         <script type="text/javascript">
-                             //function habilitarCantidad(data) {
-                             //    console.log(data);
-                             //    if (data == "S") {
-                             //        $('#Hermanos').style('display':'block');
-                             //    }
-                                 
-                             //}
-                         </script>*@
-                         <tr>
-                             <td class="primerColumna">
-                                 @Html.Label("Cantidad de Hermanos")
-                             </td>
-                             <td>
-                                 <input type="text" name="DatosGenerales.HermanosString" id="DatosGenerales.HermanosString" />
-                             </td>
-                         </tr>
-                         <tr>
-                             <td class="primerColumna">
-                                 @Html.Label("Nombre Responsable:")
-                             </td>
-                             <td>
-                                 @Html.EditorFor(model => model.DatosGenerales.NombreResponsable)
-                             </td>
-                         </tr>
-                         <tr>
-                             <td class="primerColumna">
-                                 @Html.Label("Parentesco:")
-                             </td>
-                             <td>
+                            </div>
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Cantidad de Hermanos:</p>
+                            </div>
+                            <div class="col-xs-2">
+                               @Html.EditorFor(model => model.DatosGenerales.Hermanos) 
+                            </div>                                                      
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Nombre Responsable:</p>
+                            </div>
+                            <div class="col-xs-2">
+                                 @Html.EditorFor(model => model.DatosGenerales.NombreResponsable) 
+                            </div>
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Parentesco:</p>
+                            </div>
+                            <div class="col-xs-2">
                                  @Html.EditorFor(model => model.DatosGenerales.ParentescoResponsable)
-                             </td>
-                         </tr>
-                         <tr>
-                             <td class="primerColumna">
-                                 @Html.Label("Ocupación:")
-                             </td>
-                             <td>
-                                 @Html.EditorFor(model => model.DatosGenerales.OcupacionResponsable)
-                             </td>
-                         </tr>
-                         <tr>
-                             <td class="primerColumna">
-                                 @Html.Label("¿El jugador tuvo lesiones?")
-                             </td>
-                             <td>
-                                 @Html.EditorFor(model => model.DatosGenerales.Lesiones)
-                             </td>
-                         </tr>                  
-                     </table>
+                            </div>
+                            <div class="col-xs-2">
+                                <p class="textCreateJugador">Ocupación:</p>
+                            </div>
+                            <div class="col-xs-2">
+                               @Html.EditorFor(model => model.DatosGenerales.OcupacionResponsable) 
+                            </div>                                                      
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <p class="textCreateJugador">¿En qué otro lugar juega o ha jugado?</p>
+                            </div>
+                            <div class="col-xs-9">
+                                 @Html.EditorFor(model => model.DatosGenerales.JuegaOtroEquipo) 
+                            </div>                                                       
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <p class="textCreateJugador">¿Quién lo trajo al club?</p>
+                            </div>
+                            <div class="col-xs-9">
+                                @Html.EditorFor(model => model.DatosGenerales.QuieLoTrajo) 
+                            </div>                                                       
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <p class="textCreateJugador">¿El jugador tuvo lesiones?</p>
+                            </div>
+                            <div class="col-xs-9">
+                                 @Html.EditorFor(model => model.DatosGenerales.Lesiones) 
+                            </div>                                                                              
+                        </div>
+                     </div>
                 </div>
-                <input class="btn btn-primary" type="submit" value="Crear" />
+                <input class="btn btn-primary pull-right" type="submit" value="Crear" />
             </fieldset>
         }
     </div>
