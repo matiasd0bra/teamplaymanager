@@ -501,8 +501,12 @@ textarea {
 
 /* styles for validation helpers */
 .field-validation-error {
-    color: #e80c4d;
+    /*color: #e80c4d;*/
     font-weight: bold;
+    background-color: #d9534f;
+    color: #ffffff;
+    border-radius: 0.25em;
+    padding: 0.2em 0.6em 0.3em;
 }
 
 .field-validation-valid {
@@ -772,8 +776,8 @@ tr.pager td {
      height: 200px;                                              
  }
  #vistaPrevia{
-     max-width: 200px;
-     max-height: 200px;          
+    max-width: 200px;
+    max-height: 200px;          
  }
   #marcoVP{
      width: 200px;
@@ -805,7 +809,8 @@ tr.pager td {
 }
 .primerColumna {
     text-align: right;
-    max-width: 75px;
+    font-size: 12px;
+    width: 190px;
 }
 .btnEliminar{
      background-color: transparent  !important;
@@ -828,4 +833,15 @@ tr.pager td {
     font-size: 14px;
     font-weight: bold;
     margin-top: 23px;
+}
+.textCreateJugador {
+    font-weight: bold;
+    margin: 10px 0px;
+    text-align: right;
+    font-size: 12px;
+}
+.createJugador select, input {
+    height: 30px;
+    width: 100%;
+    margin: 5px 0px !important;
 }

@@ -116,7 +116,8 @@ namespace TPM.Controllers
 
         public ActionResult Edit(int id)
         {
-            Jugador jugador = JugadoresRepo.JugadorByIdRepo(id);
+            Jugador jugador = new Jugador();
+            jugador = JugadoresRepo.JugadorByIdRepo(id);
             jugador.TipoDocLista = TipoDocRepo.TipoDocGetAllRepo();
             jugador.LocalidadLista = LocalidadesRepo.LocalidadesGetAllRepo();
             jugador.FechaNacFormateada = jugador.FechaNac.ToShortDateString();
@@ -146,11 +147,15 @@ namespace TPM.Controllers
                         jugador.ImagenPath = ImageName;
 
                         jugador.FechaNac = DateTime.Parse(jugador.FechaNacFormateada);
+                        jugador.Peso = jugador.PesoString == null ? 0 : Int32.Parse(jugador.PesoString);
+                        jugador.Estatura = jugador.EstaturaString == null ? 0 : Int32.Parse(jugador.EstaturaString);
                         JugadoresRepo.JugadorUpdateFoto(jugador);
                     }
                     else
                     {
                         jugador.FechaNac = DateTime.Parse(jugador.FechaNacFormateada);
+                        jugador.Peso = jugador.PesoString == null ? 0 : Int32.Parse(jugador.PesoString);
+                        jugador.Estatura = jugador.EstaturaString == null ? 0 : Int32.Parse(jugador.EstaturaString);
                         JugadoresRepo.JugadorUpdate(jugador);
                     }
                     return RedirectToAction("Index");
