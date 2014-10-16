@@ -8,9 +8,8 @@
     WebGrid gridPersonalEsp = new WebGrid(Model.ListaPersonalEsp, rowsPerPage: 10);
     WebGrid gridPersonalEspAsignados = new WebGrid(Model.ListaPersonalEspsAsignados, rowsPerPage: 10, fieldNamePrefix: "order");
 }
-
 <div class="panel panel-primary">
-  <div class="panel-heading">Asignar Personal Especializado a Equipo 
+  <div class="panel-heading">Asignar Personal Especializado 
       <div class="pull-right">
           <a class="link-panel" href="/Equipo">
              <img src="~/Images/boton_volver.png" />
@@ -19,103 +18,122 @@
       </div>
   </div>
   <div class="panel-body">
+      <div class="titleSeccion" style="margin-bottom: 25px;"> Equipo: <span style="font-weight: 200">@Html.DisplayFor(model => model.EquipoSeleccionado.NombreEquipo)</span></div>
+      <div class="row">
+          <div class="col-xs-6" style="margin-top: 25px">
+              @using (Html.BeginForm(null, null, FormMethod.Get))
+              {
+                  <div class="well row" style="margin: 0 10px">
+                      <div class="titleDatos"><span class="label label-default">Buscar Personal</span></div>
+                      <div class="pull-right">
+                          <a class="link-panel" href="/PersonalEsp/Create">
+                              <img src="~/Images/boton_nuevo.png" />
+                              Nuevo Personal
+                          </a>
+                      </div>
+                      <div class="row" style="margin-top:20px">
+                          <div class="col-xs-4" style="text-align: right">
+                              <p class="labelForm">Nombre: </p>
+                          </div>
+                          <div class="col-xs-8" style="text-align: right">
+                              <input class="inputForm" type="text" value="@Model.NombreFiltro" name="NombreFiltro" id="NombreFiltro">
+                          </div> 
+                      </div>
+                      <div class="row">
+                          <div class="col-xs-4" style="text-align: right">
+                              <p class="labelForm">Apellido: </p>
+                          </div>
+                          <div class="col-xs-8" style="text-align: right">
+                              <input class="inputForm" type="text" value="@Model.ApellidoFiltro" name="ApellidoFiltro" id="ApellidoFiltro" />
+                          </div> 
+                      </div>                       
+                      <div class="row">
+                          <div class="col-xs-12" style="text-align: right">
+                                @Html.HiddenFor(model => model.EquipoSeleccionado.Id, new { id = "hidden" })
+                                <input type="submit" value="Buscar" class="btn btn-primary" />
+                          </div>
+                      </div>
+                    
+                    @if (Model.ListaPersonalEsp.Count > 0)
+                            {
+                                @gridPersonalEsp.GetHtml(
+                                    fillEmptyRows: false,
+                                    alternatingRowStyle: "fila-alternativa",
+                                    headerStyle: "encabezado-grid",
+                                    footerStyle: "pie-grid",
+                                    mode: WebGridPagerModes.All,
+                                    firstText: "<< Primera",
+                                    previousText: "< Anterior",
+                                    nextText: "Siguiente >",
+                                    lastText: "Última >>",
+                                    tableStyle: "table table-striped",
 
-@using (Html.BeginForm(null, null, FormMethod.Get))
-{
-    <h2>
-        Equipo: @Html.DisplayFor(model => model.EquipoSeleccionado.NombreEquipo) 
-    </h2>
+
+                                    columns: new[]
+                                    {
+                                        gridPersonalEsp.Column("Nombre"),
+                                        gridPersonalEsp.Column("Apellido"),
+                                        gridPersonalEspAsignados.Column("EspecialidadNombre", "Especialidad"),
+                                        gridPersonalEsp.Column("",
+                                            header: "Acciones",
+                                            format: @<text>
+                                                         <input class="btn btn-primary" type="button" value="Asignar" id=@item.Id onClick=" asignarPersonal(@item.Id) "/>
+                                                     </text>
+                                            )
+                                    })
+                            }
+                            else
+                            {
+                            <div>@Html.DisplayName("No se han encontrado resultados")</div>
+                            }
+                                         
+                  </div>
+              }               
+           </div>
+           <div class="col-xs-6">
+               <h1>Personal Asignado</h1>
+
+                @Html.ValidationSummary(true)
+
     
-    @Html.ValidationSummary(true)
+                @if (Model.ListaPersonalEspsAsignados.Count > 0)
+                {
 
-    var personalEspAsig = Model.ListaPersonalEspsAsignados;
-    if (personalEspAsig.Count > 0)
-    {
+                    @gridPersonalEspAsignados.GetHtml(
+                        fillEmptyRows: false,
+                        alternatingRowStyle: "fila-alternativa",
+                        headerStyle: "encabezado-grid",
+                        footerStyle: "pie-grid",
+                        mode: WebGridPagerModes.All,
+                        firstText: "<< Primera",
+                        previousText: "< Anterior",
+                        nextText: "Siguiente >",
+                        lastText: "Última >>",
+                        tableStyle: "table table-striped",
 
-        @gridPersonalEspAsignados.GetHtml(
-            fillEmptyRows: false,
-            alternatingRowStyle: "fila-alternativa",
-            headerStyle: "encabezado-grid",
-            footerStyle: "pie-grid",
-            mode: WebGridPagerModes.All,
-            firstText: "<< Primera",
-            previousText: "< Anterior",
-            nextText: "Siguiente >",
-            lastText: "Última >>",
-            tableStyle: "table table-striped",
-
-             columns: new[]
-             {
-                 gridPersonalEspAsignados.Column("Nombre"),
-                 gridPersonalEspAsignados.Column("Apellido"),
-                 gridPersonalEspAsignados.Column("EspecialidadNombre", "Especialidad"),
-                 gridPersonalEspAsignados.Column("",
-                     header: "Acciones",
-                     format: @<text>
-                                  <input type="button" value="Borrar" id=@item.Id onClick=" borrarPersonal(@item.Id) "/>
-                              </text>
-                     )
-             })
-     }
-    else
-    {
-    <div>@Html.DisplayName("Este equipo no tiene asignado ningun Personal")</div>
-    }
-    
-    <h3>@Html.DisplayName("Personal Especializado")</h3>
-    <div class="pull-right">
-          <a class="link-panel" href="/PersonalEsp/Create">
-              <img src="~/Images/boton_nuevo.png" />
-              Nuevo Personal
-          </a>
+                         columns: new[]
+                         {
+                             gridPersonalEspAsignados.Column("Nombre"),
+                             gridPersonalEspAsignados.Column("Apellido"),
+                             gridPersonalEspAsignados.Column("EspecialidadNombre", "Especialidad"),
+                             gridPersonalEspAsignados.Column("",
+                                 header: "Acciones",
+                                 format: @<text>
+                                              <input class="btn btn-primary" type="button" value="Borrar" id=@item.Id onClick=" borrarPersonal(@item.Id) "/>
+                                          </text>
+                                 )
+                         })
+                 }
+                else
+                {
+                <div>@Html.DisplayName("Este equipo no tiene asignado ningun Personal")</div>
+                }
+         </div>
       </div>
-    <div>
-        @Html.Label("Nombre")
-        @Html.TextBoxFor(model => model.NombreFiltro)
-    </div>
-    <div>
-        @Html.Label("Apellido")
-        @Html.TextBoxFor(model => model.ApellidoFiltro)
-    </div>  
+  </div>  
+</div>
 
-    @Html.HiddenFor(model => model.EquipoSeleccionado.Id, new { id = "hidden" })
-
-    <input type="submit" value="Buscar" />
-    var personalEsp = Model.ListaPersonalEsp;
-    if (personalEsp.Count > 0)
-    {
-        @gridPersonalEsp.GetHtml(
-            fillEmptyRows: false,
-            alternatingRowStyle: "fila-alternativa",
-            headerStyle: "encabezado-grid",
-            footerStyle: "pie-grid",
-            mode: WebGridPagerModes.All,
-            firstText: "<< Primera",
-            previousText: "< Anterior",
-            nextText: "Siguiente >",
-            lastText: "Última >>",
-            tableStyle: "table table-striped",
-
-
-            columns: new[]
-            {
-                gridPersonalEsp.Column("Nombre"),
-                gridPersonalEsp.Column("Apellido"),
-                gridPersonalEspAsignados.Column("EspecialidadNombre", "Especialidad"),
-                gridPersonalEsp.Column("",
-                    header: "Acciones",
-                    format: @<text>
-                                 <input type="button" value="Asignar" id=@item.Id onClick=" asignarPersonal(@item.Id) "/>
-                             </text>
-                    )
-            })
-    }
-    else
-    {
-    <div>@Html.DisplayName("No se han encontrado resultados")</div>
-    }
-
-    <script type="text/javascript">
+<script type="text/javascript">
         var PersonalAsignados = [];
         var PersonalEquipoEliminar = [];
 
@@ -167,4 +185,3 @@
         }
 
 </script>
-}

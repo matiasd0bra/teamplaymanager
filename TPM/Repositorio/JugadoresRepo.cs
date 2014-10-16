@@ -35,6 +35,7 @@ namespace TPM.Repositorio
                 jugador.Domicilio = item["Domicilio"].ToString();
                 jugador.LocalidadId = int.Parse(item["LocalidadId"].ToString());
                 jugador.FechaNacFormateada = jugador.FechaNac.ToShortDateString();
+                jugador.ImagenPath = item["ImagenPath"].ToString();
                 jugadorList.Add(jugador);
             }
 
