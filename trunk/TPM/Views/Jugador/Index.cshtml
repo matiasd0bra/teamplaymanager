@@ -38,6 +38,13 @@
 
              columns: new[]
              {
+                 gridJugadores.Column(
+                     header: "Nombre",
+                     format: @<text>
+                                  <a id="@item.id" class="" rel="popover" data-content="" title="Jugador" onmouseup='mostrarImg(@item.id, "@item.ImagenPath")'>@item.Nombre</a>
+                              </text>
+                     
+                 ),
                  gridJugadores.Column("Nombre"),
                  gridJugadores.Column("Apellido"),
                  gridJugadores.Column("NumeroDoc", "N° de documento"),
@@ -60,3 +67,16 @@
     }          
     </div>
 </div>
+<script>
+    //$(document).ready(function () {
+    function mostrarImg(id, imagen) {
+        var image = '<img width="200px" src="/Images/Jugadores/' + imagen + '" />';
+            $('#'+id).popover({ placement: 'bottom', content: image, html: true });
+        }
+    //});
+
+    //$(document).ready(function () {
+    //    var image = '<img width="200px" src="/Images/Jugadores/DefaultImage.jpg" />';
+    //    $('#popover').popover({ placement: 'bottom', content: image, html: true });
+    //});
+</script>

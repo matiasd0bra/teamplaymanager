@@ -19,110 +19,122 @@
       </div>
   </div>
   <div class="panel-body">
-@using (Html.BeginForm(null, null, FormMethod.Get))
-{
-    <h2>
-        Equipo: @Html.DisplayFor(model => model.EquipoSeleccionado.NombreEquipo) 
-    </h2>
-    
-    @Html.ValidationSummary(true)
+      <div class="titleSeccion" style="margin-bottom: 25px;"> Equipo: <span style="font-weight: 200">@Html.DisplayFor(model => model.EquipoSeleccionado.NombreEquipo)</span></div>
+      <div class="row">
+          <div class="col-xs-6" style="margin-top: 25px">
+              @using (Html.BeginForm(null, null, FormMethod.Get))
+              {
+                  <div class="well row" style="margin: 0 10px">
+                      <div class="titleDatos"><span class="label label-default">Buscar jugadores</span></div>
+                      <div class="pull-right" style="margin-top: -45px;">
+                            <a class="link-panel" href="/Jugador/Create">
+                                <img src="~/Images/boton_nuevo.png" />
+                                Nuevo jugador
+                            </a>
+                      </div>
+                      <div class="row" style="margin-top:20px">
+                          <div class="col-xs-4" style="text-align: right">
+                              <p class="labelForm">Nombre: </p>
+                          </div>
+                          <div class="col-xs-8" style="text-align: right">
+                              <input class="inputForm" type="text" value="@Model.NombreFiltro" name="NombreFiltro" id="NombreFiltro">
+                          </div> 
+                      </div>
+                      <div class="row">
+                          <div class="col-xs-4" style="text-align: right">
+                              <p class="labelForm">Apellido: </p>
+                          </div>
+                          <div class="col-xs-8" style="text-align: right">
+                              <input class="inputForm" type="text" value="@Model.ApellidoFiltro" name="ApellidoFiltro" id="ApellidoFiltro" />
+                          </div> 
+                      </div>
+                      <div class="row">
+                          <div class="col-xs-12" style="text-align: right">
+                                @Html.HiddenFor(model => model.EquipoSeleccionado.Id, new { id = "hidden" })
+                                <input type="submit" value="Buscar" class="btn btn-primary" />
+                          </div>
+                      </div>
+                    
+                    @if (Model.ListaJugadores.Count > 0)
+                    {
+                        @gridJugadores.GetHtml(
+                            fillEmptyRows: false,
+                            alternatingRowStyle: "fila-alternativa",
+                            headerStyle: "encabezado-grid",
+                            footerStyle: "pie-grid",
+                            mode: WebGridPagerModes.All,
+                            firstText: "<< Primera",
+                            previousText: "< Anterior",
+                            nextText: "Siguiente >",
+                            lastText: "Última >>",
+                            tableStyle: "table table-striped",
 
-    var jugadoresAsig = Model.ListaJugadoresAsignados;
-    if (jugadoresAsig.Count > 0)
-    {
 
-        @gridJugadoresAsignados.GetHtml(
-            fillEmptyRows: false,
-            alternatingRowStyle: "fila-alternativa",
-            headerStyle: "encabezado-grid",
-            footerStyle: "pie-grid",
-            mode: WebGridPagerModes.All,
-            firstText: "<< Primera",
-            previousText: "< Anterior",
-            nextText: "Siguiente >",
-            lastText: "Última >>",
-            tableStyle: "table table-striped",
+                            columns: new[]
+                            {
+                                gridJugadores.Column("Nombre"),
+                                gridJugadores.Column("Apellido"),
+                                gridJugadores.Column("FechaNacFormateada",
+                                    header: "Fecha de nacimiento"
+                                    ),
+                                gridJugadores.Column("",
+                                    header: "Acciones",
+                                    format: @<text>
+                                                 <input class="btn btn-primary" type="button" value="Asignar" id=@item.Id onClick=" asignarjugador(@item.Id) "/>
+                                             </text>
+                                    )
+                            })
+                    }
+                    else
+                    {
+                    <div>@Html.DisplayName("No se han encontrado resultados")</div>
+                    }
+                                         
+                  </div>
+              }               
+           </div>
+           <div class="col-xs-6">
+               <h1>Jugadores Asignados</h1>
+                @if (Model.ListaJugadoresAsignados.Count > 0)
+                {
 
-             columns: new[]
-             {
-                 gridJugadoresAsignados.Column("Nombre"),
-                 gridJugadoresAsignados.Column("Apellido"),
-                 gridJugadoresAsignados.Column("FechaNacFormateada",
-                     header: "Fecha de nacimiento"
-                     ),
-                 gridJugadoresAsignados.Column("",
-                     header: "Acciones",
-                     format: @<text>
-                                  <input type="button" value="Borrar" id=@item.Id onClick=" borrarjugador(@item.Id) "/>
-                              </text>
-                     )
-             })
-     }
-    else
-    {
-    <div>@Html.DisplayName("Este equipo no tiene asignado ningun jugador")</div>
-    }
-    
-    <h3>@Html.DisplayName("Jugadores")</h3>
-    <div class="pull-right">
-          <a class="link-panel" href="/Jugador/Create">
-              <img src="~/Images/boton_nuevo.png" />
-              Nuevo jugador
-          </a>
+                    @gridJugadoresAsignados.GetHtml(
+                        fillEmptyRows: false,
+                        alternatingRowStyle: "fila-alternativa",
+                        headerStyle: "encabezado-grid",
+                        footerStyle: "pie-grid",
+                        mode: WebGridPagerModes.All,
+                        firstText: "<< Primera",
+                        previousText: "< Anterior",
+                        nextText: "Siguiente >",
+                        lastText: "Última >>",
+                        tableStyle: "table table-striped",
+
+                         columns: new[]
+                         {
+                             gridJugadoresAsignados.Column("Nombre"),
+                             gridJugadoresAsignados.Column("Apellido"),
+                             gridJugadoresAsignados.Column("FechaNacFormateada",
+                                 header: "Fecha de nacimiento"
+                                 ),
+                             gridJugadoresAsignados.Column("",
+                                 header: "Acciones",
+                                 format: @<text>
+                                              <input class="btn btn-primary" type="button" value="Borrar" id=@item.Id onClick=" borrarjugador(@item.Id) "/>
+                                          </text>
+                                 )
+                         })
+                 }
+                else
+                {
+                <div>@Html.DisplayName("Este equipo no tiene asignado ningun jugador")</div>
+                }
+         </div>
       </div>
-    <div>
-        @Html.Label("Nombre")
-        @Html.TextBoxFor(model => model.NombreFiltro)
-    </div>
-    <div>
-        @Html.Label("Apellido")
-        @Html.TextBoxFor(model => model.ApellidoFiltro)
-    </div>
-   
+  </div>  
+</div>
 
-    @*@Html.Label("Categoria")
-    @Html.DropDownListFor(model => model.CategoriaId, new SelectList(Model.CategoriaList, "CategoriaId", "NombreCategoria", 1))*@
-
-    @Html.HiddenFor(model => model.EquipoSeleccionado.Id, new { id = "hidden" })
-
-    <input type="submit" value="Buscar" />
-    var jugadores = Model.ListaJugadores;
-    if (jugadores.Count > 0)
-    {
-        @gridJugadores.GetHtml(
-            fillEmptyRows: false,
-            alternatingRowStyle: "fila-alternativa",
-            headerStyle: "encabezado-grid",
-            footerStyle: "pie-grid",
-            mode: WebGridPagerModes.All,
-            firstText: "<< Primera",
-            previousText: "< Anterior",
-            nextText: "Siguiente >",
-            lastText: "Última >>",
-            tableStyle: "table table-striped",
-
-
-            columns: new[]
-            {
-                gridJugadores.Column("Nombre"),
-                gridJugadores.Column("Apellido"),
-                gridJugadores.Column("FechaNacFormateada",
-                    header: "Fecha de nacimiento"
-                    ),
-                gridJugadores.Column("",
-                    header: "Acciones",
-                    format: @<text>
-                                 <input type="button" value="Asignar" id=@item.Id onClick=" asignarjugador(@item.Id) "/>
-                             </text>
-                    )
-            })
-    }
-    else
-    {
-    <div>@Html.DisplayName("No se han encontrado resultados")</div>
-    }
-
-    <script type="text/javascript">
+<script type="text/javascript">
         var JugadoresAsignados = [];
         var JugadorEquipoEliminar = [];
 
@@ -172,7 +184,5 @@
             });
             }
         }
-
 </script>
-}
 
