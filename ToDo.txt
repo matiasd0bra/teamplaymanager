@@ -13,7 +13,22 @@ LISTO	*En Bd en la tabla partido sacar la columna localidadID y agregar lugar (V
 	y cancha (Varchar[50])
 	*Buscar como hacer para imprimir una pantalla
 
-*Darle estilo al create de jugador
-*En el convocar jugadores filtrar la busqueda por las categorias de ese equipo
-*Arreglar create jugadores
-*En el asignar jugadores filtrar que no se puedan asignar jugadores que no sean de la categoria asignada al equipo
+LISTO    *Darle estilo al create de jugador
+         *En el convocar jugadores filtrar la busqueda por las categorias de ese equipo
+LISTO   *Arreglar create jugadores
+
+*En la tabla categoria en BD cargar nuevamente los datos desde el año 1965 hasta 2050 que se correspondan los id (Fijate que 
+seguramente hay alguna forma automatica de cargarlos) y que cargar nuevamente en la BD CategoriaPorEquipo donde tienen que
+corresponderse las categorias actuales con los equipos (Seguna la hoja de marcelo)
+*Una vez hecho el paso anterior en el asignar jugadores filtrar segun los jugadores que correspondan al equipo en cuestion
+*En el convocar jugadores al partido, con los cambios hechos se muestra el id de categoria, lo que hay que hacer es en el
+procedimiento almacenado que lo trae hacer el join con la tabla categoria y mostrar el nombre de la categoria
+*Preguntar a marcelo sobre la planilla de partido tiene un campo que es torneo (Nosotros pensamos manejarlo como temporada)
+*Pensar como vamos a guardar que Dt y que preparador fisico estuvieron presentes en el partido (preguntar a marcelo, quien
+llena esta planilla "Planilla de partido")
+*Preguntar a marcelos si cuando juegan un partido siempre la numeracion de las camisetas van del 1 al 11 titulares y
+del 12 al 16 suplentes
+*hacer procedimiento almacenado que traiga todos los jugadores de un partido
+*terminar de hacer la lista de jugadores convocados para poder cargarle los datos del partido
+
+

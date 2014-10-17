@@ -25,6 +25,7 @@ namespace TPM.Repositorio
 
             partido.PartidoId = int.Parse(dt.Rows[0]["PartidoId"].ToString());
             partido.TemporadaId = int.Parse(dt.Rows[0]["TemporadaId"].ToString());
+            partido.TemporadaNombre = dt.Rows[0]["TemporadaNombre"].ToString();
             partido.EquipoId = int.Parse(dt.Rows[0]["EquipoId"].ToString());
             partido.Rival = dt.Rows[0]["Rival"].ToString();
             partido.FechaHoraInicio = Convert.ToDateTime(dt.Rows[0]["FechaHoraInicio"].ToString());

@@ -130,6 +130,29 @@ namespace TPM.Controllers
             return View(assignarJugadoresViewModel);
         }
 
+        public ActionResult DatosPartido(int id)
+        {
+            var partido = new Partido();
+            partido = PartidoRepo.PartidoByIdRepo(id);
+            partido.Fecha = partido.FechaHoraInicio.ToShortDateString();
+            partido.Hora = partido.FechaHoraInicio.ToShortTimeString();
+            partido.CategoriaList = CategoriaRepo.CategoriaByEquipo(partido.EquipoId);
+
+            foreach (var item in partido.CategoriaList)
+            {
+
+                partido.CategoriasString += item.NombreCategoria;
+                if (item != partido.CategoriaList[partido.CategoriaList.Count - 1])
+                {
+                    partido.CategoriasString += " - ";
+                }
+
+
+            }
+
+            return View(partido);
+        }
+
         public JsonResult ConvocarJugador(JugadoresAsignados jugadorAsignado)
         {
             Jugador jugador = new Jugador();

@@ -16,19 +16,39 @@ namespace TPM.Models
         [Required]
         public string Apellido { get; set; }
         [Required]
-        public int TipoDocId { get; set; }
-        
-        public string TipoDocNombre { get; set; }
-        public List<TipoDoc> TipoDocLista { get; set; }
-        [Required]
-        [Range(0, 99999999)]
         public string NumeroDoc { get; set; }
-        public DateTime FechaNac { get; set; }
         [Required]
         public string FechaNacFormateada { get; set; }
         [Required]
         public string Domicilio { get; set; }
         [Required]
+        public string Apodo { get; set; }     
+        [Required]
+        public string PesoString { get; set; }
+        [Required]
+        public string EstaturaString { get; set; }
+        [Required]
+        public string Telefono { get; set; }
+        [Required]
+        public string Email { get; set; }
+        [Required]
+        public string Representante { get; set; }     
+        [Required]
+        public string PiernaHabil { get; set; }
+
+
+        public string Posicion { get; set; }
+        public int Peso { get; set; }
+        public int Estatura { get; set; }
+
+        public string Colegio { get; set; }
+
+        public int TipoDocId { get; set; }
+        public string TipoDocNombre { get; set; }
+        public List<TipoDoc> TipoDocLista { get; set; }
+        
+        public DateTime FechaNac { get; set; }
+
         public int LocalidadId { get; set; }
         public string LocalidadNombre { get; set; }
         public List<Localidad> LocalidadLista { get; set; }
@@ -41,17 +61,8 @@ namespace TPM.Models
         public int PartidoId { get; set; }
 
         public int Categoria { get; set; }
-        public string Apodo { get; set; }
-        public int Peso { get; set; }
-        public string PesoString { get; set; }
-        public int Estatura { get; set; }
-        public string EstaturaString { get; set; }
-        public string Colegio { get; set; }
-        public string Telefono { get; set; }
-        public string Email { get; set; }
+        
         public string CiudadaniaEuropea { get; set; }
-        public string Representante { get; set; }
-
 
         public string ImagenPath { get; set; }
         public Image Imagen { get; set; }
@@ -69,10 +80,25 @@ namespace TPM.Models
 
         public string NombreApellido { get; set; }
         public string NumeroCamiseta { get; set; }
-        public string Posicion { get; set; }
-        public string PiernaHabil { get; set; }
 
         public int NumeroSuplentes { get; set; }
 
+        //Datos jugador por partido
+        public int MinutosJugados { get; set; }
+        public string MinutosJugadosString { get; set; }
+        public int Calificacion { get; set; }
+        public string CalificacionString { get; set; }
+        public int Cambio { get; set; }
+        public string CambioString { get; set; }
+        public int Gol { get; set; }
+        public string GolString { get; set; }
+        public int MinPrimeraAmarilla { get; set; }
+        public string MinPrimeraAmarillaString { get; set; }
+        public int MinSegundaAmarilla { get; set; }
+        public string MinSegundaAmarillaString { get; set; }
+        public int MinRoja { get; set; }
+        public string MinRojaString { get; set; }
+        public string Observaciones { get; set; }
+        public string Destacado { get; set; }
     }
 }

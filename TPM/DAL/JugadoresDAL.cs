@@ -80,6 +80,11 @@ namespace TPM.DAL
 
                     cmd.CommandType = CommandType.StoredProcedure;
 
+                    if (jugador.Posicion == null) jugador.Posicion = "";
+                    if (jugador.Colegio == null) jugador.Colegio = "";
+                    if (jugador.CiudadaniaEuropea == null) jugador.CiudadaniaEuropea = "";
+                    if (jugador.Representante == null) jugador.Representante = "";
+
                     cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = jugador.Nombre;
                     cmd.Parameters.Add("@Apellido", SqlDbType.VarChar).Value = jugador.Apellido;
                     cmd.Parameters.Add("@TipoDocId", SqlDbType.Int).Value = jugador.TipoDocId;
@@ -87,6 +92,7 @@ namespace TPM.DAL
                     cmd.Parameters.Add("@FechaNac", SqlDbType.DateTime).Value = jugador.FechaNac;
                     cmd.Parameters.Add("@Domicilio", SqlDbType.VarChar).Value = jugador.Domicilio;
                     cmd.Parameters.Add("@LocalidadId", SqlDbType.Int).Value = jugador.LocalidadId;
+                    cmd.Parameters.Add("@CategoriaId", SqlDbType.Int).Value = jugador.Categoria;
                     cmd.Parameters.Add("@ImagenPath", SqlDbType.VarChar).Value = jugador.ImagenPath;
                     cmd.Parameters.Add("@Apodo", SqlDbType.VarChar).Value = jugador.Apodo;
                     cmd.Parameters.Add("@Peso", SqlDbType.Float).Value = jugador.Peso;
@@ -119,8 +125,7 @@ namespace TPM.DAL
                     command.CommandType = CommandType.StoredProcedure;
 
                     if (jugador.CoberturaMedica.ObraSocial == null) jugador.CoberturaMedica.ObraSocial = "";
-                    if (jugador.CoberturaMedica.ServicioEmergencia == null)
-                        jugador.CoberturaMedica.ServicioEmergencia = "";
+                    if (jugador.CoberturaMedica.ServicioEmergencia == null)jugador.CoberturaMedica.ServicioEmergencia = "";
                     if (jugador.CoberturaMedica.Telefono == null) jugador.CoberturaMedica.Telefono = "";
                     if (jugador.CoberturaMedica.Hospital == null) jugador.CoberturaMedica.Hospital = "";
                     if (jugador.CoberturaMedica.Direccion == null) jugador.CoberturaMedica.Direccion = "";
@@ -130,23 +135,16 @@ namespace TPM.DAL
 
 
                     command.Parameters.Add("@IdJugador", SqlDbType.Int).Value = jugador.Id;
-                    command.Parameters.Add("@ObraSocial", SqlDbType.VarChar).Value =
-                        jugador.CoberturaMedica.ObraSocial;
-                    command.Parameters.Add("@NroObraSocial", SqlDbType.Int).Value =
-                        jugador.CoberturaMedica.NroObraSocial;
-                    command.Parameters.Add("@ServicioEmergencia", SqlDbType.VarChar).Value =
-                        jugador.CoberturaMedica.ServicioEmergencia;
-                    command.Parameters.Add("@NroServicioEmergencia", SqlDbType.Int).Value =
-                        jugador.CoberturaMedica.NroServicioEmergencia;
+                    command.Parameters.Add("@ObraSocial", SqlDbType.VarChar).Value =jugador.CoberturaMedica.ObraSocial;
+                    command.Parameters.Add("@NroObraSocial", SqlDbType.Int).Value =jugador.CoberturaMedica.NroObraSocial;
+                    command.Parameters.Add("@ServicioEmergencia", SqlDbType.VarChar).Value =jugador.CoberturaMedica.ServicioEmergencia;
+                    command.Parameters.Add("@NroServicioEmergencia", SqlDbType.Int).Value =jugador.CoberturaMedica.NroServicioEmergencia;
                     command.Parameters.Add("@Telefono", SqlDbType.VarChar).Value = jugador.CoberturaMedica.Telefono;
                     command.Parameters.Add("@Hospital", SqlDbType.VarChar).Value = jugador.CoberturaMedica.Hospital;
-                    command.Parameters.Add("@Direccion", SqlDbType.VarChar).Value =
-                        jugador.CoberturaMedica.Direccion;
-                    command.Parameters.Add("@Medicamento", SqlDbType.VarChar).Value =
-                        jugador.CoberturaMedica.Medicamento;
+                    command.Parameters.Add("@Direccion", SqlDbType.VarChar).Value =jugador.CoberturaMedica.Direccion;
+                    command.Parameters.Add("@Medicamento", SqlDbType.VarChar).Value =jugador.CoberturaMedica.Medicamento;
                     command.Parameters.Add("@Alergico", SqlDbType.VarChar).Value = jugador.CoberturaMedica.Alergico;
-                    command.Parameters.Add("@Observaciones", SqlDbType.VarChar).Value =
-                        jugador.CoberturaMedica.Observaciones;
+                    command.Parameters.Add("@Observaciones", SqlDbType.VarChar).Value =jugador.CoberturaMedica.Observaciones;
 
                     con.Open();
                     command.ExecuteScalar();
@@ -170,64 +168,41 @@ namespace TPM.DAL
                     if (jugador.DatosGenerales.TelMadre == null) jugador.DatosGenerales.TelMadre = "";
                     if (jugador.DatosGenerales.OcupacionMadre == null) jugador.DatosGenerales.OcupacionMadre = "";
                     if (jugador.DatosGenerales.TrabajoMadre == null) jugador.DatosGenerales.TrabajoMadre = "";
-                    if (jugador.DatosGenerales.DireccionTrabajoMadre == null)
-                        jugador.DatosGenerales.DireccionTrabajoMadre = "";
-                    if (jugador.DatosGenerales.TelefonoTrabajoMadre == null)
-                        jugador.DatosGenerales.TelefonoTrabajoMadre = "";
+                    if (jugador.DatosGenerales.DireccionTrabajoMadre == null)jugador.DatosGenerales.DireccionTrabajoMadre = "";
+                    if (jugador.DatosGenerales.TelefonoTrabajoMadre == null)jugador.DatosGenerales.TelefonoTrabajoMadre = "";
                     if (jugador.DatosGenerales.NombrePadre == null) jugador.DatosGenerales.NombrePadre = "";
                     if (jugador.DatosGenerales.TelPadre == null) jugador.DatosGenerales.TelPadre = "";
                     if (jugador.DatosGenerales.OcupacionPadre == null) jugador.DatosGenerales.OcupacionPadre = "";
                     if (jugador.DatosGenerales.TrabajoPadre == null) jugador.DatosGenerales.TrabajoPadre = "";
-                    if (jugador.DatosGenerales.DireccionTrabajoPadre == null)
-                        jugador.DatosGenerales.DireccionTrabajoPadre = "";
-                    if (jugador.DatosGenerales.TelefonoTrabajoPadre == null)
-                        jugador.DatosGenerales.TelefonoTrabajoPadre = "";
+                    if (jugador.DatosGenerales.DireccionTrabajoPadre == null) jugador.DatosGenerales.DireccionTrabajoPadre = "";
+                    if (jugador.DatosGenerales.TelefonoTrabajoPadre == null) jugador.DatosGenerales.TelefonoTrabajoPadre = "";
                     if (jugador.DatosGenerales.PadresConviven == null) jugador.DatosGenerales.PadresConviven = "";
-                    if (jugador.DatosGenerales.NombreResponsable == null)
-                        jugador.DatosGenerales.NombreResponsable = "";
-                    if (jugador.DatosGenerales.OcupacionResponsable == null)
-                        jugador.DatosGenerales.OcupacionResponsable = "";
-                    if (jugador.DatosGenerales.ParentescoResponsable == null)
-                        jugador.DatosGenerales.ParentescoResponsable = "";
+                    if (jugador.DatosGenerales.NombreResponsable == null)   jugador.DatosGenerales.NombreResponsable = "";
+                    if (jugador.DatosGenerales.OcupacionResponsable == null)  jugador.DatosGenerales.OcupacionResponsable = "";
+                    if (jugador.DatosGenerales.ParentescoResponsable == null) jugador.DatosGenerales.ParentescoResponsable = "";
                     if (jugador.DatosGenerales.Lesiones == null) jugador.DatosGenerales.Lesiones = "";
 
 
                     command.Parameters.Add("@IdJugador", SqlDbType.Int).Value = jugador.Id;
-                    command.Parameters.Add("@JuegaOtroLugar", SqlDbType.VarChar).Value =
-                        jugador.DatosGenerales.JuegaOtroEquipo;
-                    command.Parameters.Add("@QuienLoTrajo", SqlDbType.VarChar).Value =
-                        jugador.DatosGenerales.QuieLoTrajo;
-                    command.Parameters.Add("@NombreMadre", SqlDbType.VarChar).Value =
-                        jugador.DatosGenerales.NombreMadre;
+                    command.Parameters.Add("@JuegaOtroLugar", SqlDbType.VarChar).Value = jugador.DatosGenerales.JuegaOtroEquipo;
+                    command.Parameters.Add("@QuienLoTrajo", SqlDbType.VarChar).Value =  jugador.DatosGenerales.QuieLoTrajo;
+                    command.Parameters.Add("@NombreMadre", SqlDbType.VarChar).Value =jugador.DatosGenerales.NombreMadre;
                     command.Parameters.Add("@TelMadre", SqlDbType.VarChar).Value = jugador.DatosGenerales.TelMadre;
-                    command.Parameters.Add("@OcupacionMadre", SqlDbType.VarChar).Value =
-                        jugador.DatosGenerales.OcupacionMadre;
-                    command.Parameters.Add("@TrabajoMadre", SqlDbType.VarChar).Value =
-                        jugador.DatosGenerales.TrabajoMadre;
-                    command.Parameters.Add("@DireccionTrabajoMadre", SqlDbType.VarChar).Value =
-                        jugador.DatosGenerales.DireccionTrabajoMadre;
-                    command.Parameters.Add("@TelefonoTrabajoMadre", SqlDbType.VarChar).Value =
-                        jugador.DatosGenerales.TelefonoTrabajoMadre;
-                    command.Parameters.Add("@NombrePadre", SqlDbType.VarChar).Value =
-                        jugador.DatosGenerales.NombrePadre;
+                    command.Parameters.Add("@OcupacionMadre", SqlDbType.VarChar).Value =  jugador.DatosGenerales.OcupacionMadre;
+                    command.Parameters.Add("@TrabajoMadre", SqlDbType.VarChar).Value = jugador.DatosGenerales.TrabajoMadre;
+                    command.Parameters.Add("@DireccionTrabajoMadre", SqlDbType.VarChar).Value =  jugador.DatosGenerales.DireccionTrabajoMadre;
+                    command.Parameters.Add("@TelefonoTrabajoMadre", SqlDbType.VarChar).Value = jugador.DatosGenerales.TelefonoTrabajoMadre;
+                    command.Parameters.Add("@NombrePadre", SqlDbType.VarChar).Value = jugador.DatosGenerales.NombrePadre;
                     command.Parameters.Add("@TelPadre", SqlDbType.VarChar).Value = jugador.DatosGenerales.TelPadre;
-                    command.Parameters.Add("@OcupacionPadre", SqlDbType.VarChar).Value =
-                        jugador.DatosGenerales.OcupacionPadre;
-                    command.Parameters.Add("@TrabajoPadre", SqlDbType.VarChar).Value =
-                        jugador.DatosGenerales.TrabajoPadre;
-                    command.Parameters.Add("@DireccionTrabajoPadre", SqlDbType.VarChar).Value =
-                        jugador.DatosGenerales.DireccionTrabajoPadre;
-                    command.Parameters.Add("@TelefonoTrabajoPadre", SqlDbType.VarChar).Value =
-                        jugador.DatosGenerales.TelefonoTrabajoPadre;
-                    command.Parameters.Add("@PadresConviven", SqlDbType.VarChar).Value =
-                        jugador.DatosGenerales.PadresConviven;
+                    command.Parameters.Add("@OcupacionPadre", SqlDbType.VarChar).Value = jugador.DatosGenerales.OcupacionPadre;
+                    command.Parameters.Add("@TrabajoPadre", SqlDbType.VarChar).Value = jugador.DatosGenerales.TrabajoPadre;
+                    command.Parameters.Add("@DireccionTrabajoPadre", SqlDbType.VarChar).Value = jugador.DatosGenerales.DireccionTrabajoPadre;
+                    command.Parameters.Add("@TelefonoTrabajoPadre", SqlDbType.VarChar).Value =  jugador.DatosGenerales.TelefonoTrabajoPadre;
+                    command.Parameters.Add("@PadresConviven", SqlDbType.VarChar).Value =  jugador.DatosGenerales.PadresConviven;
                     command.Parameters.Add("@Hermanos", SqlDbType.Int).Value = jugador.DatosGenerales.Hermanos;
-                    command.Parameters.Add("@NombreResponsable", SqlDbType.VarChar).Value =
-                        jugador.DatosGenerales.NombreResponsable;
-                    command.Parameters.Add("@OcupacionResponsable", SqlDbType.VarChar).Value =
-                        jugador.DatosGenerales.OcupacionResponsable;
-                    command.Parameters.Add("@ParentescoResponsable", SqlDbType.VarChar).Value =
-                        jugador.DatosGenerales.ParentescoResponsable;
+                    command.Parameters.Add("@NombreResponsable", SqlDbType.VarChar).Value = jugador.DatosGenerales.NombreResponsable;
+                    command.Parameters.Add("@OcupacionResponsable", SqlDbType.VarChar).Value = jugador.DatosGenerales.OcupacionResponsable;
+                    command.Parameters.Add("@ParentescoResponsable", SqlDbType.VarChar).Value = jugador.DatosGenerales.ParentescoResponsable;
                     command.Parameters.Add("@Lesiones", SqlDbType.VarChar).Value = jugador.DatosGenerales.Lesiones;
 
                     con.Open();

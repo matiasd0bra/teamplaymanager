@@ -81,6 +81,27 @@ namespace TPM.DAL
             return dt;
         }
 
+        public int CategoriaIdByAño(int categoria)
+        {
+            int ret;
+            SqlDataReader sqlDataReader;
+
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
+            {
+                using (SqlCommand cmd = new SqlCommand("CategoriaIdByAño", con))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@Año", SqlDbType.Int).Value = categoria;
+
+                    con.Open();
+                    ret = int.Parse(cmd.ExecuteScalar().ToString());
+                }
+            }
+            return ret;
+        }
+
         //public int JugadorInsert(string nombre, string apellido, int tipoDoc, int nroDoc, string dom, int loc)
         //{
         //    int ret;
