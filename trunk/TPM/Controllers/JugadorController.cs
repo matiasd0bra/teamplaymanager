@@ -79,6 +79,8 @@ namespace TPM.Controllers
 
                         jugador.FechaNac = DateTime.Parse(jugador.FechaNacFormateada);
 
+                        jugador.Categoria = CategoriaRepo.CategoriaIdByAño(jugador.FechaNac.Year);
+
                         jugador.CoberturaMedica.NroObraSocial = jugador.CoberturaMedica.NroObraSocialString == null ? 0 : Int32.Parse(jugador.CoberturaMedica.NroObraSocialString);
                         jugador.CoberturaMedica.NroServicioEmergencia = jugador.CoberturaMedica.NroServicioEmergenciaString == null ? 0 : Int32.Parse(jugador.CoberturaMedica.NroServicioEmergenciaString);
                         jugador.DatosGenerales.Hermanos = jugador.DatosGenerales.HermanosString == null ? 0 : Int32.Parse(jugador.DatosGenerales.HermanosString);

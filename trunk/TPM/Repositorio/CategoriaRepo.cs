@@ -69,13 +69,11 @@ namespace TPM.Repositorio
         }
 
 
-        //public static int categoriaInsert(categoria categoria)
-        //{
-        //    categoriasDAL categoriasDal = new categoriasDAL();
-        //    return categoriasDal.categoriaInsert(categoria.CategoriaId);
-
-
-        //}
+        public static int CategoriaIdByAño(int categoria)
+        {
+            CategoriaDAL categoriasDal = new CategoriaDAL();
+            return categoriasDal.CategoriaIdByAño(categoria);
+        }
 
         //public static int categoriaUpdate(categoria categoria)
         //{

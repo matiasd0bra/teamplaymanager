@@ -12,6 +12,8 @@ namespace TPM.Models
         public int PartidoId { get; set; }
         public int TemporadaId { get; set; }
         public string TemporadaNombre { get; set; }
+        public string Fecha { get; set; }
+        public string Hora { get; set; }
 
         public int TipoPartidoId { get; set; }
         public string TipoPartidoNombre { get; set; }
@@ -51,5 +53,9 @@ namespace TPM.Models
         public AssignarJugadoresViewModel JugadoresViewModel { get; set; }
 
         public List<Partido> listPartidosSinDatos { get; set; }
+        public List<Categoria> CategoriaList { get; set; }
+
+        public string CategoriasString { get; set; }
+        public List<Jugador> JugadoresPartidoList { get; set; }  
     }
 }

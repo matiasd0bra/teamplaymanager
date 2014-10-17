@@ -1,8 +1,11 @@
 ﻿@using System.Web.Mvc
 @using System.Web.Mvc.Html
+@model TPM.Models.Partido
+
 @{
     ViewBag.Title = "DatosPartido";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    WebGrid gridDatosJugadores = new WebGrid(Model.DatosJugadorPartidoList, rowsPerPage: 10);
 }
 
 <div class="panel panel-primary">
@@ -16,7 +19,7 @@
         </div>
     </div>
     <div class="panel-body">
-        @using (Html.BeginForm("formDatosPartido", "Partido", FormMethod.Post, new {enctype = "multipart/form-data"}))
+        @using (Html.BeginForm("DatosPartido", "Partido", FormMethod.Post, new {enctype = "multipart/form-data"}))
         {
            @*<input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />*@
 
@@ -25,91 +28,77 @@
 
             <fieldset>
                 <legend>Partido</legend>
-                <div class="well">
-                    <div class="titleDatos"><span class="label label-default">Datos Partido</span></div>
-
-                    <table class="tablaCreate" width="100%">
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Temporada:")
-                            </td>
-                            <td>
-                                @Html.DropDownListFor(model => model.TemporadaId, new SelectList(Model.TemporadasList, "TemporadaId", "TemporadaNombre", 1))
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Tipo:")
-                            </td>
-                            <td>
-                                <select name="TipoPartidoNombre" id="TipoPartidoNombre">
-                                    <option value="Amistoso">Amistoso</option>
-                                    <option value="Liga">Liga</option>
-                                    <option value="Campeonato">Campeonato</option>
-                                </select>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Equipo:")
-                            </td>
-                            <td>
-                                @Html.DropDownListFor(model => model.EquipoId, new SelectList(Model.EquiposList, "Id", "NombreEquipo", 1))
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Rival:")
-                            </td>
-                            <td>
-                                @Html.EditorFor(model => model.Rival)
-                                @Html.ValidationMessage("Nombre", "Por favor, ingrese el rival")
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Fecha:")
-                            </td>
-                            <td>
-                                @Html.TextBoxFor(model => model.FechaHoraInicioString)
-                            </td>
-                        </tr>
-                        <script type="text/javascript">
-                            $(function() {
-                                $("#FechaHoraInicioString").datetimepicker({
-                                    format: 'd.m.Y H:i'
-                                });
-                            });
-                        </script>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Local:")
-                            </td>
-                            <td>
-                                <input type="checkbox" id="Local" name="Local" value="L">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="primerColumna">
-                                @Html.Label("Lugar:")
-                            </td>
-                            <td>
-                                @Html.DropDownListFor(model => model.LocalidadId, new SelectList(Model.LocalidadLista, "LocalidadId", "LocalidadNombre", 1)) 
-
-                            </td>
-                        </tr>
-                    </table>
+                <div class="titleSeccion">Planilla de partido</div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <p><strong>Partido jugado vs:</strong> @Model.Rival</p>
+                        <p><strong>Torneo:</strong> @Model.TemporadaNombre</p>
+                        <p><strong>Cancha de:</strong> @Model.Cancha</p>
+                        <p><strong>Fecha campeonato:</strong> Nº @Model.NumeroFecha</p>
+                    </div>
+                    <div class="col-xs-6" style="text-align: right;">
+                        <p><strong>Fecha:</strong> @Model.Fecha</p>
+                        <p><strong>Categoría: </strong>@Model.EquipoNombre <strong>Año: </strong>@Model.CategoriasString</p>
+                        <p><strong>Horario:</strong> @Model.Hora</p>
+                        <p><strong>Condición: </strong>@Model.Condicion</p>
+                    </div>
                 </div>
-         
-                    <input class="btn btn-primary" name="accion" type="submit" value="Guardar y volver al calendario" />
-                    <input class="btn btn-primary" name="accion" type="submit" value="Guardar y convocar Jugadores" />
+                <div class="row">
+                    <p><strong>Resultado Final:</strong>
+                        @if (Model.Condicion.Trim() == "Local")
+                        {
+                            @Model.EquipoNombre
+                            <input type="text" id="GolesPropios" name="GolesPropios" value="@Model.GolesPropios"/>
+                            <label>VS</label>
+                            @Model.Rival
+                            <input type="text" id="GolesRival" name="GolesRival" value="@Model.GolesRival"/>
+                        }
+                        else
+                        {
+                            @Model.Rival
+                            <input type="text" id="GolesRival" name="GolesRival" value="@Model.GolesRival"/>
+                            <label>VS</label>
+                            @Model.EquipoNombre
+                            <input type="text" id="GolesPropios" name="GolesPropios" value="@Model.GolesPropios"/>
+                        }
+                    </p>
+                </div>
+                <div class="row">
+                    
+                    @gridJugadores.GetHtml(
+                              fillEmptyRows: false,
+                              alternatingRowStyle: "fila-alternativa",
+                              headerStyle: "encabezado-grid",
+                              footerStyle: "pie-grid",
+                              mode: WebGridPagerModes.All,
+                              firstText: "<< Primera",
+                              previousText: "< Anterior",
+                              nextText: "Siguiente >",
+                              lastText: "Última >>",
+                              tableStyle: "table table-striped",
+
+                              columns: new[]
+                              {
+                                  gridJugadores.Column("Nombre"),
+                                  gridJugadores.Column("Apellido"),
+                                  gridJugadores.Column("Categoria"),
+                                  gridJugadores.Column("Posicion"),
+                                  gridJugadores.Column("",
+                                      header: "Acciones",
+                                      format: @<text>
+                                                   <input type="button" value="Titular" id=@item.Id onClick=" ConvocarJugadorTitular(@item.Id) " class="btn btn-success"/>
+                                                   <input type="button" value="Suplente" id=@item.Id onClick=" ConvocarJugadorSuplente(@item.Id) " class="btn btn-danger"/>
+                                               </text>
+                                      )
+                              })
+                    }
+                </div>
+
 
                 
 
             </fieldset>
-            <link href="~/Scripts/Bootstrap/datetimepicker-master/jquery.datetimepicker.css" rel="stylesheet" />
-            <script src="~/Scripts/Bootstrap/datetimepicker-master/jquery.js"></script>
-            <script type="text/javascript" src="~/Scripts/Bootstrap/datetimepicker-master/jquery.datetimepicker.js"></script> 
+           
         }
     </div>
 </div>
