@@ -28,6 +28,9 @@
                 <legend>Partido</legend>
                 <div class="well">
                     <div class="titleDatos"><span class="label label-default">Datos Partido</span></div>
+                    <div style="padding-bottom: 15px; text-align: center;">
+                    @Html.ValidationMessageFor(model => model.Rival, "Debe completar los campos obligatorios.")
+                     </div>
 
                     <table class="tablaCreate" width="100%">
                         <tr>

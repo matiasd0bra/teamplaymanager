@@ -43,10 +43,9 @@
                      format: @<text>
                                   <a id="@item.id" class="" rel="popover" data-content="" title="Jugador" onmouseup='mostrarImg(@item.id, "@item.ImagenPath")'>@item.Nombre</a>
                               </text>
-                     
                  ),
-                 gridJugadores.Column("Nombre"),
-                 gridJugadores.Column("Apellido"),
+                 //gridJugadores.Column("Nombre"),
+                 gridJugadores.Column("Apellido", ),
                  gridJugadores.Column("NumeroDoc", "N° de documento"),
                  gridJugadores.Column("FechaNacFormateada",
                      header: "Fecha de nacimiento"

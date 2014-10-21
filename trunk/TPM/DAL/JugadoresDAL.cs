@@ -476,6 +476,27 @@ namespace TPM.DAL
             }
             return dt;
         }
+        public DataTable JugadoresByPartido(int idPartido)
+        {
+
+            var dt = new DataTable();
+            SqlDataReader sqlDataReader;
+
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
+            {
+                using (SqlCommand cmd = new SqlCommand("JugadoresByPartidoAll", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@IdPartido", SqlDbType.Int).Value = idPartido;
+
+                    con.Open();
+                    sqlDataReader = cmd.ExecuteReader();
+                    dt.Load(sqlDataReader);
+                }
+            }
+            return dt;
+        }
 
         public DataTable JugadorEquiposList(int jugadorId)
         {
