@@ -137,6 +137,7 @@ namespace TPM.Controllers
             partido.Fecha = partido.FechaHoraInicio.ToShortDateString();
             partido.Hora = partido.FechaHoraInicio.ToShortTimeString();
             partido.CategoriaList = CategoriaRepo.CategoriaByEquipo(partido.EquipoId);
+            partido.JugadoresPartidoList = JugadoresRepo.JugadoresByPartido(id);
 
             foreach (var item in partido.CategoriaList)
             {
@@ -151,6 +152,13 @@ namespace TPM.Controllers
             }
 
             return View(partido);
+        }
+
+
+        [HttpPost]
+        public ActionResult DatosPartido(Partido partido)
+        {
+            return RedirectToAction("Index");
         }
 
         public JsonResult ConvocarJugador(JugadoresAsignados jugadorAsignado)

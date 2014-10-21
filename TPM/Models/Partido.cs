@@ -20,9 +20,11 @@ namespace TPM.Models
 
         [Required]
         public DateTime FechaHoraInicio { get; set; }
+        [Required]
         public string FechaHoraInicioString { get; set; }
 
         public DateTime HoraCitacion { get; set; }
+        [Required]
         public string HoraCitacionString { get; set; }
 
         public int EstadoId { get; set; }
@@ -35,12 +37,14 @@ namespace TPM.Models
 
         
         public string Condicion { get; set; }
-
+        [Required]
         public string Lugar { get; set; }
 
+        
         public int NumeroFecha { get; set; }
+        [Required]
         public string NumeroFechaString { get; set; }
-
+        [Required]
         public string Cancha { get; set; }
 
         public int Duracion { get; set; }
@@ -56,6 +60,9 @@ namespace TPM.Models
         public List<Categoria> CategoriaList { get; set; }
 
         public string CategoriasString { get; set; }
-        public List<Jugador> JugadoresPartidoList { get; set; }  
+        public List<Jugador> JugadoresPartidoList { get; set; }
+
+
+        public string[]  CalificacionesArray { get; set; }  
     }
 }

@@ -79,11 +79,11 @@ namespace TPM.Models
         public DatosGeneralesJugador DatosGenerales { get; set; }
 
         public string NombreApellido { get; set; }
-        public string NumeroCamiseta { get; set; }
 
         public int NumeroSuplentes { get; set; }
 
         //Datos jugador por partido
+        public string NumeroCamiseta { get; set; }
         public int MinutosJugados { get; set; }
         public string MinutosJugadosString { get; set; }
         public int Calificacion { get; set; }

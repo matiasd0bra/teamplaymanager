@@ -1,11 +1,11 @@
 ﻿@using System.Web.Mvc
 @using System.Web.Mvc.Html
 @model TPM.Models.Partido
-
+@using System.Web.Helpers
 @{
     ViewBag.Title = "DatosPartido";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    WebGrid gridDatosJugadores = new WebGrid(Model.DatosJugadorPartidoList, rowsPerPage: 10);
+    WebGrid gridDatosJugadores = new WebGrid(Model.JugadoresPartidoList, rowsPerPage: 17, ajaxUpdateContainerId: "grid");
 }
 
 <div class="panel panel-primary">
@@ -62,43 +62,54 @@
                             <input type="text" id="GolesPropios" name="GolesPropios" value="@Model.GolesPropios"/>
                         }
                     </p>
-                </div>
-                <div class="row">
-                    
-                    @gridJugadores.GetHtml(
-                              fillEmptyRows: false,
-                              alternatingRowStyle: "fila-alternativa",
-                              headerStyle: "encabezado-grid",
-                              footerStyle: "pie-grid",
-                              mode: WebGridPagerModes.All,
-                              firstText: "<< Primera",
-                              previousText: "< Anterior",
-                              nextText: "Siguiente >",
-                              lastText: "Última >>",
-                              tableStyle: "table table-striped",
+                </div> 
+               @* <div>
+                    @foreach (var item in Model.JugadoresPartidoList)
+                    {
+                        <div>
+                            <label>@item.NombreApellido</label>
+                            <input type="text" name="CalificacionString" value="@item.CalificacionString"/>
+                        </div>
+                     }
+                </div>  *@      
 
-                              columns: new[]
-                              {
-                                  gridJugadores.Column("Nombre"),
-                                  gridJugadores.Column("Apellido"),
-                                  gridJugadores.Column("Categoria"),
-                                  gridJugadores.Column("Posicion"),
-                                  gridJugadores.Column("",
-                                      header: "Acciones",
-                                      format: @<text>
-                                                   <input type="button" value="Titular" id=@item.Id onClick=" ConvocarJugadorTitular(@item.Id) " class="btn btn-success"/>
-                                                   <input type="button" value="Suplente" id=@item.Id onClick=" ConvocarJugadorSuplente(@item.Id) " class="btn btn-danger"/>
-                                               </text>
-                                      )
-                              })
-                    }
-                </div>
+                <div id="grid">
+                        @gridDatosJugadores.GetHtml(
+                            fillEmptyRows: false,
+                            alternatingRowStyle: "fila-alternativa",
+                            headerStyle: "encabezado-grid",
+                            footerStyle: "pie-grid",
+                            mode: WebGridPagerModes.All,
+                            firstText: "<< Primera",
+                            previousText: "< Anterior",
+                            nextText: "Siguiente >",
+                            lastText: "Última >>",
+                            tableStyle: "table table-striped",
 
+                        
+                            columns: new[]
+                            {
+                                gridDatosJugadores.Column("NumeroCamiseta"),
+                                gridDatosJugadores.Column("Nombre"),
+                                gridDatosJugadores.Column("Apellido"),
+                                
+                                gridDatosJugadores.Column("CambioString","Cambio"),
+                                gridDatosJugadores.Column("GolString","Goles"),
+                                gridDatosJugadores.Column("CalificacionString","CalificacionString", a=>MvcHtmlString.Create(String.Format("<input type='text' id='CalificacionString{0}' value='{0}' />", ""))),
+                                gridDatosJugadores.Column("MinSegundaAmarilla","Segunda Amarilla", a=>MvcHtmlString.Create(String.Format("<input type='text' id='EmpID_{0}' value='{0}' />", ""))),
+                                gridDatosJugadores.Column("MinRojaString","Roja", a=>MvcHtmlString.Create(String.Format("<input type='text' id='EmpID_{0}' value='{0}' />", ""))),
+                                gridDatosJugadores.Column("Observaciones","Observaciones", a=>MvcHtmlString.Create(String.Format("<input type='text' id='EmpID_{0}' value='{0}' />", "")))       
+                            })
+                    </div>             
 
-                
+                <input class="btn btn-primary" name="accion" type="submit" value="Guardar" />
 
             </fieldset>
-           
         }
     </div>
 </div>
+
+
+@*@<text>
+                                  <input type="text" name="@Model.JugadoresPartidoList[item]"/>
+                                        </text>)*@
