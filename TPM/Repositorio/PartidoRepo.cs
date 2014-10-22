@@ -63,5 +63,31 @@ namespace TPM.Repositorio
 
             return equipoList;
         }
+
+        public static void CargarDatosPartidoInsert(Partido partido)
+        {
+            //Casteamos los String a Int
+            partido.Duracion = partido.DuracionString == null ? 0 : Int32.Parse(partido.DuracionString);
+            partido.GolesPropios = partido.GolesPropiosString == null ? 0 : Int32.Parse(partido.GolesPropiosString);
+            partido.GolesRival = partido.GolesRivalString == null ? 0 : Int32.Parse(partido.GolesRivalString);
+
+            foreach (var item in partido.JugadoresPartidoList)
+            {
+                item.MinutosJugados = item.MinutosJugadosString == null ? 0 : Int32.Parse(item.MinutosJugadosString);
+                item.Calificacion = item.CalificacionString == null ? 0 : Int32.Parse(item.CalificacionString);
+                item.Cambio = item.CambioString == null ? 0 : Int32.Parse(item.CambioString);
+                item.Gol = item.GolString == null ? 0 : Int32.Parse(item.GolString);
+                item.MinPrimeraAmarilla = item.MinPrimeraAmarillaString == null ? 0 : Int32.Parse(item.MinPrimeraAmarillaString);
+                item.MinSegundaAmarilla = item.MinSegundaAmarillaString == null ? 0 : Int32.Parse(item.MinSegundaAmarillaString);
+                item.MinRoja = item.MinRojaString == null ? 0 : Int32.Parse(item.MinRojaString);
+                if (item.Observaciones == null) item.Observaciones = "";
+            }
+
+            //    TODO EN EL MISMO METODO
+            //1ero Tabla Partidos
+            //2do  Tabla JugadoresPorPartido
+            //3ero Tabla GolesPorJugadorPorPartido
+            PartidoDAL.DatosPartidoInsert(partido);
+        }
     }
 }

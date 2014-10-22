@@ -48,8 +48,11 @@ namespace TPM.Models
         public string Cancha { get; set; }
 
         public int Duracion { get; set; }
+        public string DuracionString { get; set; }
         public int GolesPropios { get; set; }
+        public string GolesPropiosString { get; set; }
         public int GolesRival { get; set; }
+        public string GolesRivalString { get; set; }
 
         public List<Temporada> TemporadasList { get; set; }
         public List<Equipo> EquiposList { get; set; }
@@ -62,7 +65,6 @@ namespace TPM.Models
         public string CategoriasString { get; set; }
         public List<Jugador> JugadoresPartidoList { get; set; }
 
-
-        public string[]  CalificacionesArray { get; set; }  
+        public List<Gol> GolesPartidoList { get; set; }
     }
 }

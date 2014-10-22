@@ -191,6 +191,7 @@
     <Compile Include="Models\Division.cs" />
     <Compile Include="Models\Equipo.cs" />
     <Compile Include="Models\Especialidad.cs" />
+    <Compile Include="Models\Gol.cs" />
     <Compile Include="Models\Jugador.cs" />
     <Compile Include="Models\Liga.cs" />
     <Compile Include="Models\Localidad.cs" />
