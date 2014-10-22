@@ -138,6 +138,7 @@ namespace TPM.Controllers
             partido.Hora = partido.FechaHoraInicio.ToShortTimeString();
             partido.CategoriaList = CategoriaRepo.CategoriaByEquipo(partido.EquipoId);
             partido.JugadoresPartidoList = JugadoresRepo.JugadoresByPartido(id);
+            partido.DuracionString = "90";
 
             foreach (var item in partido.CategoriaList)
             {
@@ -158,6 +159,7 @@ namespace TPM.Controllers
         [HttpPost]
         public ActionResult DatosPartido(Partido partido)
         {
+            PartidoRepo.CargarDatosPartidoInsert(partido);
             return RedirectToAction("Index");
         }
 

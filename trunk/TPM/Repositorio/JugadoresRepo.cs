@@ -362,10 +362,3 @@ namespace TPM.Repositorio
         }
     }
 }
-
-    //@Nombre nvarchar(50)
-    //,@Apellido nvarchar(50)
-    //,@TipoDocId int
-    //,@NumeroDoc int
-    //,@Domicilio nvarchar(50)
-    //,@LocalidadId int

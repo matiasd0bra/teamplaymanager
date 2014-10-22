@@ -79,5 +79,71 @@ namespace TPM.DAL
             }
             return dt;
         }
+
+        public static void DatosPartidoInsert(Partido partido)
+        {
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
+            {
+
+                //Guardamos los datos del partido
+                using (SqlCommand cmd = new SqlCommand("PartidoDatosInsert", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@PartidoId", SqlDbType.Int).Value = partido.PartidoId;
+                    cmd.Parameters.Add("@Duracion", SqlDbType.Int).Value = partido.Duracion;
+                    cmd.Parameters.Add("@GolesPropios", SqlDbType.Int).Value = partido.GolesPropios;
+                    cmd.Parameters.Add("@GolesRival", SqlDbType.Int).Value = partido.GolesRival;
+                    
+                    con.Open();
+                    cmd.ExecuteScalar();
+                }
+
+                //Guardamos los datos de cada jugador
+                foreach (var item in partido.JugadoresPartidoList)
+                {
+                    using (SqlCommand cmd = new SqlCommand("JugadorPorPartidoUpdate", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.Add("@PartidoId", SqlDbType.Int).Value = partido.PartidoId;
+                        cmd.Parameters.Add("@JugadorId", SqlDbType.Int).Value = item.Id;
+                        cmd.Parameters.Add("@NumeroCamiseta", SqlDbType.Int).Value = item.NumeroCamiseta;
+                        cmd.Parameters.Add("@MinutosJugados", SqlDbType.Int).Value = item.MinutosJugados;
+                        cmd.Parameters.Add("@MinPrimeraAmarilla", SqlDbType.Int).Value = item.MinPrimeraAmarilla;
+                        cmd.Parameters.Add("@MinSegundaAmarilla", SqlDbType.Int).Value = item.MinSegundaAmarilla;
+                        cmd.Parameters.Add("@MinRoja", SqlDbType.Int).Value = item.MinRoja;
+                        cmd.Parameters.Add("@Observaciones", SqlDbType.VarChar).Value = item.Observaciones;
+                        cmd.Parameters.Add("@Calificacion", SqlDbType.Int).Value = item.Calificacion;
+                        cmd.Parameters.Add("@Cambio", SqlDbType.Int).Value = item.Cambio;
+
+                        con.Open();
+                        cmd.ExecuteScalar();
+                    }
+                }
+                //Guardamos los Goles por Jugador Por Partido
+                foreach (var item in partido.JugadoresPartidoList)
+                {
+                    using (SqlCommand cmd = new SqlCommand("GolesPorJugadorPorPartidoInsert", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.Add("@PartidoId", SqlDbType.Int).Value = partido.PartidoId;
+                        cmd.Parameters.Add("@JugadorId", SqlDbType.Int).Value = item.Id;
+                        cmd.Parameters.Add("@MinutosGol", SqlDbType.Int).Value = item.MinutosJugados;
+                        cmd.Parameters.Add("@MinPrimeraAmarilla", SqlDbType.Int).Value = item.MinPrimeraAmarilla;
+                        cmd.Parameters.Add("@MinSegundaAmarilla", SqlDbType.Int).Value = item.MinSegundaAmarilla;
+                        cmd.Parameters.Add("@MinRoja", SqlDbType.Int).Value = item.MinRoja;
+                        cmd.Parameters.Add("@Observaciones", SqlDbType.VarChar).Value = item.Observaciones;
+                        cmd.Parameters.Add("@Calificacion", SqlDbType.Int).Value = item.Calificacion;
+                        cmd.Parameters.Add("@Cambio", SqlDbType.Int).Value = item.Cambio;
+
+                        con.Open();
+                        cmd.ExecuteScalar();
+                    }
+                }
+
+            }
+        }
     }
 }
