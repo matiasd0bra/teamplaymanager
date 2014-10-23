@@ -123,7 +123,9 @@ namespace TPM.Controllers
             jugador.TipoDocLista = TipoDocRepo.TipoDocGetAllRepo();
             jugador.LocalidadLista = LocalidadesRepo.LocalidadesGetAllRepo();
             jugador.FechaNacFormateada = jugador.FechaNac.ToShortDateString();
-            
+            jugador.CoberturaMedica.NroObraSocialString = (jugador.CoberturaMedica.NroObraSocialString == "0") ? null : jugador.CoberturaMedica.NroObraSocialString;
+            jugador.CoberturaMedica.NroServicioEmergenciaString = (jugador.CoberturaMedica.NroServicioEmergenciaString == "0") ? null : jugador.CoberturaMedica.NroServicioEmergenciaString;
+            jugador.DatosGenerales.HermanosString = (jugador.DatosGenerales.HermanosString == "0") ? null : jugador.DatosGenerales.HermanosString;
 
             return View(jugador);
         }
@@ -147,17 +149,26 @@ namespace TPM.Controllers
                         file.SaveAs(physicalPath);
 
                         jugador.ImagenPath = ImageName;
-
+                                               
                         jugador.FechaNac = DateTime.Parse(jugador.FechaNacFormateada);
+                        jugador.Categoria = CategoriaRepo.CategoriaIdByAño(jugador.FechaNac.Year);
                         jugador.Peso = jugador.PesoString == null ? 0 : Int32.Parse(jugador.PesoString);
                         jugador.Estatura = jugador.EstaturaString == null ? 0 : Int32.Parse(jugador.EstaturaString);
+                        jugador.CoberturaMedica.NroObraSocial = jugador.CoberturaMedica.NroObraSocialString == null ? 0 : Int32.Parse(jugador.CoberturaMedica.NroObraSocialString);
+                        jugador.CoberturaMedica.NroServicioEmergencia = jugador.CoberturaMedica.NroServicioEmergenciaString == null ? 0 : Int32.Parse(jugador.CoberturaMedica.NroServicioEmergenciaString);
+                        jugador.DatosGenerales.Hermanos = jugador.DatosGenerales.HermanosString == null ? 0 : Int32.Parse(jugador.DatosGenerales.HermanosString);
                         JugadoresRepo.JugadorUpdateFoto(jugador);
                     }
                     else
-                    {
+                    {                       
+                        
                         jugador.FechaNac = DateTime.Parse(jugador.FechaNacFormateada);
+                        jugador.Categoria = CategoriaRepo.CategoriaIdByAño(jugador.FechaNac.Year);
                         jugador.Peso = jugador.PesoString == null ? 0 : Int32.Parse(jugador.PesoString);
                         jugador.Estatura = jugador.EstaturaString == null ? 0 : Int32.Parse(jugador.EstaturaString);
+                        jugador.CoberturaMedica.NroObraSocial = jugador.CoberturaMedica.NroObraSocialString == null ? 0 : Int32.Parse(jugador.CoberturaMedica.NroObraSocialString);
+                        jugador.CoberturaMedica.NroServicioEmergencia = jugador.CoberturaMedica.NroServicioEmergenciaString == null ? 0 : Int32.Parse(jugador.CoberturaMedica.NroServicioEmergenciaString);
+                        jugador.DatosGenerales.Hermanos = jugador.DatosGenerales.HermanosString == null ? 0 : Int32.Parse(jugador.DatosGenerales.HermanosString);
                         JugadoresRepo.JugadorUpdate(jugador);
                     }
                     return RedirectToAction("Index");
@@ -175,31 +186,21 @@ namespace TPM.Controllers
             }
         }
 
-        //
-        // GET: /Jugador/Delete/5
-
+      
         public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /Jugador/Delete/5
-
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
 
+                JugadoresRepo.JugadorDelete(id);
                 return RedirectToAction("Index");
             }
             catch
             {
                 return View();
             }
-        }
+        }        
+       
 
         public string GetJugadorPorId(int id)
         {

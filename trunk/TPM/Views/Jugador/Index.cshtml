@@ -12,11 +12,11 @@
         <div class="pull-right">
             <form name="formBuscador" id="formBuscador" method="POST">
                 <input type="text" name="parametroBuscar" id="parametroBuscar" placeholder="Buscar" class="buscarHeader" onchange="submit"/>
-            <a class="link-panel" href="/Jugador/Create">
-                <img src="~/Images/boton_nuevo.png" />
-                Nuevo Jugador
-            </a>
-                </form>
+                <a class="link-panel" href="/Jugador/Create">
+                    <img src="~/Images/boton_nuevo.png" />
+                    Nuevo Jugador
+                </a>
+            </form>
         </div>
   </div>
     <div class="panel-body">
@@ -41,11 +41,11 @@
                  gridJugadores.Column(
                      header: "Nombre",
                      format: @<text>
-                                  <a id="@item.id" class="" rel="popover" data-content="" title="Jugador" onmouseup='mostrarImg(@item.id, "@item.ImagenPath")'>@item.Nombre</a>
+                                  <a id="@item.id" rel="popover" onclick='mostrarImg(@item.id, "@item.ImagenPath")' style="cursor:pointer">@item.Nombre</a>
                               </text>
                  ),
                  //gridJugadores.Column("Nombre"),
-                 gridJugadores.Column("Apellido", ),
+                 gridJugadores.Column("Apellido"),
                  gridJugadores.Column("NumeroDoc", "N° de documento"),
                  gridJugadores.Column("FechaNacFormateada",
                      header: "Fecha de nacimiento"
@@ -55,7 +55,7 @@
                      format: @<text>
                                   <a href="/Jugador/Edit/@item.Id"><img title="Editar" src="~/Images/boton_editar.png" /></a>
                                   <a href="/Jugador/Details/@item.Id"><img title="Detalle" src="~/Images/boton_ver.png" /></a>
-                                  <a href="/Jugador/Delete/@item.Id"><img title="Eliminar" src="~/Images/boton_borrar.png" /></a>
+                                  <a style="cursor:pointer" onclick="eliminarJugador(@item.Id)"><img title="Eliminar" src="~/Images/boton_borrar.png" /></a>
                               </text>
                      )
              })
@@ -67,15 +67,15 @@
     </div>
 </div>
 <script>
-    //$(document).ready(function () {
     function mostrarImg(id, imagen) {
         var image = '<img width="200px" src="/Images/Jugadores/' + imagen + '" />';
-            $('#'+id).popover({ placement: 'bottom', content: image, html: true });
-        }
-    //});
+        $('#' + id).popover({ placement: 'right', content: image, html: true });
+    }
 
-    //$(document).ready(function () {
-    //    var image = '<img width="200px" src="/Images/Jugadores/DefaultImage.jpg" />';
-    //    $('#popover').popover({ placement: 'bottom', content: image, html: true });
-    //});
+    function eliminarJugador(IdJugador) {
+        var r = confirm("¿Seguro desea eliminar este jugador?");
+        if (r == true) {
+            location.href = "/Jugador/Delete/"+IdJugador;
+        }
+    }
 </script>

@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TPM.Models;
 
 namespace TPM.DAL
 {
@@ -17,7 +18,7 @@ namespace TPM.DAL
         }
 
 
-        public DataTable PersonalEspGetAll()
+        public DataTable PersonalEspGetAll(string parametroBuscar)
         {
 
             var dt = new DataTable();
@@ -30,8 +31,11 @@ namespace TPM.DAL
 
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    //cmd.Parameters.Add("@FirstName", SqlDbType.VarChar).Value = txtFirstName.Text;
-                    //cmd.Parameters.Add("@LastName", SqlDbType.VarChar).Value = txtLastName.Text;
+                    if (parametroBuscar == null)
+                    {
+                        parametroBuscar = "";
+                    }
+                    cmd.Parameters.Add("@ParametroBuscar", SqlDbType.VarChar).Value = parametroBuscar;
 
                     con.Open();
                     sqlDataReader = cmd.ExecuteReader();
@@ -63,7 +67,7 @@ namespace TPM.DAL
             return dt;
         }
 
-        public int PersonalEspInsert(string nombre, string apellido, int tipoDoc, string nroDoc, string dom, int loc, int especialidad)
+        public int PersonalEspInsert(PersonalEsp personalEsp)
         {
             int ret = 0;
             using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
@@ -73,13 +77,19 @@ namespace TPM.DAL
 
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = nombre;
-                    cmd.Parameters.Add("@Apellido", SqlDbType.VarChar).Value = apellido;
-                    cmd.Parameters.Add("@TipoDocId", SqlDbType.Int).Value = tipoDoc;
-                    cmd.Parameters.Add("@NumeroDoc", SqlDbType.VarChar).Value = nroDoc;
-                    cmd.Parameters.Add("@Domicilio", SqlDbType.VarChar).Value = dom;
-                    cmd.Parameters.Add("@LocalidadId", SqlDbType.Int).Value = loc;
-                    cmd.Parameters.Add("@EspecialidadId", SqlDbType.Int).Value = especialidad;
+                    if (personalEsp.Telefono == null) personalEsp.Telefono = "";
+                    if (personalEsp.Email == null) personalEsp.Email = "";
+                    if (personalEsp.Domicilio == null) personalEsp.Domicilio = "";
+
+                    cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = personalEsp.Nombre;
+                    cmd.Parameters.Add("@Apellido", SqlDbType.VarChar).Value = personalEsp.Apellido;
+                    cmd.Parameters.Add("@TipoDocId", SqlDbType.Int).Value = personalEsp.TipoDocId;
+                    cmd.Parameters.Add("@NumeroDoc", SqlDbType.VarChar).Value = personalEsp.NumeroDoc;
+                    cmd.Parameters.Add("@Domicilio", SqlDbType.VarChar).Value = personalEsp.Domicilio;
+                    cmd.Parameters.Add("@LocalidadId", SqlDbType.Int).Value = personalEsp.LocalidadId;
+                    cmd.Parameters.Add("@EspecialidadId", SqlDbType.Int).Value = personalEsp.EspecialidadId;
+                    cmd.Parameters.Add("@Telefono", SqlDbType.VarChar).Value = personalEsp.Telefono;
+                    cmd.Parameters.Add("@Email", SqlDbType.VarChar).Value = personalEsp.Email;
 
                     con.Open();
                     ret = int.Parse(cmd.ExecuteScalar().ToString());
@@ -127,7 +137,7 @@ namespace TPM.DAL
             return ret;
         }
 
-        public int PersonalEspUpdate(int id, string nombre, string apellido, int tipoDoc, string nroDoc, string dom, int loc)
+        public int PersonalEspUpdate(PersonalEsp personalEsp)
         {
             int ret;
             using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
@@ -137,14 +147,16 @@ namespace TPM.DAL
 
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@Id", SqlDbType.VarChar).Value = id;
-                    cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = nombre;
-                    cmd.Parameters.Add("@Apellido", SqlDbType.VarChar).Value = apellido;
-                    cmd.Parameters.Add("@TipoDocId", SqlDbType.VarChar).Value = tipoDoc;
-                    cmd.Parameters.Add("@NumeroDoc", SqlDbType.VarChar).Value = nroDoc;
-                    cmd.Parameters.Add("@Domicilio", SqlDbType.VarChar).Value = dom;
-                    cmd.Parameters.Add("@LocalidadId", SqlDbType.VarChar).Value = loc;
-
+                    cmd.Parameters.Add("@Id", SqlDbType.Int).Value = personalEsp.Id;
+                    cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = personalEsp.Nombre;
+                    cmd.Parameters.Add("@Apellido", SqlDbType.VarChar).Value = personalEsp.Apellido;
+                    cmd.Parameters.Add("@TipoDocId", SqlDbType.Int).Value = personalEsp.TipoDocId;
+                    cmd.Parameters.Add("@NumeroDoc", SqlDbType.VarChar).Value = personalEsp.NumeroDoc;
+                    cmd.Parameters.Add("@Domicilio", SqlDbType.VarChar).Value = personalEsp.Domicilio;
+                    cmd.Parameters.Add("@LocalidadId", SqlDbType.Int).Value = personalEsp.LocalidadId;
+                    cmd.Parameters.Add("@EspecialidadId", SqlDbType.Int).Value = personalEsp.EspecialidadId;
+                    cmd.Parameters.Add("@Telefono", SqlDbType.VarChar).Value = personalEsp.Telefono;
+                    cmd.Parameters.Add("@Email", SqlDbType.VarChar).Value = personalEsp.Email;
 
                     con.Open();
                     ret = cmd.ExecuteNonQuery();
@@ -152,6 +164,26 @@ namespace TPM.DAL
             }
             return ret;
         }
+
+        public int PersonalEspDelete(int id)
+        {
+            int ret;
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
+            {
+                using (SqlCommand cmd = new SqlCommand("PersonalEspDelete", con))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@Id", SqlDbType.Int).Value = id;                    
+
+                    con.Open();
+                    ret = cmd.ExecuteNonQuery();
+                }
+            }
+            return ret;
+        }
+
         public DataTable PersonalSearch(int idEquipo, string nombre, string apellido)
         {
 

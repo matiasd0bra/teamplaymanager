@@ -11,10 +11,10 @@ namespace TPM.Repositorio
 {
     public class PersonalEspRepo
     {
-        public static List<PersonalEsp> PersonalEspesGetAllRepo()
+        public static List<PersonalEsp> PersonalEspesGetAllRepo(string parametroBuscar)
         {
             PersonalEspDAL personalEspesDal = new PersonalEspDAL();
-            DataTable dt = personalEspesDal.PersonalEspGetAll();
+            DataTable dt = personalEspesDal.PersonalEspGetAll(parametroBuscar);
 
             PersonalEsp personalEsp;
             List<PersonalEsp> personalEspList = new List<PersonalEsp>();
@@ -55,8 +55,12 @@ namespace TPM.Repositorio
             personalEsp.NumeroDoc = dt.Rows[0]["NumeroDoc"].ToString();
             personalEsp.Domicilio = dt.Rows[0]["Domicilio"].ToString();
             personalEsp.LocalidadId = int.Parse(dt.Rows[0]["LocalidadId"].ToString());
+            personalEsp.EspecialidadId = int.Parse(dt.Rows[0]["EspecialidadId"].ToString());
             personalEsp.LocalidadNombre = dt.Rows[0]["NombreLocalidad"].ToString();
-
+            personalEsp.EspecialidadNombre = dt.Rows[0]["EspecialidadNombre"].ToString();
+            personalEsp.Telefono = dt.Rows[0]["Telefono"].ToString();
+            personalEsp.Email = dt.Rows[0]["Email"].ToString();
+            
             return personalEsp;
         }
 
@@ -64,8 +68,7 @@ namespace TPM.Repositorio
         public static int PersonalEspInsert(PersonalEsp PersonalEsp)
         {
             PersonalEspDAL PersonalEspesDal = new PersonalEspDAL();
-            return PersonalEspesDal.PersonalEspInsert(PersonalEsp.Nombre, PersonalEsp.Apellido, PersonalEsp.TipoDocId, PersonalEsp.NumeroDoc,
-                PersonalEsp.Domicilio, PersonalEsp.LocalidadId, PersonalEsp.EspecialidadId);
+            return PersonalEspesDal.PersonalEspInsert(PersonalEsp);
 
 
         }
@@ -84,9 +87,13 @@ namespace TPM.Repositorio
         public static int PersonalEspUpdate(PersonalEsp PersonalEsp)
         {
             PersonalEspDAL PersonalEspesDal = new PersonalEspDAL();
-            return PersonalEspesDal.PersonalEspUpdate(PersonalEsp.Id, PersonalEsp.Nombre, PersonalEsp.Apellido, PersonalEsp.TipoDocId,
-                PersonalEsp.NumeroDoc,
-                PersonalEsp.Domicilio, PersonalEsp.LocalidadId);
+            return PersonalEspesDal.PersonalEspUpdate(PersonalEsp);
+        }
+
+        public static int PersonalEspDelete(int id)
+        {
+            PersonalEspDAL PersonalEspesDal = new PersonalEspDAL();
+            return PersonalEspesDal.PersonalEspDelete(id);
         }
 
         public static List<PersonalEsp> PersonalSearch(int idEquipo, string nombre, string apellido)

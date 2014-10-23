@@ -31,5 +31,7 @@ namespace TPM.Models
         public List<Especialidad> EspecialidadLista { get; set; }
         public int EspecialidadId { get; set; }
         public string EspecialidadNombre { get; set; }
+        public string Telefono { get; set; }
+        public string Email { get; set; }
     }
 }

@@ -79,7 +79,7 @@ namespace TPM.Repositorio
             cobertura.NroServicioEmergenciaString = dt.Rows[0]["NroServicioEmergencia"].ToString();
             cobertura.Hospital = dt.Rows[0]["Hospital"].ToString();
             cobertura.Direccion = dt.Rows[0]["Direccion"].ToString();
-            cobertura.Telefono = dt.Rows[0]["Telefono"].ToString();
+            cobertura.Telefono = dt.Rows[0]["telefonoCM"].ToString();
             cobertura.Medicamento = dt.Rows[0]["Medicamento"].ToString();
             cobertura.Alergico = dt.Rows[0]["Alergico"].ToString();
             cobertura.Observaciones = dt.Rows[0]["Observaciones"].ToString();
@@ -95,8 +95,7 @@ namespace TPM.Repositorio
             datosGenerales.TrabajoPadre = dt.Rows[0]["TrabajoPadre"].ToString();
             datosGenerales.DireccionTrabajoPadre = dt.Rows[0]["DireccionTrabajoPadre"].ToString();
             datosGenerales.TelefonoTrabajoPadre = dt.Rows[0]["TelefonoTrabajoPadre"].ToString();
-            datosGenerales.PadresConviven = dt.Rows[0]["TelefonoTrabajoPadre"].ToString();
-            datosGenerales.TelefonoTrabajoPadre = dt.Rows[0]["PadresConviven"].ToString();
+            datosGenerales.PadresConviven = dt.Rows[0]["PadresConviven"].ToString();
             datosGenerales.HermanosString = dt.Rows[0]["Hermanos"].ToString();
             datosGenerales.NombreResponsable = dt.Rows[0]["NombreResponsable"].ToString();
             datosGenerales.OcupacionResponsable = dt.Rows[0]["OcupacionResponsable"].ToString();
@@ -150,6 +149,12 @@ namespace TPM.Repositorio
             jugadoresDal.CoberturaMedicaUpdate(jugador);
             jugadoresDal.DatosGeneralesJugadorUpdate(jugador);
             return  jugadoresDal.JugadorUpdateFoto(jugador);
+        }
+
+        public static int JugadorDelete(int id)
+        {
+            JugadoresDAL jugadoresDal = new JugadoresDAL();
+            return jugadoresDal.JugadorDelete(id);
         }
 
         public static List<Jugador> JugadoresSearch(int idEquipo, string nombre, string apellido)

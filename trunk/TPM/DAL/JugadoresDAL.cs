@@ -263,17 +263,24 @@ namespace TPM.DAL
 
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@Id", SqlDbType.VarChar).Value = jugador.Id;
+                    if (jugador.Posicion == null) jugador.Posicion = "";
+                    if (jugador.Colegio == null) jugador.Colegio = "";
+                    if (jugador.CiudadaniaEuropea == null) jugador.CiudadaniaEuropea = "";
+                    if (jugador.Representante == null) jugador.Representante = "";
+
+                    cmd.Parameters.Add("@Id", SqlDbType.Int).Value = jugador.Id;
                     cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = jugador.Nombre;
                     cmd.Parameters.Add("@Apellido", SqlDbType.VarChar).Value = jugador.Apellido;
-                    cmd.Parameters.Add("@TipoDocId", SqlDbType.VarChar).Value = jugador.TipoDocId;
+                    cmd.Parameters.Add("@TipoDocId", SqlDbType.Int).Value = jugador.TipoDocId;
                     cmd.Parameters.Add("@NumeroDoc", SqlDbType.VarChar).Value = jugador.NumeroDoc;
-                    cmd.Parameters.Add("@FechaNac", SqlDbType.DateTime).Value = jugador.FechaNacFormateada;
                     cmd.Parameters.Add("@Domicilio", SqlDbType.VarChar).Value = jugador.Domicilio;
-                    cmd.Parameters.Add("@LocalidadId", SqlDbType.Int).Value = jugador.LocalidadId;
-                    cmd.Parameters.Add("@Apodo", SqlDbType.VarChar).Value = jugador.Telefono;
+                    cmd.Parameters.Add("@FechaNac", SqlDbType.DateTime).Value = jugador.FechaNac;
+                    cmd.Parameters.Add("@CategoriaId", SqlDbType.Int).Value = jugador.Categoria;
+                    cmd.Parameters.Add("@Apodo", SqlDbType.VarChar).Value = jugador.Apodo;
+                    cmd.Parameters.Add("@Telefono", SqlDbType.VarChar).Value = jugador.Telefono;
                     cmd.Parameters.Add("@Email", SqlDbType.VarChar).Value = jugador.Email;
                     cmd.Parameters.Add("@Peso", SqlDbType.Int).Value = jugador.Peso;
+                    cmd.Parameters.Add("@LocalidadId", SqlDbType.Int).Value = jugador.LocalidadId;
                     cmd.Parameters.Add("@Estatura", SqlDbType.Int).Value = jugador.Estatura;
                     cmd.Parameters.Add("@Posicion", SqlDbType.VarChar).Value = jugador.Posicion;
                     cmd.Parameters.Add("@PiernaHabil", SqlDbType.VarChar).Value = jugador.PiernaHabil;
@@ -298,23 +305,26 @@ namespace TPM.DAL
 
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@Id", SqlDbType.VarChar).Value = jugador.Id;
-                    cmd.Parameters.Add("@Nombre", SqlDbType.VarChar).Value = jugador.Nombre;
-                    cmd.Parameters.Add("@Apellido", SqlDbType.VarChar).Value = jugador.Apellido;
-                    cmd.Parameters.Add("@TipoDocId", SqlDbType.VarChar).Value = jugador.TipoDocId;
-                    cmd.Parameters.Add("@NumeroDoc", SqlDbType.VarChar).Value = jugador.NumeroDoc;
-                    cmd.Parameters.Add("@FechaNac", SqlDbType.DateTime).Value = jugador.FechaNacFormateada;
-                    cmd.Parameters.Add("@Domicilio", SqlDbType.VarChar).Value = jugador.Domicilio;
-                    cmd.Parameters.Add("@LocalidadId", SqlDbType.Int).Value = jugador.LocalidadId;
-                    cmd.Parameters.Add("@Apodo", SqlDbType.VarChar).Value = jugador.Telefono;
-                    cmd.Parameters.Add("@Email", SqlDbType.VarChar).Value = jugador.Email;
-                    cmd.Parameters.Add("@Peso", SqlDbType.Int).Value = jugador.Peso;
-                    cmd.Parameters.Add("@Estatura", SqlDbType.Int).Value = jugador.Estatura;
-                    cmd.Parameters.Add("@Posicion", SqlDbType.VarChar).Value = jugador.Posicion;
-                    cmd.Parameters.Add("@PiernaHabil", SqlDbType.VarChar).Value = jugador.PiernaHabil;
-                    cmd.Parameters.Add("@Colegio", SqlDbType.VarChar).Value = jugador.Colegio;
-                    cmd.Parameters.Add("@Ciudadania", SqlDbType.Char).Value = jugador.CiudadaniaEuropea;
-                    cmd.Parameters.Add("@Reperesentante", SqlDbType.Char).Value = jugador.Representante;
+                    if (jugador.CoberturaMedica.ObraSocial == null) jugador.CoberturaMedica.ObraSocial = "";
+                    if (jugador.CoberturaMedica.ServicioEmergencia == null) jugador.CoberturaMedica.ServicioEmergencia = "";
+                    if (jugador.CoberturaMedica.Telefono == null) jugador.CoberturaMedica.Telefono = "";
+                    if (jugador.CoberturaMedica.Hospital == null) jugador.CoberturaMedica.Hospital = "";
+                    if (jugador.CoberturaMedica.Direccion == null) jugador.CoberturaMedica.Direccion = "";
+                    if (jugador.CoberturaMedica.Medicamento == null) jugador.CoberturaMedica.Medicamento = "";
+                    if (jugador.CoberturaMedica.Alergico == null) jugador.CoberturaMedica.Alergico = "";
+                    if (jugador.CoberturaMedica.Observaciones == null) jugador.CoberturaMedica.Observaciones = "";
+
+                    cmd.Parameters.Add("@Id", SqlDbType.Int).Value = jugador.Id;
+                    cmd.Parameters.Add("@ObraSocial", SqlDbType.VarChar).Value = jugador.CoberturaMedica.ObraSocial;
+                    cmd.Parameters.Add("@NroObraSocial", SqlDbType.Int).Value = jugador.CoberturaMedica.NroObraSocial;
+                    cmd.Parameters.Add("@ServicioEmergencia", SqlDbType.VarChar).Value = jugador.CoberturaMedica.ServicioEmergencia;
+                    cmd.Parameters.Add("@NumeroServicio", SqlDbType.Int).Value = jugador.CoberturaMedica.NroServicioEmergencia;
+                    cmd.Parameters.Add("@Telefono", SqlDbType.VarChar).Value = jugador.CoberturaMedica.Telefono;
+                    cmd.Parameters.Add("@Hospital", SqlDbType.VarChar).Value = jugador.CoberturaMedica.Hospital;
+                    cmd.Parameters.Add("@Direccion", SqlDbType.VarChar).Value = jugador.CoberturaMedica.Direccion;
+                    cmd.Parameters.Add("@Medicamento", SqlDbType.VarChar).Value = jugador.CoberturaMedica.Medicamento;
+                    cmd.Parameters.Add("@Alergico", SqlDbType.VarChar).Value = jugador.CoberturaMedica.Alergico;
+                    cmd.Parameters.Add("@Observaciones", SqlDbType.VarChar).Value = jugador.CoberturaMedica.Observaciones;
 
                     con.Open();
                     ret = cmd.ExecuteNonQuery();
@@ -333,26 +343,46 @@ namespace TPM.DAL
 
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@Id", SqlDbType.VarChar).Value = jugador.Id;
+                    if (jugador.DatosGenerales.JuegaOtroEquipo == null) jugador.DatosGenerales.JuegaOtroEquipo = "";
+                    if (jugador.DatosGenerales.QuieLoTrajo == null) jugador.DatosGenerales.QuieLoTrajo = "";
+                    if (jugador.DatosGenerales.NombreMadre == null) jugador.DatosGenerales.NombreMadre = "";
+                    if (jugador.DatosGenerales.TelMadre == null) jugador.DatosGenerales.TelMadre = "";
+                    if (jugador.DatosGenerales.OcupacionMadre == null) jugador.DatosGenerales.OcupacionMadre = "";
+                    if (jugador.DatosGenerales.TrabajoMadre == null) jugador.DatosGenerales.TrabajoMadre = "";
+                    if (jugador.DatosGenerales.DireccionTrabajoMadre == null) jugador.DatosGenerales.DireccionTrabajoMadre = "";
+                    if (jugador.DatosGenerales.TelefonoTrabajoMadre == null) jugador.DatosGenerales.TelefonoTrabajoMadre = "";
+                    if (jugador.DatosGenerales.NombrePadre == null) jugador.DatosGenerales.NombrePadre = "";
+                    if (jugador.DatosGenerales.TelPadre == null) jugador.DatosGenerales.TelPadre = "";
+                    if (jugador.DatosGenerales.OcupacionPadre == null) jugador.DatosGenerales.OcupacionPadre = "";
+                    if (jugador.DatosGenerales.TrabajoPadre == null) jugador.DatosGenerales.TrabajoPadre = "";
+                    if (jugador.DatosGenerales.DireccionTrabajoPadre == null) jugador.DatosGenerales.DireccionTrabajoPadre = "";
+                    if (jugador.DatosGenerales.TelefonoTrabajoPadre == null) jugador.DatosGenerales.TelefonoTrabajoPadre = "";
+                    if (jugador.DatosGenerales.PadresConviven == null) jugador.DatosGenerales.PadresConviven = "";
+                    if (jugador.DatosGenerales.NombreResponsable == null) jugador.DatosGenerales.NombreResponsable = "";
+                    if (jugador.DatosGenerales.OcupacionResponsable == null) jugador.DatosGenerales.OcupacionResponsable = "";
+                    if (jugador.DatosGenerales.ParentescoResponsable == null) jugador.DatosGenerales.ParentescoResponsable = "";
+                    if (jugador.DatosGenerales.Lesiones == null) jugador.DatosGenerales.Lesiones = "";
+
+                    cmd.Parameters.Add("@Id", SqlDbType.Int).Value = jugador.Id;
+                    cmd.Parameters.Add("@JuegaOtroLugar", SqlDbType.VarChar).Value = jugador.DatosGenerales.JuegaOtroEquipo;
+                    cmd.Parameters.Add("@QuienLoTrajo", SqlDbType.VarChar).Value = jugador.DatosGenerales.QuieLoTrajo;
                     cmd.Parameters.Add("@NombreMadre", SqlDbType.VarChar).Value = jugador.DatosGenerales.NombreMadre;
                     cmd.Parameters.Add("@TelMadre", SqlDbType.VarChar).Value = jugador.DatosGenerales.TelMadre;
                     cmd.Parameters.Add("@OcupacionMadre", SqlDbType.VarChar).Value = jugador.DatosGenerales.OcupacionMadre;
                     cmd.Parameters.Add("@TrabajoMadre", SqlDbType.VarChar).Value = jugador.DatosGenerales.TrabajoMadre;
-                    cmd.Parameters.Add("@DireccionTrabajoMadre", SqlDbType.DateTime).Value = jugador.DatosGenerales.DireccionTrabajoMadre;
+                    cmd.Parameters.Add("@DireccionTrabajoMadre", SqlDbType.VarChar).Value = jugador.DatosGenerales.DireccionTrabajoMadre;
                     cmd.Parameters.Add("@TelefonoTrabajoMadre", SqlDbType.VarChar).Value = jugador.DatosGenerales.TelefonoTrabajoMadre;
-                    cmd.Parameters.Add("@NombrePadre", SqlDbType.Int).Value = jugador.DatosGenerales.NombrePadre;
+                    cmd.Parameters.Add("@NombrePadre", SqlDbType.VarChar).Value = jugador.DatosGenerales.NombrePadre;
                     cmd.Parameters.Add("@TelPadre", SqlDbType.VarChar).Value = jugador.DatosGenerales.TelPadre;
                     cmd.Parameters.Add("@OcupacionPadre", SqlDbType.VarChar).Value = jugador.DatosGenerales.OcupacionPadre;
-                    cmd.Parameters.Add("@TrabajoPadre", SqlDbType.Int).Value = jugador.DatosGenerales.TrabajoPadre;
-                    cmd.Parameters.Add("@DireccionTrabajoPadre", SqlDbType.Int).Value = jugador.DatosGenerales.DireccionTrabajoPadre;
+                    cmd.Parameters.Add("@TrabajoPadre", SqlDbType.VarChar).Value = jugador.DatosGenerales.TrabajoPadre;
+                    cmd.Parameters.Add("@DireccionTrabajoPadre", SqlDbType.VarChar).Value = jugador.DatosGenerales.DireccionTrabajoPadre;
                     cmd.Parameters.Add("@TelefonoTrabajoPadre", SqlDbType.VarChar).Value = jugador.DatosGenerales.TelefonoTrabajoPadre;
                     cmd.Parameters.Add("@PadresConviven", SqlDbType.VarChar).Value = jugador.DatosGenerales.PadresConviven;
-                    cmd.Parameters.Add("@Hermanos", SqlDbType.VarChar).Value = jugador.DatosGenerales.Hermanos;
-                    cmd.Parameters.Add("@NombreResponsable", SqlDbType.Char).Value = jugador.DatosGenerales.NombreResponsable;
-                    cmd.Parameters.Add("@OcupacionResponsable", SqlDbType.Char).Value = jugador.DatosGenerales.OcupacionResponsable;
+                    cmd.Parameters.Add("@Hermanos", SqlDbType.Int).Value = jugador.DatosGenerales.Hermanos;
+                    cmd.Parameters.Add("@NombreResponsable", SqlDbType.VarChar).Value = jugador.DatosGenerales.NombreResponsable;
+                    cmd.Parameters.Add("@OcupacionResponsable", SqlDbType.VarChar).Value = jugador.DatosGenerales.OcupacionResponsable;
                     cmd.Parameters.Add("@ParentescoResponsable", SqlDbType.VarChar).Value = jugador.DatosGenerales.ParentescoResponsable;
-                    cmd.Parameters.Add("@JuegaOtroLugar", SqlDbType.VarChar).Value = jugador.DatosGenerales.JuegaOtroEquipo;
-                    cmd.Parameters.Add("@QuienLoTrajo", SqlDbType.VarChar).Value = jugador.DatosGenerales.QuieLoTrajo;
                     cmd.Parameters.Add("@Lesiones", SqlDbType.VarChar).Value = jugador.DatosGenerales.Lesiones;
 ;
 
@@ -391,6 +421,25 @@ namespace TPM.DAL
                     cmd.Parameters.Add("@Ciudadania", SqlDbType.Char).Value = jugador.CiudadaniaEuropea;
                     cmd.Parameters.Add("@Reperesentante", SqlDbType.Char).Value = jugador.Representante;
                     cmd.Parameters.Add("@ImagenPath", SqlDbType.VarChar).Value = jugador.ImagenPath;
+
+                    con.Open();
+                    ret = cmd.ExecuteNonQuery();
+                }
+            }
+            return ret;
+        }
+
+        public int JugadorDelete(int id)
+        {
+            int ret;
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
+            {
+                using (SqlCommand cmd = new SqlCommand("JugadorDelete", con))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    
+                    cmd.Parameters.Add("@Id", SqlDbType.Int).Value = id;             
 
                     con.Open();
                     ret = cmd.ExecuteNonQuery();
