@@ -116,34 +116,80 @@ namespace TPM.DAL
                         cmd.Parameters.Add("@Observaciones", SqlDbType.VarChar).Value = item.Observaciones;
                         cmd.Parameters.Add("@Calificacion", SqlDbType.Int).Value = item.Calificacion;
                         cmd.Parameters.Add("@Cambio", SqlDbType.Int).Value = item.Cambio;
+                        cmd.Parameters.Add("@Goles", SqlDbType.Int).Value = item.Gol;
 
-                        con.Open();
                         cmd.ExecuteScalar();
                     }
                 }
                 //Guardamos los Goles por Jugador Por Partido
+
+                var CantGoles = 0;
                 foreach (var item in partido.JugadoresPartidoList)
                 {
-                    using (SqlCommand cmd = new SqlCommand("GolesPorJugadorPorPartidoInsert", con))
+
+                    //Contamos la cantidad de goles por jugador por partido
+                    using (SqlCommand cmd = new SqlCommand("GolesPorJugadorPorPartidoCount", con))
+                    {
+
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@PartidoId", SqlDbType.Int).Value = partido.PartidoId;
+                        cmd.Parameters.Add("@JugadorId", SqlDbType.Int).Value = item.Id;
+
+                        CantGoles = int.Parse(cmd.ExecuteScalar().ToString());
+                    }
+                    if (CantGoles != item.Gol)
+                    {
+                        //eliminamos los goles por jugador por partido
+                        using (SqlCommand cmd = new SqlCommand("GolesPorJugadorPorPartidoDelete", con))
+                        {
+
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.Add("@PartidoId", SqlDbType.Int).Value = partido.PartidoId;
+                            cmd.Parameters.Add("@JugadorId", SqlDbType.Int).Value = item.Id;
+
+                            cmd.ExecuteScalar();
+                        }
+
+                        //agregamos los goles por jugador por partido
+                        for (int i = 0; i < item.Gol; i++)
+                        {
+                            using (SqlCommand cmd = new SqlCommand("GolesPorJugadorPorPartidoInsert", con))
+                            {
+                                cmd.CommandType = CommandType.StoredProcedure;
+
+                                cmd.Parameters.Add("@PartidoId", SqlDbType.Int).Value = partido.PartidoId;
+                                cmd.Parameters.Add("@JugadorId", SqlDbType.Int).Value = item.Id;
+
+                                cmd.ExecuteScalar();
+                            }
+                        }        
+                    }  
+                }
+            }
+        }
+        public static int GolesJugadorPorPartidoUpdate(Partido partido)
+        {
+            int ret = 0;
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
+            {
+                con.Open();
+                 foreach (var item in partido.GolesPartidoList)
+                 {
+                    using (SqlCommand cmd = new SqlCommand("GolesJugadorPorPartidoUpdate", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        cmd.Parameters.Add("@PartidoId", SqlDbType.Int).Value = partido.PartidoId;
-                        cmd.Parameters.Add("@JugadorId", SqlDbType.Int).Value = item.Id;
-                        cmd.Parameters.Add("@MinutosGol", SqlDbType.Int).Value = item.MinutosJugados;
-                        cmd.Parameters.Add("@MinPrimeraAmarilla", SqlDbType.Int).Value = item.MinPrimeraAmarilla;
-                        cmd.Parameters.Add("@MinSegundaAmarilla", SqlDbType.Int).Value = item.MinSegundaAmarilla;
-                        cmd.Parameters.Add("@MinRoja", SqlDbType.Int).Value = item.MinRoja;
-                        cmd.Parameters.Add("@Observaciones", SqlDbType.VarChar).Value = item.Observaciones;
-                        cmd.Parameters.Add("@Calificacion", SqlDbType.Int).Value = item.Calificacion;
-                        cmd.Parameters.Add("@Cambio", SqlDbType.Int).Value = item.Cambio;
+                        cmd.Parameters.Add("@GolesPorJugadorId", SqlDbType.Int).Value = item.GolesPorJugadorId;
+                        cmd.Parameters.Add("@MinutosGol", SqlDbType.Int).Value = item.MinutosGol;
+                        cmd.Parameters.Add("@Descripcion", SqlDbType.VarChar).Value = item.Descripcion;
+                        cmd.Parameters.Add("@UrlVideo", SqlDbType.VarChar).Value = item.UrlVideo;
 
-                        con.Open();
-                        cmd.ExecuteScalar();
+                        
+                        ret = cmd.ExecuteNonQuery();
                     }
-                }
-
+                 }
             }
+            return ret;
         }
     }
 }

@@ -1,0 +1,73 @@
+﻿@using System.Web.Mvc
+@using System.Web.Mvc.Html
+@model TPM.Models.Partido
+@using System.Web.Helpers
+@{
+    ViewBag.Title = "DatosGoles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    WebGrid gridGolesPartido = new WebGrid(Model.GolesPartidoList, rowsPerPage: Model.GolesPartidoList.Count, canSort: false, canPage: false);
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        Datos Partido
+        <div class="pull-right">
+            <a class="link-panel" href="/DatosPartido">
+                <img src="~/Images/boton_volver.png" />
+                Volver
+            </a>
+        </div>
+    </div>
+    <div class="panel-body">
+        @using (Html.BeginForm("DatosGoles", "Partido", FormMethod.Post, new {enctype = "multipart/form-data"}))
+        {
+           int rowNum = 0;  // Nº de fila Grilla Jugadores
+           int rowNumG = 0;  // Nº de fila Grilla Goles
+            
+           @*<input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />*@
+
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
+
+            <fieldset>
+                <legend>Partido</legend>
+                <div class="titleSeccion">Planilla de partido</div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <p><strong>Partido jugado vs:</strong> @Model.Rival</p>
+                        <p><strong>Torneo:</strong> @Model.TemporadaNombre</p>
+                        <p><strong>Cancha de:</strong> @Model.Cancha</p>
+                        <p><strong>Fecha campeonato:</strong> Nº @Model.NumeroFecha</p>
+                    </div>
+                    <div class="col-xs-6" style="text-align: right;">
+                        <p><strong>Fecha:</strong> @Model.Fecha</p>
+                        <p><strong>Categoría: </strong>@Model.EquipoNombre <strong>Año: </strong>@Model.CategoriasString</p>
+                        <p><strong>Horario:</strong> @Model.Hora</p>
+                        <p><strong>Condición: </strong>@Model.Condicion</p>
+                    </div>
+                </div>
+                 <div>       
+                            @gridGolesPartido.GetHtml(
+                            headerStyle: "encabezado-grid",
+                            tableStyle: "table table-striped",
+                            fillEmptyRows: false,
+                            footerStyle: "pie-grid",
+                            alternatingRowStyle: "fila-alternativa",
+                            
+                            columns:
+                                gridGolesPartido.Columns
+                                (
+                                gridGolesPartido.Column("Nombre"),
+                                gridGolesPartido.Column("Apellido"),                                                                                                  
+                                gridGolesPartido.Column("MinutosGolString","Min", format: (item) => Html.TextBox("GolesPartidoList[" + (rowNum - 1).ToString() + "].MinutosGol", (object)item.MinutosGolString)),
+                                gridGolesPartido.Column("Descripcion", "Caracteristicas del gol", format: (item) => Html.TextBox("GolesPartidoList[" + (rowNum - 1).ToString() + "].Descripcion", (object)item.Descripcion)),
+                                gridGolesPartido.Column("UrlVideo", "Url Video", format: (item) => Html.TextBox("GolesPartidoList[" + (rowNum - 1).ToString() + "].UrlVideo", (object)item.UrlVideo))          
+                               
+                                ), mode: WebGridPagerModes.Numeric)    
+                 </div>   
+
+                <input class="btn btn-primary" name="accion" type="submit" value="Guardar" />
+            </fieldset>
+        }
+    </div>
+</div>
