@@ -148,18 +148,34 @@ namespace TPM.Controllers
                 {
                     partido.CategoriasString += " - ";
                 }
-
-
             }
+            partido.GolesPartidoList = JugadoresRepo.GolesJugadoresByPartido(id);
+            foreach (var item in partido.GolesPartidoList)
+            {
+                item.MinutosGolString = item.MinutosGol == 0 ? "" : item.MinutosGol.ToString();
+            }
+            foreach (var item in partido.JugadoresPartidoList)
+            {
+                item.MinutosJugadosString = item.MinutosJugados == 0 ? "" : item.MinutosJugados.ToString();
+                item.MinPrimeraAmarillaString = item.MinPrimeraAmarilla == 0 ? "" : item.MinPrimeraAmarilla.ToString();
+                item.MinSegundaAmarillaString = item.MinSegundaAmarilla == 0 ? "" : item.MinSegundaAmarilla.ToString();
+                item.MinRojaString = item.MinRoja == 0 ? "" : item.MinRoja.ToString();
+                item.CalificacionString = item.Calificacion == 0 ? "" : item.Calificacion.ToString();
+                item.CambioString = item.Cambio == 0 ? "" : item.Cambio.ToString();
+                item.GolString = item.Gol == 0 ? "" : item.Gol.ToString();
+            }
+
 
             return View(partido);
         }
 
 
         [HttpPost]
-        public ActionResult DatosPartido(Partido partido)
+        public ActionResult DatosPartido(Partido partido, string accion)
         {
             PartidoRepo.CargarDatosPartidoInsert(partido);
+            PartidoRepo.GolesJugadorPorPartidoUpdate(partido);
+
             return RedirectToAction("Index");
         }
 
@@ -169,6 +185,7 @@ namespace TPM.Controllers
             jugador.Id = jugadorAsignado.IdJugador;
             jugador.PartidoId = jugadorAsignado.IdPartido;
             jugador.Titular = jugadorAsignado.Titular;
+            jugador.NumeroCamiseta = jugadorAsignado.NumeroCamiseta;
 
             JugadoresRepo.JugadorPorPartidoInsert(jugador);
 

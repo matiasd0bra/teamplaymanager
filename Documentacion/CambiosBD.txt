@@ -2,23 +2,23 @@ Cambios en la BD Agu
 
 Procedimientos almacenados:
 
-CoberturaMedicaUpdate
-DatosGeneralesJugadorUpdate
-JugadorById
-JugadorInsert
-JugadorUpdate
-JugadorDelete
-JugadoresGetAll
-JugadoresNoEquipo
-JugadoresSearch
-JugadoresSearchPartidoTodosEquipos
-JugadoresSearchPartido
-PersonalEspInsert
-PersonalEspUpdate
-PersonalEspById
-PersonalEspDelete
-PersonalEspGetAll
+CoberturaMedicaUpdate - listo
+DatosGeneralesJugadorUpdate - listo
+JugadorById - listo
+JugadorInsert - listo
+JugadorUpdate - listo
+JugadorDelete - listo
+JugadoresGetAll - listo 
+JugadoresNoEquipo - listo
+JugadoresSearch - listo
+JugadoresSearchPartidoTodosEquipos - listo
+JugadoresSearchPartido - listo
+PersonalEspInsert - listo
+PersonalEspUpdate - listo
+PersonalEspById - listo
+PersonalEspDelete - listo
+PersonalEspGetAll - listo
 
 Tablas:
-Jugador le agrege un campo Eliminado nchar(10)
-PersonalEspecializado le agrege los campos Telefono nvarchar(50), Email nvarchar(50) y Eliminado nchar(10)
+Jugador le agrege un campo Eliminado nchar(10) - listo
+PersonalEspecializado le agrege los campos Telefono nvarchar(50), Email nvarchar(50) y Eliminado nchar(10) - listo

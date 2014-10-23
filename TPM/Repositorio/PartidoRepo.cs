@@ -89,5 +89,18 @@ namespace TPM.Repositorio
             //3ero Tabla GolesPorJugadorPorPartido
             PartidoDAL.DatosPartidoInsert(partido);
         }
+
+        public static void GolesJugadorPorPartidoUpdate(Partido partido)
+        {
+          
+            foreach (var item in partido.GolesPartidoList)
+            {
+                item.MinutosGol = item.MinutosGolString == null ? 0 : Int32.Parse(item.MinutosGolString);
+                item.Descripcion = item.Descripcion ?? "";
+                item.UrlVideo = item.UrlVideo ?? "";
+            }
+
+            PartidoDAL.GolesJugadorPorPartidoUpdate(partido);
+        }
     }
 }

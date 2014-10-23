@@ -26,6 +26,8 @@
            int rowNumG = 0;  // Nº de fila Grilla Goles
             
            @*<input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />*@
+            @Html.HiddenFor(model => model.PartidoId, new { id = "hidden" })
+            
 
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true)
@@ -48,31 +50,34 @@
                     </div>
                 </div>
                 <div class="row">
-                    <p><strong>Resultado Final:</strong>
-                        @if (Model.Condicion.Trim() == "Local")
-                        {
-                            @Model.EquipoNombre
-                            <input type="text" id="GolesPropiosString" name="GolesPropiosString" value="@Model.GolesPropiosString"/>
-                            <label>VS</label>
-                            @Model.Rival
-                            <input type="text" id="GolesRivalString" name="GolesRivalString" value="@Model.GolesRivalString"/>
-                        }
-                        else
-                        {
-                            @Model.Rival
-                            <input type="text" id="GolesRivalString" name="GolesRivalString" value="@Model.GolesRivalString"/>
-                            <label>VS</label>
-                            @Model.EquipoNombre
-                            <input type="text" id="GolesPropiosString" name="GolesPropiosString" value="@Model.GolesPropiosString"/>
-                        }
-                    </p>
+                    <div class="col-xs-12">
+                        <p><strong>Resultado Final:</strong>
+                            @if (Model.Condicion.Trim() == "Local")
+                            {
+                                @Model.EquipoNombre
+                                <input type="text" id="GolesPropiosString" name="GolesPropiosString" value="@Model.GolesPropiosString" style="width: 40px;text-align: center;"/>
+                                <label>VS</label>
+                                @Model.Rival
+                                <input type="text" id="GolesRivalString" name="GolesRivalString" value="@Model.GolesRivalString" style="width: 40px;text-align: center;"/>
+                            }
+                            else
+                            {
+                                @Model.Rival
+                                <input type="text" id="GolesRivalString" name="GolesRivalString" value="@Model.GolesRivalString" style="width: 40px;text-align: center;"/>
+                                <label>VS</label>
+                                @Model.EquipoNombre
+                                <input type="text" id="GolesPropiosString" name="GolesPropiosString" value="@Model.GolesPropiosString" style="width: 40px;text-align: center;"/>
+                            }
+                        </p>
+                    </div>
                 </div> 
-                <div>
+             @*   <div>
                    <p><strong>Minutos Jugados:</strong> <input type="text" id="DuracionString" name="DuracionString" value="@Model.DuracionString"/>
-                </div>        
+                </div> *@       
                 
-
-                <div id="grid">       
+                <div class="well">
+                    <div class="titleDatos"><span class="label label-default">Datos Partido</span></div>
+                    <div id="grid">       
                             @gridDatosJugadores.GetHtml(
                             headerStyle: "encabezado-grid",
                             tableStyle: "table table-striped",
@@ -85,21 +90,27 @@
                                 (
                                 gridDatosJugadores.Column("NumeroCamiseta", "Nº", format: item => rowNum = rowNum + 1),
                                 gridDatosJugadores.Column("Nombre"),
-                                gridDatosJugadores.Column("Apellido"),                                                                                                  
-                                gridDatosJugadores.Column("MinutosJugadosString","M J", format: (item) => Html.TextBox("JugadoresPartidoList[" + (rowNum - 1).ToString() + "].MinutosJugadosString", (object)item.MinutosJugadosString)),
-                                gridDatosJugadores.Column("CalificacionString", "CALIF", format: (item) => Html.TextBox("JugadoresPartidoList[" + (rowNum - 1).ToString() + "].CalificacionString", (object)item.CalificacionString)),
-                                gridDatosJugadores.Column("CambioString", "CAMBIO" , format: (item) => Html.TextBox("JugadoresPartidoList[" + (rowNum - 1).ToString() + "].CambioString", (object)item.CambioString)),
-                                gridDatosJugadores.Column("GolString","Goles", format: (item) => Html.TextBox("JugadoresPartidoList[" + (rowNum - 1).ToString() + "].GolString", (object)item.GolString)),
-                                gridDatosJugadores.Column("MinPrimeraAmarillaString","A1", format: (item) => Html.TextBox("JugadoresPartidoList[" + (rowNum - 1).ToString() + "].MinPrimeraAmarillaString", (object)item.MinPrimeraAmarillaString)),
-                                gridDatosJugadores.Column("MinSegundaAmarillaString","A2", format: (item) => Html.TextBox("JugadoresPartidoList[" + (rowNum - 1).ToString() + "].MinSegundaAmarillaString", (object)item.MinSegundaAmarillaString)),
-                                gridDatosJugadores.Column("MinRojaString","R", format: (item) => Html.TextBox("JugadoresPartidoList[" + (rowNum - 1).ToString() + "].MinRojaString", (object)item.MinRojaString)),
-                                gridDatosJugadores.Column("Observaciones", format: (item) => Html.TextBox("JugadoresPartidoList[" + (rowNum - 1).ToString() + "].CambioString", (object)item.Observaciones))
+                                gridDatosJugadores.Column("Apellido"),
+                                gridDatosJugadores.Column("", format: (item) => Html.Hidden("JugadoresPartidoList[" + (rowNum - 1).ToString() + "].Id", (object)item.Id)),                                                              
+                                gridDatosJugadores.Column("MinutosJugadosString","M J", format: (item) => Html.TextBox("JugadoresPartidoList[" + (rowNum - 1).ToString() + "].MinutosJugadosString", (object)item.MinutosJugadosString, new { @class = "inputDatosPartido" })),
+                                gridDatosJugadores.Column("CalificacionString", "Calif", format: (item) => Html.TextBox("JugadoresPartidoList[" + (rowNum - 1).ToString() + "].CalificacionString", (object)item.CalificacionString, new { @class = "inputDatosPartido" })),
+                                gridDatosJugadores.Column("CambioString", "Cambio" , format: (item) => Html.TextBox("JugadoresPartidoList[" + (rowNum - 1).ToString() + "].CambioString", (object)item.CambioString, new { @class = "inputDatosPartido" })),
+                                gridDatosJugadores.Column("GolString","Goles", format: (item) => Html.TextBox("JugadoresPartidoList[" + (rowNum - 1).ToString() + "].GolString", (object)item.GolString, new { @class = "inputDatosPartido" })),
+                                gridDatosJugadores.Column("MinPrimeraAmarillaString","A1", format: (item) => Html.TextBox("JugadoresPartidoList[" + (rowNum - 1).ToString() + "].MinPrimeraAmarillaString", (object)item.MinPrimeraAmarillaString, new { @class = "inputDatosPartido" })),
+                                gridDatosJugadores.Column("MinSegundaAmarillaString","A2", format: (item) => Html.TextBox("JugadoresPartidoList[" + (rowNum - 1).ToString() + "].MinSegundaAmarillaString", (object)item.MinSegundaAmarillaString, new { @class = "inputDatosPartido" })),
+                                gridDatosJugadores.Column("MinRojaString","R", format: (item) => Html.TextBox("JugadoresPartidoList[" + (rowNum - 1).ToString() + "].MinRojaString", (object)item.MinRojaString, new { @class = "inputDatosPartido" })),
+                                gridDatosJugadores.Column("Observaciones", format: (item) => Html.TextBox("JugadoresPartidoList[" + (rowNum - 1).ToString() + "].Observaciones", (object)item.Observaciones))
                                
                                 ), mode: WebGridPagerModes.Numeric)    
-                </div>        
-                
-                @*<div id="grid">       
-                            @gridGolesPartido.GetHtml(
+                    </div> 
+                </div>   
+                <div align="right">
+                    <input class="btn btn-primary" name="accion" type="submit" value="Guardar" />    
+                </div>
+                <div class="well">
+                    <div class="titleDatos"><span class="label label-default">Goles a favor</span></div>   
+                    <div>       
+                        @gridGolesPartido.GetHtml(
                             headerStyle: "encabezado-grid",
                             tableStyle: "table table-striped",
                             fillEmptyRows: false,
@@ -108,18 +119,29 @@
                             
                             columns:
                                 gridGolesPartido.Columns
-                                (
-                                gridGolesPartido.Column("Nombre"),
-                                gridGolesPartido.Column("Apellido"),                                                                                                  
-                                gridGolesPartido.Column("MinutosJugadosString","M J", format: (item) => Html.TextBox("JugadoresPartidoList[" + (rowNum - 1).ToString() + "].MinutosJugadosString", (object)item.MinutosJugadosString)),
-                                gridGolesPartido.Column("CalificacionString", "CALIF", format: (item) => Html.TextBox("JugadoresPartidoList[" + (rowNum - 1).ToString() + "].CalificacionString", (object)item.CalificacionString))            
+                                    (
+                                        gridGolesPartido.Column("NumeroCamiseta", "Nº", format: item => rowNumG = rowNumG + 1),
+                                        gridGolesPartido.Column("Nombre"),
+                                        gridGolesPartido.Column("Apellido"),
+                                        gridGolesPartido.Column("", format: (item) => Html.Hidden("GolesPartidoList[" + (rowNumG - 1).ToString() + "].GolesPorJugadorId", (object)item.GolesPorJugadorId)),                                                                                                  
+                                        gridGolesPartido.Column("MinutosGolString","Minutos", format: (item) => Html.TextBox("GolesPartidoList[" + (rowNumG - 1).ToString() + "].MinutosGolString", (object)item.MinutosGolString, new { @class = "inputDatosPartido" })),
+                                        gridGolesPartido.Column("Descripcion", "Caracteísticas", format: (item) => Html.TextBox("GolesPartidoList[" + (rowNumG - 1).ToString() + "].Descripcion", (object)item.Descripcion)),
+                                        gridGolesPartido.Column("UrlVideo", "Enlace Video", format: (item) => Html.TextBox("GolesPartidoList[" + (rowNumG - 1).ToString() + "].UrlVideo", (object)item.UrlVideo))          
                                
-                                ), mode: WebGridPagerModes.Numeric)    
-                    </div>              *@
-
-                <input class="btn btn-primary" name="accion" type="submit" value="Guardar" />
-
+                                    ), mode: WebGridPagerModes.Numeric)    
+                    </div>
+                </div>
+                <input class="btn btn-primary pull-right" name="accion" type="submit" value="Cargar Goles" />
             </fieldset>
         }
     </div>
 </div>
+<style>
+    .inputDatosPartido {
+        width: 40px;
+        text-align: center;
+         background-color: #999999;
+    color: #fff;
+    font-size: 16px;
+    }
+</style>

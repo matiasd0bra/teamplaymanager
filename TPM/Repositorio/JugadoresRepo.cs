@@ -275,6 +275,17 @@ namespace TPM.Repositorio
                 jugador.NombreApellido = jugador.Apellido.ToUpper() + " " + jugador.Nombre;
                 jugador.Posicion = item["Posicion"].ToString();
                 jugador.NumeroSuplentes = dt.Rows.IndexOf(item) + 12;
+                jugador.NumeroCamiseta = int.Parse(item["LocalidadId"].ToString());
+                jugador.Titular = item["Titular"].ToString();
+                jugador.MinutosJugados = int.Parse(item["MinutosJugados"].ToString());
+                jugador.MinPrimeraAmarilla = int.Parse(item["MinPrimeraAmarilla"].ToString());
+                jugador.MinSegundaAmarilla = int.Parse(item["MinSegundaAmarilla"].ToString());
+                jugador.MinRoja = int.Parse(item["MinRoja"].ToString());
+                jugador.Observaciones = item["Observaciones"].ToString();
+                jugador.Calificacion = int.Parse(item["Calificacion"].ToString());
+                jugador.Cambio = int.Parse(item["Cambio"].ToString());
+                jugador.Gol = int.Parse(item["Goles"].ToString());
+
                 jugadorList.Add(jugador);
             }
 
@@ -364,6 +375,34 @@ namespace TPM.Repositorio
             }
 
             return jugadorList;
+        }
+
+        internal static List<Gol> GolesJugadoresByPartido(int id)
+        {
+            JugadoresDAL jugadoresDal = new JugadoresDAL();
+            DataTable dt = jugadoresDal.GolesJugadoresByPartido(id);
+
+            Gol gol;
+            List<Gol> golesList = new List<Gol>();
+
+
+            foreach (DataRow item in dt.Rows)
+            {
+                gol = new Gol();
+
+                gol.GolesPorJugadorId = int.Parse(item["GolesPorJugadorId"].ToString());
+                gol.PartidoId = id;
+                gol.JugadorId = int.Parse(item["JugadorId"].ToString());
+                gol.Nombre = item["Nombre"].ToString();
+                gol.Apellido = item["Apellido"].ToString();
+                gol.MinutosGol =  int.Parse(item["MinutosGol"].ToString());
+                gol.Descripcion = item["Descripcion"].ToString();
+                gol.UrlVideo = item["UrlVideo"].ToString();
+
+                golesList.Add(gol);
+            }
+
+            return golesList;
         }
     }
 }

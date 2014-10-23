@@ -11,6 +11,7 @@ namespace TPM.Models.ViewModel
         public int IdEquipo { get; set; }
         public int IdPartido { get; set; }
         public string Titular { get; set; }
+        public int NumeroCamiseta { get; set; }
     }
 
 }
