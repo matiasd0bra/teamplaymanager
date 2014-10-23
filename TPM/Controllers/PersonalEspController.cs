@@ -14,9 +14,9 @@ namespace TPM.Controllers
         //
         // GET: /PersonalEsp/
 
-        public ActionResult Index()
+        public ActionResult Index(string parametroBuscar)
         {
-            List<PersonalEsp> personalEsp = PersonalEspRepo.PersonalEspesGetAllRepo();
+            List<PersonalEsp> personalEsp = PersonalEspRepo.PersonalEspesGetAllRepo(parametroBuscar);
             return View(personalEsp);
         }
 
@@ -86,19 +86,23 @@ namespace TPM.Controllers
 
         public ActionResult Edit(int id)
         {
-            return View();
+            PersonalEsp personalEsp = new PersonalEsp();
+            personalEsp = PersonalEspRepo.PersonalEspByIdRepo(id);
+            personalEsp.TipoDocLista = TipoDocRepo.TipoDocGetAllRepo();
+            personalEsp.LocalidadLista = LocalidadesRepo.LocalidadesGetAllRepo();
+            personalEsp.EspecialidadLista = EspecialidadesRepo.EspecialidadesGetAllRepo();
+            return View(personalEsp);
         }
 
         //
         // POST: /PersonalEsp/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(PersonalEsp personalEsp)
         {
             try
             {
-                // TODO: Add update logic here
-
+                PersonalEspRepo.PersonalEspUpdate(personalEsp);              
                 return RedirectToAction("Index");
             }
             catch
@@ -107,24 +111,11 @@ namespace TPM.Controllers
             }
         }
 
-        //
-        // GET: /PersonalEsp/Delete/5
-
         public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        //
-        // POST: /PersonalEsp/Delete/5
-
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                PersonalEspRepo.PersonalEspDelete(id);
                 return RedirectToAction("Index");
             }
             catch

@@ -10,10 +10,13 @@
 <div class="panel panel-primary">
   <div class="panel-heading">Lista de Personal Especializado
       <div class="pull-right">
-          <a class="link-panel" href="/PersonalEsp/Create">
-              <img src="~/Images/boton_nuevo.png" />
-              Nuevo Personal Especializado
-          </a>
+          <form name="formBuscador" id="formBuscador" method="POST">
+                <input type="text" name="parametroBuscar" id="parametroBuscar" placeholder="Buscar" class="buscarHeader" onchange="submit"/>
+                <a class="link-panel" href="/PersonalEsp/Create">
+                    <img src="~/Images/boton_nuevo.png" />
+                    Nuevo Personal
+                </a>
+          </form>          
       </div>
   </div>
     <div class="panel-body">
@@ -44,7 +47,7 @@
                      format: @<text>
                                   <a href="/PersonalEsp/Edit/@item.Id"><img title="Editar" src="~/Images/boton_editar.png" /></a>
                                   <a href="/PersonalEsp/Details/@item.Id"><img title="Detalle" src="~/Images/boton_ver.png" /></a>
-                                  <a href="/PersonalEsp/Delete/@item.Id"><img title="Eliminar" src="~/Images/boton_borrar.png" /></a>
+                                  <a style="cursor:pointer" onclick="eliminarPersonalEsp(@item.Id)"><img title="Eliminar" src="~/Images/boton_borrar.png" /></a>
                               </text>
                      )
              })
@@ -55,3 +58,11 @@
     }          
     </div>
 </div>
+<script>    
+    function eliminarPersonalEsp(IdPersonalEsp) {
+        var r = confirm("¿Seguro desea eliminar este personal especializado?");
+        if (r == true) {
+            location.href = "/PersonalEsp/Delete/"+IdPersonalEsp;
+        }
+    }
+</script>

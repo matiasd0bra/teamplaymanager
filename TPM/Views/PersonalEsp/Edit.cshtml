@@ -4,15 +4,15 @@
 @model TPM.Models.PersonalEsp
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="panel panel-primary">
     <div class="panel-heading">
-        Crear Personal Especializado
+        Editar Personal Especializado
       <div class="pull-right">
-          <a class="link-panel" href="@ViewBag.returnUrl">
+          <a class="link-panel" href="/PersonalEsp">
               <img src="~/Images/boton_volver.png" />
               Volver
           </a>
@@ -20,10 +20,9 @@
     </div>
     <div class="panel-body">
 
-        @using (Html.BeginForm("Create", "PersonalEsp", FormMethod.Post))
+        @using (Html.BeginForm("Edit", "PersonalEsp", FormMethod.Post))
         {
-            <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
-            
+                        
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true)
 
@@ -54,7 +53,8 @@
                                 <p class="textCreateJugador">Tipo de documento.</p>
                             </div>                            
                             <div class="col-xs-3">
-                                 @Html.DropDownListFor(model => model.TipoDocId, new SelectList(Model.TipoDocLista, "TipoDocId", "TipoDocNombre", 1))
+                                 @Html.DropDownListFor(model => model.TipoDocId, new SelectList
+                                (Model.TipoDocLista, "TipoDocId", "TipoDocNombre", 1))
                             </div>
                             <div class="col-xs-2">
                                 <p class="textCreateJugador">Número de documento:</p>                               
@@ -97,12 +97,13 @@
                                 <p class="textCreateJugador">Especialidad:</p>
                             </div>                            
                             <div class="col-xs-3">
-                                  @Html.DropDownListFor(model => model.EspecialidadId, new SelectList(Model.EspecialidadLista, "EspecialidadId", "EspecialidadNombre", 1))
+                                @Html.DropDownListFor(model => model.EspecialidadId, new SelectList
+                               (Model.EspecialidadLista, "EspecialidadId", "EspecialidadNombre"))
                             </div>                           
                         </div>
                     </div> 
                 </div>
-                <input class="btn btn-primary pull-right" type="submit" value="Crear" />
+                <input class="btn btn-primary pull-right" type="submit" value="Guardar" />
         </fieldset>
     }
 
