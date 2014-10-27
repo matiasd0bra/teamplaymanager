@@ -22,13 +22,12 @@
     </div>
     <div class="panel-body">
         <ul class="nav nav-tabs" role="tablist">
-            <li class="active"><a href="#home" role="tab" data-toggle="tab">Home</a></li>
-            <li><a href="#profile" role="tab" data-toggle="tab">Profile</a></li>
-            <li><a href="#messages" role="tab" data-toggle="tab">Messages</a></li>
-            <li><a href="#settings" role="tab" data-toggle="tab">Settings</a></li>
+            <li class="active"><a href="#datos" role="tab" data-toggle="tab">Datos Jugador</a></li>
+            <li><a href="#estadisticas" role="tab" data-toggle="tab">Estadísticas</a></li>
+            <li><a href="#lesiones" role="tab" data-toggle="tab">Lesiones</a></li>
         </ul>
         <div class="tab-content">
-        <div class="tab-pane active" id="home">
+        <div class="tab-pane active" id="datos">
             @using (Html.BeginForm())
             {
                 @Html.ValidationSummary(true)
@@ -37,48 +36,39 @@
 
                 <fieldset>
                     <legend>Jugador</legend>
-                    <table>
-                        <tr>
-                        <td>
-                            <div class="editor-label">
-                                @Html.Label("Foto")
-                            </div>
-                            <div>
-                                <div class="contenedor">
-                                    <div id="marcoVP">
-                                        <img id="vistaP" src="@imagenPath" alt="" />
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div>
-                                @Html.Label("Nombre: ")
-                                @Html.DisplayName(Model.Nombre)
-                            </div>
-                            <div>
-                                @Html.Label("Apellido: ")
-                                @Html.DisplayName(Model.Apellido)
-                            </div>
-                            <div>
-                                @Html.Label("Tipo de Documento: ")
-                                @Html.DisplayName(Model.TipoDocNombre)
-                            </div>
-                            <div>
-                                @Html.Label("Numero de Documento: ")
-                                @Html.DisplayName(Model.NumeroDoc)
-                            </div>
-                            <div>
-                                @Html.Label("Fecha de Naciemiento: ")
-                                @Html.DisplayName(Model.FechaNacFormateada)
-                            </div>
-                            <div>
-                                @Html.Label("Domicilio de Residencia: ")
-                                @Html.DisplayName(Model.Domicilio)
-                            </div>
-                            <div>
-                                @Html.Label("Localidad de Residencia: ")
-                                @Html.DisplayName(Model.LocalidadNombre)
-                            </div>
+                    <div class="media">
+                      <a class="pull-left" href="#">
+                        <img id="vistaP" class="media-object" src="@imagenPath">
+                      </a>
+                      <div class="media-body">
+                        <h3 class="media-heading"><span style="text-transform: uppercase;font-weight:bold">@Html.DisplayName(Model.Apellido)</span> @Html.DisplayName(Model.Nombre)  </h3>  
+                        <div>                            
+                            <label style="text-transform: uppercase;font-weight:bold">@Html.DisplayName(Model.TipoDocNombre):</label> 
+                             @Html.DisplayName(Model.NumeroDoc)
+                        </div>                       
+                        <div>
+                            @Html.Label("Fecha de Naciemiento: ")
+                            @Html.DisplayName(Model.FechaNacFormateada)
+                        </div>
+                        <div>
+                            @Html.Label("Domicilio de Residencia: ")
+                            @Html.DisplayName(Model.Domicilio)
+                        </div>
+                        <div>
+                            @Html.Label("Localidad de Residencia: ")
+                            @Html.DisplayName(Model.LocalidadNombre)
+                        </div>
+                        <div>
+                            @Html.Label("Peso: ")
+                            @Html.DisplayName(Model.PesoString)
+                        </div> 
+                        <div>
+                            @Html.Label("Estatura: ")
+                            @Html.DisplayName(Model.EstaturaString)
+                        </div>                  
+                      </div>
+                    </div>
+                   
                             <div>
                                 @Html.Label("Equipos en los que juega: ")
                                 @if (Model.EquiposList.Count > 0)
@@ -108,10 +98,10 @@
                                     </div>
                                 }
                             </div>
-                            <div>
-                                @Html.Label("Equipos en los que ha jugado: ")
+                            <div>                               
                                 @if (Model.EquiposListHistorico.Count > 0)
                                 {
+                                    @Html.Label("Equipos en los que ha jugado: ")
                                     @gridEquiposHistorico.GetHtml(
                                         fillEmptyRows: false,
                                         alternatingRowStyle: "fila-alternativa",
@@ -137,18 +127,18 @@
                                         @Html.Label("El jugador no tiene histrorial.")
                                     </div>
                                 }
-                            </div>
-                        </td>
-                            </tr>
-                    </table>
+                            </div>              
 
                 </fieldset>
             }
         </div>
-        <div class="tab-pane" id="profile">Profile</div>
-        <div class="tab-pane" id="messages">...</div>
-            <div class="tab-pane" id="settings">...</div>
-            </div>
+        <div class="tab-pane" id="estadisticas">
+            <div>Partidos convocado: </div>
+        </div>
+        <div class="tab-pane" id="lesiones">
+
+        </div>
+        </div>
     </div>
 </div>
 <script>

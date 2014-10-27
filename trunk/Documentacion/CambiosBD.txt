@@ -1,5 +1,6 @@
 Cambios en la BD Agu
 
+22/10
 Procedimientos almacenados:
 
 CoberturaMedicaUpdate - listo
@@ -22,3 +23,17 @@ PersonalEspGetAll - listo
 Tablas:
 Jugador le agrege un campo Eliminado nchar(10) - listo
 PersonalEspecializado le agrege los campos Telefono nvarchar(50), Email nvarchar(50) y Eliminado nchar(10) - listo
+
+24/10
+Procedimientos almacenados:
+
+JugadoresSearch
+JugadoresByEquipo
+EquipoGetAll
+JugadoresSearchPartido
+PartidoUpdate
+GolesPorJugadorPorPartidoInsert
+PartidoInsert
+JugadoresByPartido
+JugadorPorPartidoInsert
+EstadisticasByJugadorId

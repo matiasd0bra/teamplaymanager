@@ -93,6 +93,7 @@ namespace TPM.Controllers
             assignarJugadoresViewModel.ListaJugadoresTitulares = JugadoresRepo.JugadoresByPartido(id,"T");
             assignarJugadoresViewModel.ListaJugadoresSuplentes = JugadoresRepo.JugadoresByPartido(id,"S");
             assignarJugadoresViewModel.NombreFiltro = NombreFiltro;
+            assignarJugadoresViewModel.ApellidoFiltro = ApellidoFiltro;
             assignarJugadoresViewModel.CategoriaFiltro = CategoriaFiltro;
             if (EquiposFiltro == "on")
             {
@@ -128,6 +129,39 @@ namespace TPM.Controllers
             assignarJugadoresViewModel.ListaJugadores = JugadoresRepo.JugadoresSearchPartido(id, assignarJugadoresViewModel.PartidoSeleccionado.EquipoId, NombreFiltro, ApellidoFiltro, CategoriaFiltro, EquiposFiltro, PosicionFiltro);
 
             return View(assignarJugadoresViewModel);
+        }
+
+        
+        public ActionResult Edit(int id)
+        {
+            Partido partido = new Partido();
+            partido = PartidoRepo.PartidoByIdRepo(id);
+            partido.TemporadasList = TemporadasRepo.TemporadasGetAllRepo();
+            partido.EquiposList = EquiposRepo.EquiposGetAllRepo();
+            partido.HoraCitacionString = partido.HoraCitacion.ToShortTimeString();
+
+            return View(partido);
+        }
+
+      
+        [HttpPost]
+        public ActionResult Edit(Partido partido)
+        {
+            try
+            {
+                partido.FechaHoraInicio = DateTime.Parse(partido.FechaHoraInicioString);
+                partido.HoraCitacion = DateTime.Parse(partido.HoraCitacionString);
+                partido.NumeroFecha = Convert.ToInt32(partido.NumeroFechaString);
+                if(partido.Condicion == null){
+                    partido.Condicion = "Visitante";
+                }
+                PartidoRepo.PartidoUpdate(partido);
+                return RedirectToAction("Index");
+            }
+            catch
+            {
+                return View();
+            }
         }
 
         public ActionResult DatosPartido(int id)

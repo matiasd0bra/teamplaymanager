@@ -23,7 +23,7 @@ namespace TPM.DAL
 
                     cmd.Parameters.Add("@TemporadaId", SqlDbType.Int).Value = partido.TemporadaId;
                     cmd.Parameters.Add("@NumeroFecha", SqlDbType.Int).Value = partido.NumeroFecha;
-                    cmd.Parameters.Add("@TipoPartido", SqlDbType.Int).Value = partido.TipoPartidoId;
+                    cmd.Parameters.Add("@TipoPartido", SqlDbType.VarChar).Value = partido.TipoPartidoNombre;
                     cmd.Parameters.Add("@EquipoId", SqlDbType.Int).Value = partido.EquipoId;
                     cmd.Parameters.Add("@Rival", SqlDbType.VarChar).Value = partido.Rival;
                     cmd.Parameters.Add("@FechaHoraInicio", SqlDbType.DateTime).Value = partido.FechaHoraInicio;
@@ -38,6 +38,36 @@ namespace TPM.DAL
             }
             return ret;
         }
+
+        public int PartidoUpdate(Partido partido)
+        {
+            int ret;
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
+            {
+                using (SqlCommand cmd = new SqlCommand("PartidoUpdate", con))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@PartidoId", SqlDbType.Int).Value = partido.PartidoId;
+                    cmd.Parameters.Add("@TemporadaId", SqlDbType.Int).Value = partido.TemporadaId;
+                    cmd.Parameters.Add("@NumeroFecha", SqlDbType.Int).Value = partido.NumeroFecha;
+                    cmd.Parameters.Add("@TipoPartido", SqlDbType.VarChar).Value = partido.TipoPartidoNombre;
+                    cmd.Parameters.Add("@EquipoId", SqlDbType.Int).Value = partido.EquipoId;
+                    cmd.Parameters.Add("@Rival", SqlDbType.VarChar).Value = partido.Rival;
+                    cmd.Parameters.Add("@FechaHoraInicio", SqlDbType.DateTime).Value = partido.FechaHoraInicio;
+                    cmd.Parameters.Add("@HoraCitacion", SqlDbType.DateTime).Value = partido.HoraCitacion;
+                    cmd.Parameters.Add("@Lugar", SqlDbType.VarChar).Value = partido.Lugar;
+                    cmd.Parameters.Add("@Condicion", SqlDbType.VarChar).Value = partido.Condicion;
+                    cmd.Parameters.Add("@Cancha", SqlDbType.VarChar).Value = partido.Cancha;
+
+                    con.Open();
+                    ret = cmd.ExecuteNonQuery();
+                }
+            }
+            return ret;
+        }
+
         public DataTable PartidoById(int id)
         {
             var dt = new DataTable();
@@ -172,9 +202,9 @@ namespace TPM.DAL
             int ret = 0;
             using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
             {
-                con.Open();
-                 foreach (var item in partido.GolesPartidoList)
-                 {
+                con.Open();                
+                foreach (var item in partido.GolesPartidoList)
+                {
                     using (SqlCommand cmd = new SqlCommand("GolesJugadorPorPartidoUpdate", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
@@ -184,10 +214,11 @@ namespace TPM.DAL
                         cmd.Parameters.Add("@Descripcion", SqlDbType.VarChar).Value = item.Descripcion;
                         cmd.Parameters.Add("@UrlVideo", SqlDbType.VarChar).Value = item.UrlVideo;
 
-                        
+
                         ret = cmd.ExecuteNonQuery();
                     }
-                 }
+                }
+                
             }
             return ret;
         }

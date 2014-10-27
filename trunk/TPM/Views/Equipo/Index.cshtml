@@ -10,12 +10,12 @@
 <div class="panel panel-primary">
     <div class="panel-heading">
         Lista de Equipos
-      <div class="pull-right">
+     @* <div class="pull-right">
           <a class="link-panel"  href="/Equipo/Create">
               <img src="~/Images/boton_nuevo.png" />
               Nuevo equipo
           </a>
-      </div>
+      </div>*@
         @*@Html.ActionLink("Nuevo Equipo", "Create")*@
     </div>
     <div class="panel-body">
@@ -37,7 +37,7 @@
              columns: new[]
              {
                  gridEquipos.Column("NombreEquipo", "Nombre"),
-                 gridEquipos.Column("Division"),
+                 gridEquipos.Column("CategoriaNombre"),
                  gridEquipos.Column("Liga"),
                  gridEquipos.Column("",
                      header: "Acciones",

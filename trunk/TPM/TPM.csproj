@@ -390,6 +390,7 @@
     <Content Include="Views\Partido\ConvocarJugadores.cshtml" />
     <Content Include="Views\Partido\DatosPartido.cshtml" />
     <Content Include="Views\Partido\DatosGoles.cshtml" />
+    <Content Include="Views\Partido\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -80,6 +80,7 @@ namespace TPM.DAL
 
                     cmd.CommandType = CommandType.StoredProcedure;
 
+                    if (jugador.Apodo == null) jugador.Apodo = "";
                     if (jugador.Posicion == null) jugador.Posicion = "";
                     if (jugador.Colegio == null) jugador.Colegio = "";
                     if (jugador.CiudadaniaEuropea == null) jugador.CiudadaniaEuropea = "";
@@ -263,6 +264,7 @@ namespace TPM.DAL
 
                     cmd.CommandType = CommandType.StoredProcedure;
 
+                    if (jugador.Apodo == null) jugador.Apodo = "";
                     if (jugador.Posicion == null) jugador.Posicion = "";
                     if (jugador.Colegio == null) jugador.Colegio = "";
                     if (jugador.CiudadaniaEuropea == null) jugador.CiudadaniaEuropea = "";

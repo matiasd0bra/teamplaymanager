@@ -16,7 +16,7 @@ namespace TPM.Controllers
 
         public ActionResult Index()
         {
-            List<Equipo> equipos = EquiposRepo.EquiposGetAllRepo();
+            List<Equipo> equipos = EquiposRepo.EquiposGetAllRepo();            
             return View(equipos);
         }
 

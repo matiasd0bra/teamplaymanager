@@ -29,16 +29,23 @@ namespace TPM.Repositorio
             partido.EquipoId = int.Parse(dt.Rows[0]["EquipoId"].ToString());
             partido.Rival = dt.Rows[0]["Rival"].ToString();
             partido.FechaHoraInicio = Convert.ToDateTime(dt.Rows[0]["FechaHoraInicio"].ToString());
-            //partido.LocalidadId = int.Parse(dt.Rows[0]["LocalidadId"].ToString());
-            //partido.Local = dt.Rows[0]["Local"].ToString();
+            partido.FechaHoraInicioString = dt.Rows[0]["FechaHoraInicio"].ToString();
             partido.EquipoNombre = dt.Rows[0]["NombreEquipo"].ToString();
             partido.Lugar = dt.Rows[0]["Lugar"].ToString();
             partido.Cancha = dt.Rows[0]["Cancha"].ToString();
             partido.HoraCitacion = Convert.ToDateTime(dt.Rows[0]["HoraCitacion"].ToString());
+            partido.HoraCitacionString = dt.Rows[0]["HoraCitacion"].ToString();
             partido.NumeroFecha = int.Parse(dt.Rows[0]["NumeroFecha"].ToString());
+            partido.NumeroFechaString = dt.Rows[0]["NumeroFecha"].ToString();
             partido.Condicion = dt.Rows[0]["Condicion"].ToString();
-
+            partido.TipoPartidoNombre = dt.Rows[0]["TipoPartido"].ToString();
             return partido;
+        }
+
+        public static int PartidoUpdate(Partido partido)
+        {
+            PartidoDAL partidoDal = new PartidoDAL();
+            return partidoDal.PartidoUpdate(partido);
         }
 
         public static List<Partido> PartidosSinDatos()
@@ -92,7 +99,7 @@ namespace TPM.Repositorio
 
         public static void GolesJugadorPorPartidoUpdate(Partido partido)
         {
-          
+            
             foreach (var item in partido.GolesPartidoList)
             {
                 item.MinutosGol = item.MinutosGolString == null ? 0 : Int32.Parse(item.MinutosGolString);
