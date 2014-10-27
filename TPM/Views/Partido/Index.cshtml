@@ -35,16 +35,16 @@
 
                                       columns: new[]
                                       {
-                                          gridPartidosSinDatos.Column("FechaHoraInicio"),
-                                          gridPartidosSinDatos.Column("EquipoNombre"),
+                                          gridPartidosSinDatos.Column("FechaHoraInicio","Fecha"),
+                                          gridPartidosSinDatos.Column("EquipoNombre", "Nombre del equipo"),
                                           gridPartidosSinDatos.Column("",
                                               header: "Acciones",
                                               format: @<text>
-                                                           <a href="/Jugador/Edit/@item.PartidoId"><img title="Editar" src="~/Images/boton_editar.png" /></a>
-                                                            <a href="/Jugador/Details/@item.PartidoId"><img title="Detalle" src="~/Images/boton_ver.png" /></a>                    
-                                                           <a href="/Partido/ConvocarJugadores/@item.PartidoId">Convocar</a>
-                                                           <a href="/Partido/DatosPartido/@item.PartidoId">Cargar Datos</a>
-                                                            <a href="/Jugador/Delete/@item.PartidoId"><img title="Eliminar" src="~/Images/boton_borrar.png" /></a>
+                                                            <a href="/Partido/Edit/@item.PartidoId"><img title="Editar" src="~/Images/boton_editar.png" /></a>
+                                                            <a href="/Partido/Details/@item.PartidoId"><img title="Detalle" src="~/Images/boton_ver.png" /></a>
+                                                            <a href="/Partido/Delete/@item.PartidoId"><img title="Eliminar" src="~/Images/boton_borrar.png" /></a>                    
+                                                            <a class="btn btn-primary" href="/Partido/ConvocarJugadores/@item.PartidoId">Convocar</a>
+                                                            <a class="btn btn-primary" href="/Partido/DatosPartido/@item.PartidoId">Cargar Datos</a>                                                            
                                                        </text>
                                               )
                                       })
@@ -82,11 +82,18 @@
 </div>
 
 
- <script>
-$(function() {
-$( "#datepicker" ).datepicker({
-    
-});
+<script>
+    $(function () {
+        $("#datepicker").datepicker({
+            numberOfMonths: [2, 6],
+            language: 'es',
+            showButtonPanel: true,
+            showCurrentAtPos: 8,
+            onSelect: function () {
+                alert('aca cargamos el partido en la  fecha :' + this);
+            }
+        });
+    });
 </script>
 
 

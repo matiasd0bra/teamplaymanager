@@ -179,7 +179,7 @@ namespace TPM.Repositorio
                 jugador.FechaNac = Convert.ToDateTime(item["FechaNac"].ToString());
                 jugador.Domicilio = item["Domicilio"].ToString();
                 jugador.LocalidadId = int.Parse(item["LocalidadId"].ToString());
-                //jugador.LocalidadNombre = item["LocalidadNombre"].ToString();
+                jugador.Posicion = item["Posicion"].ToString();
                 jugador.FechaNacFormateada = jugador.FechaNac.ToShortDateString();
                 jugadorList.Add(jugador);
             }
@@ -209,7 +209,7 @@ namespace TPM.Repositorio
                 jugador.FechaNac = Convert.ToDateTime(item["FechaNac"].ToString());
                 jugador.Domicilio = item["Domicilio"].ToString();
                 jugador.LocalidadId = int.Parse(item["LocalidadId"].ToString());
-                //jugador.LocalidadNombre = item["LocalidadNombre"].ToString();
+                jugador.Posicion = item["Posicion"].ToString();
                 jugador.FechaNacFormateada = jugador.FechaNac.ToShortDateString();
                 jugadorList.Add(jugador);
             }
@@ -278,6 +278,7 @@ namespace TPM.Repositorio
                 jugador.NumeroCamiseta = int.Parse(item["LocalidadId"].ToString());
                 jugador.Titular = item["Titular"].ToString();
                 jugador.MinutosJugados = int.Parse(item["MinutosJugados"].ToString());
+                //jugador.MinutosJugadosString = item["MinutosJugados"].ToString();
                 jugador.MinPrimeraAmarilla = int.Parse(item["MinPrimeraAmarilla"].ToString());
                 jugador.MinSegundaAmarilla = int.Parse(item["MinSegundaAmarilla"].ToString());
                 jugador.MinRoja = int.Parse(item["MinRoja"].ToString());
@@ -396,6 +397,7 @@ namespace TPM.Repositorio
                 gol.Nombre = item["Nombre"].ToString();
                 gol.Apellido = item["Apellido"].ToString();
                 gol.MinutosGol =  int.Parse(item["MinutosGol"].ToString());
+                gol.MinutosGolString = item["MinutosGol"].ToString();
                 gol.Descripcion = item["Descripcion"].ToString();
                 gol.UrlVideo = item["UrlVideo"].ToString();
 

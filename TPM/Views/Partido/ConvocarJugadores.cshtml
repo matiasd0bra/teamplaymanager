@@ -26,7 +26,7 @@
             <p><strong>División:</strong> @Model.PartidoSeleccionado.EquipoNombre</p>
             <p><strong>Categoría:</strong> @Model.CategoriasString</p>
         </div>
-        <div class="titleSeccion">Planilla de citación</div>
+        <div class="titleSeccion">Planilla de citación</div>        
         <div class="row">
             <div class="col-xs-6">
                 <p><strong>Fecha Nº:</strong> @Model.PartidoSeleccionado.NumeroFecha</p>
@@ -53,36 +53,60 @@
                                 Nuevo jugador
                             </a>
                         </div>
-                        <div class="col-xs-4" style="text-align: right">
-                            <p class="labelForm">Nombre: </p>
-                            <p class="labelForm">Apellido: </p>
-                            <p class="labelForm">Categoría: </p>
-                            <p class="labelForm">Posición: </p>
-                            <p class="labelForm">Todos los equipos: </p>
-                        </div>
-                        <div class="col-xs-8">
-                            <input class="inputForm" type="text" value="@Model.ApellidoFiltro" name="ApellidoFiltro" id="ApellidoFiltro">
-                            <input class="inputForm" type="text" value="@Model.NombreFiltro" name="NombreFiltro" id="NombreFiltro">
-                            @*<input class="inputForm" type="text" value="@Model.CategoriaFiltro" name="CategoriaFiltro" id="CategoriaFiltro">*@
-                            @*@Html.DropDownListFor(model => model.CategoriaId, new SelectList(Model.CategoriaList, "CategoriaId", "NombreCategoria", 1))*@
-                            
-                            <select class="inputForm" name="CategoriaFiltro" id="CategoriaFiltro"style="width: 100%; height: 30px;">
-                                <option value=""></option>
-                                @foreach (var item in Model.CategoriaList)
-                                {
-                                    <option @(item.NombreCategoria == Model.CategoriaFiltro ? "selected" : "") value="@item.NombreCategoria"> @item.NombreCategoria </option> 
-                                }
+                        <div class="createJugador" style="margin-top:15px">
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <p class="textCreateJugador">Nombre:</p>
+                                </div>
+                                <div class="col-xs-8">
+                                   <input class="inputForm" type="text" value="@Model.NombreFiltro" name="NombreFiltro" id="NombreFiltro"> 
+                                </div>                
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <p class="textCreateJugador">Apellido:</p>
+                                </div>
+                                <div class="col-xs-8">
+                                   <input class="inputForm" type="text" value="@Model.ApellidoFiltro" name="ApellidoFiltro" id="ApellidoFiltro"> 
+                                </div>                
+                            </div>
+                            @*<div class="row">
+                                <div class="col-xs-4">
+                                    <p class="textCreateJugador">Categoría:</p>
+                                </div>
+                                <div class="col-xs-8">
+                                   <select class="inputForm" name="CategoriaFiltro" id="CategoriaFiltro"style="width: 100%; height: 30px;">
+                                        <option value=""></option>
+                                        @foreach (var item in Model.CategoriaList)
+                                        {
+                                            <option @(item.NombreCategoria == Model.CategoriaFiltro ? "selected" : "") value="@item.NombreCategoria"> @item.NombreCategoria </option> 
+                                        }
 
-                            </select>
-                            
-                            <select class="inputForm" name="PosicionFiltro" id="PosicionFiltro" style="width: 100%; height: 30px;">
-                                <option value=""></option>
-                                <option @(Model.PosicionFiltro == "Arquero" ? "selected" : "") value="Arquero">Arquero</option>
-                                <option @(Model.PosicionFiltro == "Defensor" ? "selected" : "") value="Defensor">Defensor</option>
-                                <option @(Model.PosicionFiltro == "Volante" ? "selected" : "") value="Volante">Volante</option>
-                                <option @(Model.PosicionFiltro == "Delantero" ? "selected" : "") value="Delantero">Delantero</option>
-                            </select>
-                            <input class="inputForm" style="margin-top: 15px" type="checkbox" name="EquiposFiltro" id="EquiposFiltro" checked="@Model.EquiposFiltro"/>
+                                    </select> 
+                                </div>                
+                            </div>*@
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <p class="textCreateJugador">Posición:</p>
+                                </div>
+                                <div class="col-xs-8">
+                                   <select class="inputForm" name="PosicionFiltro" id="PosicionFiltro" style="width: 100%; height: 30px;">
+                                        <option value=""></option>
+                                        <option @(Model.PosicionFiltro == "Arquero" ? "selected" : "") value="Arquero">Arquero</option>
+                                        <option @(Model.PosicionFiltro == "Defensor" ? "selected" : "") value="Defensor">Defensor</option>
+                                        <option @(Model.PosicionFiltro == "Volante" ? "selected" : "") value="Volante">Volante</option>
+                                        <option @(Model.PosicionFiltro == "Delantero" ? "selected" : "") value="Delantero">Delantero</option>
+                                    </select>
+                                </div>                
+                            </div>
+                             <div class="row">
+                                <div class="col-xs-4">
+                                    <p class="textCreateJugador">Todos los equipos:</p>
+                                </div>
+                                <div class="col-xs-8">
+                                   <input class="inputForm" style="margin-top: 15px" type="checkbox" name="EquiposFiltro" id="EquiposFiltro" checked="@Model.EquiposFiltro"/>
+                                </div>                
+                            </div>
                         </div>
                         <div class="col-xs-12" style="text-align: right;margin-top: 15px;">
                             @Html.HiddenFor(model => model.PartidoSeleccionado.PartidoId, new { id = "hidden" })

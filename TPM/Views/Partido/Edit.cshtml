@@ -2,13 +2,13 @@
 @using System.Web.Mvc.Html
 @model TPM.Models.Partido
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="panel panel-primary">
     <div class="panel-heading">
-        Crear Partido
+        Editar Partido
         <div class="pull-right">
             <a class="link-panel" href="/Partido">
                 <img src="~/Images/boton_volver.png" />
@@ -17,9 +17,9 @@
         </div>
     </div>
     <div class="panel-body">
-        @using (Html.BeginForm("Create", "Partido", FormMethod.Post, new {enctype = "multipart/form-data"}))
+        @using (Html.BeginForm("Edit", "Partido", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-            @*<input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />*@
+            <input type="hidden" name="PartidoId" id="PartidoId" value="@Model.PartidoId" />
 
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true)
@@ -29,83 +29,84 @@
                 <div class="well">
                     <div class="titleDatos"><span class="label label-default">Datos Partido</span></div>
                     <div style="padding-bottom: 15px; text-align: center;">
-                    @Html.ValidationMessageFor(model => model.Rival, "Debe completar los campos obligatorios.")
-                     </div>
-                     <div class="createJugador" style="margin-top:15px">
-                     <div class="row">
+                        @Html.ValidationMessageFor(model => model.Rival, "Debe completar los campos obligatorios.")
+                    </div>
+                    <div class="createJugador" style="margin-top: 15px">
+                        <div class="row">
                             <div class="col-xs-2">
                                 <p class="textCreateJugador">Temporada:</p>
                             </div>
                             <div class="col-xs-2">
-                               @Html.DropDownListFor(model => model.TemporadaId, new SelectList(Model.TemporadasList, "TemporadaId", "TemporadaNombre", 1)) 
+                                @Html.DropDownListFor(model => model.TemporadaId, new SelectList(Model.TemporadasList, "TemporadaId", "TemporadaNombre", 1))
                             </div>
                             <div class="col-xs-2">
                                 <p class="textCreateJugador">Equipo:</p>
                             </div>
                             <div class="col-xs-2">
-                                 @Html.DropDownListFor(model => model.EquipoId, new SelectList(Model.EquiposList, "Id", "NombreEquipo", 1))
+                                @Html.DropDownListFor(model => model.EquipoId, new SelectList(Model.EquiposList, "Id", "NombreEquipo", 1))
                             </div>
-                    </div>
-                    <div class="row">
+                        </div>
+                        <div class="row">
                             <div class="col-xs-2">
                                 <p class="textCreateJugador">Fecha N°:</p>
                             </div>
                             <div class="col-xs-2">
-                               @Html.EditorFor(model => model.NumeroFechaString) 
+                                @Html.EditorFor(model => model.NumeroFechaString)
                             </div>
                             <div class="col-xs-2">
                                 <p class="textCreateJugador">Rival:</p>
                             </div>
                             <div class="col-xs-2">
-                                 @Html.EditorFor(model => model.Rival)
+                                @Html.EditorFor(model => model.Rival)
                             </div>
                             <div class="col-xs-2">
                                 <p class="textCreateJugador">Tipo :</p>
                             </div>
                             <div class="col-xs-2">
-                                 <select name="TipoPartidoNombre" id="TipoPartidoNombre">
-                                    <option value="Amistoso">Amistoso</option>
-                                    <option value="Liga">Liga</option>
-                                    <option value="Campeonato">Campeonato</option>
-                                 </select>
+                                <select name="TipoPartidoNombre" id="TipoPartidoNombre">
+                                    <option value=""></option>
+                                    <option @(Model.TipoPartidoNombre.Trim() == "Amistoso" ? "selected" : "") value="Amistoso">Amistoso</option>
+                                    <option @(Model.TipoPartidoNombre.Trim() == "Liga" ? "selected" : "") value="Liga">Liga</option>
+                                    <option @(Model.TipoPartidoNombre.Trim() == "Campeonato" ? "selected" : "") value="Campeonato">Campeonato</option>
+                                </select>
                             </div>
-                     </div>
-                     <div class="row">
+                        </div>
+                        <div class="row">
                             <div class="col-xs-2">
                                 <p class="textCreateJugador">Fecha y hora partido:</p>
                             </div>
                             <div class="col-xs-2">
-                                @Html.TextBoxFor(model => model.FechaHoraInicioString) 
+                                @Html.TextBoxFor(model => model.FechaHoraInicioString)
                             </div>
                             <div class="col-xs-2">
                                 <p class="textCreateJugador">Hora de citación:</p>
                             </div>
                             <div class="col-xs-2">
-                                 @Html.TextBoxFor(model => model.HoraCitacionString)
+                                @Html.TextBoxFor(model => model.HoraCitacionString)
                             </div>
-                    </div>
-                    <div class="row">
+                        </div>
+                        <div class="row">
                             <div class="col-xs-2">
                                 <p class="textCreateJugador">Local </p>
                             </div>
                             <div class="col-xs-2">
-                                <input type="checkbox" id="Condicion" name="Condicion" value="Local">
+                                <input type="checkbox" id="Condicion" name="Condicion" value="Local" @(Model.Condicion.Trim() == "Local" ? "checked" : "")>
                             </div>
                             <div class="col-xs-2">
                                 <p class="textCreateJugador">Lugar: </p>
                             </div>
                             <div class="col-xs-2">
-                                 @Html.EditorFor(model => model.Lugar)
+                                @Html.EditorFor(model => model.Lugar)
                             </div>
                             <div class="col-xs-2">
                                 <p class="textCreateJugador">Cancha: </p>
                             </div>
                             <div class="col-xs-2">
-                                 @Html.EditorFor(model => model.Cancha)
+                                @Html.EditorFor(model => model.Cancha)
                             </div>
-                    </div>                    
+                        </div>
                         <script type="text/javascript">
-                            $(function() {
+                            $(function () {
                                 $("#FechaHoraInicioString").datetimepicker({
                                     format: 'd.m.Y H:i'
                                 });
@@ -114,15 +115,14 @@
                                     format: 'H:i'
                                 });
                             });
-                        </script>   
-                        </div>                     
+                        </script>
+                    </div>
                 </div>
-         
-                <input class="btn btn-primary" name="accion" type="submit" value="Guardar y volver al calendario" />
-                <input class="btn btn-primary" name="accion" type="submit" value="Guardar y cargar otro partido" />
-                    <input class="btn btn-primary" name="accion" type="submit" value="Guardar y convocar Jugadores" />
 
-                
+                <input class="btn btn-primary pull-right" name="accion" type="submit" value="Guardar" />
+
+
+
 
             </fieldset>
             <link href="~/Scripts/Bootstrap/datetimepicker-master/jquery.datetimepicker.css" rel="stylesheet" />

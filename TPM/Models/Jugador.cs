@@ -20,9 +20,7 @@ namespace TPM.Models
         [Required]
         public string FechaNacFormateada { get; set; }
         [Required]
-        public string Domicilio { get; set; }
-        [Required]
-        public string Apodo { get; set; }     
+        public string Domicilio { get; set; }         
         [Required]
         public string PesoString { get; set; }
         [Required]
@@ -30,13 +28,12 @@ namespace TPM.Models
         [Required]
         public string Telefono { get; set; }
         [Required]
-        public string Email { get; set; }
-        [Required]
-        public string Representante { get; set; }     
+        public string Email { get; set; }        
         [Required]
         public string PiernaHabil { get; set; }
 
-
+        public string Representante { get; set; }    
+        public string Apodo { get; set; }  
         public string Posicion { get; set; }
         public int Peso { get; set; }
         public int Estatura { get; set; }
@@ -100,5 +97,11 @@ namespace TPM.Models
         public string MinRojaString { get; set; }
         public string Observaciones { get; set; }
         public string Destacado { get; set; }
+
+        //Datos estadisticos
+        public string CantidadPartidos { get; set; }
+        public string CantidadMinutosJugados { get; set; }
+        public int CantidadAmarillas { get; set; }
+        public int CantidadRojas { get; set; }
     }
 }
