@@ -16,7 +16,19 @@ namespace TPM.Controllers
 
         public ActionResult Index()
         {
-            List<Equipo> equipos = EquiposRepo.EquiposGetAllRepo();            
+            List<Equipo> equipos = EquiposRepo.EquiposGetAllRepo();
+            foreach (var item in equipos)
+            {
+                item.CategoriaLista = CategoriaRepo.CategoriaByEquipo(item.Id);
+                foreach (var item2 in item.CategoriaLista)
+                {
+                    item.CategoriasString += item2.NombreCategoria;
+                    if (item2 != item.CategoriaLista[item.CategoriaLista.Count - 1])
+                    {
+                        item.CategoriasString += " - ";
+                    }
+                }
+            }      
             return View(equipos);
         }
 

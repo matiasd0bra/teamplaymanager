@@ -10,5 +10,7 @@ namespace TPM.Models.ViewModel
         public Equipo Equipo { get; set; }
         public DateTime FechaDesdeHistorial { get; set; }
         public DateTime FechaHastaHistorial { get; set; }
+        public string FechaDesdeHistorialString { get; set; }
+        public string FechaHastaHistorialString { get; set; }
     }
 }

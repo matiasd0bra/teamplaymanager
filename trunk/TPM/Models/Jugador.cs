@@ -99,9 +99,12 @@ namespace TPM.Models
         public string Destacado { get; set; }
 
         //Datos estadisticos
-        public string CantidadPartidos { get; set; }
-        public string CantidadMinutosJugados { get; set; }
+        public int CantidadPartidosConvocado { get; set; }
+        public int CantidadPartidos { get; set; }
+        public int CantidadMinutosJugados { get; set; }
         public int CantidadAmarillas { get; set; }
         public int CantidadRojas { get; set; }
+        public int CantidadGoles { get; set; }
+        public float CalificacionPromedio { get; set; }
     }
 }

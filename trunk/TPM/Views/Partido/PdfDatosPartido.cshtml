@@ -1,0 +1,80 @@
+﻿@using System.Collections.Generic;
+@using System.Web.Mvc.Html
+@using Microsoft.Ajax.Utilities
+@using TPM.Models
+@model TPM.Models.Partido
+
+
+@{
+    Layout = null;
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    WebGrid gridDatosJugadores = new WebGrid(Model.JugadoresPartidoList, rowsPerPage: 17, ajaxUpdateContainerId: "grid", canSort: false, canPage: false);
+    int rowNum = 0;
+}
+
+<!DOCTYPE html>
+<html>
+    <body>
+
+        <div class="">Planilla de partido</div>
+        <div class="row">
+            <div class="col-xs-6">
+                <p><strong>Partido jugado vs:</strong> @Model.Rival</p>
+                <p><strong>Torneo:</strong> @Model.TemporadaNombre</p>
+                <p><strong>Cancha de:</strong> @Model.Cancha</p>
+                <p><strong>Fecha campeonato:</strong> Nº @Model.NumeroFecha</p>
+            </div>
+            <div class="col-xs-6" style="text-align: right;">
+                <p><strong>Fecha:</strong> @Model.Fecha</p>
+                <p><strong>Categoría: </strong>@Model.EquipoNombre <strong>Año: </strong>@Model.CategoriasString</p>
+                <p><strong>Horario:</strong> @Model.Hora</p>
+                <p><strong>Condición: </strong>@Model.Condicion</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <p>
+                    <strong>Resultado Final:</strong>
+                    @if (Model.Condicion.Trim() == "Local")
+                    {
+                        @Model.EquipoNombre
+                        <label>@Model.GolesPropiosString</label>
+                        <label>VS</label>
+                        @Model.Rival
+                        <label>@Model.GolesRivalString</label>
+                    }
+                    else
+                    {
+                        @Model.Rival
+                        <label>@Model.GolesRivalString</label>
+                        <label>VS</label>
+                        @Model.EquipoNombre
+                        <label>@Model.GolesPropiosString</label>
+                    }
+                </p>
+            </div>
+        </div>
+
+        <div>
+            <div class="titleDatos"><span class="label label-default">Datos Partido</span></div>
+        
+            <table style="background-color: red;color: green" width="100%">
+                @foreach (var item in Model.JugadoresPartidoList)
+                {
+                    <tr>
+                        <td style="width:50px">@item.NumeroCamiseta</td>
+                        <td style="width:50px">@item.Nombre</td>
+                        <td style="width:50px">@item.Apellido</td>
+                        <td style="width:50px">@item.MinutosJugadosString</td>
+                        <td style="width:50px">@item.CalificacionString</td>
+                        <td style="width:50px">@item.GolString</td>
+                        <td style="width:50px">@item.MinPrimeraAmarillaString</td>
+                        <td style="width:50px">@item.MinSegundaAmarillaString</td>
+                        <td>@item.MinRojaString</td>
+                        <td>@item.Observaciones</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </body>
+</html>

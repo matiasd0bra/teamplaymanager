@@ -27,7 +27,6 @@ namespace TPM.Repositorio
                 equipo.Liga = item["NombreLiga"].ToString();
                 equipo.Division = item["NombreDivision"].ToString();
                 equipo.NombreEquipo = item["NombreEquipo"].ToString();
-                equipo.CategoriaNombre = item["nombreCategoria"].ToString();
 
                 equipoList.Add(equipo);
             }

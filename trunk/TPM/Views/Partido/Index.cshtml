@@ -10,7 +10,7 @@
 }
 
 <div class="panel panel-primary">
-    <div class="panel-heading">Calendario Partidos
+    <div class="panel-heading">Lista de Partidos
         <div class="pull-right">
           <a class="link-panel"  href="/Partido/Create">
               <img src="~/Images/boton_nuevo.png" />
@@ -43,8 +43,8 @@
                                                             <a href="/Partido/Edit/@item.PartidoId"><img title="Editar" src="~/Images/boton_editar.png" /></a>
                                                             <a href="/Partido/Details/@item.PartidoId"><img title="Detalle" src="~/Images/boton_ver.png" /></a>
                                                             <a href="/Partido/Delete/@item.PartidoId"><img title="Eliminar" src="~/Images/boton_borrar.png" /></a>                    
-                                                            <a class="btn btn-primary" href="/Partido/ConvocarJugadores/@item.PartidoId">Convocar</a>
-                                                            <a class="btn btn-primary" href="/Partido/DatosPartido/@item.PartidoId">Cargar Datos</a>                                                            
+                                                            <a class="btn btn-primary" href="/Partido/ConvocarJugadores/@item.PartidoId" style="color: #FFFFFF;">Convocar</a>
+                                                            <a class="btn btn-primary" href="/Partido/DatosPartido/@item.PartidoId" style="color: #FFFFFF;">Cargar Datos</a>                                                            
                                                        </text>
                                               )
                                       })
@@ -54,7 +54,7 @@
                                   <div>@Html.DisplayName("No se han encontrado resultados")</div>
                         }
 
-        <table>
+        @*<table>
             <tr>
                 <td class="primerColumna">
                     @Html.Label("Temporada:")
@@ -77,7 +77,7 @@
                 </td> 
             </tr>
         </table>
-        <div id="datepicker"></div>
+        <div id="datepicker"></div>*@
     </div>
 </div>
 

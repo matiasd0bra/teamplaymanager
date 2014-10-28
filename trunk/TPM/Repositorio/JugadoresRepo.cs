@@ -396,7 +396,7 @@ namespace TPM.Repositorio
                 gol.JugadorId = int.Parse(item["JugadorId"].ToString());
                 gol.Nombre = item["Nombre"].ToString();
                 gol.Apellido = item["Apellido"].ToString();
-                gol.MinutosGol =  int.Parse(item["MinutosGol"].ToString());
+                gol.MinutosGol = int.Parse(item["MinutosGol"].ToString());
                 gol.MinutosGolString = item["MinutosGol"].ToString();
                 gol.Descripcion = item["Descripcion"].ToString();
                 gol.UrlVideo = item["UrlVideo"].ToString();
@@ -405,6 +405,57 @@ namespace TPM.Repositorio
             }
 
             return golesList;
+        }
+
+        public static Jugador EstadisticasPartidoByJugadorId(Jugador jugador)
+        {
+            JugadoresDAL jugadoresDal = new JugadoresDAL();
+            DataTable dt = jugadoresDal.EstadisticasPartidoByJugadorId(jugador);
+
+            var cantidadConvocados = 0;
+            var cantidadPartidos = 0;
+            var cantidadMinutos = 0;
+            var cantidadAmarillas = 0;
+            var cantidadRojas = 0;
+            var calificacionPromedio = 0.0f;
+            var cantPromedio = 0.0f;
+            foreach (DataRow item in dt.Rows)
+            {
+                cantidadConvocados++;
+                if (int.Parse(item["MinutosJugados"].ToString()) != 0)
+                {
+                    cantidadPartidos++;
+                }
+                cantidadMinutos += int.Parse(item["MinutosJugados"].ToString());
+                if (int.Parse(item["MinPrimeraAmarilla"].ToString()) != 0 || int.Parse(item["MinSegundaAmarilla"].ToString()) != 0 )
+                {
+                    cantidadAmarillas++;
+                }
+                if (int.Parse(item["MinRoja"].ToString()) != 0)
+                {
+                    cantidadRojas++;
+                }
+                if (int.Parse(item["Calificacion"].ToString()) != 0)
+                {
+                    cantPromedio++;
+                    calificacionPromedio += int.Parse(item["Calificacion"].ToString());
+                }
+
+            }
+            
+            jugador.CantidadPartidosConvocado = cantidadConvocados;
+            jugador.CantidadPartidos = cantidadPartidos;
+            jugador.CantidadMinutosJugados = cantidadMinutos;
+            jugador.CantidadAmarillas = cantidadAmarillas;
+            jugador.CantidadRojas = cantidadRojas;
+            jugador.CalificacionPromedio = (calificacionPromedio/cantPromedio);
+            return jugador;
+        }
+
+        public static int EstadisticasGolesByJugadorId(int id)
+        {
+            JugadoresDAL jugadoresDal = new JugadoresDAL();
+            return jugadoresDal.EstadisticasGolesByJugadorId(id);
         }
     }
 }

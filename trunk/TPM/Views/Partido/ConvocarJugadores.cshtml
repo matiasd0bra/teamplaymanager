@@ -23,7 +23,7 @@
     </div>
     <div class="panel-body">
         <div>
-            <p><strong>División:</strong> @Model.PartidoSeleccionado.EquipoNombre</p>
+            <p><strong>Equipo:</strong> @Model.PartidoSeleccionado.EquipoNombre</p>
             <p><strong>Categoría:</strong> @Model.CategoriasString</p>
         </div>
         <div class="titleSeccion">Planilla de citación</div>        
@@ -131,7 +131,6 @@
                                 {
                                     gridJugadores.Column("Nombre"),
                                     gridJugadores.Column("Apellido"),
-                                    gridJugadores.Column("Categoria"),
                                     gridJugadores.Column("Posicion"),
                                     gridJugadores.Column("",
                                         header: "Acciones",
