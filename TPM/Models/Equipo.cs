@@ -14,9 +14,13 @@ namespace TPM.Models
         public int DivisionId { get; set; }
         public string Liga { get; set; }
         public string Division { get; set; }
+
         public List<Categoria> CategoriaLista { get; set; }
+        public string CategoriasString { get; set; }
+
         public List<Division> DivisionLista { get; set; }
         public List<Liga> LigaLista { get; set; }
         public String NombreEquipo { get; set; }
+
     }
 }

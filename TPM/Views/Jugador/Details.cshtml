@@ -70,7 +70,6 @@
                     </div>
                    
                             <div>
-                                @Html.Label("Equipos en los que juega: ")
                                 @if (Model.EquiposList.Count > 0)
                                 {
                                     @gridEquiposActual.GetHtml(
@@ -88,7 +87,7 @@
                                         columns: new[]
                                         {
                                             gridEquiposActual.Column("Equipo.NombreEquipo", "Equipo"),
-                                            gridEquiposActual.Column("FechaDesdeHistorial", "Fecha Desde"),
+                                            gridEquiposActual.Column("FechaDesdeHistorialString", "Fecha Ingreso"),
                                         })                                                          
                                 }
                                 else
@@ -132,9 +131,34 @@
                 </fieldset>
             }
         </div>
-        <div class="tab-pane" id="estadisticas">
-            <div>Partidos convocado: </div>
-        </div>
+            <div class="tab-pane" id="estadisticas">
+                <div class="well" style="margin-top: 25px">
+                    <div class="row">
+                        <div class="col-xs-2">
+                            <p>Temporada</p>
+                            <p>2014-2015</p>
+                        </div>
+                        <div class="col-xs-1">
+                            <p>Partidos</p>
+                        </div>
+                        <div class="col-xs-2">
+                            <p>Convocados: @Model.CantidadPartidosConvocado</p>
+                            <p>Minutos Jugados: @Model.CantidadMinutosJugados</p>
+                            <p>
+                                <img width="20px" src="~/Images/amarilla.png" /> @Model.CantidadAmarillas 
+                                <img width="20px" src="~/Images/roja.png" style="margin-left: 20px;" /> @Model.CantidadRojas 
+                                <img width="20px" src="~/Images/gol.png" style="margin-left: 20px;" /> @Model.CantidadGoles 
+                            <p>
+                        </div>
+                        <div class="col-xs-2">
+                            <p>Jugados: @Model.CantidadPartidos</p>
+                            <p>Clasificación Promedio: @Model.CalificacionPromedio</p>
+                           
+                                
+                        </div>
+                    </div>
+                </div>
+            </div>
         <div class="tab-pane" id="lesiones">
 
         </div>

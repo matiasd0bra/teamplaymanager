@@ -1,24 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Html;
 using System.Web.UI.WebControls.WebParts;
+using System.Xml;
 using Antlr.Runtime;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using iTextSharp.text.xml;
+using TPM.DAL;
 using TPM.Models;
 using TPM.Models.ViewModel;
 using TPM.Repositorio;
 
+
 namespace TPM.Controllers
 {
     public class PartidoController : Controller
+
+
     {
         public ActionResult Index()
         {
             Partido partido = new Partido();
             partido.TemporadasList = TemporadasRepo.TemporadasGetAllRepo();
             partido.EquiposList = EquiposRepo.EquiposGetAllRepo();
-            partido.listPartidosSinDatos = PartidoRepo.PartidosSinDatos() ;
+            partido.listPartidosSinDatos = PartidoRepo.PartidosSinDatos();
             return View(partido);
         }
 
@@ -69,7 +81,8 @@ namespace TPM.Controllers
                     partido.PartidoId = PartidoRepo.PartidoInsert(partido);
 
                     if (accion == "Guardar y volver al calendario") return RedirectToAction("Index");
-                    if (accion == "Guardar y convocar Jugadores") return RedirectToAction("ConvocarJugadores", new { id = partido.PartidoId });
+                    if (accion == "Guardar y convocar Jugadores")
+                        return RedirectToAction("ConvocarJugadores", new {id = partido.PartidoId});
                     if (accion == "Guardar y cargar otro partido") return RedirectToAction("Create");
                 }
                 catch
@@ -85,25 +98,30 @@ namespace TPM.Controllers
             return View(partido);
         }
 
-        public ActionResult ConvocarJugadores(int id, string NombreFiltro = null, string ApellidoFiltro = null, string CategoriaFiltro = null, string EquiposFiltro = null, string PosicionFiltro=null)
+        public ActionResult ConvocarJugadores(int id, string NombreFiltro = null, string ApellidoFiltro = null,
+            string CategoriaFiltro = null, string EquiposFiltro = null, string PosicionFiltro = null)
         {
             var assignarJugadoresViewModel = new AssignarJugadoresViewModel();
             assignarJugadoresViewModel.PartidoSeleccionado = PartidoRepo.PartidoByIdRepo(id);
-            assignarJugadoresViewModel.CategoriaList = CategoriaRepo.CategoriaByEquipo(assignarJugadoresViewModel.PartidoSeleccionado.EquipoId);
-            assignarJugadoresViewModel.ListaJugadoresTitulares = JugadoresRepo.JugadoresByPartido(id,"T");
-            assignarJugadoresViewModel.ListaJugadoresSuplentes = JugadoresRepo.JugadoresByPartido(id,"S");
+            assignarJugadoresViewModel.CategoriaList =
+                CategoriaRepo.CategoriaByEquipo(assignarJugadoresViewModel.PartidoSeleccionado.EquipoId);
+            assignarJugadoresViewModel.ListaJugadoresTitulares = JugadoresRepo.JugadoresByPartido(id, "T");
+            assignarJugadoresViewModel.ListaJugadoresSuplentes = JugadoresRepo.JugadoresByPartido(id, "S");
             assignarJugadoresViewModel.NombreFiltro = NombreFiltro;
             assignarJugadoresViewModel.ApellidoFiltro = ApellidoFiltro;
             assignarJugadoresViewModel.CategoriaFiltro = CategoriaFiltro;
             if (EquiposFiltro == "on")
             {
-                assignarJugadoresViewModel.EquiposFiltro = "checked";   
+                assignarJugadoresViewModel.EquiposFiltro = "checked";
             }
             assignarJugadoresViewModel.PosicionFiltro = PosicionFiltro;
-            assignarJugadoresViewModel.Fecha = assignarJugadoresViewModel.PartidoSeleccionado.FechaHoraInicio.ToShortDateString();
-            assignarJugadoresViewModel.Hora = assignarJugadoresViewModel.PartidoSeleccionado.FechaHoraInicio.ToShortTimeString();
-            assignarJugadoresViewModel.HoraCitacion = assignarJugadoresViewModel.PartidoSeleccionado.HoraCitacion.ToShortTimeString();
-            
+            assignarJugadoresViewModel.Fecha =
+                assignarJugadoresViewModel.PartidoSeleccionado.FechaHoraInicio.ToShortDateString();
+            assignarJugadoresViewModel.Hora =
+                assignarJugadoresViewModel.PartidoSeleccionado.FechaHoraInicio.ToShortTimeString();
+            assignarJugadoresViewModel.HoraCitacion =
+                assignarJugadoresViewModel.PartidoSeleccionado.HoraCitacion.ToShortTimeString();
+
             foreach (var item in assignarJugadoresViewModel.CategoriaList)
             {
 
@@ -126,7 +144,9 @@ namespace TPM.Controllers
                 assignarJugadoresViewModel.CategoriasBuscar += ")";
 
             }
-            assignarJugadoresViewModel.ListaJugadores = JugadoresRepo.JugadoresSearchPartido(id, assignarJugadoresViewModel.PartidoSeleccionado.EquipoId, NombreFiltro, ApellidoFiltro, CategoriaFiltro, EquiposFiltro, PosicionFiltro);
+            assignarJugadoresViewModel.ListaJugadores = JugadoresRepo.JugadoresSearchPartido(id,
+                assignarJugadoresViewModel.PartidoSeleccionado.EquipoId, NombreFiltro, ApellidoFiltro, CategoriaFiltro,
+                EquiposFiltro, PosicionFiltro);
 
             return View(assignarJugadoresViewModel);
         }
@@ -164,7 +184,7 @@ namespace TPM.Controllers
             }
         }
 
-        public ActionResult DatosPartido(int id)
+        public ActionResult DatosPartido(int id, string abrirPopup)
         {
             var partido = new Partido();
             partido = PartidoRepo.PartidoByIdRepo(id);
@@ -198,7 +218,7 @@ namespace TPM.Controllers
                 item.CambioString = item.Cambio == 0 ? "" : item.Cambio.ToString();
                 item.GolString = item.Gol == 0 ? "" : item.Gol.ToString();
             }
-
+            partido.AbrirPopup = abrirPopup ?? "";
 
             return View(partido);
         }
@@ -209,8 +229,20 @@ namespace TPM.Controllers
         {
             PartidoRepo.CargarDatosPartidoInsert(partido);
             PartidoRepo.GolesJugadorPorPartidoUpdate(partido);
+            if (accion == "Imprimir") return RedirectToAction("PdfDatosPartido", new {id = partido.PartidoId});
 
-            return RedirectToAction("Index");
+            //if (accion == "Guardar")
+            //{
+            //    partido.AbrirPopup = "true";
+            //    return RedirectToAction("DatosPartido", new { id = partido.PartidoId, partido.AbrirPopup });
+            //}
+
+            if (accion == "Cargar Goles")
+            {
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("DatosPartido", new { id = partido.PartidoId, partido.AbrirPopup });
+          
         }
 
         public JsonResult ConvocarJugador(JugadoresAsignados jugadorAsignado)
@@ -224,7 +256,7 @@ namespace TPM.Controllers
             JugadoresRepo.JugadorPorPartidoInsert(jugador);
 
 
-            return Json(new { success = false, message = "Un tag failed " }, JsonRequestBehavior.AllowGet);
+            return Json(new {success = false, message = "Un tag failed "}, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -236,7 +268,46 @@ namespace TPM.Controllers
 
             JugadoresRepo.JugadorPorPartidoDelete(jugador);
 
-            return Json(new { success = false, message = "Un tag failed " }, JsonRequestBehavior.AllowGet);
+            return Json(new {success = false, message = "Un tag failed "}, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult PdfDatosPartido(int id)
+        {
+            var partido = new Partido();
+            partido = PartidoRepo.PartidoByIdRepo(id);
+            partido.Fecha = partido.FechaHoraInicio.ToShortDateString();
+            partido.Hora = partido.FechaHoraInicio.ToShortTimeString();
+            partido.CategoriaList = CategoriaRepo.CategoriaByEquipo(partido.EquipoId);
+            partido.JugadoresPartidoList = JugadoresRepo.JugadoresByPartido(id);
+
+            foreach (var item in partido.CategoriaList)
+            {
+
+                partido.CategoriasString += item.NombreCategoria;
+                if (item != partido.CategoriaList[partido.CategoriaList.Count - 1])
+                {
+                    partido.CategoriasString += " - ";
+                }
+            }
+            partido.GolesPartidoList = JugadoresRepo.GolesJugadoresByPartido(id);
+            foreach (var item in partido.GolesPartidoList)
+            {
+                item.MinutosGolString = item.MinutosGol == 0 ? "" : item.MinutosGol.ToString();
+            }
+            foreach (var item in partido.JugadoresPartidoList)
+            {
+                item.MinutosJugadosString = item.MinutosJugados == 0 ? "" : item.MinutosJugados.ToString();
+                item.MinPrimeraAmarillaString = item.MinPrimeraAmarilla == 0 ? "" : item.MinPrimeraAmarilla.ToString();
+                item.MinSegundaAmarillaString = item.MinSegundaAmarilla == 0 ? "" : item.MinSegundaAmarilla.ToString();
+                item.MinRojaString = item.MinRoja == 0 ? "" : item.MinRoja.ToString();
+                item.CalificacionString = item.Calificacion == 0 ? "" : item.Calificacion.ToString();
+                item.CambioString = item.Cambio == 0 ? "" : item.Cambio.ToString();
+                item.GolString = item.Gol == 0 ? "" : item.Gol.ToString();
+            }
+
+            return new RazorPDF.PdfResult(partido, "PdfDatosPartido");
+        }
+        
     }
 }
+

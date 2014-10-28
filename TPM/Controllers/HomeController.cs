@@ -35,5 +35,11 @@ namespace TPM.Controllers
 
             return View();
         }
+        public ActionResult Ayuda()
+        {
+            ViewBag.Message = "Página de ayuda.";
+
+            return View();
+        }
     }
 }

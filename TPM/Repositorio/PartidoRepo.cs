@@ -39,6 +39,8 @@ namespace TPM.Repositorio
             partido.NumeroFechaString = dt.Rows[0]["NumeroFecha"].ToString();
             partido.Condicion = dt.Rows[0]["Condicion"].ToString();
             partido.TipoPartidoNombre = dt.Rows[0]["TipoPartido"].ToString();
+            partido.GolesPropiosString = dt.Rows[0]["GolesPropios"].ToString();
+            partido.GolesRivalString = dt.Rows[0]["GolesRival"].ToString();
             return partido;
         }
 
@@ -99,15 +101,18 @@ namespace TPM.Repositorio
 
         public static void GolesJugadorPorPartidoUpdate(Partido partido)
         {
-            
-            foreach (var item in partido.GolesPartidoList)
+            if (partido.GolesPartidoList != null)
             {
-                item.MinutosGol = item.MinutosGolString == null ? 0 : Int32.Parse(item.MinutosGolString);
-                item.Descripcion = item.Descripcion ?? "";
-                item.UrlVideo = item.UrlVideo ?? "";
-            }
+                foreach (var item in partido.GolesPartidoList)
+                {
+                    item.MinutosGol = item.MinutosGolString == null ? 0 : Int32.Parse(item.MinutosGolString);
+                    item.Descripcion = item.Descripcion ?? "";
+                    item.UrlVideo = item.UrlVideo ?? "";
+                }
 
-            PartidoDAL.GolesJugadorPorPartidoUpdate(partido);
+                PartidoDAL.GolesJugadorPorPartidoUpdate(partido);
+            }
+           
         }
     }
 }

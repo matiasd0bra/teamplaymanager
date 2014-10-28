@@ -31,7 +31,13 @@ namespace TPM.Controllers
             jugador.FechaNacFormateada = jugador.FechaNac.ToShortDateString();
             jugador.EquiposList = JugadoresRepo.JugadorEquiposList(id);
             jugador.EquiposListHistorico = JugadoresRepo.JugadorEquiposListHistorico(id);
+            jugador = JugadoresRepo.EstadisticasPartidoByJugadorId(jugador);
+            jugador.CantidadGoles = JugadoresRepo.EstadisticasGolesByJugadorId(id);
+            foreach (var item in jugador.EquiposList)
+            {
+                item.FechaDesdeHistorialString = item.FechaDesdeHistorial.ToShortDateString();
 
+            }
             return View(jugador);
         }
 

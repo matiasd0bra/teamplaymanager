@@ -66,5 +66,7 @@ namespace TPM.Models
         public List<Jugador> JugadoresPartidoList { get; set; }
 
         public List<Gol> GolesPartidoList { get; set; }
+
+        public string AbrirPopup { get; set; }
     }
 }

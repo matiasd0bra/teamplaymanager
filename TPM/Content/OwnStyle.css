@@ -13,21 +13,24 @@
 
 #leftMenu .accordion-heading {
     height: 34px;
-    border-top: 1px solid #717171; /* inner stroke */
-    border-bottom: 1px solid #5A5A5A; /* inner stroke */
-    background-color: #5C5D5C; /* layer fill content */
+    border-top: 1px solid #FFFFFF; /* inner stroke */
+    border-bottom: 1px solid #428bca; /* inner stroke */
+    background-color: #428bca; /* layer fill content */
     list-style-type:none;
+    border-radius: 5px;
 }  
 
 #leftMenu .accordion-heading  a{  
-    color: #cbcbcb; /* text color */
+    color: #FFFFFF; /* text color */
     text-shadow: 0 1px 0 #3b3b3b; /* drop shadow */
     text-decoration:none;
     font-weight:bold;  
+    margin-left: 5px;
 }
 
 #leftMenu .accordion-heading  a:hover{  
-    color:#ccc     
+     color: #708090;
+     text-shadow: none;  
 }
 
 #leftMenu .accordion-heading .active {

@@ -736,5 +736,46 @@ namespace TPM.DAL
             }
             return dt;
         }
+
+        public DataTable EstadisticasPartidoByJugadorId(Jugador jugador)
+        {
+            var dt = new DataTable();
+            SqlDataReader sqlDataReader;
+            
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
+            {
+                using (SqlCommand cmd = new SqlCommand("EstadisticasPartidoByJugadorId", con))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@Id", SqlDbType.Int).Value = jugador.Id;
+
+                    con.Open();
+                    sqlDataReader = cmd.ExecuteReader();
+                    dt.Load(sqlDataReader);
+                }
+            }
+            return dt;
+        }
+
+        public int EstadisticasGolesByJugadorId(int id)
+        {
+            int ret;
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
+            {
+                using (SqlCommand cmd = new SqlCommand("EstadisticasGolesByJugadorId", con))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+
+                    con.Open();
+                    ret = int.Parse(cmd.ExecuteScalar().ToString());
+                }
+            }
+            return ret;
+        }
     }
 }
