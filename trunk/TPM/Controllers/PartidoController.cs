@@ -227,20 +227,23 @@ namespace TPM.Controllers
         [HttpPost]
         public ActionResult DatosPartido(Partido partido, string accion)
         {
+
             PartidoRepo.CargarDatosPartidoInsert(partido);
             PartidoRepo.GolesJugadorPorPartidoUpdate(partido);
+
             if (accion == "Imprimir") return RedirectToAction("PdfDatosPartido", new {id = partido.PartidoId});
 
-            //if (accion == "Guardar")
-            //{
-            //    partido.AbrirPopup = "true";
-            //    return RedirectToAction("DatosPartido", new { id = partido.PartidoId, partido.AbrirPopup });
-            //}
+            if (accion == "Cargar Goles")  return RedirectToAction("Index");
 
-            if (accion == "Cargar Goles")
+            //Verificamos si algun jugador hizo goles, si hay alguno, redireccionamos a la misma pantalla, sino, al index.
+            bool gol = false;
+            foreach (var item in partido.JugadoresPartidoList)
             {
-                return RedirectToAction("Index");
+                if (item.Gol != 0) gol = true;
             }
+            if (gol == false) return RedirectToAction("Index");
+            //Termina.
+
             return RedirectToAction("DatosPartido", new { id = partido.PartidoId, partido.AbrirPopup });
           
         }
