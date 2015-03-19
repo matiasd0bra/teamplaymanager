@@ -10,9 +10,6 @@ using System.Web.Mvc.Html;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml;
 using Antlr.Runtime;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
-using iTextSharp.text.xml;
 using TPM.DAL;
 using TPM.Models;
 using TPM.Models.ViewModel;
@@ -274,42 +271,42 @@ namespace TPM.Controllers
             return Json(new {success = false, message = "Un tag failed "}, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult PdfDatosPartido(int id)
-        {
-            var partido = new Partido();
-            partido = PartidoRepo.PartidoByIdRepo(id);
-            partido.Fecha = partido.FechaHoraInicio.ToShortDateString();
-            partido.Hora = partido.FechaHoraInicio.ToShortTimeString();
-            partido.CategoriaList = CategoriaRepo.CategoriaByEquipo(partido.EquipoId);
-            partido.JugadoresPartidoList = JugadoresRepo.JugadoresByPartido(id);
+        //public ActionResult PdfDatosPartido(int id)
+        //{
+        //    var partido = new Partido();
+        //    partido = PartidoRepo.PartidoByIdRepo(id);
+        //    partido.Fecha = partido.FechaHoraInicio.ToShortDateString();
+        //    partido.Hora = partido.FechaHoraInicio.ToShortTimeString();
+        //    partido.CategoriaList = CategoriaRepo.CategoriaByEquipo(partido.EquipoId);
+        //    partido.JugadoresPartidoList = JugadoresRepo.JugadoresByPartido(id);
 
-            foreach (var item in partido.CategoriaList)
-            {
+        //    foreach (var item in partido.CategoriaList)
+        //    {
 
-                partido.CategoriasString += item.NombreCategoria;
-                if (item != partido.CategoriaList[partido.CategoriaList.Count - 1])
-                {
-                    partido.CategoriasString += " - ";
-                }
-            }
-            partido.GolesPartidoList = JugadoresRepo.GolesJugadoresByPartido(id);
-            foreach (var item in partido.GolesPartidoList)
-            {
-                item.MinutosGolString = item.MinutosGol == 0 ? "" : item.MinutosGol.ToString();
-            }
-            foreach (var item in partido.JugadoresPartidoList)
-            {
-                item.MinutosJugadosString = item.MinutosJugados == 0 ? "" : item.MinutosJugados.ToString();
-                item.MinPrimeraAmarillaString = item.MinPrimeraAmarilla == 0 ? "" : item.MinPrimeraAmarilla.ToString();
-                item.MinSegundaAmarillaString = item.MinSegundaAmarilla == 0 ? "" : item.MinSegundaAmarilla.ToString();
-                item.MinRojaString = item.MinRoja == 0 ? "" : item.MinRoja.ToString();
-                item.CalificacionString = item.Calificacion == 0 ? "" : item.Calificacion.ToString();
-                item.CambioString = item.Cambio == 0 ? "" : item.Cambio.ToString();
-                item.GolString = item.Gol == 0 ? "" : item.Gol.ToString();
-            }
+        //        partido.CategoriasString += item.NombreCategoria;
+        //        if (item != partido.CategoriaList[partido.CategoriaList.Count - 1])
+        //        {
+        //            partido.CategoriasString += " - ";
+        //        }
+        //    }
+        //    partido.GolesPartidoList = JugadoresRepo.GolesJugadoresByPartido(id);
+        //    foreach (var item in partido.GolesPartidoList)
+        //    {
+        //        item.MinutosGolString = item.MinutosGol == 0 ? "" : item.MinutosGol.ToString();
+        //    }
+        //    foreach (var item in partido.JugadoresPartidoList)
+        //    {
+        //        item.MinutosJugadosString = item.MinutosJugados == 0 ? "" : item.MinutosJugados.ToString();
+        //        item.MinPrimeraAmarillaString = item.MinPrimeraAmarilla == 0 ? "" : item.MinPrimeraAmarilla.ToString();
+        //        item.MinSegundaAmarillaString = item.MinSegundaAmarilla == 0 ? "" : item.MinSegundaAmarilla.ToString();
+        //        item.MinRojaString = item.MinRoja == 0 ? "" : item.MinRoja.ToString();
+        //        item.CalificacionString = item.Calificacion == 0 ? "" : item.Calificacion.ToString();
+        //        item.CambioString = item.Cambio == 0 ? "" : item.Cambio.ToString();
+        //        item.GolString = item.Gol == 0 ? "" : item.Gol.ToString();
+        //    }
 
-            return new RazorPDF.PdfResult(partido, "PdfDatosPartido");
-        }
+        //    return new RazorPDF.PdfResult(partido, "PdfDatosPartido");
+        //}
         
     }
 }
