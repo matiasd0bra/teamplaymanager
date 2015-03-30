@@ -1,43 +1,116 @@
-LISTO	*Agregar Fecha nº partido
-LISTO	*Agregar a Partido hora de citacion
-Listo	*En la vista de convocarJugadores hay que  	mostrar las categorias del equipo seleccionado
-LISTO	*En la vista de convocarJugadores hay que mostrar la fecha Nº del partido
-LISTO	*Agregar en el create de partido la hora de citación (Tambien en BD)
-LISTO	*Agregar en el create de partido el campo cancha
-LISTO	*En la vista de convocarJugadores hay que mostrar la cancha
-LISTO	*En BD en la tabla partido cambiar la columna local por condicion y que se guarde Local
-	o Visitante respectivamente.
-LISTO	*En Bd en la tabla partido sacar la columna localidadID y agregar lugar (Varchar[50])
-	y cancha (Varchar[50])
-LISTO   *Darle estilo al create de jugador
-Listo   *En el convocar jugadores filtrar la busqueda por las categorias de ese equipo
-LISTO   *Arreglar create jugadores
-Listo   *En la tabla categoria en BD cargar nuevamente los datos desde el año 1965 hasta 2050 que se correspondan los id (Fijate que 
-seguramente hay alguna forma automatica de cargarlos) y que cargar nuevamente en la BD CategoriaPorEquipo donde tienen que
-corresponderse las categorias actuales con los equipos (Seguna la hoja de marcelo)
 
-Listo	*Una vez hecho el paso anterior en el asignar jugadores filtrar segun los jugadores que correspondan al equipo en cuestion
+21/03/2015
+Nuevos requerimientos
 
-Listo	*En el convocar jugadores al partido, con los cambios hechos se muestra el id de categoria, lo que hay que hacer es en el
-procedimiento almacenado que lo trae hacer el join con la tabla categoria y mostrar el nombre de la categoria
+Referencia:
+- Rojo: Martin
+- Verde: Agustin
+- Azul: Dobra
 
-*Preguntar a marcelo sobre la planilla de partido tiene un campo que es torneo (Nosotros pensamos manejarlo como temporada)
+Jugadores
 
-*Pensar como vamos a guardar que Dt y que preparador fisico estuvieron presentes en el partido (preguntar a marcelo, quien
-llena esta planilla "Planilla de partido")
+- Arreglar cuando pasamos el mouse encima del nombre del jugador, mostrar la foto.
 
-*Preguntar a marcelos si cuando juegan un partido siempre la numeracion de las camisetas van del 1 al 11 titulares y
-del 12 al 16 suplentes
+- Crear dentro de jugadores un listado de jugadores desafectados(serian lo jugadores eliminados), en este listado debe haber un boton que nos permita darle de alta nuevamente.
 
-Listo	*hacer procedimiento almacenado que traiga todos los jugadores de un partido
+- Al crear un jugador verificar que funcione bien la validacion de los datos requeridos.
 
-Listo	*terminar de hacer la lista de jugadores convocados para poder cargarle los datos del partido
+- Al realizar un busqueda no se debe perder el parametro de busqueda.
 
-*Buscar como hacer para imprimir una pantalla
-*Revisar en el cargar datos de un partido si nos guarda el resultado pero cuando entramos de nuevo no lo esta mostrando. Y tambien
-revisar cuando guardamos un los datos pero a ningun jugador le ponemos goles salta un error y esto tendria que poder darse cuando
-el equipo no hace ningun gol
-*Hacer estadisticas jugador
+- En el buscador agregar que se busque tambien por n de documento y fecha de nacimiento.
+
+Jugadores > Index
+
+- Agregar un boton para cargar las lesiones del jugador, describiendo la fecha de la misma, tipo de lesion, un texto explicativo, archivo adjunto y cantidad de semanas estimativas que no podra jugar. Para esto debemos crear la tabla LesionesXJugador en BD donde tendra el Id del jugador y los campos descriptos anteriormente.
+
+Jugadores > Detalle
+
+- Datos del jugador: falta los siguientes datos: telefono, mail, posicion, pierna habil, colegio, ciudadania europea, representante.
+
+- Agregar pestaña con cobertura medica.
+
+- Agregar pestaña con datos generales.
+
+- Agregar pestaña con las lesiones de un jugador.
+
+Personal Especializado
+
+- Al crear un personal especializado verificar que funcione bien la validacion de los datos requeridos.
+
+- Al realizar un busqueda no se debe perder el parametro de busqueda.
+
+- En el buscador agregar que se busque tambien por n de documento y especialidad.
+
+- Arreglar la pantalla detalle. Mostrando los datos cargados de cada personal especializado.
+
+- Crear listado de personal especializado desafectado.
+
+Equipo
+
+- Agregar buscador en el index que busque por nombre categoria y liga.
+
+- Agregar boton para ver el detalle (lupita), donde se mostraran las estadisticas del equipo (cantidad partidos jugados, cantidad de partidos ganados, perdidos, empatados, goles a favor, goles en contra, goleador del equipo).
+
+- Al asignar un jugador a un equipo verificar que funcionen bien los filtros. Que no traiga jugadores eliminados, que traiga los de la categoria del equipo y que funcionen los filtros.
+
+- Al asignar un jugador a un equipo que no se refresque la paginas sino que los agregue y una vez terminado presione el boton guardar.
+
+- Sacar el link de crear nuevo equipo.
+
+Partidos
+
+Partidos > Convocar jugadores
+
+- Al convocar jugadores cambiar la funcionalidad, en vez de refrescar la pagina cada vez que seleccionamos uno debemos seleccionar todos y luego oprimir el boton guardar, el que nos llevara a la pagina inicial.
+
+- Hacer control que no se puedan convocar mas de 11 titulares, si quieren convocar al numero 12 tendra que saltar un error avisando.
+
+- Al querer convocar un jugador lesionado informar la situacion.
+
+Partidos > Index
+
+- Filtros de busqueda, por categoria, por fecha, estado (finalizado, creado)
+
+- Eliminar partido, borrar todas las filas creadas en la bd. JugadoresPorPartidos, GolesPorJugadorPorPartido, PersonalEspPorPartido.
+
+Partidos > Detalle
+
+- Hay que crear la vista para mostrar los datos del partido sin que se pueda modificar
+
+Partidos > Cargar datos
+
+- Imprimir Pdf con los datos del partido
+
+- Agregar director tecnico y preparador fisico, con un desplegable debajo de fecha de campeonato y condicion.
+
+
+Lesiones
+
+- Crear modulo lesiones
+
+- Crear tabla lesiones, id y descripcion.
+
+- Crear listado de lesiones con un buscador con filtros de fecha, equipo, categoria, jugador.
+
+Lesiones > Index
+
+- Ponerle los botones editar y eliminar.
+
+- Agregar boton imprimir listado.
+
+General
+
+- Verificar la eliminacion de un jugador, consta en ver si al eliminar un jugador no nos permiete agregarlo a un equioo, ni convocarlo a un partido.
+
+- Crear lista partidos por jugar con sus respectivos filtros
+
+- Crear lista partidos jugados con sus respectivos filtros
+
+
+
+
+
+
 
 
 
