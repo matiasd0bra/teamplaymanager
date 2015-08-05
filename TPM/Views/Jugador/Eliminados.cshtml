@@ -1,0 +1,77 @@
+﻿@using System.Web.Mvc.Html
+@model IEnumerable<TPM.Models.Jugador>
+
+@{
+    ViewBag.Title = "Eliminados";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    WebGrid gridJugadoresEliminados = new WebGrid(Model, rowsPerPage: 10);
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">Lista de Jugadores Eliminados
+        <div class="pull-right">
+            <form name="formBuscador" id="formBuscador" method="POST">
+                <input type="text" name="parametroBuscar" id="parametroBuscar" placeholder="Buscar" class="buscarHeader" onchange="submit"/>
+            </form>
+        </div>
+  </div>
+    <div class="panel-body">
+        
+    @if (Model != null)
+    {
+
+        @gridJugadoresEliminados.GetHtml(
+            fillEmptyRows: false,
+            alternatingRowStyle: "fila-alternativa",
+            headerStyle: "encabezado-grid",
+            footerStyle: "pie-grid",
+            mode: WebGridPagerModes.All,
+            firstText: "<< Primera",
+            previousText: "< Anterior",
+            nextText: "Siguiente >",
+            lastText: "Última >>",
+            tableStyle: "table table-striped",
+
+             columns: new[]
+             {
+                 gridJugadoresEliminados.Column(
+                     header: "Nombre",
+                     format: @<text>
+                                  <a id="@item.id" rel="popover" onclick='mostrarImg(@item.id, "@item.ImagenPath")' style="cursor:pointer">@item.Nombre</a>
+                              </text>
+                 ),
+                 //gridJugadores.Column("Nombre"),
+                 gridJugadoresEliminados.Column("Apellido"),
+                 gridJugadoresEliminados.Column("NumeroDoc", "N° de documento"),
+                 gridJugadoresEliminados.Column("FechaNacFormateada",
+                     header: "Fecha de nacimiento"
+                     ),
+                 gridJugadoresEliminados.Column("",
+                     header: "Acciones",
+                     format: @<text>
+                                  <a href="/Jugador/Edit/@item.Id"><img title="Editar" src="~/Images/boton_editar.png" /></a>
+                                  <a href="/Jugador/Details/@item.Id"><img title="Detalle" src="~/Images/boton_ver.png" /></a>
+                                  <a style="cursor:pointer" onclick="darAltaJugador(@item.Id)"><img title="Dar de alta" src="~/Images/boton_borrar.png" /></a>
+                              </text>
+                     )
+             })
+     }
+    else
+    {
+    <div>@Html.DisplayName("No existen jugadores")</div>
+    }          
+    </div>
+</div>
+<script>
+    function mostrarImg(id, imagen) {
+        var image = '<img width="200px" src="/Images/Jugadores/' + imagen + '" />';
+        $('#' + id).popover({ placement: 'right', content: image, html: true });
+    }
+
+    function darAltaJugador(IdJugador) {
+        var r = confirm("¿Seguro desea dar de alta nuevamente a este jugador?");
+        if (r == true) {
+            location.href = "/Jugador/Eliminar/" + IdJugador;
+        }
+    }
+</script>

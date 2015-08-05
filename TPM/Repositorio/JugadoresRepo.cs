@@ -457,5 +457,41 @@ namespace TPM.Repositorio
             JugadoresDAL jugadoresDal = new JugadoresDAL();
             return jugadoresDal.EstadisticasGolesByJugadorId(id);
         }
+
+        internal static int JugadorAlta(int id)
+        {
+            JugadoresDAL jugadoresDal = new JugadoresDAL();
+            return jugadoresDal.JugadorAlta(id);
+        }
+
+        public static List<Jugador> JugadoresEliminadosGetAll(string parametroBuscar)
+        {
+            JugadoresDAL jugadoresDal = new JugadoresDAL();
+            DataTable dt = jugadoresDal.JugadoresEliminadosGetAll(parametroBuscar);
+
+            Jugador jugador;
+            List<Jugador> jugadorList = new List<Jugador>();
+
+
+            foreach (DataRow item in dt.Rows)
+            {
+                jugador = new Jugador();
+
+                jugador.Id = int.Parse(item["JugadorId"].ToString());
+                jugador.Nombre = item["jNombre"].ToString();
+                jugador.Apellido = item["Apellido"].ToString();
+                jugador.TipoDocId = int.Parse(item["TipoDocId"].ToString());
+                jugador.TipoDocNombre = item["tdNombre"].ToString();
+                jugador.NumeroDoc = item["NumeroDoc"].ToString();
+                jugador.FechaNac = Convert.ToDateTime(item["FechaNac"].ToString());
+                jugador.Domicilio = item["Domicilio"].ToString();
+                jugador.LocalidadId = int.Parse(item["LocalidadId"].ToString());
+                jugador.FechaNacFormateada = jugador.FechaNac.ToShortDateString();
+                jugador.ImagenPath = item["ImagenPath"].ToString();
+                jugadorList.Add(jugador);
+            }
+
+            return jugadorList;
+        }
     }
 }

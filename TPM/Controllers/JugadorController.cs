@@ -205,6 +205,27 @@ namespace TPM.Controllers
             {
                 return View();
             }
+        }
+
+
+
+        public ActionResult Eliminados(string parametroBuscar)
+        {
+
+            List<Jugador> jugadores = JugadoresRepo.JugadoresEliminadosGetAll(parametroBuscar);
+            return View(jugadores);
+        }
+        public ActionResult Eliminar(int id)
+        {
+            try
+            {
+                JugadoresRepo.JugadorAlta(id);
+                return RedirectToAction("Eliminados");
+            }
+            catch
+            {
+                return View();
+            }
         }        
        
 

@@ -777,5 +777,51 @@ namespace TPM.DAL
             }
             return ret;
         }
+
+        public int JugadorAlta(int id)
+        {
+            int ret;
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
+            {
+                using (SqlCommand cmd = new SqlCommand("JugadorAltaNuevamente", con))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@Id", SqlDbType.Int).Value = id;
+
+                    con.Open();
+                    ret = cmd.ExecuteNonQuery();
+                }
+            }
+            return ret;
+        }
+
+        public DataTable JugadoresEliminadosGetAll(string parametroBuscar)
+        {
+
+            var dt = new DataTable();
+            SqlDataReader sqlDataReader;
+
+            using (SqlConnection con = new SqlConnection(HelperDal.GetConnection()))
+            {
+                using (SqlCommand cmd = new SqlCommand("JugadoresEliminadosGetAll", con))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    if (parametroBuscar == null)
+                    {
+                        parametroBuscar = "";
+                    }
+                    cmd.Parameters.Add("@parametroBuscar", SqlDbType.VarChar).Value = parametroBuscar;
+
+                    con.Open();
+                    sqlDataReader = cmd.ExecuteReader();
+                    dt.Load(sqlDataReader);
+                }
+            }
+            return dt;
+        }
     }
 }
